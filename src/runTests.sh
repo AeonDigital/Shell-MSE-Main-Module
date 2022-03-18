@@ -23,7 +23,7 @@ source "${MSE_TMP_PATH_TO_LOCALE}"
 
 
 if [ ! -d "Shell-MSE-UnitTest/src" ]; then
-  printf "${lbl_runTests_UnitTestNotFound}"
+  printf "${lbl_generic_UnitTestNotFound}"
 else
   source "${MSE_TMP_TEST_MODULE_DIRECTORY}/init.sh"
   source "${MSE_TMP_TEST_MODULE_DIRECTORY}/../Shell-MSE-UnitTest/src/init.sh"
