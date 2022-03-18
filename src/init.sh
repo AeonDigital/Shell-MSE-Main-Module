@@ -19,8 +19,6 @@ if [[ $(type -t "mse_mod_registerModule") != function ]]; then
   # Diretório 'src'
   MSE_TMP_THIS_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-
-
   #
   # Se o locale para as mensagens não está definido, usa o padrão 'en-us',
   if [ -z ${MSE_GLOBAL_MODULE_LOCALE+x} ]; then
@@ -48,6 +46,7 @@ if [[ $(type -t "mse_mod_registerModule") != function ]]; then
 
 
   source "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_registerModule.sh"
+  source "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_replacePlaceHolder.sh"
   mse_mod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
 
 

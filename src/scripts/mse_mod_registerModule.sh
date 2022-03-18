@@ -28,18 +28,7 @@ mse_mod_registerModule() {
   local mseScrI=0
   local mseScrCount=0
   if [ "$mseModFiles" == "" ]; then
-    #
-    # CRIAR UMA FUNÇÃO PARA RESOLVER ESTE TIPO DE CASO QUE TENDE A SER COMUM.
-    local mseREG
-    local mseNEW
-    local mseMSG
-
-    mseREG='s/\//\\\//g'
-    mseNEW="$(echo "${mseModuleSrcDirectory}/scripts" | sed -e ${mseREG})"
-
-    mseREG='s/\[\[DIR\]\]/'$mseNEW'/g'
-    mseMSG="$(echo $lbl_registerModule_EmptyDir | sed -e "${mseREG}")"
-    printf "${mseMSG}"
+    mse_mod_replacePlaceHolder "DIR" "${mseModuleSrcDirectory}/scripts" "${lbl_registerModule_EmptyDir}"
   else
     #
     # Tratando-se do módulo base...
