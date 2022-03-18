@@ -20,6 +20,20 @@ if [[ $(type -t "mse_mod_registerModule") != function ]]; then
   MSE_TMP_THIS_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 
+
+  #
+  # Se o locale para as mensagens não está definido, usa o padrão 'en-us',
+  if [ -z ${MSE_GLOBAL_MODULE_LOCALE+x} ]; then
+    MSE_GLOBAL_MODULE_LOCALE="en-us"
+  fi
+  MSE_TMP_PATH_TO_LOCALE="${MSE_TMP_THIS_DIRECTORY}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
+  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
+    MSE_TMP_PATH_TO_LOCALE="${MSE_TMP_THIS_DIRECTORY}/locale/en-us.sh"
+  fi
+  source "${MSE_TMP_PATH_TO_LOCALE}"
+
+
+
   #
   # Carrega as variáveis do módulo caso um arquivo 'variables.sh' esteja definido
   if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/variables.sh" ]; then

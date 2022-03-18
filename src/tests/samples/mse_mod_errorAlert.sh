@@ -27,7 +27,7 @@
 #   mse_mod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
 mse_mod_errorAlert() {
   if [ $# != 2 ] && [ $# != 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "expected 2 or 3 arguments"
+    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_generic_LostArguments}"
   else
     local mseLocal=$1
     local mseIndent="    "
@@ -35,7 +35,7 @@ mse_mod_errorAlert() {
       mseLocal="script"
     fi
 
-    printf "${mseIndent}${mseIndent}ERROR (in ${mseLocal}) : $2\n"
+    printf "${mseIndent}${mseIndent}${lbl_generic_ERROR} (${lbl_generic_in} ${mseLocal}) : $2\n"
     if [ $# == 3 ]; then
       printf "${mseIndent}$3\n"
     fi
