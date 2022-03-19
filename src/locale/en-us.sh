@@ -47,16 +47,20 @@ lbl_generic_ModuleNotFound+="\n"
 
 lbl_generic_ERROR="ERROR"
 lbl_generic_in="in"
+lbl_generic_expected="expected"
 
 lbl_genericError_lostArgument="lost argument"
 lbl_genericError_emptyArray="empty array"
 lbl_genericError_invalidType="invalid type"
 lbl_genericError_invalidValue="invalid value"
+lbl_genericError_invalidArgument="invalid argument"
 lbl_genericError_expectedOnly="expected only"
+lbl_genericError_cannotSave="cannot save"
 lbl_genericError_emptyListOfOptions="empty list options"
 lbl_genericError_emptyListOfBooleanOptions="empty list of boolean options"
 lbl_genericError_checkValidOptionsIn="check for valid options in"
 lbl_genericError_especifiedFileNotExists="the specified file does not exist"
+lbl_genericError_configurationFileNotFound="configuration file not found"
 
 lbl_genericMessage_pressAnyKeyToProceed="Press any key to proceed"
 

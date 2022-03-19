@@ -47,21 +47,25 @@ lbl_generic_ModuleNotFound+="\n"
 
 lbl_generic_ERROR="ERRO"
 lbl_generic_in="em"
+lbl_generic_expected="esperado"
 
 lbl_genericError_lostArgument="argumento perdido"
 lbl_genericError_emptyArray="array vazio"
 lbl_genericError_invalidType="tipo inválido"
 lbl_genericError_invalidValue="valor inválido"
+lbl_genericError_invalidArgument="argumento inválido"
 lbl_genericError_expectedOnly="esperado apenas"
+lbl_genericError_cannotSave="não foi possível salvar"
 lbl_genericError_emptyListOfOptions="lista de opções vazia"
 lbl_genericError_emptyListOfBooleanOptions="lista de opções boleanas vazia"
 lbl_genericError_checkValidOptionsIn="verifique por valores válidos em"
 lbl_genericError_especifiedFileNotExists="o arquivo especificado não existe"
+lbl_genericError_configurationFileNotFound="arquivo de configuração não foi encontrado"
 
 lbl_genericMessage_pressAnyKeyToProceed="Precione qualquer tecla para prosseguir"
 
 
-lbl_registerModule_EmptyDir=""
+lbl_registerModule_EmptyDir+="\n"
 lbl_registerModule_EmptyDir+="    Atenção:\n"
 lbl_registerModule_EmptyDir+="    Diretório de scripts do módulo está vazio: [[DIR]] \n"
 lbl_registerModule_EmptyDir+="    Operação abortada!\n\n"
