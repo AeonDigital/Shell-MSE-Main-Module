@@ -27,7 +27,7 @@ mse_mod_replacePlaceHolder() {
   local mseNEW
 
   if [ $# -lt 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_generic_LostArguments}"
+    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_generic_lostArguments}"
   else
     #
     # Trata caracteres que podem ocasionar falhas no uso do 'sed'

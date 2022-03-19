@@ -47,7 +47,7 @@ lbl_generic_ModuleNotFound+="\n"
 
 lbl_generic_ERROR="ERROR"
 lbl_generic_in="in"
-lbl_generic_LostArguments="lost arguments"
+lbl_generic_lostArguments="lost arguments"
 
 
 lbl_registerModule_EmptyDir+="\n"
