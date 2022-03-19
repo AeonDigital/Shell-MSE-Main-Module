@@ -50,6 +50,14 @@ lbl_generic_in="em"
 
 lbl_genericError_lostArgument="argumento perdido"
 lbl_genericError_emptyArray="array vazio"
+lbl_genericError_invalidType="tipo inválido"
+lbl_genericError_invalidValue="valor inválido"
+lbl_genericError_expectedOnly="esperado apenas"
+lbl_genericError_emptyListOfOptions="lista de opções vazia"
+lbl_genericError_emptyListOfBooleanOptions="lista de opções boleanas vazia"
+lbl_genericError_especifiedFileNotExists="o arquivo especificado não existe"
+
+lbl_genericMessage_pressAnyKeyToProceed="Precione qualquer tecla para prosseguir"
 
 
 lbl_registerModule_EmptyDir=""
