@@ -7,8 +7,6 @@
 
 
 
-#
-# Caso o módulo de testes não esteja presente...
 MSE_TMP_TEST_MODULE_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd );
 
 #
@@ -19,21 +17,38 @@ if [ -z ${MSE_GLOBAL_MODULE_LOCALE+x} ]; then
 fi
 MSE_TMP_GLOBAL_LOCALE=${MSE_GLOBAL_MODULE_LOCALE}
 MSE_TMP_PATH_TO_LOCALE="${MSE_TMP_TEST_MODULE_DIRECTORY}/locale/en-us.sh"
-source "${MSE_TMP_PATH_TO_LOCALE}"
 
 
-if [ ! -d "Shell-MSE-UnitTest/src" ]; then
-  printf "${lbl_generic_UnitTestNotFound}"
+#
+# Verifica se o módulo principal está presente pela existencia do arquivo
+# do locale 'en-us'.
+if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
+  printf "\n"
+  printf "    Attention\n"
+  printf "    The module \"Shell-MSE-Main-Module\" was not loaded.\n"
+  printf "    Use the following commands to load it:\n"
+  printf "    - git submodule update --remote \n"
+  printf "\n"
 else
-  source "${MSE_TMP_TEST_MODULE_DIRECTORY}/init.sh"
-  source "${MSE_TMP_TEST_MODULE_DIRECTORY}/../Shell-MSE-UnitTest/src/init.sh"
+  source "${MSE_TMP_PATH_TO_LOCALE}"
 
-  mse_utest_setTargetDir "$PWD/src"
-  mse_utest_execute
+
+  #
+  # Caso o módulo de testes não esteja presente...
+  if [ ! -d "Shell-MSE-UnitTest/src" ]; then
+    printf "${lbl_generic_UnitTestNotFound}"
+  else
+    MSE_TMP_TEST_MODULE_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd );
+    source "${MSE_TMP_TEST_MODULE_DIRECTORY}/init.sh"
+    source "${MSE_TMP_TEST_MODULE_DIRECTORY}/../Shell-MSE-UnitTest/src/init.sh"
+
+    mse_utest_setTargetDir "$PWD/src"
+    mse_utest_execute
+  fi
 fi
 
-MSE_GLOBAL_MODULE_LOCALE=${MSE_TMP_GLOBAL_LOCALE}
 
+MSE_GLOBAL_MODULE_LOCALE=${MSE_TMP_GLOBAL_LOCALE}
 unset MSE_TMP_GLOBAL_LOCALE
 unset MSE_TMP_PATH_TO_LOCALE
 unset MSE_TMP_TEST_MODULE_DIRECTORY
