@@ -29,5 +29,5 @@ mse_mod_checkIfHasValueInArray() {
   fi
   done
 
-  echo "$match"
+  printf "${match}\n"
 }

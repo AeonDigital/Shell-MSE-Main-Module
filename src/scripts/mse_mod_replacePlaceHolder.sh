@@ -35,12 +35,12 @@ mse_mod_replacePlaceHolder() {
     #
     # Adiciona uma contrabarra em toda barra encontrada.
     mseREG='s/\//\\\//g'
-    mseNEW="$(echo "$2" | sed -e "${mseREG}")"
+    mseNEW="$(printf "$2" | sed -e "${mseREG}")"
 
     #
     # Efetivamente substitui o placeholder pelo valor a ser usado
     mseREG='s/\[\['$1'\]\]/'$mseNEW'/g'
-    mseNEW="$(echo "$3" | sed -e "${mseREG}")"
+    mseNEW="$(printf "$3" | sed -e "${mseREG}")"
   fi
 
   printf "${mseNEW}"
