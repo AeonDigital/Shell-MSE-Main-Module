@@ -11,7 +11,7 @@
 # Teste
 test_mse_mod_errorAlert() {
   testResult=$(mse_mod_errorAlert)
-  testExpected=$(echo -e "        ERROR (in mse_mod_errorAlert) : lost arguments")
+  testExpected=$(echo -e "        ERROR (in mse_mod_errorAlert) : lost argument")
 
   mse_utest_assertEqual
 

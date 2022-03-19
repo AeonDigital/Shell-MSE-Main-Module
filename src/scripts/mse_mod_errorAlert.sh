@@ -27,7 +27,7 @@
 #   mse_mod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
 mse_mod_errorAlert() {
   if [ $# != 2 ] && [ $# != 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_generic_lostArguments}"
+    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
     local mseLocal=$1
     local mseIndent="    "
