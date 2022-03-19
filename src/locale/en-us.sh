@@ -55,6 +55,7 @@ lbl_genericError_invalidValue="invalid value"
 lbl_genericError_expectedOnly="expected only"
 lbl_genericError_emptyListOfOptions="empty list options"
 lbl_genericError_emptyListOfBooleanOptions="empty list of boolean options"
+lbl_genericError_checkValidOptionsIn="check for valid options in"
 lbl_genericError_especifiedFileNotExists="the specified file does not exist"
 
 lbl_genericMessage_pressAnyKeyToProceed="Press any key to proceed"
