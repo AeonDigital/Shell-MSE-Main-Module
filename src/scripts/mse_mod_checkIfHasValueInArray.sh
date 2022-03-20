@@ -23,7 +23,7 @@ mse_mod_checkIfHasValueInArray() {
   local match="0"
 
   for value in "${!tgtArray}"; do
-  if [[ $value == "$1" ]]; then
+  if [ $value == "$1" ]; then
     match="1"
     break
   fi
