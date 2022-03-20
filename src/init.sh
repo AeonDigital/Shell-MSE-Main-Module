@@ -14,7 +14,6 @@
 
 #
 # Apenas se este módulo ainda não foi carregado
-set -eu
 if [ "$(type -t "mse_mod_registerModule")" != "function" ]; then
   #
   # Diretório 'src'
