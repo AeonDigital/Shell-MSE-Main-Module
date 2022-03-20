@@ -30,7 +30,7 @@ if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
   printf "    - git submodule update --remote \n"
   printf "\n"
 else
-  source "${MSE_TMP_PATH_TO_LOCALE}"
+  . "${MSE_TMP_PATH_TO_LOCALE}"
 
 
   #
@@ -39,8 +39,8 @@ else
     printf "${lbl_generic_UnitTestNotFound}"
   else
     MSE_TMP_TEST_MODULE_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd );
-    source "${MSE_TMP_TEST_MODULE_DIRECTORY}/init.sh"
-    source "${MSE_TMP_TEST_MODULE_DIRECTORY}/../Shell-MSE-UnitTest/src/init.sh"
+    . "${MSE_TMP_TEST_MODULE_DIRECTORY}/init.sh"
+    . "${MSE_TMP_TEST_MODULE_DIRECTORY}/../Shell-MSE-UnitTest/src/init.sh"
 
     mse_utest_setTargetDir "$PWD/src"
     mse_utest_execute

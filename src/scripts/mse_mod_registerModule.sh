@@ -39,7 +39,7 @@ mse_mod_registerModule() {
         local mseScriptName="${mseFullFileName%.*}"
 
         unset "${mseScriptName}"
-        source "$rawLine" || true
+        . "$rawLine" || true
       done <<< ${mseModFiles}
 
       mse_mod_registerModule "Shell-MSE-Main-Module" "${mseModuleSrcDirectory}"
@@ -55,7 +55,7 @@ mse_mod_registerModule() {
         local mseScriptName="${mseFullFileName%.*}"
 
         unset "${mseScriptName}"
-        source "$rawLine" || true
+        . "$rawLine" || true
 
         MSE_GLOBAL_MODULE_SCRIPTS["$mseModI,$mseScrI"]="${mseFullFileName%.*}"
 

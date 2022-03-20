@@ -28,25 +28,25 @@ if [ "$(type -t "mse_mod_registerModule")" != "function" ]; then
   if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
     MSE_TMP_PATH_TO_LOCALE="${MSE_TMP_THIS_DIRECTORY}/locale/en-us.sh"
   fi
-  source "${MSE_TMP_PATH_TO_LOCALE}"
+  . "${MSE_TMP_PATH_TO_LOCALE}"
 
 
 
   #
   # Carrega as variáveis do módulo caso um arquivo 'variables.sh' esteja definido
   if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/variables.sh" ]; then
-    source "${MSE_TMP_THIS_DIRECTORY}/config/variables.sh"
+    . "${MSE_TMP_THIS_DIRECTORY}/config/variables.sh"
   fi
 
   #
   # Carrega os 'aliases' do módulo caso um arquivo 'aliases.sh' esteja definido
   if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/aliases.sh" ]; then
-    source "${MSE_TMP_THIS_DIRECTORY}/config/aliases.sh"
+    . "${MSE_TMP_THIS_DIRECTORY}/config/aliases.sh"
   fi
 
 
-  source "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_registerModule.sh"
-  source "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_replacePlaceHolder.sh"
+  . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_registerModule.sh"
+  . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_replacePlaceHolder.sh"
   mse_mod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
 
 
