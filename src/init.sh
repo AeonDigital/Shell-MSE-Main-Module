@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/usr/bin/env bash
 # myShellEnv v 1.0 [aeondigital.com.br]
 #
 # No diretório raiz use o comando abaixo para carregar o módulo
@@ -14,6 +14,7 @@
 
 #
 # Apenas se este módulo ainda não foi carregado
+set -eu
 if [ "$(type -t "mse_mod_registerModule")" != "function" ]; then
   #
   # Diretório 'src'
