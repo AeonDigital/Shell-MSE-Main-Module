@@ -13,7 +13,9 @@
 # e respectivas descrições de cada qual.
 #
 # @param string $1
-# Se definido deve especificar o nome de um único módulo a ser alvo desta ação.
+# Se definido deve especificar o nome de um módulo a ser alvo desta ação.
+# Tal definição será usada como um 'busca', portanto, retornará todos os modulos que
+# possuirem o valor indicado como seu nome.
 #
 # @param string $2
 # Se definido deve especificar o nome de um ou mais scripts a serem alvos desta ação.
@@ -25,13 +27,18 @@ mse_mod_showModulesScripts() {
   local mseModLength=${#MSE_GLOBAL_MODULES_NAMES[@]}
   local mseModName=""
 
+  #
+  # Seta o bash para efetuar comparações de string
+  # de forma 'case-insensitive'
+  shopt -s nocasematch
+
   for (( mseModI=0; mseModI<${mseModLength}; mseModI++ ));
   do
     mseModName="${MSE_GLOBAL_MODULES_NAMES[$mseModI]}"
 
     #
     # Identifica se deve ou não mostrar as informações deste módulo
-    if [ $# == 0 ] || [ "$1" == "" ] || [ "$1" == "${mseModName}" ]; then
+    if [ $# == 0 ] || [ "$1" == "" ] || [[ "${mseModName}" =~ "$1" ]]; then
       printf ": ${mseModName}\n\n"
 
       local mseScrI=0
@@ -65,4 +72,8 @@ mse_mod_showModulesScripts() {
     fi
   done
 
+  #
+  # Reseta o bash para efetuar comparações de string
+  # de forma 'case-sensitive' que é o padrão!
+  shopt -u nocasematch
 }
