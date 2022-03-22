@@ -39,7 +39,7 @@ lbl_generic_UnitTestNotFound+="\n"
 
 lbl_generic_ModuleNotFound+="\n"
 lbl_generic_ModuleNotFound+="    Attention\n"
-lbl_generic_ModuleNotFound+="    The module \"[[MODULE]]\" was not loaded.\n"
+lbl_generic_ModuleNotFound+="    The module \"[[MODULE]]\" was not found.\n"
 lbl_generic_ModuleNotFound+="    Use the following commands to load it:\n"
 lbl_generic_ModuleNotFound+="    - git submodule update --remote \n"
 lbl_generic_ModuleNotFound+="\n"
