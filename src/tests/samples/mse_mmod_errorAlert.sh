@@ -23,11 +23,11 @@
 # Informação extra [opcional].
 #
 # @example
-#   mse_mod_errorAlert "" "expected 2 arguments"
-#   mse_mod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
-mse_mod_errorAlert() {
+#   mse_mmod_errorAlert "" "expected 2 arguments"
+#   mse_mmod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
+mse_mmod_errorAlert() {
   if [ $# != 2 ] && [ $# != 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
+    mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
     local mseLocal=$1
     local mseIndent="    "

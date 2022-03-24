@@ -7,5 +7,5 @@
 
 
 
-alias mse="mse_mod_showModules"
-alias mseSearch="mse_mod_showModulesScripts"
+alias mse="mse_mmod_showModules"
+alias mseSearch="mse_mmod_showModulesScripts"

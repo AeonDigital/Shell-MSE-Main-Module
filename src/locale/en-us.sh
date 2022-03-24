@@ -69,3 +69,34 @@ lbl_registerModule_EmptyDir+="\n"
 lbl_registerModule_EmptyDir+="    Attention:\n"
 lbl_registerModule_EmptyDir+="    The scripts directory is empty: [[DIR]] \n"
 lbl_registerModule_EmptyDir+="    Aborted operation!\n\n"
+
+
+
+
+
+#
+# Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
+unset lbl_generic_boolPromptLabels
+lbl_generic_boolPromptLabels=(
+  "yes" "y" "no" "n"
+)
+
+#
+# Coleção de valores correspondentes às opções de 'labels' de um 'prompt'
+# do tipo 'bool'.
+unset lbl_generic_boolPromptValues
+lbl_generic_boolPromptValues=(
+  1 1 0 0
+)
+
+
+
+
+
+
+
+lbl_icolor_showFontAttributes_AttrOptions="The following attribute options are available"
+lbl_icolor_showTextColors_ColorOptions="The following color options are available"
+lbl_icolor_showTextColors_TableHeaders="Color,Raw,Variable,Appearance"
+lbl_icolor_showTextColors_TableFilter01="Variable"
+lbl_icolor_showTextColors_TableFilter02="Color,Variable"

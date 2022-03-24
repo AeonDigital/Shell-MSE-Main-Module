@@ -18,7 +18,7 @@
 # @param string $2
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_registerModule() {
+mse_mmod_registerModule() {
   local mseModuleName="$1"
   local mseModuleSrcDirectory="$2";
 
@@ -28,7 +28,7 @@ mse_mod_registerModule() {
   local mseScrI=0
   local mseScrCount=0
   if [ "$mseModFiles" == "" ]; then
-    mse_mod_replacePlaceHolder "DIR" "${mseModuleSrcDirectory}/scripts" "${lbl_registerModule_EmptyDir}"
+    mse_mmod_replacePlaceHolder "DIR" "${mseModuleSrcDirectory}/scripts" "${lbl_registerModule_EmptyDir}"
   else
     #
     # Tratando-se do módulo base...
@@ -42,7 +42,7 @@ mse_mod_registerModule() {
         . "$rawLine" || true
       done <<< ${mseModFiles}
 
-      mse_mod_registerModule "Shell-MSE-Main-Module" "${mseModuleSrcDirectory}"
+      mse_mmod_registerModule "Shell-MSE-Main-Module" "${mseModuleSrcDirectory}"
     else
       MSE_GLOBAL_MODULES_NAMES[mseModI]="${mseModuleName}"
 
@@ -62,7 +62,7 @@ mse_mod_registerModule() {
 
         #
         # Identifica a descrição deste script, se houver
-        mse_mod_retrieveScriptDescription "$rawLine"
+        mse_mmod_retrieveScriptDescription "$rawLine"
         if [ ${#MSE_TMP_MODULE_SCRIPT_DESCRIPTION[@]} == 0 ]; then
           MSE_GLOBAL_MODULE_SCRIPTS_DESCRIPTION["$mseModI,$mseScrI,0"]="-"
           MSE_GLOBAL_MODULE_SCRIPTS_DESCRIPTION["$mseModI,$mseScrI"]=1

@@ -69,3 +69,40 @@ lbl_registerModule_EmptyDir+="\n"
 lbl_registerModule_EmptyDir+="    Atenção:\n"
 lbl_registerModule_EmptyDir+="    Diretório de scripts do módulo está vazio: [[DIR]] \n"
 lbl_registerModule_EmptyDir+="    Operação abortada!\n\n"
+
+
+
+
+
+#
+# Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
+unset lbl_generic_boolPromptLabels
+lbl_generic_boolPromptLabels=(
+  "sim" "s" "nao" "n"
+)
+
+#
+# Coleção de valores correspondentes às opções de 'labels' de um 'prompt'
+# do tipo 'bool'.
+unset lbl_generic_boolPromptValues
+lbl_generic_boolPromptValues=(
+  1 1 0 0
+)
+
+
+
+
+
+MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
+  'Normal'
+  'Preto' 'Cinza escuro' 'Cinza claro' 'Branco' 'Vermelho' 'Vermelho claro'
+  'Verde' 'Verde claro' 'Marrom' 'Amarelo' 'Azul' 'Azul claro'
+  'Purpura' 'Purpura claro' 'Ciano' 'Ciano claro'
+)
+
+
+lbl_icolor_showFontAttributes_AttrOptions="As seguintes opções de atributos estão disponíveis"
+lbl_icolor_showTextColors_ColorOptions="As seguintes opções de cores estão disponíveis"
+lbl_icolor_showTextColors_TableHeaders="Cor,Raw,Variavel,Aparencia"
+lbl_icolor_showTextColors_TableFilter01="Variavel"
+lbl_icolor_showTextColors_TableFilter02="Cor,Variavel"

@@ -23,21 +23,21 @@
 # Informação extra [opcional].
 #
 # @example
-#   mse_mod_errorAlert "" "expected 2 arguments"
-#   mse_mod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
-mse_mod_errorAlert() {
+#   mse_mmod_errorAlert "" "expected 2 arguments"
+#   mse_mmod_errorAlert ${FUNCNAME[0]} "expected 2 arguments"
+mse_mmod_errorAlert() {
   if [ $# != 2 ] && [ $# != 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
+    mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
     local mseLocal=$1
-    local mseIndent="    "
     if [ $1 == "" ]; then
       mseLocal="script"
     fi
 
-    printf "${mseIndent}${mseIndent}${lbl_generic_ERROR} (${lbl_generic_in} ${mseLocal}) : $2\n"
+    mse_mmod_setIMessage "${lbl_generic_ERROR} (${lbl_generic_in} ${mseLocal}) : $2" 1
     if [ $# == 3 ]; then
-      printf "${mseIndent}$3\n"
+      mse_mmod_setIMessage "$3"
     fi
+    mse_mmod_alertUser
   fi
 }

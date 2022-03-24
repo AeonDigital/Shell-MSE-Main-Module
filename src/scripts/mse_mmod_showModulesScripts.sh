@@ -21,7 +21,7 @@
 # Se definido deve especificar o nome de um ou mais scripts a serem alvos desta ação.
 # Tal definição será usada como um 'busca', portanto, retornará todos os scripts que
 # possuirem o valor indicado como seu nome.
-mse_mod_showModulesScripts() {
+mse_mmod_showModulesScripts() {
 
   local mseModI=0
   local mseModLength=${#MSE_GLOBAL_MODULES_NAMES[@]}

@@ -20,7 +20,7 @@
 # @param string $1
 # Caminho completo até o script que será varrido em busca de sua descrição
 # de execução.
-mse_mod_retrieveScriptDescription() {
+mse_mmod_retrieveScriptDescription() {
   local mseInDescription=0
   MSE_TMP_MODULE_SCRIPT_DESCRIPTION=()
 

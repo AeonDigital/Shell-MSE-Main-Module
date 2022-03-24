@@ -22,12 +22,12 @@
 # @param string $3
 # String que contém o 'placeholder' e que será retornada com a
 # alteração feita
-mse_mod_replacePlaceHolder() {
+mse_mmod_replacePlaceHolder() {
   local mseREG
   local mseNEW
 
   if [ $# -lt 3 ]; then
-    mse_mod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
+    mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
     #
     # Trata caracteres que podem ocasionar falhas no uso do 'sed'

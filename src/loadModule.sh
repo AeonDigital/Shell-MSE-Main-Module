@@ -37,9 +37,9 @@ if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/aliases.sh" ]; then
 fi
 
 
-. "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_registerModule.sh"
-. "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mod_replacePlaceHolder.sh"
-mse_mod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
+. "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_registerModule.sh"
+. "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_replacePlaceHolder.sh"
+mse_mmod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
 
 
 unset MSE_TMP_THIS_DIRECTORY

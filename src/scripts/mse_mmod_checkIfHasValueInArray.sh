@@ -17,17 +17,17 @@
 #
 # @param string $2
 # Nome do array em que a pesquisa deve ser feita.
-mse_mod_checkIfHasValueInArray() {
-  local tgtArray="$2[@]"
-  local value
-  local match="0"
+mse_mmod_checkIfHasValueInArray() {
+  local mseArray="$2[@]"
+  local mseValue
+  local mseMatch="0"
 
-  for value in "${!tgtArray}"; do
-  if [ $value == "$1" ]; then
-    match="1"
+  for mseValue in "${!mseArray}"; do
+  if [ $mseValue == "$1" ]; then
+    mseMatch="1"
     break
   fi
   done
 
-  printf "${match}\n"
+  printf "${mseMatch}\n"
 }

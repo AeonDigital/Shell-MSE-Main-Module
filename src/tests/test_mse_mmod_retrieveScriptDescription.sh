@@ -9,10 +9,10 @@
 
 #
 # Teste
-test_mse_mod_retrieveScriptDescription() {
+test_mse_mmod_retrieveScriptDescription() {
   local mseTmpThisDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-  mse_mod_retrieveScriptDescription "${mseTmpThisDir}/samples/mse_mod_errorAlert.sh"
+  mse_mmod_retrieveScriptDescription "${mseTmpThisDir}/samples/mse_mmod_errorAlert.sh"
   local mseTmpTestExpected=(
     "Mostra uma mensagem de alerta para o usuário indicando um erro"
     "ocorrido em algum script."
