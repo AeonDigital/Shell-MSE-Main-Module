@@ -102,7 +102,6 @@ MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
 
 
 lbl_icolor_showFontAttributes_AttrOptions="As seguintes opções de atributos estão disponíveis"
-lbl_icolor_showTextColors_ColorOptions="As seguintes opções de cores estão disponíveis"
-lbl_icolor_showTextColors_TableHeaders="Cor,Raw,Variavel,Aparencia"
+lbl_icolor_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
 lbl_icolor_showTextColors_TableFilter01="Variavel"
 lbl_icolor_showTextColors_TableFilter02="Cor,Variavel"

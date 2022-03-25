@@ -117,30 +117,30 @@
 # 'L' indica 'Light'
 #
 
-NONE='\e[0;37;37m'
+mseNONE='\e[0;37;37m'
 
-BLACK='\e[0;47;30m'
-DGREY='\e[0;37;90m'
-LGREY='\e[0;37;37m'
-WHITE='\e[0;37;97m'
+mseBLACK='\e[0;47;30m'
+mseDGREY='\e[0;37;90m'
+mseLGREY='\e[0;37;37m'
+mseWHITE='\e[0;37;97m'
 
-RED='\e[0;37;31m'
-LRED='\e[0;37;91m'
+mseRED='\e[0;37;31m'
+mseLRED='\e[0;37;91m'
 
-GREEN='\e[0;37;32m'
-LGREEN='\e[0;37;92m'
+mseGREEN='\e[0;37;32m'
+mseLGREEN='\e[0;37;92m'
 
-YELLOW='\e[0;37;33m'
-LYELLOW='\e[0;37;93m'
+mseYELLOW='\e[0;37;33m'
+mseLYELLOW='\e[0;37;93m'
 
-BLUE='\e[0;37;34m'
-LBLUE='\e[0;37;94m'
+mseBLUE='\e[0;37;34m'
+mseLBLUE='\e[0;37;94m'
 
-PURPLE='\e[0;37;35m'
-LPURPLE='\e[0;37;95m'
+msePURPLE='\e[0;37;35m'
+mseLPURPLE='\e[0;37;95m'
 
-CYAN='\e[0;37;36m'
-LCYAN='\e[0;37;96m'
+mseCYAN='\e[0;37;36m'
+mseLCYAN='\e[0;37;96m'
 
 
 

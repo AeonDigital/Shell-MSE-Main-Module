@@ -24,7 +24,7 @@ mse_mmod_showFontAttributes() {
 
     if [ "${mseAttrName}" != "DEFAULT" ]; then
 
-      mseLine="${LBLUE}${mseAttrName}${NONE}"
+      mseLine="${mseAttrName}"
       if (( i % 6 != 0 )); then
         mseLine+=" : "
       else
@@ -35,8 +35,8 @@ mse_mmod_showFontAttributes() {
     fi
   done
 
-  printf "\n${WHITE}${lbl_icolor_showFontAttributes_AttrOptions}:${NONE} \n\n"
-  printf "${LBLUE}DEFAULT${NONE}\n"
+  printf "\n${lbl_icolor_showFontAttributes_AttrOptions}: \n\n"
+  printf "DEFAULT\n"
 
   mseRawTable=$(printf "${mseRawTable}")
   column -e -t -s ":" <<< "${mseRawTable}"

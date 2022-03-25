@@ -21,11 +21,14 @@
 # @param string $3
 # Atributo a ser usado (opcional).
 #
+# @param bool $4
+# Se definido como '1', retornará o código da cor como uma string.
+#
 # @example
 #   result=$(mse_mmod_createFontStyle 'DGREY' 'LBLUE')
-#   printf "${result}Formatado conforme eu queria${NONE}"
+#   printf "${result}Formatado conforme eu queria${mseNONE}"
 mse_mmod_createFontStyle() {
-  if [ $# != 2 ] && [ $# != 3 ]; then
+  if [ $# -lt 2 ]; then
     mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
 
@@ -101,7 +104,11 @@ mse_mmod_createFontStyle() {
         if [ mseIsValid == 0 ]; then
           mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_invalidValue} 3" "${lbl_genericError_checkValidOptionsIn} mse_mmod_showFontAttributes"
         else
-          printf '%s' '\e['"${mseAttribute}"';'"${mseFont}"';'"${mseBackGround}"'m'
+          if [ $# == 4 ] && [ $4 == 1 ]; then
+            printf '%s' '\\e['"${mseAttribute}"';'"${mseFont}"';'"${mseBackGround}"'m'
+          else
+            printf '%s' '\e['"${mseAttribute}"';'"${mseFont}"';'"${mseBackGround}"'m'
+          fi
         fi
       fi
     fi

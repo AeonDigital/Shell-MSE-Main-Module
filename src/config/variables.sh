@@ -37,6 +37,13 @@ unset MSE_TMP_MODULE_SCRIPT_DESCRIPTION
 declare -a MSE_TMP_MODULE_SCRIPT_DESCRIPTION=()
 
 
+#
+# Armazena uma coleção de chaves a serem configuradas em
+# um arquivo de configuração.
+unset MSE_GLOBAL_MODULE_ARRAY_CONFIG
+declare -A MSE_GLOBAL_MODULE_ARRAY_CONFIG
+
+
 
 
 

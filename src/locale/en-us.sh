@@ -96,7 +96,6 @@ lbl_generic_boolPromptValues=(
 
 
 lbl_icolor_showFontAttributes_AttrOptions="The following attribute options are available"
-lbl_icolor_showTextColors_ColorOptions="The following color options are available"
-lbl_icolor_showTextColors_TableHeaders="Color,Raw,Variable,Appearance"
+lbl_icolor_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
 lbl_icolor_showTextColors_TableFilter01="Variable"
 lbl_icolor_showTextColors_TableFilter02="Color,Variable"

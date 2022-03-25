@@ -20,4 +20,10 @@ test_mse_mmod_createFontStyle() {
   testExpected="${MSE_GLOBAL_MODULE_ALERT_INDENT}ERROR (in mse_mmod_createFontStyle) : lost argument"
 
   mse_utest_assertEqual
+
+
+  testResult=$(mse_mmod_createFontStyle "LBLUE" "NONE" "BOLD" "1")
+  testExpected='\\e[0;94;49m'
+
+  mse_utest_assertEqual
 }
