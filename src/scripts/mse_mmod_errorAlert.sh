@@ -29,7 +29,9 @@ mse_mmod_errorAlert() {
   if [ $# != 2 ] && [ $# != 3 ]; then
     mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
-    local mseLocal=$1
+    local mseLocal
+
+    mseLocal=$1
     if [ $1 == "" ]; then
       mseLocal="script"
     fi

@@ -73,9 +73,18 @@ mse_mmod_promptUser() {
   if [ ${#MSE_GLOBAL_MODULE_PROMPT_MSG[@]} == 0 ] && [ ${#MSE_GLOBAL_MODULE_GENERAL_MSG[@]} == 0 ]; then
     mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_emptyArray} MSE_GLOBAL_MODULE_PROMPT_MSG"
   else
+    local mseType
+    local mseIndex
+    local mseKey
+    local mseValue
+    local msePromptOptions
+    local msePromptReadLineMessage
+    local msePromptValue
+    local mseMsg
+
     #
     # Verifica o tipo de prompt
-    local mseType="bool"
+    mseType="bool"
     if [ $# == 1 ] && [ "$1" != "" ]; then
       mseType="$1"
     fi
@@ -91,17 +100,17 @@ mse_mmod_promptUser() {
       fi
 
 
-      local mseKey=""
-      local mseValue=""
-      local msePromptOptions=""
-      local msePromptReadLineMessage=""
+
+      mseKey=""
+      mseValue=""
+      msePromptOptions=""
+      msePromptReadLineMessage=""
       if [ "$mseType" == "bool" ]; then
+        for mseIndex in "${!lbl_generic_boolPromptLabels[@]}"; do
+          mseKey="${lbl_generic_boolPromptLabels[$mseIndex]}"
 
-        for index in "${!lbl_generic_boolPromptLabels[@]}"; do
-          mseKey="${lbl_generic_boolPromptLabels[$index]}"
-
-          if [ "$mseValue" != "${lbl_generic_boolPromptValues[$index]}" ]; then
-            mseValue="${lbl_generic_boolPromptValues[$index]}"
+          if [ "$mseValue" != "${lbl_generic_boolPromptValues[$mseIndex]}" ]; then
+            mseValue="${lbl_generic_boolPromptValues[$mseIndex]}"
 
             if [ "$msePromptOptions" != "" ]; then
               msePromptOptions="${msePromptOptions} | "
@@ -118,11 +127,11 @@ mse_mmod_promptUser() {
 
       elif [ "$mseType" == "list" ]; then
 
-        for index in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
-          mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$index]}"
+        for mseIndex in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
+          mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$mseIndex]}"
 
-          if [ "$mseValue" != "${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$index]}" ]; then
-            mseValue="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$index]}"
+          if [ "$mseValue" != "${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}" ]; then
+            mseValue="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}"
 
             if [ "$msePromptOptions" != "" ]; then
               msePromptOptions="${msePromptOptions} | "
@@ -151,14 +160,13 @@ mse_mmod_promptUser() {
 
         #
         # Efetua um loop recebendo valores do usuário até que seja digitado algum válido.
-        local msePromptValue=""
+        msePromptValue=""
         while [ "$MSE_GLOBAL_MODULE_PROMPT_RESULT" == "" ]; do
           if [ $MSE_GLOBAL_MODULE_PROMPT_TEST == 0 ]; then
             if [ "$msePromptValue" != "" ]; then
               printf "${MSE_GLOBAL_MODULE_PROMPT_INDENT}${lbl_genericError_invalidValue}. ${lbl_genericError_expectedOnly} [ ${msePromptOptions} ]: \"$msePromptValue\" \n"
             fi
 
-            local mseMsg
             for mseMsg in "${MSE_GLOBAL_MODULE_PROMPT_MSG[@]}"; do
               printf "${MSE_GLOBAL_MODULE_ALERT_INDENT}${mseMsg}\n"
             done
@@ -173,19 +181,19 @@ mse_mmod_promptUser() {
           if [ "$mseType" == "bool" ]; then
             msePromptValue=$(printf "$msePromptValue" | awk '{print tolower($0)}')
 
-            for index in "${!lbl_generic_boolPromptLabels[@]}"; do
-              mseKey="${lbl_generic_boolPromptLabels[$index]}"
+            for mseIndex in "${!lbl_generic_boolPromptLabels[@]}"; do
+              mseKey="${lbl_generic_boolPromptLabels[$mseIndex]}"
               if [ "$mseKey" == "$msePromptValue" ]; then
-                MSE_GLOBAL_MODULE_PROMPT_RESULT=${lbl_generic_boolPromptValues[$index]}
+                MSE_GLOBAL_MODULE_PROMPT_RESULT=${lbl_generic_boolPromptValues[$mseIndex]}
               fi
             done
           elif [ "$mseType" == "list" ]; then
             msePromptValue=$(printf "$msePromptValue" | awk '{print tolower($0)}')
 
-            for index in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
-              mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$index]}"
+            for mseIndex in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
+              mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$mseIndex]}"
               if [ "$mseKey" == "$msePromptValue" ]; then
-                MSE_GLOBAL_MODULE_PROMPT_RESULT=${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$index]}
+                MSE_GLOBAL_MODULE_PROMPT_RESULT=${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}
               fi
             done
           else

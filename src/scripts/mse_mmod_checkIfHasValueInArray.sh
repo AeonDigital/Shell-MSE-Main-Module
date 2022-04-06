@@ -18,10 +18,12 @@
 # @param string $2
 # Nome do array em que a pesquisa deve ser feita.
 mse_mmod_checkIfHasValueInArray() {
-  local mseArray="$2[@]"
+  local mseArray
   local mseValue
-  local mseMatch="0"
+  local mseMatch
 
+  mseArray="$2[@]"
+  mseMatch="0"
   for mseValue in "${!mseArray}"; do
   if [ $mseValue == "$1" ]; then
     mseMatch="1"

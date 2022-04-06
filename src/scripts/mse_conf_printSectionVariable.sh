@@ -24,16 +24,18 @@
 # Caminho até o arquivo que deve ser verificado.
 mse_conf_printSectionVariable()
 {
-  local rawLine
-  local strSelection=$(mse_conf_printSectionVariables "$1" "$3");
+  local mseRawLine
+  local mseTmpLine
+  local mseStrSelection
 
-  while read rawLine
+  mseStrSelection=$(mse_conf_printSectionVariables "$1" "$3")
+  while read mseRawLine
   do
-    local line=$(sed 's/\s*'"="'\s*/'"="'/g' <<< "${rawLine}"); # trimD
+    mseTmpLine=$(sed 's/\s*'"="'\s*/'"="'/g' <<< "${mseRawLine}"); # trimD
 
-    if [[ "${line}" =~ ^"$2"= ]]; then
-      printf "${rawLine}\n";
-      break;
+    if [[ "${mseTmpLine}" =~ ^"$2"= ]]; then
+      printf "${mseRawLine}\n"
+      break
     fi;
-  done <<< "${strSelection}"
+  done <<< "${mseStrSelection}"
 }

@@ -71,6 +71,14 @@ lbl_registerModule_EmptyDir+="    The scripts directory is empty: [[DIR]] \n"
 lbl_registerModule_EmptyDir+="    Aborted operation!\n\n"
 
 
+lbl_mmod_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
+
+
+lbl_str_convert_originalValueIsNotValidDecimal="original value is not an valid decimal"
+lbl_str_convert_originalValueIsNotValidHexadecimal="original value is not an valid hexadecimal"
+lbl_str_convert_originalValueIsNotValidOctal="original value is not an valid octal"
+
+
 
 
 
@@ -88,14 +96,3 @@ unset lbl_generic_boolPromptValues
 lbl_generic_boolPromptValues=(
   1 1 0 0
 )
-
-
-
-
-
-
-
-lbl_icolor_showFontAttributes_AttrOptions="The following attribute options are available"
-lbl_icolor_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
-lbl_icolor_showTextColors_TableFilter01="Variable"
-lbl_icolor_showTextColors_TableFilter02="Color,Variable"

@@ -23,18 +23,25 @@
 # Caminho até o arquivo que deve ser verificado.
 mse_conf_printSectionVariableInfo()
 {
-  local strSelection=$(mse_conf_printSectionVariable "$1" "$2" "$3");
-  local key
-  local value
+  local mseKey
+  local mseValue
+  local mseStrSelection
+  local oIFS
 
+  mseStrSelection=$(mse_conf_printSectionVariable "$1" "$2" "$3");
   oIFS="${IFS}";
-  if [ "${strSelection}" != "" ]; then
-    while IFS='=' read key value; do
-      local k=$(printf "${key}" | sed 's/^\s*//g' | sed 's/\s*$//g');   # trim
-      local v=$(printf "${value}" | sed 's/^\s*//g' | sed 's/\s*$//g'); # trim
+
+  if [ "${mseStrSelection}" != "" ]; then
+    local k
+    local v
+
+    while IFS='=' read mseKey mseValue; do
+      k=$(printf "${mseKey}" | sed 's/^\s*//g' | sed 's/\s*$//g');   # trim
+      v=$(printf "${mseValue}" | sed 's/^\s*//g' | sed 's/\s*$//g'); # trim
       printf "${k}\n";
       printf "${v}\n";
-    done <<< "${strSelection}"
+    done <<< "${mseStrSelection}"
   fi;
+
   IFS="${oIFS}";
 }

@@ -22,14 +22,17 @@
 # Caminho até o arquivo que deve ser verificado.
 mse_conf_printSectionVariableValue()
 {
-  local strSelection=$(mse_conf_printSectionVariableInfo "$1" "$2" "$3");
+  local oIFS
+  local mseStrSelection
+
+  mseStrSelection=$(mse_conf_printSectionVariableInfo "$1" "$2" "$3");
 
   oIFS="${IFS}";
   IFS=$'\n'
-  strSelection=($strSelection);
+  mseStrSelection=($mseStrSelection);
   IFS="${oIFS}"
 
-  if [ ${#strSelection[@]} == 2 ]; then
-    printf "${strSelection[1]}\n";
+  if [ ${#mseStrSelection[@]} == 2 ]; then
+    printf "${mseStrSelection[1]}\n";
   fi;
 }

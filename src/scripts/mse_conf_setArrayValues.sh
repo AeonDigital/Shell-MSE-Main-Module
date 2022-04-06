@@ -32,15 +32,18 @@ mse_conf_setArrayValues() {
     if [ ! -f $2 ]; then
       mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_especifiedFileNotExists}"
     else
-      local mseArr=$1
+      local oIFS
+      local mseArr
       local mseSearch
       local mseNewLine
+      local mseTmpFile
+      local mseRawLine
 
 
       #
       # Inicia um novo arquivo temporário apenas para salvar
       # a configuração que está sendo setada.
-      local mseTmpFile="${HOME}/.mseTmpConfig"
+      mseTmpFile="${HOME}/.mseTmpConfig"
       printf '' > "$mseTmpFile"
 
 
@@ -48,20 +51,20 @@ mse_conf_setArrayValues() {
       # Para cada linha do arquivo indicado
       # **o arquivo é lido de forma 'readonly' em especial para
       # não perder caracteres especiais que seriam 'evaluados' de outra forma**
-      local mseIFS=$IFS
-      local line
+      oIFS=$IFS
+      mseArr=$1
       IFS=
-      while read -r line; do
+      while read -r mseRawLine; do
         #
         # escapa os caracteres '\n' para que não sejam 'evaluados' ao salvar
-        mseNewLine=$(printf "$line" | sed 's/\\n/\\\\n/g')
+        mseNewLine=$(printf "$mseRawLine" | sed 's/\\n/\\\\n/g')
 
         #
         # Identifica se a linha atual possui alguma configuração para a
         # variável que deve ser alterada
         mseSearch="${mseArr}["
 
-        if [[ "$line" == *"$mseSearch"* ]]; then
+        if [[ "$mseRawLine" == *"$mseSearch"* ]]; then
 
           #
           # Para cada chave a ser redefinida, identifica se a linha atual
@@ -69,7 +72,7 @@ mse_conf_setArrayValues() {
           for k in "${!MSE_GLOBAL_MODULE_ARRAY_CONFIG[@]}"; do
             mseSearch="${mseArr}[${k}]"
 
-            if [[ "$line" == *"$mseSearch"* ]]; then
+            if [[ "$mseRawLine" == *"$mseSearch"* ]]; then
               mseNewLine=${mseSearch}'='${MSE_GLOBAL_MODULE_ARRAY_CONFIG[$k]}
             fi
           done
@@ -77,7 +80,7 @@ mse_conf_setArrayValues() {
 
         printf "$mseNewLine\n" >> "$mseTmpFile"
       done < $2
-      IFS=$mseIFS
+      IFS=$oIFS
 
       #
       # Efetivamente substitui o arquivo de configuração anterior

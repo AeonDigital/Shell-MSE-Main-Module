@@ -91,14 +91,15 @@ mse_mmod_showTextColors() {
       column -e -t -s ":" <<< "${mseRawTable}"
     fi
   elif [ $mseFormat == "codes" ]; then
-    mseRawTable="${lbl_icolor_showTextColors_TableHeaders}\n"
+    mseRawTable="${lbl_mmod_showTextColors_TableHeaders}\n"
 
     for (( i=0; i<mseLength; i++)); do
       mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
       mseColorRaw=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
-      mseColorCod="\\${!mseColorRaw}"
+      mseColorVar="mse${mseColorRaw}"
+      mseColorCod="\\${!mseColorVar}"
 
-      mseLine="${mseColorName}:${mseColorRaw}:${mseColorCod}:${!mseColorRaw}myShellEnv${mseNONE} \n"
+      mseLine="${mseColorName}:${mseColorRaw}:${mseColorCod}:${!mseColorVar}myShellEnv${mseNONE} \n"
       mseRawTable+="${mseLine}"
     done
 

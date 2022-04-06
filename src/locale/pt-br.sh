@@ -71,6 +71,14 @@ lbl_registerModule_EmptyDir+="    Diretório de scripts do módulo está vazio: 
 lbl_registerModule_EmptyDir+="    Operação abortada!\n\n"
 
 
+lbl_mmod_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
+
+
+lbl_str_convert_originalValueIsNotValidDecimal="o valor original não é um decimal válido"
+lbl_str_convert_originalValueIsNotValidHexadecimal="o valor original não é um hexadecimal válido"
+lbl_str_convert_originalValueIsNotValidOctal="o valor original não é um octal válido"
+
+
 
 
 
@@ -99,9 +107,3 @@ MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
   'Verde' 'Verde claro' 'Marrom' 'Amarelo' 'Azul' 'Azul claro'
   'Purpura' 'Purpura claro' 'Ciano' 'Ciano claro'
 )
-
-
-lbl_icolor_showFontAttributes_AttrOptions="As seguintes opções de atributos estão disponíveis"
-lbl_icolor_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
-lbl_icolor_showTextColors_TableFilter01="Variavel"
-lbl_icolor_showTextColors_TableFilter02="Cor,Variavel"

@@ -26,10 +26,11 @@
 # Caminho até o arquivo que deve ser verificado.
 mse_conf_setSectionVariable()
 {
-  # primeiro identifica se existe a linha da variável alvo.
-  local tgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4");
+  local mseTgtVariable
 
-  if [ "${tgtVariable}" != "" ]; then
+  # primeiro identifica se existe a linha da variável alvo.
+  mseTgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4");
+  if [ "${mseTgtVariable}" != "" ]; then
     if [ "$1" == "" ]; then
       # Todas as ocorrências.
       #sed -i "s/^\($2\s*=\s*\).*\$/\1$3/" $4;

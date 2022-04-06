@@ -21,40 +21,42 @@
 # Caminho até o arquivo que deve ser verificado.
 mse_conf_printSectionVariables()
 {
-  local inSection="0"
-  local rawLine
+  local mseInSection
+  local mseSectionBegin
+  local mseRawLine
 
   #
   # O 'while read' lê cada linha da string passada já efetuando um 'trim'
   # na mesma, portanto, não é preciso se preocupar com eliminar espaços vazios
   # antes ou depois do valor real de cada linha.
   #
-  # A solução ' || [ -n "${rawLine}" ]' garante que a última linha será também
+  # A solução ' || [ -n "${mseRawLine}" ]' garante que a última linha será também
   # incluída no loop. Sem isto, a última linha é considerada 'EOF' e o loop não
   # itera sobre ela.
-  while read rawLine || [ -n "${rawLine}" ]
+  mseInSection="0"
+  while read mseRawLine || [ -n "${mseRawLine}" ]
   do
-    local sectionBegin="0";
+    mseSectionBegin="0";
 
-    if [ "${rawLine}" != "" ] && [ "${rawLine:0:1}" != "#" ] && [ "${rawLine:0:1}" != ";" ]; then
+    if [ "${mseRawLine}" != "" ] && [ "${mseRawLine:0:1}" != "#" ] && [ "${mseRawLine:0:1}" != ";" ]; then
       if [ "$1" == "" ]; then
-        inSection="1";
-        sectionBegin="0";
-        if [ "${rawLine:0:1}" == "[" ]; then
-          sectionBegin="1";
+        mseInSection="1";
+        mseSectionBegin="0";
+        if [ "${mseRawLine:0:1}" == "[" ]; then
+          mseSectionBegin="1";
         fi;
       else
-        if [ "${inSection}" == "1" ] && [ "${rawLine:0:1}" == "[" ]; then
-          inSection="0";
+        if [ "${mseInSection}" == "1" ] && [ "${mseRawLine:0:1}" == "[" ]; then
+          mseInSection="0";
         fi;
-        if [ "${inSection}" == "0" ] && [ "${rawLine}" == "[$1]" ]; then
-          inSection="1";
-          sectionBegin="1";
+        if [ "${mseInSection}" == "0" ] && [ "${mseRawLine}" == "[$1]" ]; then
+          mseInSection="1";
+          mseSectionBegin="1";
         fi;
       fi;
 
-      if [ "${inSection}" == "1" ] && [ "${sectionBegin}" == "0" ]; then
-        printf "${rawLine}\n";
+      if [ "${mseInSection}" == "1" ] && [ "${mseSectionBegin}" == "0" ]; then
+        printf "${mseRawLine}\n";
       fi;
     fi;
   done < "$2"

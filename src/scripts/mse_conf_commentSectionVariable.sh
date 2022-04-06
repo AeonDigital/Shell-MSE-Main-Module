@@ -27,14 +27,15 @@
 mse_conf_commentSectionVariable()
 {
   # primeiro identifica se existe a linha da variável alvo.
-  local tgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4");
+  local mseTgtVariable
 
-  if [ "${tgtVariable}" != "" ]; then
+  mseTgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4")
+  if [ "${mseTgtVariable}" != "" ]; then
     if [ "$1" == "" ]; then
       # Apenas a primeira ocorrência.
-      sed -i "/^\($2\s*=\)/{s/.*/$3&/;:A;n;bA}" "$4";
+      sed -i "/^\($2\s*=\)/{s/.*/$3&/;:A;n;bA}" "$4"
     else
-      sed -i "/^\[$1\]$/,/^\[/ s/^\(.*$2\s*=.*\)$/$3\1/" "$4";
+      sed -i "/^\[$1\]$/,/^\[/ s/^\(.*$2\s*=.*\)$/$3\1/" "$4"
     fi;
   fi;
 }
