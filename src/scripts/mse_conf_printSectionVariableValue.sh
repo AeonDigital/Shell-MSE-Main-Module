@@ -12,27 +12,24 @@
 # Imprime na tela o valor da variável pesquisada.
 # A variável será pesquisada apenas na seção indicada.
 #
+# Se o arquivo de configuração estiver mal formatado e existir dentro da mesma
+# seção uma variável duplicada, apenas a primeira será levada em consideração.
+#
 # @param string $1
-# Nome da seção alvo.
+# Caminho até o arquivo que deve ser verificado.
 #
 # @param string $2
-# Nome da variável alvo.
+# Nome da seção alvo.
 #
 # @param string $3
-# Caminho até o arquivo que deve ser verificado.
+# Nome da variável alvo.
 mse_conf_printSectionVariableValue()
 {
-  local oIFS
-  local mseStrSelection
+  local mseRawLine
+  mseRawLine=$(mse_conf_printSectionVariableLine "$1" "$2" "$3")
 
-  mseStrSelection=$(mse_conf_printSectionVariableInfo "$1" "$2" "$3");
-
-  oIFS="${IFS}";
-  IFS=$'\n'
-  mseStrSelection=($mseStrSelection);
-  IFS="${oIFS}"
-
-  if [ ${#mseStrSelection[@]} == 2 ]; then
-    printf "${mseStrSelection[1]}\n";
+  if [ "${mseRawLine}" != "" ]; then
+    mseRawLine=$(mse_str_trimD "=" "${mseRawLine}")
+    printf "${mseRawLine#${3}=}"
   fi;
 }

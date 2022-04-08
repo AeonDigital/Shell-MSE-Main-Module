@@ -26,4 +26,5 @@ DATABASE_HOST               =   [[dbhost]]
 DATABASE_NAME               =   [[dbname]]
 DATABASE_USER               =   [[dbuser]]
 DATABASE_PASS               =   [[dbpass]]
+COMMENT_TEST_NOT            =   value
 GIT_LOG_LENGTH              =   20

@@ -11,12 +11,21 @@
 # @desc
 # Imprime na tela o valor da variável pesquisada.
 #
+# Se o arquivo de configuração estiver mal formatado e existir uma variável
+# duplicada, apenas a primeira será levada em consideração.
+#
 # @param string $1
-# Nome da variável alvo.
+# Caminho até o arquivo que deve ser verificado.
 #
 # @param string $2
-# Caminho até o arquivo que deve ser verificado.
+# Nome da variável alvo.
 mse_conf_printVariableValue()
 {
-  mse_conf_printSectionVariableValue "" "$1" "$2"
+  local mseRawLine
+  mseRawLine=$(mse_conf_printVariableLine "$1" "$2")
+
+  if [ "${mseRawLine}" != "" ]; then
+    mseRawLine=$(mse_str_trimD "=" "${mseRawLine}")
+    printf "${mseRawLine#${2}=}"
+  fi;
 }

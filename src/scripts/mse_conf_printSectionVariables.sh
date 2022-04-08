@@ -12,52 +12,24 @@
 # Identifica uma seção de um arquivo de configuração, tipicamente definido pela
 # notação [section-name] e imprime na tela todas as suas variáveis.
 #
-# Linhas comentadas não serão mostradas.
+# Linhas comentadas e vazias não serão mostradas.
 #
 # @param string $1
-# Nome da seção alvo.
+# Caminho até o arquivo que deve ser verificado.
 #
 # @param string $2
-# Caminho até o arquivo que deve ser verificado.
+# Nome da seção alvo.
 mse_conf_printSectionVariables()
 {
-  local mseInSection
-  local mseSectionBegin
-  local mseRawLine
+  mse_mmod_readFile_resetConfig
 
-  #
-  # O 'while read' lê cada linha da string passada já efetuando um 'trim'
-  # na mesma, portanto, não é preciso se preocupar com eliminar espaços vazios
-  # antes ou depois do valor real de cada linha.
-  #
-  # A solução ' || [ -n "${mseRawLine}" ]' garante que a última linha será também
-  # incluída no loop. Sem isto, a última linha é considerada 'EOF' e o loop não
-  # itera sobre ela.
-  mseInSection="0"
-  while read mseRawLine || [ -n "${mseRawLine}" ]
-  do
-    mseSectionBegin="0";
+  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_mmod_readFile_checkSection_start"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="$2"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_mmod_readFile_checkSection_end"
 
-    if [ "${mseRawLine}" != "" ] && [ "${mseRawLine:0:1}" != "#" ] && [ "${mseRawLine:0:1}" != ";" ]; then
-      if [ "$1" == "" ]; then
-        mseInSection="1";
-        mseSectionBegin="0";
-        if [ "${mseRawLine:0:1}" == "[" ]; then
-          mseSectionBegin="1";
-        fi;
-      else
-        if [ "${mseInSection}" == "1" ] && [ "${mseRawLine:0:1}" == "[" ]; then
-          mseInSection="0";
-        fi;
-        if [ "${mseInSection}" == "0" ] && [ "${mseRawLine}" == "[$1]" ]; then
-          mseInSection="1";
-          mseSectionBegin="1";
-        fi;
-      fi;
+  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_readFile_checkLine_isVariable"
+  MSE_GLOBAL_MODULE_READ_LINE["check_args"]=""
+  MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
 
-      if [ "${mseInSection}" == "1" ] && [ "${mseSectionBegin}" == "0" ]; then
-        printf "${mseRawLine}\n";
-      fi;
-    fi;
-  done < "$2"
+  mse_mmod_readFile "$1" 0 0
 }
