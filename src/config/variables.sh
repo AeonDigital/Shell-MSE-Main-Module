@@ -102,6 +102,15 @@ MSE_GLOBAL_MODULE_GENERAL_MSG=()
 
 
 #
+# Armazena o resultado de um 'split' de uma string resultante do uso da
+# função 'mse_str_split'.
+MSE_GLOBAL_MODULE_SPLIT_RESULT=()
+
+
+
+
+
+#
 # O array associativo 'MSE_GLOBAL_MODULE_READ_BLOCK' permite configurar
 # a função 'mse_mmod_readFile' indicando para ela como encontrar um ou
 # mais bloco de informações que devem ser retornadas.
@@ -136,6 +145,15 @@ MSE_GLOBAL_MODULE_READ_BLOCK["start"]=""
 # validadora como um argumento extra.
 MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]=""
 #
+# "start_args_sep"
+# Indica o caracter que deve ser usado para 'splitar' a coleção de argumentos
+# passados em 'start_args'.
+MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+#
+# Armazena os argumentos passados em 'start_args' usando o separador indicado
+# em 'start_args_sep'.
+MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()
+#
 # "end"
 # Indica o nome de uma função validadora que marcará o final de uma parte
 # 'válida' de um arquivo que se deseja retornar.
@@ -145,6 +163,15 @@ MSE_GLOBAL_MODULE_READ_BLOCK["end"]=""
 # Permite armazenar alguma informação extra que será passada para a função
 # validadora como um argumento extra.
 MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]=""
+#
+# "end_args_sep"
+# Indica o caracter que deve ser usado para 'splitar' a coleção de argumentos
+# passados em 'end_args'.
+MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+#
+# Armazena os argumentos passados em 'end_args' usando o separador indicado
+# em 'end_args_sep'.
+MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=()
 #
 # "print_start_line"
 # Indique "" ou "0" para que a linha inicial de um bloco válido seja omitida.
@@ -188,6 +215,15 @@ MSE_GLOBAL_MODULE_READ_LINE["check"]=""
 # validadora como um argumento extra.
 MSE_GLOBAL_MODULE_READ_LINE["check_args"]=""
 #
+# "check_args_sep"
+# Indica o caracter que deve ser usado para 'splitar' a coleção de argumentos
+# passados em 'check_args'.
+MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=""
+#
+# Armazena os argumentos passados em 'check_args' usando o separador indicado
+# em 'check_args_sep'.
+MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=()
+#
 # "check_invert"
 # Indique "1" para inverter a saida da função definida em "check".
 MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
@@ -207,6 +243,15 @@ MSE_GLOBAL_MODULE_READ_LINE["transform"]=""
 # Permite armazenar alguma informação extra que será passada para a função
 # definida em "transform".
 MSE_GLOBAL_MODULE_READ_LINE["transform_args"]=""
+#
+# "transform_args_sep"
+# Indica o caracter que deve ser usado para 'splitar' a coleção de argumentos
+# passados em 'transform_args'.
+MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]=""
+#
+# Armazena os argumentos passados em 'transform_args' usando o separador indicado
+# em 'transform_args_sep'.
+MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
 
 
 

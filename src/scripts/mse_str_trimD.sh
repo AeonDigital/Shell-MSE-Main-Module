@@ -34,7 +34,8 @@ mse_str_trimD() {
 
 
   mseStr="$2"
-  readarray -d $1 -t mseArrTmp <<< "$2"
+  mse_str_split $1 "$2"
+  mseArrTmp=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
   mseArrLen="${#mseArrTmp[@]}"
 
   if [ $mseArrLen -gt 0 ]; then

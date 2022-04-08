@@ -19,10 +19,11 @@
 # @param string $2
 # Conteúdo da linha sendo verificada.
 #
-# @param string $3
-# Nome da seção alvo.
-# Se quiser indicar mais de uma seção alvo, separe o nome de cada uma
-# com virgula.
+# @param external
+# global array MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
+# O referido array deve ser preenchido externamente.
+# Cada um de seus itens deve indicar o nome de uma das seções que se deseja
+# retornar
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -32,24 +33,9 @@ mse_mmod_readFile_checkSection_start() {
 
   mseR=0
   if [ $# == 3 ]; then
-    local mseArrLen
-    local mseArrLastIndex
-    local mseSections
     local mseSection
 
-
-    #
-    # Promove um 'split' do parametro '$3'
-    # e trata o '\n' que o comando 'readarray' adiciona no último ítem
-    readarray -d ',' -t mseSections <<< "$3"
-    mseArrLen="${#mseSections[@]}"
-    if [ $mseArrLen -gt 0 ]; then
-      ((mseArrLastIndex=mseArrLen-1))
-      mseSections[$mseArrLastIndex]=$(mse_str_trim "${mseSections[$mseArrLastIndex]}")
-    fi
-
-
-    for mseSection in "${mseSections[@]}"; do
+    for mseSection in "${MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY[@]}"; do
       mseSection="[${mseSection}]"
       if [ "$mseSection" == "$2" ]; then
         mseR=1

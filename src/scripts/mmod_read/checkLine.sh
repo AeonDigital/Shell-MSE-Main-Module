@@ -16,9 +16,12 @@
 # @param string $2
 # Conteúdo da linha sendo verificada.
 #
-# @param string $3
-# Indique cada caracter que pode ser usado para comentar uma linha
-# separado por um espaço
+# @param external
+# global array MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
+# O referido array deve ser preenchido externamente.
+# Cada um de seus itens deve indicar um caracter que pode ser usado para
+# comentar uma linha de dados em um arquivo de configuração.
+# TODOS serão levados em consideração na análise da linha.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -29,24 +32,8 @@ mse_mmod_readFile_checkLine_isComment() {
 
   mseR=0
   if [ $# == 3 ]; then
-    local mseArrLen
-    local mseArrLastIndex
-    local mseCommentSignals
-    local mseComSig
-
-
-    #
-    # Promove um 'split' do parametro '$3'
-    # e trata o '\n' que o comando 'readarray' adiciona no último ítem
-    readarray -d ' ' -t mseCommentSignals <<< "$3"
-    mseArrLen="${#mseCommentSignals[@]}"
-    if [ $mseArrLen -gt 0 ]; then
-      ((mseArrLastIndex=mseArrLen-1))
-      mseCommentSignals[$mseArrLastIndex]=$(mse_str_trim "${mseCommentSignals[$mseArrLastIndex]}")
-    fi
-
     mseLine=$(mse_str_trim "${2}")
-    for mseComSig in "${mseCommentSignals[@]}"; do
+    for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
       if [ "${mseLine:0:1}" == "$mseComSig" ]; then
         mseR=1
         break

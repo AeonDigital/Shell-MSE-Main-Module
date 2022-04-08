@@ -25,6 +25,8 @@ mse_conf_printSectionVariables()
 
   MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_mmod_readFile_checkSection_start"
   MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="$2"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=","
+
   MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_mmod_readFile_checkSection_end"
 
   MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_readFile_checkLine_isVariable"
