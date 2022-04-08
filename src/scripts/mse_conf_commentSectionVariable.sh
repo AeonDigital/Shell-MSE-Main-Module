@@ -29,15 +29,6 @@ mse_conf_commentSectionVariable()
   # primeiro identifica se existe a linha da variável alvo.
   local mseTgtVariable
 
-  # seguir daqui... fazer um 'writeFile'
-  # - arquivo
-  # - linha inicial do bloco de escrita
-  # - linha final do bloco de escrita
-  # - ação
-  #   - prepend / primeira linha do bloco de escrita
-  #   - replace / substituição de todo o bloco de escrita (para alterar apenas 1 linha ela, tanto a linha inicial quanto a final do bloco de escrita devem ser a mesma)
-  #   - append  / última linha do bloco de escrita
-  # - novo conteúdo [array]
 
   mseTgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4")
   if [ "${mseTgtVariable}" != "" ]; then
