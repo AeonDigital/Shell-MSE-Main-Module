@@ -25,9 +25,9 @@
 # Se definido como '1', retornará o código da cor como uma string.
 #
 # @example
-#   result=$(mse_mmod_createFontStyle 'DGREY' 'LBLUE')
+#   result=$(mse_mmod_fontCreateStyle 'DGREY' 'LBLUE')
 #   printf "${result}Formatado conforme eu queria${mseNONE}"
-mse_mmod_createFontStyle() {
+mse_mmod_fontCreateStyle() {
   if [ $# -lt 2 ]; then
     mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
   else
@@ -102,7 +102,7 @@ mse_mmod_createFontStyle() {
         #
         # Se o atributo indicado for válido...
         if [ mseIsValid == 0 ]; then
-          mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_invalidValue} 3" "${lbl_genericError_checkValidOptionsIn} mse_mmod_showFontAttributes"
+          mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_invalidValue} 3" "${lbl_genericError_checkValidOptionsIn} mse_mmod_fontShowAttributes"
         else
           if [ $# == 4 ] && [ $4 == 1 ]; then
             printf '%s' '\\e['"${mseAttribute}"';'"${mseFont}"';'"${mseBackGround}"'m'

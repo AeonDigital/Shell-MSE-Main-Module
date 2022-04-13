@@ -25,7 +25,7 @@
 # Se "1" irá mostrar o número da linha.
 # O número da linha será retornado como primeira informação e estará
 # separada do início do texto por um caracter '#'.
-mse_mmod_readFile()
+mse_mmod_fileRead()
 {
   local mseFileContent
 

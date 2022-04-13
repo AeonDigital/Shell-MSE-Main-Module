@@ -28,8 +28,8 @@
 # Se omitido, assumirá o total de 8 itens por linha.
 #
 # @exemple
-#   mse_mmod_showTextColors
-mse_mmod_showTextColors() {
+#   mse_mmod_fontShowColors
+mse_mmod_fontShowColors() {
 
   local i
   local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}

@@ -16,7 +16,7 @@
 #
 # @param string $1
 # Caminho para o arquivo ou string que será usada.
-mse_mmod_countLines() {
+mse_mmod_fileCountLines() {
   local mseReturn
   local mseFileContent
   local oIFS

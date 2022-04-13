@@ -28,7 +28,7 @@
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
-mse_mmod_readFile_checkSection_start() {
+mse_mmod_fileRead_checkSection_start() {
   local mseR
 
   mseR=0
@@ -66,7 +66,7 @@ mse_mmod_readFile_checkSection_start() {
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
-mse_mmod_readFile_checkSection_end() {
+mse_mmod_fileRead_checkSection_end() {
   local mseR
 
   mseR=0

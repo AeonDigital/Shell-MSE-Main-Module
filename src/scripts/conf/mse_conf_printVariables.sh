@@ -28,13 +28,13 @@ mse_conf_printVariables()
     mseShowLineNumber=1
   fi
 
-  mse_mmod_readFile_resetConfig
+  mse_mmod_fileRead_resetConfig
 
-  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_readFile_checkLine_isVariable"
+  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_fileRead_checkLine_isVariable"
   MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
   MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
   MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
   MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
 
-  mse_mmod_readFile "$1" 0 "$mseShowLineNumber"
+  mse_mmod_fileRead "$1" 0 "$mseShowLineNumber"
 }

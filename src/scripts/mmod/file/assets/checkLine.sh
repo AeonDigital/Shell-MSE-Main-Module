@@ -32,7 +32,7 @@
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
-mse_mmod_readFile_checkLine_isComment() {
+mse_mmod_fileRead_checkLine_isComment() {
   local mseR
   local mseLine
 
@@ -87,7 +87,7 @@ mse_mmod_readFile_checkLine_isComment() {
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
-mse_mmod_readFile_checkLine_isVariable() {
+mse_mmod_fileRead_checkLine_isVariable() {
   local mseR
   local mseLine
   local mseReg
@@ -137,7 +137,7 @@ mse_mmod_readFile_checkLine_isVariable() {
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
-mse_mmod_readFile_checkLine_hasVariable() {
+mse_mmod_fileRead_checkLine_hasVariable() {
   local mseR
   local mseLine
   local mseComSig

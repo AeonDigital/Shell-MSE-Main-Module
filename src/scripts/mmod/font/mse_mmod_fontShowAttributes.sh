@@ -25,8 +25,8 @@
 # Se omitido, assumirá o total de 6 itens por linha.
 #
 # @exemple
-#   mse_mmod_showTextColors
-mse_mmod_showFontAttributes() {
+#   mse_mmod_fontShowColors
+mse_mmod_fontShowAttributes() {
 
   local i
   local mseFormat="list"
