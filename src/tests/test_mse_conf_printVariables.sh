@@ -19,4 +19,10 @@ test_mse_conf_printVariables() {
   testExpected=$(< "${mseTMPDIR}/tests/expected/test_mse_conf_printVariables")
 
   mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_printVariables "${mseTMPDIR}/tests/.config" "1")
+  testExpected=$(< "${mseTMPDIR}/tests/expected/test_mse_conf_printVariablesNL")
+
+  mse_utest_assertEqual
 }

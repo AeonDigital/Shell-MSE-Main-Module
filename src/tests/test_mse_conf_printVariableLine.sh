@@ -20,4 +20,10 @@ test_mse_conf_printVariableLine() {
   testExpected=$(printf "EMAIL_HOST                  =   192.168.1.206")
 
   mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_printVariableLine "${mseTMPDIR}/tests/.config" "EMAIL_HOST" "1")
+  testExpected=$(printf "28#EMAIL_HOST                  =   192.168.1.206")
+
+  mse_utest_assertEqual
 }

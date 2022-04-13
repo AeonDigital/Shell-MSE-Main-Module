@@ -17,9 +17,6 @@
 # @param string $2
 # Conteúdo da linha sendo transformada.
 #
-# @param string $3
-# Argumento opcional para complementar a transformação.
-#
 # @return
 # Traz a string original transformada conforme indicado na descrição.
 mse_mmod_readFile_transformLine_normalizeKeyValue() {

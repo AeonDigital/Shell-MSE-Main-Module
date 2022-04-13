@@ -19,12 +19,22 @@
 #
 # @param string $2
 # Nome da variável alvo.
+#
+# @param bool $3
+# Omita, indique "" ou "0" para retornar apenas as linhas alvo.
+# Indique "1" para trazer o número de cada uma das linhas retornadas.
 mse_conf_printVariableLine()
 {
   local mseRawSection
   local mseRawLine
+  local mseShowLineNumber
 
-  mseRawSection=$(mse_conf_printVariables "$1")
+  mseShowLineNumber=0
+  if [ $# -ge 3 ] && [ $3 == 1 ]; then
+    mseShowLineNumber=1
+  fi
+
+  mseRawSection=$(mse_conf_printVariables "$1" "$mseShowLineNumber")
   mseRawLine=""
 
   if [ "$mseRawSection" != "" ]; then
@@ -32,6 +42,7 @@ mse_conf_printVariableLine()
 
     MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_readFile_checkLine_hasVariable"
     MSE_GLOBAL_MODULE_READ_LINE["check_args"]="$2"
+    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
 
     mseRawLine=$(mse_mmod_readFile "$mseRawSection")
   fi

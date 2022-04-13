@@ -59,9 +59,11 @@ mse_mmod_readFile()
     local mseLineCheckFunctionName
     local mseLineCheckFunctionArgs
     local mseLineCheckFunctionInvert
+    local mseLineCheckFunctionNumberLine
 
     local mseTransformLineFunctionName
     local mseTransformLineFunctionArgs
+    local mseTransformLineFunctionNumberLine
 
     local oIFS
     local mseLineRaw
@@ -130,6 +132,7 @@ mse_mmod_readFile()
     mseLineCheckFunctionName=""
     mseLineCheckFunctionArgs=""
     mseLineCheckFunctionInvert=0
+    mseLineCheckFunctionNumberLine=0
     if [ "${MSE_GLOBAL_MODULE_READ_LINE["check"]}" != "" ]; then
       mseLineCheckFunctionName="${MSE_GLOBAL_MODULE_READ_LINE["check"]}"
       mseLineCheckFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE["check_args"]}"
@@ -146,23 +149,32 @@ mse_mmod_readFile()
       if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_invert"]}" == "1" ]; then
         mseLineCheckFunctionInvert=1
       fi
+
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]}" == "1" ]; then
+        mseLineCheckFunctionNumberLine=1
+      fi
     fi
     #
     # Verifica se existe alguma transformação a ser feita nas linhas que devem ser
     # retornadas
     mseTransformLineFunctionName=""
     mseTransformLineFunctionArgs=""
+    mseTransformLineFunctionNumberLine=0
     if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform"]}" != "" ]; then
       mseTransformLineFunctionName="${MSE_GLOBAL_MODULE_READ_LINE["transform"]}"
       mseTransformLineFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE["transform_args"]}"
 
       #
-      # Verifica necessidade de 'splitar' os argumentos de 'check'
+      # Verifica necessidade de 'splitar' os argumentos de 'transform'
       unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
       declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
       if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" != "" ]; then
         mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" "$mseTransformLineFunctionArgs"
         MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
+      fi
+
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]}" == "1" ]; then
+        mseTransformLineFunctionNumberLine=1
       fi
     fi
 
@@ -218,7 +230,7 @@ mse_mmod_readFile()
           # Havendo alguma forma de verificação do conteúdo da linha
           # efetua-o
           if [ "$mseLineCheckFunctionName" != "" ]; then
-            mseValidLine=$($mseLineCheckFunctionName "$mseLineCount" "${mseLineRaw}" "$mseLineCheckFunctionArgs")
+            mseValidLine=$($mseLineCheckFunctionName "$mseLineCount" "${mseLineRaw}" "$mseLineCheckFunctionNumberLine" "$mseLineCheckFunctionArgs")
 
             #
             # Sendo para inverter a lógica da verificação...
@@ -237,7 +249,7 @@ mse_mmod_readFile()
             # Verifica se há alguma transformação a ser feita no conteúdo
             # da linha antes de retorná-la
             if [ "$mseTransformLineFunctionName" != "" ]; then
-              mseLineRaw=$($mseTransformLineFunctionName "$mseLineCount" "${mseLineRaw}" "$mseTransformLineFunctionArgs")
+              mseLineRaw=$($mseTransformLineFunctionName "$mseLineCount" "${mseLineRaw}" "$mseTransformLineFunctionNumberLine" "$mseTransformLineFunctionArgs")
             fi
 
             if [ $mseLineShowNumber == 1 ]; then

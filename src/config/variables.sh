@@ -224,6 +224,11 @@ MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=""
 # em 'check_args_sep'.
 MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=()
 #
+# "check_has_linenumber"
+# Indique "1" para indicar que as linhas sendo processadas possuem seu respectivo
+# número.
+MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]=""
+#
 # "check_invert"
 # Indique "1" para inverter a saida da função definida em "check".
 MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
@@ -252,6 +257,11 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]=""
 # Armazena os argumentos passados em 'transform_args' usando o separador indicado
 # em 'transform_args_sep'.
 MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
+#
+# "transform_has_linenumber"
+# Indique "1" para indicar que as linhas sendo processadas possuem seu respectivo
+# número.
+MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
 
 
 
@@ -271,8 +281,15 @@ MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
 # @param string $2
 # Conteúdo da linha sendo verificada.
 #
-# @param string $3
+# @param bool $3
+# Indique "0" para informar que as linhas sendo processadas estão em formato
+# 'raw' (tal qual no arquivo original).
+# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
+# de seu respectivo número dentro do arquivo alvo.
+#
+# @param string $4
 # Argumento opcional para complementar a verificação.
+# Conforme a implementação pode ser obrigatorio.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -296,8 +313,15 @@ MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
 # @param string $2
 # Conteúdo da linha sendo transformada.
 #
-# @param string $3
-# Argumento opcional para complementar a transformação.
+# @param bool $3
+# Indique "0" para informar que as linhas sendo processadas estão em formato
+# 'raw' (tal qual no arquivo original).
+# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
+# de seu respectivo número dentro do arquivo alvo.
+#
+# @param string $4
+# Argumento opcional para complementar a verificação.
+# Conforme a implementação pode ser obrigatorio.
 #
 # @return
 # Traz a string original transformada conforme indicado na descrição.

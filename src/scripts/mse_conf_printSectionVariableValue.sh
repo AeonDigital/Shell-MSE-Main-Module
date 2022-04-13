@@ -26,7 +26,7 @@
 mse_conf_printSectionVariableValue()
 {
   local mseRawLine
-  mseRawLine=$(mse_conf_printSectionVariableLine "$1" "$2" "$3")
+  mseRawLine=$(mse_conf_printSectionVariableLine "$1" "$2" "$3" 0)
 
   if [ "${mseRawLine}" != "" ]; then
     mseRawLine=$(mse_str_trimD "=" "${mseRawLine}")
