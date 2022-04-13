@@ -7,3 +7,4 @@
 20#REQUEST_TIMEOUT             =   1200
 21#REQUEST_MAX_FILESIZE        =   100
 22#REQUEST_MAX_POSTSIZE        =   100
+23##COMMENT_TEST                =   value

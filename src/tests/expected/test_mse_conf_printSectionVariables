@@ -7,3 +7,4 @@ UPDATE_ROUTES               =   1
 REQUEST_TIMEOUT             =   1200
 REQUEST_MAX_FILESIZE        =   100
 REQUEST_MAX_POSTSIZE        =   100
+#COMMENT_TEST                =   value

@@ -45,9 +45,11 @@ mse_conf_printSectionVariableLine()
     mse_mmod_readFile_resetConfig
 
     MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_readFile_checkLine_hasVariable"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
-    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
     MSE_GLOBAL_MODULE_READ_LINE["check_args"]="$3"
+    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
+
+    unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
+    declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("#" ";")
 
     mseRawLine=$(mse_mmod_readFile "$mseRawSection")
   fi

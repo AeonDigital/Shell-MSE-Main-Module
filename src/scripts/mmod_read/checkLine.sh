@@ -16,18 +16,18 @@
 # @param string $2
 # Conteúdo da linha sendo verificada.
 #
+# @param bool $3
+# Indique "0" para informar que as linhas sendo processadas estão em formato
+# 'raw' (tal qual no arquivo original).
+# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
+# de seu respectivo número dentro do arquivo alvo.
+#
 # @param external
 # global array MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
 # O referido array deve ser preenchido externamente.
 # Cada um de seus itens deve indicar um caracter que pode ser usado para
 # comentar uma linha de dados em um arquivo de configuração.
 # TODOS serão levados em consideração na análise da linha.
-#
-# @param bool $3
-# Indique "0" para informar que as linhas sendo processadas estão em formato
-# 'raw' (tal qual no arquivo original).
-# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
-# de seu respectivo número dentro do arquivo alvo.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -77,23 +77,34 @@ mse_mmod_readFile_checkLine_isComment() {
 # @param string $4
 # Indique o nome da variável procurada.
 #
+# @param external
+# global array MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
+# O referido array deve ser preenchido externamente.
+# Cada um de seus itens deve indicar um caracter que pode ser usado para
+# comentar uma linha de dados em um arquivo de configuração.
+# TODOS serão levados em consideração na análise da linha.
+#
 # @return
 # Printa '1' se o teste for positivo.
 # Printa '0' se o teste for negativo.
 mse_mmod_readFile_checkLine_isVariable() {
   local mseR
   local mseLine
+  local mseReg
+  local mseCommentChars
 
   mseR=0
   if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine="$2"
+    mseLine=$(mse_str_trim "${2}")
     #
     # Remove a informação de número da linha
     if [ $3 == 1 ]; then
       mseLine="${mseLine#*#}"
     fi
 
-    if [[ "$mseLine" =~ ^([a-zA-Z]+).*= ]]; then
+    mseCommentChars=$(printf '%s' "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}")
+    mseReg='^(['"${mseCommentChars}"']?)([a-zA-Z]+).*='
+    if [[ "$mseLine" =~ $mseReg ]]; then
       mseR=1
     fi
   fi
@@ -129,15 +140,22 @@ mse_mmod_readFile_checkLine_isVariable() {
 mse_mmod_readFile_checkLine_hasVariable() {
   local mseR
   local mseLine
+  local mseComSig
 
   mseR=0
   if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trimD "=" "$2")
+    mseLine=$(mse_str_trim "$2")
+    mseLine=$(mse_str_trimD "=" "$mseLine")
     #
     # Remove a informação de número da linha
     if [ $3 == 1 ]; then
       mseLine="${mseLine#*#}"
     fi
+
+
+    for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
+      mseLine="${mseLine#${mseComSig}}"
+    done
 
     if [ "${mseLine%%=*}" == "$4" ]; then
       mseR=1
