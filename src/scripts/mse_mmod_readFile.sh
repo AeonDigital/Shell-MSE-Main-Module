@@ -101,9 +101,10 @@ mse_mmod_readFile()
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'start_args'
-      unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
-      declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()
       if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]}" != "" ]; then
+        unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
+        declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()
+
         mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]}" "$mseSectionStartFunctionArgs"
         MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
@@ -114,9 +115,10 @@ mse_mmod_readFile()
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'end_args'
-      unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
-      declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=()
       if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]}" != "" ]; then
+        unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
+        declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=()
+
         mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]}" "$mseSectionEndFunctionArgs"
         MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
@@ -139,9 +141,10 @@ mse_mmod_readFile()
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'check'
-      unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
-      declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=()
       if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]}" != "" ]; then
+        unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
+        declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=()
+
         mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]}" "$mseLineCheckFunctionArgs"
         MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
@@ -166,9 +169,10 @@ mse_mmod_readFile()
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'transform'
-      unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
-      declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
       if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" != "" ]; then
+        unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
+        declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
+
         mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" "$mseTransformLineFunctionArgs"
         MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi

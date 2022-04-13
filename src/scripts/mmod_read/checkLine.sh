@@ -154,7 +154,9 @@ mse_mmod_readFile_checkLine_hasVariable() {
 
 
     for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
-      mseLine="${mseLine#${mseComSig}}"
+      if [ "${mseLine:0:1}" == "${mseComSig}" ]; then
+        mseLine="${mseLine#${mseComSig}}"
+      fi
     done
 
     if [ "${mseLine%%=*}" == "$4" ]; then
