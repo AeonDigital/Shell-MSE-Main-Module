@@ -15,8 +15,12 @@
 #
 # @param string $1
 # Valor que será testado.
+#
+# @return bool
+# '1' se o valor é um numeral inteiro
+# '0' se o valor não é um numeral inteiro
 mse_mmod_checkIfInteger() {
   local regEx
   regEx='^[0-9]+$'
-  if [[ $1 =~ $regEx ]]; then printf "1\n"; else printf "0\n"; fi
+  if [[ $1 =~ $regEx ]]; then printf "1"; else printf "0"; fi
 }

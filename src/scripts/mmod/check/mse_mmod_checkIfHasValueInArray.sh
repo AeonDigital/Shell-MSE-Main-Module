@@ -17,19 +17,23 @@
 #
 # @param string $2
 # Nome do array em que a pesquisa deve ser feita.
+#
+# @return bool
+# '1' se o valor está no array
+# '0' se o valor não está no array
 mse_mmod_checkIfHasValueInArray() {
   local mseArray
-  local mseValue
   local mseMatch
+  local mseValue
 
   mseArray="$2[@]"
   mseMatch="0"
   for mseValue in "${!mseArray}"; do
-  if [ $mseValue == "$1" ]; then
+  if [ "$mseValue" == "$1" ]; then
     mseMatch="1"
     break
   fi
   done
 
-  printf "${mseMatch}\n"
+  printf "${mseMatch}"
 }

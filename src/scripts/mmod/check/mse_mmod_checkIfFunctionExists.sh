@@ -14,6 +14,10 @@
 #
 # @param string $1
 # Nome da função que está sendo verificada.
+#
+# @return bool
+# '1' se a função existir
+# '0' se a função não existir
 mse_mmod_checkIfFunctionExists() {
-  if [ "$(type -t $1)" == "function" ]; then printf "1\n"; else printf "0\n"; fi
+  if [ "$(type -t $1)" == "function" ]; then printf "1"; else printf "0"; fi
 }
