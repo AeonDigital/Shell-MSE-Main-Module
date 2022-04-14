@@ -25,16 +25,30 @@
 #   =
 #   myArray=("2022" "12" "22")
 mse_str_split() {
-  local mseInt
+  local mseDelimiter
+  local mseString
+  local mseSubStr
+
   unset MSE_GLOBAL_MODULE_SPLIT_RESULT
   declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
 
-  readarray -d $1 -t MSE_GLOBAL_MODULE_SPLIT_RESULT <<< "$2"
-  mseInt="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
-  if [ $mseInt -gt 0 ]; then
-    #
-    # Remove o \n que o 'readarray' adiciona ao último item do array
-    ((mseInt=mseInt-1))
-    MSE_GLOBAL_MODULE_SPLIT_RESULT[$mseInt]="${MSE_GLOBAL_MODULE_SPLIT_RESULT[$mseInt]%[[:cntrl:]]}"
+  if [ $# -ge 2 ] && [ "$1" != "" ] && [ "$2" != "" ]; then
+    mseDelimiter="$1"
+    mseString="$2"
+    mseSubStr=""
+
+    while [ "${mseString}" != "" ]; do
+      #
+      # Não existindo nenhum delimitador...
+      if [[ "$mseString" != *"$mseDelimiter"* ]]; then
+        MSE_GLOBAL_MODULE_SPLIT_RESULT+=("$mseString")
+        break
+      else
+        mseSubStr="${mseString%%${mseDelimiter}*}"
+        MSE_GLOBAL_MODULE_SPLIT_RESULT+=("$mseSubStr")
+
+        mseString="${mseString#*${mseDelimiter}}"
+      fi
+    done
   fi
 }

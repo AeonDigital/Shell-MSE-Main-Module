@@ -20,7 +20,8 @@ possuem diferentes formas de validação deverão ser 'desdobrados' conforme
 ## CHAVES COMUNS
 
 Para qualquer caso são esperados ao menos 4 especificações de validação
-para cada argumento passado.
+para cada argumento passado. Se deseja que algum parametro não seja validado
+entre outros que serão basta deixar o valor de sua respectiva chave vazia.
 Tais especificações são:
 
 &nbsp;
@@ -37,10 +38,10 @@ com um aspecto mais facilmente entendível por humanos.
 Indica se o campo é ou não obrigatório.
 Use os seguintes valores:  
 
-  - optional | opt  
+  - optional | opt | o | 0  
   Informa que o parametro é opcional, ou seja pode ser ignorado ao evocar
   a função.
-  - required | req  
+  - required | req | r | 1  
   Informa que o campo é obrigatorio, mesmo que seu valor seja vazio ele
   deve existir.
 
@@ -90,7 +91,7 @@ Indica o tipo de informação que é aceitável para este campo.
 Indica qual deve ser o valor padrão par este parametro se o mesmo for
 omitido, ou se o valor indicado for uma string vazia.
 Em alguns casos (mais abaixo) você vai querer 'pular' a especificação deste
-campo mas como não pode deixa-lo vazio, use um caracter de ponto final para
+campo mas como não pode deixá-lo vazio, use um caracter de ponto final para
 simular que o mesmo está vazio.
 Se, para qualquer finalidade, precisar usar um ponto final como valor padrão
 (provavelmente de uma string), informe tal valor entre aspas simples.
@@ -102,15 +103,9 @@ do respectivo campo.
 &nbsp;
 
 **EXEMPLOS DE DEFINIÇÕES SIMPLES DE PARAMETROS**  
-checkParams["param_1"]="Nome  :: r :: string  :: . "  
-checkParams["param_2"]="Idade :: r :: int     :: . "  
+checkParams["param_1"]="Nome  :: r :: string  :: "  
+checkParams["param_2"]="Idade :: r :: int     :: "  
 checkParams["param_3"]="Pais  :: r :: string  :: Brasil"  
-
-Repare acima o uso do 'ponto final' no campo 'Valor padrão'. Se quisessemos,
-para fins de exemplo, definir que o próprio 'ponto final' fosse usado como
-valor padrão no lugar da string 'Brasil', deveriamos usar assim:  
-
-checkParams["param_3"]="Pais  :: r :: string  :: '.'"
 
 &nbsp;
 &nbsp;
@@ -153,10 +148,13 @@ Especifique o valor máximo que o valor inteiro pode assumir.
 ### FILENAME
 
 **5. CRIAR SE NÃO EXISTIR**  
-Por padrão, se o caminho apontar para um arquivo inexistente o teste
-falhará. Você pode especificar 'y' para que um novo arquivo seja criado no
-caminho indicado caso ele não exista.  
-Use 'n' ou omita este campo para que o comportamento normal seja mantido.
+Por padrão, se o caminho apontar para um arquivo inexistente o teste falhará. 
+  
+  - create | yes | y | 1
+  Para criar um novo arquivo no caminho indicado caso ele não exista.  
+  - nocreate | no | n | 0
+  Se omitido este será o comportamento normal.
+  Neste caso a ausencia do arquivo alvo causará uma falha na validação.
 
 &nbsp;
 
@@ -165,9 +163,12 @@ Use 'n' ou omita este campo para que o comportamento normal seja mantido.
 
 **5. CRIAR SE NÃO EXISTIR**  
 Por padrão, se o caminho apontar para um diretório inexistente o teste
-falhará. Você pode especificar 'y' para que um novo diretório seja criado
-no caminho indicado caso ele não exista.  
-Use 'n' ou omita este campo para que o comportamento normal seja mantido.
+
+  - create | y | 1  
+  Para criar um novo diretório no caminho indicado caso ele não exista.  
+  - nocreate | n | 0
+  Se omitido este será o comportamento normal.
+  Neste caso a ausencia do diretório alvo causará uma falha na validação.
 
 &nbsp;
 
@@ -187,8 +188,8 @@ Se você quiser, pode especificar uma chave extra informando como que os
 valores do array devem ser validadas.
 Para tal, use o seguinte modelo:
 
-checkParams["param_5"]="UF :: r :: arrayName :: . :: 1 :: 5"  
-checkParams["param_5_element"]=". :: . :: string :: . :: 2"  
+checkParams["param_5"]="UF :: r :: arrayName :: :: 1 :: 5"  
+checkParams["param_5_element"]=" :: :: string :: :: 2"  
 
 Note que na especificação acima usamos o sufixo '_element' para indicar
 ao algoritmo que esta é a especificação dos elementos do array que está
@@ -206,9 +207,9 @@ Se você quiser, pode especificar regras de validação para cada uma destas
 chaves conforme o modelo abaixo:
 
 **VALIDAÇÃO DOS ELEMENTOS**  
-checkParams["param_6"]="Funcionários :: r :: assocName :: . :: Nome,Idade"  
-checkParams["param_6_Nome"]="Nome :: r :: string :: . :: 200"  
-checkParams["param_6_Idade"]="Idade :: r :: int :: . :: 0 :: 100"  
+checkParams["param_6"]="Funcionários :: r :: assocName :: :: Nome,Idade"  
+checkParams["param_6_Nome"]="Nome :: r :: string :: :: 200"  
+checkParams["param_6_Idade"]="Idade :: r :: int :: :: 0 :: 100"  
 
 Note que para cada chave que desejamos validar deve existir uma nova entrada
 em 'checkParams' usando o nome da chave como sufixo relacionado ao respectivo
