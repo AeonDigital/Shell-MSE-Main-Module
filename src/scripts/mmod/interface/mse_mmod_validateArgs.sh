@@ -12,13 +12,13 @@
 # Efetua a validação dos argumentos de uma função conforme as regras
 # especificadas nas regras indicadas.
 #
-# @param int $1
-# Total de argumentos que foram passados para a função sendo testada.
-# Este valor pode ser obtido pela variável especial '$#'.
-#
-# @param array $2
+# @param string $1
 # Nome do array associativo contendo as regras que servirão para testar os
 # argumentos passados.
+#
+# @param string $2
+# Nome do array unidimencional contendo cada um dos parametros que serão
+# testados.
 #
 # @param bool $3
 # Opcional.
@@ -36,10 +36,10 @@ mse_mmod_validateArgs() {
   # Define a validação dos argumentos desta própria função
   mseReturn=1
   # declare -A mseCheckParans
-  # mseCheckParans["count"]="$#"
-  # mseCheckParans["param_1"]="TotalArgs :: r :: int :: . :: 2 :: 2"
-  # mseCheckParans["param_2"]="ParamRules :: r :: assocName :: . :: count"
-  # mseCheckParans["param_2_count"]="count :: r :: int :: . :: 0"
+  # mseCheckParans["count"]="2"
+  # mseCheckParans["param_0"]="TotalArgs :: r :: int :: . :: 2 :: 2"
+  # mseCheckParans["param_1"]="ParamRules :: r :: assocName :: . :: count"
+  # mseCheckParans["param_1_count"]="count :: r :: int :: . :: 0"
 
   # if [ $# -le 1 ] || [ "$2" != "1" ]; then
   #   mseReturn=$(mse_mmod_validateArgs "mseCheckParans" "1")
@@ -50,14 +50,20 @@ mse_mmod_validateArgs() {
   # Tendo recebido as informações mínimas necessárias para efetuar a validação
   # dos parametros indicados...
   if [ "$mseReturn" == 1 ]; then
-    local mseAtualParam
-    local mseTotalParans
-    local mseParamRuleRawName
-    local mseParamRuleEvalName
+    local mseCurrentParam
+    local mseCurrentParamIsSet
 
-    local mseParamRawKey
-    local mseParamRawValue
-    local mseParamArrValues
+    declare -n mseRawParamRules
+    local mseRawParamRulesName
+    local mseRawParamRulesLength
+    local mseRawCurrentParamRule
+    local mseRawCurrentParamRuleKey
+    local mseRawCurrentParamRuleValues
+
+    declare -n mseRawParamData
+    local mseRawParamDataLength
+    local mseRawCurrentParamDataValue
+
 
 
     local mseParamL
@@ -80,43 +86,55 @@ mse_mmod_validateArgs() {
 
 
 
-    mseAtualParam=1
-    mseTotalParans="$1"
-    mseParamRuleRawName="$2"
-    mseParamRuleEvalName="$2[@]"
+    mseCurrentParam=0
+
+    mseRawParamRules="$1"
+    mseRawParamRulesName="$1"
+    mseRawParamRulesLength="${mseRawParamRules[count]}"
+    mseRawCurrentParamRule=""
+
+    mseRawParamData="$2"
+    mseRawParamDataLength="${#mseRawParamData[@]}"
+
+
 
     #
-    # Para cada argumento existente verifica se há uma regra para ele.
-    for ((mseAtualParam=1; mseAtualParam<=mseTotalParans; mseAtualParam++)); do
+    # Para cada regra de argumento existente...
+    for ((mseCurrentParam=0; mseCurrentParam<mseRawParamRulesLength; mseCurrentParam++)); do
       if [ "${mseReturn}" == 1 ]; then
-        mseParamRawKey="param_${mseAtualParam}"
-        mseParamRawValue="${mseParamRuleRawName}[$mseParamRawKey]"
-        mseParamRawValue="${!mseParamRawValue}"
+        #
+        # Identifica se o parametro atual está setado.
+        mseCurrentParamIsSet=0
+        mseRawCurrentParamDataValue=""
+        if [ "$mseCurrentParam" -lt "$mseRawParamDataLength" ]; then
+          mseCurrentParamIsSet=1
+          mseRawCurrentParamDataValue="${mseRawParamData[$mseCurrentParam]}"
+        fi
 
 
         #
         # Apenas se há alguma regra descrita para este parametro
-        if [ "${mseParamRawValue}" != "" ]; then
-          mse_str_split "::" "${mseParamRawValue}"
-          mseParamArrValues=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
-
+        mseRawCurrentParamRuleKey="param_${mseCurrentParam}"
+        if [ ! -z "${mseRawParamRules[$mseRawCurrentParamRuleKey]+x}" ] && [ "${mseRawParamRules[$mseRawCurrentParamRuleKey]}" != "" ]; then
+          mseRawCurrentParamRule="${mseRawParamRules[$mseRawCurrentParamRuleKey]}"
+          mse_str_split "::" "${mseRawCurrentParamRule}"
+          mseRawCurrentParamRuleValues=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
           #
           # Apenas se a regra encontrada possui os 4 itens mínimos
-          if [ "${#mseParamArrValues[@]}" -lt 4 ]; then
-            mseReturn="Invalid parameter definition; [ ${mseParamRawValue} ]"
+          if [ "${#mseRawCurrentParamRuleValues[@]}" -lt 4 ]; then
+            mseReturn="Invalid parameter definition; [ ${mseRawCurrentParamRule} ]"
           else
             #
             # Promove um 'trim' em todos os parametros
-            mseParamL="${#mseParamArrValues[@]}"
+            mseParamL="${#mseRawCurrentParamRuleValues[@]}"
             for ((mseParamI=0; mseParamI<mseParamL; mseParamI++)); do
-              mseParamArrValues[$mseParamI]=$(mse_str_trim "${mseParamArrValues[$mseParamI]}")
+              mseRawCurrentParamRuleValues[$mseParamI]=$(mse_str_trim "${mseRawCurrentParamRuleValues[$mseParamI]}")
             done
 
 
-            mseParamLabel="${mseParamArrValues[0]}"
-            mseParamRequired="${mseParamArrValues[1]}"
-            mseParamType="${mseParamArrValues[2]}"
-
+            mseParamLabel="${mseRawCurrentParamRuleValues[0]}"
+            mseParamRequired="${mseRawCurrentParamRuleValues[1]}"
+            mseParamType="${mseRawCurrentParamRuleValues[2]}"
             #
             # Valida o nome do campo
             if [ "$mseParamLabel" == "" ]; then
@@ -150,10 +168,10 @@ mse_mmod_validateArgs() {
 
               case "$mseParamType" in
                 string | int | fileName | dirName | functionName | arrayName | assocName | list)
-                  mseParamDefault="${mseParamArrValues[3]}"
+                  mseParamDefault="${mseRawCurrentParamRuleValues[3]}"
                 ;;
                 validateFN)
-                  mseParamFunctionName="${mseParamArrValues[3]}"
+                  mseParamFunctionName="${mseRawCurrentParamRuleValues[3]}"
                   mseParamCk=$(mse_mmod_checkIfFunctionExists "$mseParamFunctionName")
                   if [ $mseParamCk == 0 ]; then
                     mseReturn="Invalid parameter definition; [ ValidateFunction field points to non existent function \"${mseParamFunctionName}\" ]"
@@ -182,7 +200,7 @@ mse_mmod_validateArgs() {
               case "$mseParamType" in
                 string)
                   if [ $mseParamL -ge 5 ]; then
-                    mseParamMaxLength="${mseParamArrValues[4]}"
+                    mseParamMaxLength="${mseRawCurrentParamRuleValues[4]}"
 
                     mseParamCk=$(mse_mmod_checkIfInteger "$mseParamMaxLength")
                     if [ $mseParamCk == 0 ]; then
@@ -196,7 +214,7 @@ mse_mmod_validateArgs() {
                 ;;
                 int | arrayName)
                   if [ $mseParamL -ge 5 ]; then
-                    mseParamMin="${mseParamArrValues[4]}"
+                    mseParamMin="${mseRawCurrentParamRuleValues[4]}"
 
                     mseParamCk=$(mse_mmod_checkIfInteger "$mseParamMin")
                     if [ $mseParamCk == 0 ]; then
@@ -205,7 +223,7 @@ mse_mmod_validateArgs() {
                   fi
 
                   if [ "${mseReturn}" == 1 ] && [ $mseParamL -ge 6 ]; then
-                    mseParamMax="${mseParamArrValues[5]}"
+                    mseParamMax="${mseRawCurrentParamRuleValues[5]}"
 
                     mseParamCk=$(mse_mmod_checkIfInteger "$mseParamMax")
                     if [ $mseParamCk == 0 ]; then
@@ -216,12 +234,20 @@ mse_mmod_validateArgs() {
                   if [ "$mseParamMin" != "" ] && [ "$mseParamMax" != "" ] && [ $mseParamMin -gt $mseParamMax ]; then
                     mseReturn="Invalid parameter definition; [ Min field is greater than Max field ]"
                   fi
+
+                  if [ "$mseParamType" == "arrayName" ]; then
+                    if [ "$mseParamMin" != "" ] && [ "$mseParamMin" -lt 0 ]; then
+                      mseReturn="Invalid parameter definition; [ For \"arrayName\" type, Min field must be greater or equals to 0 ]"
+                    elif [ "$mseParamMax" != "" ] && [ "$mseParamMax" -lt 1 ]; then
+                      mseReturn="Invalid parameter definition; [ For \"arrayName\" type, Max field must be greater or equals to 1 ]"
+                    fi
+                  fi
                 ;;
                 fileName | dirName)
                   mseParamCreate="0"
 
                   if [ $mseParamL -ge 5 ]; then
-                    case "${mseParamArrValues[4]}" in
+                    case "${mseRawCurrentParamRuleValues[4]}" in
                       create | yes | y | 1)
                         mseParamCreate=1
                       ;;
@@ -237,10 +263,10 @@ mse_mmod_validateArgs() {
                 assocName)
                   mseParamAssocKeys=()
 
-                  if [ $mseParamL -ge 5 ] && [ "${mseParamArrValues[4]}" != "" ]; then
+                  if [ $mseParamL -ge 5 ] && [ "${mseRawCurrentParamRuleValues[4]}" != "" ]; then
                     local mseI
                     local mseL
-                    mse_str_split "," "${mseParamArrValues[4]}"
+                    mse_str_split "," "${mseRawCurrentParamRuleValues[4]}"
                     mseParamAssocKeys=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
 
                     #
@@ -256,12 +282,11 @@ mse_mmod_validateArgs() {
 
                   #
                   # Verifica e valida a coleção de legendas válidas
-                  mseParamCk=$(mse_mmod_checkIfHasKeyInAssoc "${mseParamRawKey}_labels" "${mseParamRuleRawName}")
+                  mseParamCk=$(mse_mmod_checkIfHasKeyInAssoc "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
                   if [ $mseParamCk == 0 ]; then
                     mseReturn="Invalid parameter definition; [ List field lost the label collection ]"
                   else
-                    mseParamTmpList="${mseParamRuleRawName}[${mseParamRawKey}_labels]"
-                    mseParamTmpList="${!mseParamTmpList}"
+                    mseParamTmpList="${mseRawParamRules[${mseRawCurrentParamRuleKey}_labels]}"
                     if [ "$mseParamTmpList" == "" ]; then
                       mseReturn="Invalid parameter definition; [ List field has an empty label collection ]"
                     else
@@ -280,12 +305,11 @@ mse_mmod_validateArgs() {
                   #
                   # Verifica e valida a coleção de valores válidos
                   if [ "${mseReturn}" == 1 ]; then
-                    mseParamCk=$(mse_mmod_checkIfHasKeyInAssoc "${mseParamRawKey}_values" "${mseParamRuleRawName}")
+                    mseParamCk=$(mse_mmod_checkIfHasKeyInAssoc "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ List field lost the value collection ]"
                     else
-                      mseParamTmpList="${mseParamRuleRawName}[${mseParamRawKey}_values]"
-                      mseParamTmpList="${!mseParamTmpList}"
+                      mseParamTmpList="${mseRawParamRules[${mseRawCurrentParamRuleKey}_values]}"
                       if [ "$mseParamTmpList" == "" ]; then
                         mseReturn="Invalid parameter definition; [ List field has an empty value collection ]"
                       else
@@ -302,7 +326,6 @@ mse_mmod_validateArgs() {
                     fi
                   fi
 
-
                   #
                   # Verifica se o número de legendas e valores está correto
                   if [ "${mseReturn}" == 1 ] && [ ${#mseParamListLabels[@]} != ${#mseParamListValues[@]} ]; then
@@ -313,11 +336,19 @@ mse_mmod_validateArgs() {
             fi
 
 
+            #
+            # Assume o valor padrão caso exista um definido
+            if [ $mseCurrentParamIsSet == 0 ] && [ "${mseParamDefault}" != "" ]; then
+              mseCurrentParamIsSet=1
+              mseRawCurrentParamDataValue="${mseParamDefault}"
+            fi
+
 
             #
             # PROSSEGUIR DAQUI:
-            # COMEÇAR A EFETIVA VALIDAÇÃO DE CADA CAMPO RECEBIDO.
-            echo "====  ${mseParamRawKey}  ===="
+            # EFETUAR TODOS OS TESTES.
+            echo "====  ${mseRawCurrentParamRuleKey}  ===="
+            echo "Value           : ${mseRawCurrentParamDataValue}"
             echo "Label           : ${mseParamLabel}"
             echo "Required        : ${mseParamRequired}"
             echo "Type            : ${mseParamType}"
@@ -339,8 +370,112 @@ mse_mmod_validateArgs() {
               echo "Values          : ${mseParamListValues}"
             fi
             echo "FunctionName    : ${mseParamFunctionName}"
+
+
+
+            #
+            # Se o parametro é obrigatório mas não está definido
+            if [ "${mseReturn}" == 1 ] && [ $mseParamRequired == 1 ] && [ $mseCurrentParamIsSet == 0 ]; then
+              ((mseCurrentParam=mseCurrentParam+1))
+              mseReturn="Argument \"${mseParamLabel}\" is required"
+            else
+              if [ "${mseRawCurrentParamDataValue}" != "" ]; then
+                case "${mseParamType}" in
+                  string)
+                    if [ "$mseParamMaxLength" != "" ] && [ "${#mseRawCurrentParamDataValue}" -gt $mseParamMaxLength ]; then
+                      mseReturn="Argument \"${mseParamLabel}\" is greater than the defined max length ( ${mseParamMaxLength} )"
+                    fi
+                  ;;
+                  int)
+                    mseParamCk=$(mse_mmod_checkIfInteger "${mseRawCurrentParamDataValue}")
+                    if [ "$mseParamCk" == 0 ]; then
+                    mseReturn="Argument \"${mseParamLabel}\" is not an integer"
+                    else
+                      if [ "$mseParamMin" != "" ] && [ "${mseRawCurrentParamDataValue}" -lt "$mseParamMin" ]; then
+                        mseReturn="Argument \"${mseParamLabel}\" must be greater than ${mseParamMin}"
+                      elif [ "$mseParamMax" != "" ] && [ "${mseRawCurrentParamDataValue}" -gt "$mseParamMax" ]; then
+                        mseReturn="Argument \"${mseParamLabel}\" must be less than ${mseParamMax}"
+                      fi
+                    fi
+                  ;;
+                  fileName)
+                    if [ "${mseParamCreate}" == 1 ] && [ ! -f "${mseRawCurrentParamDataValue}" ]; then
+                      > "${mseRawCurrentParamDataValue}"
+                      if [ "$?" != 0 ]; then
+                        mseReturn="Cannot create a new file in ${mseRawCurrentParamDataValue}"
+                      fi
+                    fi
+                  ;;
+                  dirName)
+                    if [ "${mseParamCreate}" == 1 ] && [ ! -d "${mseRawCurrentParamDataValue}" ]; then
+                      mkdir -p "${mseRawCurrentParamDataValue}"
+                      if [ $? != 0 ]; then
+                        mseReturn="Cannot create a new directory in ${mseRawCurrentParamDataValue}"
+                      fi
+                    fi
+                  ;;
+                  functionName)
+                    mseParamCk=$(mse_mmod_checkIfFunctionExists "${mseRawCurrentParamDataValue}")
+                    if [ $mseParamCk == 0 ]; then
+                      mseReturn="Argument \"${mseParamLabel}\" must be a name of a existent function"
+                    fi
+                  ;;
+                  arrayName)
+                    #
+                    # Identifica se o array de fato existe
+                    if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -a" ]]; then
+                      mseReturn="Argument \"${mseParamLabel}\" is not an array"
+                    else
+                      declare -n mseTmpArrayName="${mseRawCurrentParamDataValue}"
+
+                      if [ "$mseParamMin" != "" ] && [ "${#mseTmpArrayName[@]}" -lt "$mseParamMin" ]; then
+                        mseReturn="Argument \"${mseParamLabel}\" must be an array with at least ${mseParamMin} elements"
+                      elif [ "$mseParamMax" != "" ] && [ "${#mseTmpArrayName[@]}" -gt "$mseParamMax" ]; then
+                        mseReturn="Argument \"${mseParamLabel}\" must be an array with at most ${mseParamMax} elements"
+                      fi
+                    fi
+                  ;;
+                  assocName)
+                    #
+                    # Identifica se o array de fato existe
+                    if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -A" ]]; then
+                      mseReturn="Argument \"${mseParamLabel}\" is not an associative array"
+                    else
+                      declare -n mseTmpAssocArrayName="${mseRawCurrentParamDataValue}"
+                      local mseTmpAssocKey
+
+                      for mseTmpAssocKey in "${mseParamAssocKeys[@]}"; do
+                        if [ "$mseReturn" == 1 ] && [ -z "${mseTmpAssocArrayName[$mseTmpAssocKey]+x}" ]; then
+                          mseReturn="Argument \"${mseParamLabel}\" lost the required key \"${mseTmpAssocKey}\""
+                        fi
+                      done
+                    fi
+                  ;;
+                  list)
+                    local mseTmpMatch
+                    local mseTmpListI
+                    local mseTmpListL
+
+                    mseTmpMatch=0
+                    mseTmpListL="${#mseParamListLabels[@]}"
+                    for ((mseTmpListI=0; mseTmpListI<mseTmpListL; mseTmpListI++)); do
+                      if [ "${mseRawCurrentParamDataValue}" == "${mseParamListLabels[$mseTmpListI]}" ] || [ "${mseRawCurrentParamDataValue}" == "${mseParamListValues[$mseTmpListI]}" ]; then
+                        mseRawCurrentParamDataValue="${mseParamListValues[$mseTmpListI]}"
+                        mseTmpMatch=1
+                        break;
+                      fi
+                    done
+
+                    if [ "$mseTmpMatch" == 0 ]; then
+                      mseReturn="Argument \"${mseParamLabel}\" has an invalid value"
+                    fi
+                  ;;
+                esac
+              fi
+            fi
           fi
         fi
+
       fi
     done
   fi
@@ -351,16 +486,19 @@ mse_mmod_validateArgs() {
 
 
 mse_mmod_test() {
-  declare -A checkParams
-  checkParams["param_1"]="P01 :: r :: string    :: teste01 :: 25"
-  checkParams["param_2"]="P02 :: o :: string    :: teste02 :: 200"
-  checkParams["param_3"]="P03 :: o :: int       :: 1 :: 0 :: 10"
-  checkParams["param_4"]="P04 :: o :: fileName  :: :: y"
-  checkParams["param_5"]="P05 :: o :: dirName   :: ~/mypath :: n"
-  checkParams["param_6"]="P06 :: o :: arrayName :: :: 1 :: 20"
-  checkParams["param_7"]="P07 :: o :: assocName :: key1 :: key1, key2, key3 "
-  checkParams["param_8"]="P08 :: o :: list :: SC"
-  checkParams["param_8_labels"]="São Paulo, Santa Catarina, Rio Grande do Sul"
-  checkParams["param_8_values"]="SP, SC, RS"
-  mse_mmod_validateArgs "8" "checkParams"
+  declare -a pData=($@)
+  declare -A pRules
+  pRules["count"]=8
+  pRules["param_0"]="P01 :: r :: string    :: :: 25"
+  pRules["param_1"]="P02 :: o :: string    :: teste02 :: 200"
+  pRules["param_2"]="P03 :: o :: int       :: 1 :: 0 :: 10"
+  pRules["param_3"]="P04 :: o :: fileName  :: :: y"
+  pRules["param_4"]="P05 :: o :: dirName   :: ~/mypath :: n"
+  pRules["param_5"]="P06 :: o :: arrayName :: :: 1 :: 20"
+  pRules["param_6"]="P07 :: o :: assocName :: :: key1, key2, key3 "
+  pRules["param_7"]="P08 :: o :: list :: SC"
+  pRules["param_7_labels"]="São Paulo, Santa Catarina, Rio Grande do Sul"
+  pRules["param_7_values"]="SP, SC, RS"
+
+  mse_mmod_validateArgs "pRules" "pData"
 }

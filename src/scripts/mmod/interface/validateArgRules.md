@@ -2,7 +2,8 @@
 
 Todas as regras de conferencia de parametros para funções devem ser
 adicionadas em um array associativo onde, cada chave deve ser nomeada
-como 'param_N' (onde N é o número identificador do parametro $1, $2 ...)
+como 'param_N' (onde N é o número do índice de cada argumento no array
+especial '$@'.
 
 Em cada chave as regras de validação devem ser dispostas na ordem indicada
 abaixo. Alguns campos de definição de parametros variam conforme o tipo
@@ -13,6 +14,18 @@ dois pontos '::'
 Campos que podem receber diferentes tipos de valores, e que, portanto,
 possuem diferentes formas de validação deverão ser 'desdobrados' conforme
 é indicado mais abaixo.
+
+&nbsp;
+&nbsp;
+
+## CHAVE ESPECIAL 'count'
+
+Esta chave é obrigatoria e sempre deve existir para que a validação dos
+campos funcione adequadamente.
+Indique nela a totalidade de argumentos que podem ser recebidos ao todo.
+Ex:
+declare -A checkParams
+checkParams["count"]="4"
 
 &nbsp;
 &nbsp;
@@ -103,9 +116,9 @@ do respectivo campo.
 &nbsp;
 
 **EXEMPLOS DE DEFINIÇÕES SIMPLES DE PARAMETROS**  
-checkParams["param_1"]="Nome  :: r :: string  :: "  
-checkParams["param_2"]="Idade :: r :: int     :: "  
-checkParams["param_3"]="Pais  :: r :: string  :: Brasil"  
+checkParams["param_0"]="Nome  :: r :: string  :: "  
+checkParams["param_1"]="Idade :: r :: int     :: "  
+checkParams["param_2"]="Pais  :: r :: string  :: Brasil"  
 
 &nbsp;
 &nbsp;
