@@ -18,32 +18,18 @@
 #
 # @param string $2
 # String original (que será 'esplitada')
-#
-# @example
-#   mse_str_split '-' "2022-12-22"
-#   myArray=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
-#   =
-#   myArray=("2022" "12" "22")
-mse_str_split() {
-  local mseReturn
+mse_raw_str_split() {
+  local mseDelimiter
+  local mseString
+  local mseSubStr
 
-  declare -a mseParamData=($@)
-  declare -A mseParamRules
-  mseParamRules["count"]=2
-  mseParamRules["param_0"]="Delimiter :: r :: string"
-  mseParamRules["param_1"]="String :: r :: string"
+  unset MSE_GLOBAL_MODULE_SPLIT_RESULT
+  declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
-    local mseDelimiter="$1"
-    local mseString="$2"
-    local mseSubStr=""
-
-    unset MSE_GLOBAL_MODULE_SPLIT_RESULT
-    declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
+  if [ $# -ge 2 ] && [ "$1" != "" ] && [ "$2" != "" ]; then
+    mseDelimiter="$1"
+    mseString="$2"
+    mseSubStr=""
 
     while [ "${mseString}" != "" ]; do
       #
@@ -58,7 +44,5 @@ mse_str_split() {
         mseString="${mseString#*${mseDelimiter}}"
       fi
     done
-
-    return 0
   fi
 }

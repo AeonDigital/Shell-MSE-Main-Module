@@ -23,14 +23,29 @@
 #   mse_str_join '-' "myArray"
 #   2022-12-22
 mse_str_join() {
-  local mseArray
-  local mseStr
-  mseArray="$2[@]"
-  mseStr=$(printf '%s'$1 "${!mseArray}")
+  local mseReturn
 
-  if [ "${#mseStr}" -gt 0 ]; then
-    mseStr="${mseStr:: -1}"
+  declare -a mseParamData=($@)
+  declare -A mseParamRules
+  mseParamRules["count"]=2
+  mseParamRules["param_0"]="Glue :: r :: string"
+  mseParamRules["param_1"]="ArrayName :: r :: arrayName"
+
+  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseReturn" != 1 ]; then
+    printf "%s" "${mseReturn}"
+    return 1
+  else
+    local mseGlue="$1"
+    local mseGlueLen="${#mseGlue}"
+    declare -n mseArrayName="$2"
+    mseReturn=$(printf '%s'$1 "${mseArrayName[@]}")
+
+    if [ $mseGlueLen -gt 0 ]; then
+      mseReturn="${mseReturn:: -$mseGlueLen}"
+    fi
+
+    printf "%s" "${mseReturn}"
+    return 0
   fi
-
-  printf "${mseStr}"
 }

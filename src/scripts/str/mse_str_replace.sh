@@ -25,18 +25,27 @@
 #   result=$(mse_str_replace "22" "20" "2022-12-22")
 #   printf $result # "2020-12-20"
 mse_str_replace() {
-  local mseStr=""
+  local mseReturn
 
+  declare -a mseParamData=($@)
+  declare -A mseParamRules
+  mseParamRules["count"]=3
+  mseParamRules["param_0"]="Old :: r :: string"
+  mseParamRules["param_1"]="New :: r :: string"
+  mseParamRules["param_2"]="String :: r :: string"
 
-  if [ $# -lt 3 ]; then
-    mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_lostArgument}"
+  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseReturn" != 1 ]; then
+    printf "%s" "${mseReturn}"
+    return 1
   else
-    #
-    # Apenas se a string original não estiver vazia...
-    if [ "$3" != "" ]; then
-      mseStr="${3//$1/$2}"
-    fi
-  fi
+    local mseOld="$1"
+    local mseNew="$2"
+    local mseString="$3"
 
-  printf "${mseStr}"
+    mseReturn="${mseString//${mseOld}/${mseNew}}"
+
+    printf "%s" "${mseReturn}"
+    return 0
+  fi
 }
