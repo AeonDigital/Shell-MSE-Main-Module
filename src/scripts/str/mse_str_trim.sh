@@ -24,7 +24,7 @@ mse_str_trim() {
   str="${str#"${str%%[![:space:]]*}"}" # trim L
   str="${str%"${str##*[![:space:]]}"}" # trim R
 
-  printf "${str}"
+  printf '%s' "${str}"
 
   #
   # usando 'sed'

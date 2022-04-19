@@ -23,6 +23,5 @@
 # '0' se a chave não está no array
 mse_mmod_checkIfHasKeyInAssoc() {
   declare -n assocName="$2"
-  if [ ! -z "${assocName[$1]+x}" ]; then printf "1"; else printf "2"; fi
-  #eval 'if [ ${'$2'[$1]+x} ]; then printf "1"; else printf "0"; fi'
+  if [ ! -z "${assocName[$1]+x}" ]; then printf "1"; else printf "0"; fi
 }

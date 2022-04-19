@@ -21,6 +21,6 @@
 # '0' se o valor não é um numeral inteiro
 mse_mmod_checkIfInteger() {
   local regEx
-  regEx='^[0-9]+$'
+  regEx='^[0-9-]+$'
   if [[ $1 =~ $regEx ]]; then printf "1"; else printf "0"; fi
 }
