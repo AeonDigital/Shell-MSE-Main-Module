@@ -32,10 +32,14 @@ checkParams["count"]="4"
 
 ## CHAVES COMUNS
 
-Para qualquer caso são esperados ao menos 4 especificações de validação
+Para qualquer caso são esperados ao menos 3 especificações de validação
 para cada argumento passado. Se deseja que algum parametro não seja validado
 entre outros que serão basta deixar o valor de sua respectiva chave vazia.
-Tais especificações são:
+Tais especificações são:  
+
+- Nome
+- Obrigatorio
+- Tipo
 
 &nbsp;
 
@@ -116,8 +120,8 @@ do respectivo campo.
 &nbsp;
 
 **EXEMPLOS DE DEFINIÇÕES SIMPLES DE PARAMETROS**  
-checkParams["param_0"]="Nome  :: r :: string  :: "  
-checkParams["param_1"]="Idade :: r :: int     :: "  
+checkParams["param_0"]="Nome  :: r :: string"  
+checkParams["param_1"]="Idade :: r :: int"  
 checkParams["param_2"]="Pais  :: r :: string  :: Brasil"  
 
 &nbsp;
