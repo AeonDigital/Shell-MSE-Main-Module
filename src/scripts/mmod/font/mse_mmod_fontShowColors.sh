@@ -49,7 +49,7 @@ mse_mmod_fontShowColors() {
     mseFormat="$1"
   fi
   if [ $# == 2 ]; then
-    local isInt=$(mse_mmod_checkIfInteger $2)
+    local isInt=$(mse_check_ifInteger $2)
     if [ $isInt == 1 ]; then
       mseLineItens=$2
     fi

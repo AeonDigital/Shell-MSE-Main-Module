@@ -9,13 +9,13 @@
 
 #
 # Teste
-test_mse_mmod_validateArgs() {
+test_mse_mmod_validateParams() {
   declare -a pData=("one")
   declare -A pRules
   pRules["count"]=1
   pRules["param_0"]="wrong definition"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ wrong definition ]"
 
   mse_utest_assertEqual
@@ -27,7 +27,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: o :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -41,7 +41,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]=" :: :: "
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Label field cannot be empty ]"
 
 
@@ -56,7 +56,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: :: "
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Required field cannot be empty ]"
 
   mse_utest_assertEqual
@@ -67,7 +67,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: optional :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -77,7 +77,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: opt :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -87,7 +87,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: o :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -97,7 +97,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: 0 :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -107,7 +107,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: required :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -117,7 +117,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: req :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -127,7 +127,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: r :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -137,7 +137,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: 1 :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -151,7 +151,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: o :: "
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Type field cannot be empty ]"
 
 
@@ -163,7 +163,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -173,7 +173,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -183,7 +183,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -193,7 +193,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: dirName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -203,7 +203,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -213,7 +213,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: assocName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -225,7 +225,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="lbl1, lbl2"
   pRules["param_0_values"]="1, 2"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -239,7 +239,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: o :: string :: :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ MaxLength field must be an integer ]"
 
 
@@ -250,7 +250,7 @@ test_mse_mmod_validateArgs() {
   pData=("one")
   pRules["param_0"]="P1 :: o :: string :: :: 0"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ MaxLength field must be greater than 0 ]"
 
 
@@ -265,7 +265,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int :: :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Min field must be an integer ]"
 
   mse_utest_assertEqual
@@ -275,7 +275,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int :: :: 0 :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Max field must be an integer ]"
 
   mse_utest_assertEqual
@@ -285,7 +285,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int :: :: 2 :: 1"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Min field is greater than Max field ]"
 
   mse_utest_assertEqual
@@ -295,7 +295,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int :: :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -305,7 +305,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: int :: :: 1 :: 2"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -319,7 +319,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Min field must be an integer ]"
 
   mse_utest_assertEqual
@@ -329,7 +329,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: 0 :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Max field must be an integer ]"
 
   mse_utest_assertEqual
@@ -339,7 +339,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: 2 :: 1"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Min field is greater than Max field ]"
 
   mse_utest_assertEqual
@@ -349,7 +349,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: -1 :: 1"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ For \"arrayName\" type, Min field must be greater or equals to 0 ]"
 
   mse_utest_assertEqual
@@ -359,7 +359,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: 0 :: 0"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ For \"arrayName\" type, Max field must be greater or equals to 1 ]"
 
   mse_utest_assertEqual
@@ -369,7 +369,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -379,7 +379,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: arrayName :: :: 1 :: 2"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -393,7 +393,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName :: :: invalid"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ Create field has an invalid option ]"
 
   mse_utest_assertEqual
@@ -404,7 +404,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: dirName :: :: create"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -414,7 +414,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName :: :: yes"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -424,7 +424,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: dirName :: :: y"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -434,7 +434,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName :: :: 1"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -444,7 +444,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: dirName :: :: nocreate"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -454,7 +454,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName :: :: no"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -464,7 +464,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: dirName :: :: n"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -474,7 +474,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: fileName :: :: 0"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -491,7 +491,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 0 :: list :: "
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ List field lost the label collection ]"
 
   mse_utest_assertEqual
@@ -502,7 +502,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0"]="P1 :: 0 :: list :: "
   pRules["param_0_labels"]=""
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ List field has an empty label collection ]"
 
   mse_utest_assertEqual
@@ -513,7 +513,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0"]="P1 :: 0 :: list :: "
   pRules["param_0_labels"]="lbl1, lbl2"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ List field lost the value collection ]"
 
   mse_utest_assertEqual
@@ -525,7 +525,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="lbl1, lbl2"
   pRules["param_0_values"]=""
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ List field has an empty value collection ]"
 
   mse_utest_assertEqual
@@ -537,7 +537,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="lbl1, lbl2"
   pRules["param_0_values"]="1"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Invalid parameter definition; [ List field has an incorrect correlation between labels and values ]"
 
   mse_utest_assertEqual
@@ -557,7 +557,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 1 :: string"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" is required"
 
   mse_utest_assertEqual
@@ -567,7 +567,7 @@ test_mse_mmod_validateArgs() {
   pData=("")
   pRules["param_0"]="P1 :: 1 :: string :: def"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -582,7 +582,7 @@ test_mse_mmod_validateArgs() {
   pData=("bigger than limit string")
   pRules["param_0"]="P1 :: 1 :: string :: :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" is greater than the defined max length ( 10 )"
 
   mse_utest_assertEqual
@@ -592,7 +592,7 @@ test_mse_mmod_validateArgs() {
   pData=("allowed")
   pRules["param_0"]="P1 :: 1 :: string :: :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -607,7 +607,7 @@ test_mse_mmod_validateArgs() {
   pData=("not integer")
   pRules["param_0"]="P1 :: 1 :: int"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" is not an integer"
 
   mse_utest_assertEqual
@@ -617,7 +617,7 @@ test_mse_mmod_validateArgs() {
   pData=("-33")
   pRules["param_0"]="P1 :: 1 :: int"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -627,7 +627,7 @@ test_mse_mmod_validateArgs() {
   pData=("33")
   pRules["param_0"]="P1 :: 1 :: int"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -637,7 +637,7 @@ test_mse_mmod_validateArgs() {
   pData=("0")
   pRules["param_0"]="P1 :: 1 :: int :: :: 1 :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" must be greater or equals than 1"
 
   mse_utest_assertEqual
@@ -647,7 +647,7 @@ test_mse_mmod_validateArgs() {
   pData=("11")
   pRules["param_0"]="P1 :: 1 :: int :: :: 1 :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" must be less or equals than 10"
 
   mse_utest_assertEqual
@@ -657,7 +657,7 @@ test_mse_mmod_validateArgs() {
   pData=("10")
   pRules["param_0"]="P1 :: 1 :: int :: :: 1 :: 10"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -672,17 +672,17 @@ test_mse_mmod_validateArgs() {
   pData=("invalidFunction")
   pRules["param_0"]="P1 :: 1 :: functionName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" must be a name of a existent function"
 
   mse_utest_assertEqual
 
 
   # SUCCESS: existent
-  pData=("test_mse_mmod_validateArgs")
+  pData=("test_mse_mmod_validateParams")
   pRules["param_0"]="P1 :: 1 :: functionName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -697,7 +697,7 @@ test_mse_mmod_validateArgs() {
   pData=("invalidArray")
   pRules["param_0"]="P1 :: 1 :: arrayName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" is not an array name"
 
   mse_utest_assertEqual
@@ -708,7 +708,7 @@ test_mse_mmod_validateArgs() {
   pData=("testArrayName")
   pRules["param_0"]="P1 :: 1 :: arrayName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -719,7 +719,7 @@ test_mse_mmod_validateArgs() {
   pData=("testArrayName")
   pRules["param_0"]="P1 :: 1 :: arrayName :: :: 3 :: 5"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" must be an array with at least 3 elements"
 
   mse_utest_assertEqual
@@ -730,7 +730,7 @@ test_mse_mmod_validateArgs() {
   pData=("testArrayName")
   pRules["param_0"]="P1 :: 1 :: arrayName :: :: 3 :: 5"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" must be an array with at most 5 elements"
 
   mse_utest_assertEqual
@@ -741,7 +741,7 @@ test_mse_mmod_validateArgs() {
   pData=("testArrayName")
   pRules["param_0"]="P1 :: 1 :: arrayName :: :: 3 :: 5"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -756,13 +756,14 @@ test_mse_mmod_validateArgs() {
   pData=("invalidAssoc")
   pRules["param_0"]="P1 :: 1 :: assocName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" is not an associative array name"
 
   mse_utest_assertEqual
 
 
   # SUCCESS: existent
+  unset testAssocArrayName
   declare -A testAssocArrayName
   testAssocArrayName["one"]="1"
   testAssocArrayName["two"]="2"
@@ -770,7 +771,7 @@ test_mse_mmod_validateArgs() {
   pData=("testAssocArrayName")
   pRules["param_0"]="P1 :: 1 :: assocName"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -780,7 +781,7 @@ test_mse_mmod_validateArgs() {
   pData=("testAssocArrayName")
   pRules["param_0"]="P1 :: 1 :: assocName :: :: one, two, nondefined"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" lost the required key \"nondefined\""
 
   mse_utest_assertEqual
@@ -790,7 +791,7 @@ test_mse_mmod_validateArgs() {
   pData=("testAssocArrayName")
   pRules["param_0"]="P1 :: 1 :: assocName :: :: one, two"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -807,7 +808,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="one, two, tree"
   pRules["param_0_values"]="1, 2, 3"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="Parameter \"P1\" has an invalid value"
 
   mse_utest_assertEqual
@@ -819,7 +820,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="one, two, tree"
   pRules["param_0_values"]="1, 2, 3"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -831,7 +832,7 @@ test_mse_mmod_validateArgs() {
   pRules["param_0_labels"]="one, two, tree"
   pRules["param_0_values"]="1, 2, 3"
 
-  testResult=$(mse_mmod_validateArgs "pRules" "pData")
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -848,7 +849,7 @@ test_mse_mmod_validateArgs() {
 
   #
   # FAIL: lost ValidateRules
-  testResult=$(mse_mmod_validateArgs)
+  testResult=$(mse_mmod_validateParams)
   testExpected="Parameter \"ValidateRules\" is required"
 
   mse_utest_assertEqual
@@ -860,7 +861,7 @@ test_mse_mmod_validateArgs() {
   unset pData
   declare -A pRules
 
-  testResult=$(mse_mmod_validateArgs "pRules")
+  testResult=$(mse_mmod_validateParams "pRules")
   testExpected="Parameter \"ValidateRules\" lost the required key \"count\""
 
   mse_utest_assertEqual
@@ -873,7 +874,7 @@ test_mse_mmod_validateArgs() {
   declare -A pRules
   pRules["count"]=1
 
-  testResult=$(mse_mmod_validateArgs "pRules")
+  testResult=$(mse_mmod_validateParams "pRules")
   testExpected="Parameter \"ValidateData\" is required"
 
   mse_utest_assertEqual

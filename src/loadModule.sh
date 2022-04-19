@@ -38,7 +38,6 @@ fi
 
 
 . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_registerModule.sh"
-. "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_replacePlaceHolder.sh"
 mse_mmod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
 
 

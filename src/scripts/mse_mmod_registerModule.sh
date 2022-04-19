@@ -27,9 +27,7 @@ mse_mmod_registerModule() {
 
   local mseScrI=0
   local mseScrCount=0
-  if [ "$mseModFiles" == "" ]; then
-    mse_mmod_replacePlaceHolder "DIR" "${mseModuleSrcDirectory}/scripts" "${lbl_registerModule_EmptyDir}"
-  else
+  if [ "$mseModFiles" != "" ]; then
     #
     # Tratando-se do módulo base...
     if [ "${mseModuleName}" == "#MainModule" ]; then

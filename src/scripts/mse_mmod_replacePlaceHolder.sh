@@ -44,4 +44,19 @@ mse_mmod_replacePlaceHolder() {
   fi
 
   printf "${mseNEW}"
+
+  # local mseReturn
+
+  # if [ $# == 3 ]; then
+  #   local msePlaceHolder="[[${1}]]"
+  #   local msePlaceHolderValue="$2"
+  #   local mseString="$3"
+
+  #   mseReturn="${mseString//$msePlaceHolder/$msePlaceHolderValue}"
+  #   printf "%s" "${mseReturn}"
+  #   return 0
+  # else
+  #   return 1
+  # fi
+
 }
