@@ -520,6 +520,86 @@ test_mse_mmod_validateParams() {
   mse_utest_assertEqual
 
 
+  #
+  pData=("src/tests/expected/mse_mmod_validateParams_fileName")
+  pRules["param_0"]="P1 :: 1 :: fileName"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  # FAIL : File not exist
+  pData=("src/tests/expected/mse_mmod_validateParams_nonexist")
+  pRules["param_0"]="P1 :: 1 :: fileName"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="Parameter \"P1\" points to a non existent file"
+
+  mse_utest_assertEqual
+
+
+  # FAIL : File not exist but created
+  if [ -f "src/tests/expected/mse_mmod_validateParams_created" ]; then
+    rm "src/tests/expected/mse_mmod_validateParams_created"
+  fi
+  pData=("src/tests/expected/mse_mmod_validateParams_created")
+  pRules["param_0"]="P1 :: 1 :: fileName :: :: 1"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  testResult=$([ -f "src/tests/expected/mse_mmod_validateParams_created" ] && echo "1")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  mse_utest_assertEqual
+
+
+  #
+  pData=("src/tests/expected/dirName")
+  pRules["param_0"]="P1 :: 1 :: dirName"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  # FAIL : Directory not exist
+  pData=("src/tests/expected/nonexist")
+  pRules["param_0"]="P1 :: 1 :: dirName"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="Parameter \"P1\" points to a non existent directory"
+
+  mse_utest_assertEqual
+
+
+  # FAIL : Directory not exist but created
+  if [ -d "src/tests/expected/created" ]; then
+    rm -rf "src/tests/expected/created"
+  fi
+  pData=("src/tests/expected/created")
+  pRules["param_0"]="P1 :: 1 :: dirName :: :: 1"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  testResult=$([ -d "src/tests/expected/created" ] && echo "1")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+
 
 
 

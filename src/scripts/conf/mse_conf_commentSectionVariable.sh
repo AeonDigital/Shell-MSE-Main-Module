@@ -82,7 +82,7 @@ mse_conf_commentSectionVariable()
         mseNewLine+="${mseRawVarValue}"
         mseNewLine=("$mseNewLine")
 
-        mseReturn=$(mse_mmod_fileWrite "$1" "mseNewLine" "r" "$mseLineNumber")
+        mseReturn=$(mse_file_write "$1" "mseNewLine" "r" "$mseLineNumber")
       fi
     fi
   fi

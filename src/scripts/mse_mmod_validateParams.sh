@@ -421,6 +421,9 @@ mse_mmod_validateParams() {
                           mseReturn="Cannot create a new file in ${mseRawCurrentParamDataValue}"
                         fi
                       fi
+                      if [ ! -f "${mseRawCurrentParamDataValue}" ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" points to a non existent file"
+                      fi
                     ;;
                     dirName)
                       if [ "${mseParamCreate}" == 1 ] && [ ! -d "${mseRawCurrentParamDataValue}" ]; then
@@ -428,6 +431,9 @@ mse_mmod_validateParams() {
                         if [ $? != 0 ]; then
                           mseReturn="Cannot create a new directory in ${mseRawCurrentParamDataValue}"
                         fi
+                      fi
+                      if [ ! -d "${mseRawCurrentParamDataValue}" ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" points to a non existent directory"
                       fi
                     ;;
                     functionName)
