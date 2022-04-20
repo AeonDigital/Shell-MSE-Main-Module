@@ -19,24 +19,12 @@
 # @return bool
 # '1' se o valor é um numeral inteiro
 # '0' se o valor não é um numeral inteiro
-mse_check_ifInteger() {
-  local mseReturn
-
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=1
-  mseParamRules["param_0"]="Value :: r :: string"
-
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
+mse_raw_isInteger() {
+  local mseReturn=0
+  if [ $# -ge 1 ] && [ "$1" != "" ]; then
     local regEx
     regEx='^[-]?[0-9]+$'
     if [[ $1 =~ $regEx ]]; then mseReturn=1; else mseReturn=0; fi
-
-    printf "%s" "${mseReturn}"
-    return 0
   fi
+  printf "%s" "${mseReturn}"
 }

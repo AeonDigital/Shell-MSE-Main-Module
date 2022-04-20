@@ -18,22 +18,10 @@
 # @return bool
 # '1' se a função existir
 # '0' se a função não existir
-mse_check_ifFunctionExists() {
-  local mseReturn
-
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=1
-  mseParamRules["param_0"]="FunctionName :: r :: string"
-
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
+mse_raw_isFunctionExists() {
+  local mseReturn=0
+  if [ $# -ge 1 ] && [ "$1" != "" ]; then
     if [ "$(type -t $1)" == "function" ]; then mseReturn=1; else mseReturn=0; fi
-
-    printf "%s" "${mseReturn}"
-    return 0
   fi
+  printf "%s" "${mseReturn}"
 }

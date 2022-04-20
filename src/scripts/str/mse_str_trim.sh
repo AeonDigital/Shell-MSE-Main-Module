@@ -18,13 +18,27 @@
 #   result=$(mse_str_trim "   texto  aqui   ")
 #   printf $result # "texto  aqui"
 mse_str_trim() {
-  local str
+  local mseReturn
 
-  str="$1"
-  str="${str#"${str%%[![:space:]]*}"}" # trim L
-  str="${str%"${str##*[![:space:]]}"}" # trim R
+  declare -a mseParamData=("$@")
+  declare -A mseParamRules
+  mseParamRules["count"]=1
+  mseParamRules["param_0"]="String :: r :: string"
 
-  printf '%s' "${str}"
+  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseReturn" != 1 ]; then
+    printf "%s" "${mseReturn}"
+    return 1
+  else
+    mseReturn="$1"
+
+    mseReturn="${mseReturn#"${mseReturn%%[![:space:]]*}"}" # trim L
+    mseReturn="${mseReturn%"${mseReturn##*[![:space:]]}"}" # trim R
+
+    printf "%s" "${mseReturn}"
+    return 0
+  fi
+
 
   #
   # usando 'sed'

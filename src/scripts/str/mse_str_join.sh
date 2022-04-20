@@ -25,7 +25,7 @@
 mse_str_join() {
   local mseReturn
 
-  declare -a mseParamData=($@)
+  declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=2
   mseParamRules["param_0"]="Glue :: r :: string"

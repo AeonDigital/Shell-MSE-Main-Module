@@ -27,7 +27,7 @@
 mse_str_split() {
   local mseReturn
 
-  declare -a mseParamData=($@)
+  declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=2
   mseParamRules["param_0"]="Delimiter :: r :: string"

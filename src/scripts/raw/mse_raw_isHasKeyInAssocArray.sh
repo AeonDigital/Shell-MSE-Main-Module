@@ -21,24 +21,11 @@
 # @return bool
 # '1' se a chave está no array
 # '0' se a chave não está no array
-mse_check_ifHasKeyInAssocArray() {
-  local mseReturn
-
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=2
-  mseParamRules["param_0"]="KeyName :: r :: string"
-  mseParamRules["param_1"]="AssocArrayName :: r :: assocName"
-
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
+mse_raw_isHasKeyInAssocArray() {
+  local mseReturn=0
+  if [ $# -ge 2 ] && [ "$1" != "" ] && [ "$2" != "" ]; then
     declare -n assocName="$2"
     if [ ! -z "${assocName[$1]+x}" ]; then mseReturn=1; else mseReturn=0; fi
-
-    printf "%s" "${mseReturn}"
-    return 0
   fi
+  printf "%s" "${mseReturn}"
 }

@@ -37,7 +37,7 @@ mse_mmod_validateParams() {
   if [ $# -le 2 ] || [ "$3" != "1" ]; then
     #
     # Efetua a validação dos argumentos recebidos nesta própria função
-    declare -a mseCheckData=($@)
+    declare -a mseCheckData=("$@")
     declare -A mseCheckParams
     mseCheckParams["count"]="3"
     mseCheckParams["param_0"]="ValidateRules :: r :: assocName :: :: count"
@@ -102,15 +102,8 @@ mse_mmod_validateParams() {
     # Para cada regra de argumento existente...
     for ((mseCurrentParam=0; mseCurrentParam<mseRawParamRulesLength; mseCurrentParam++)); do
       if [ "${mseReturn}" == 1 ]; then
-
-        #
-        # Identifica se o parametro atual está setado.
         mseCurrentParamIsSet=0
         mseRawCurrentParamDataValue=""
-        if [ "$mseCurrentParam" -lt "$mseRawParamDataLength" ] && [ "${mseRawParamData[$mseCurrentParam]}" != "" ]; then
-          mseCurrentParamIsSet=1
-          mseRawCurrentParamDataValue="${mseRawParamData[$mseCurrentParam]}"
-        fi
 
 
         #
@@ -174,12 +167,12 @@ mse_mmod_validateParams() {
 
                 if [ "${#mseRawCurrentParamRuleValues[@]}" -ge 4 ]; then
                   case "$mseParamType" in
-                    string | int | fileName | dirName | functionName | arrayName | assocName | list)
+                    string | char | charDecimal | charHex | charOctal | int | fileName | dirName | functionName | arrayName | assocName | list)
                       mseParamDefault="${mseRawCurrentParamRuleValues[3]}"
                     ;;
                     validateFN)
                       mseParamFunctionName="${mseRawCurrentParamRuleValues[3]}"
-                      mseParamCk=$(mse_raw_ifFunctionExists "$mseParamFunctionName")
+                      mseParamCk=$(mse_raw_isFunctionExists "$mseParamFunctionName")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Invalid parameter definition; [ ValidateFunction field points to non existent function \"${mseParamFunctionName}\" ]"
                       fi
@@ -208,12 +201,13 @@ mse_mmod_validateParams() {
               mseParamListLabels=""
               mseParamListValues=""
 
+
               case "$mseParamType" in
                 string)
                   if [ $mseParamL -ge 5 ]; then
                     mseParamMaxLength="${mseRawCurrentParamRuleValues[4]}"
 
-                    mseParamCk=$(mse_raw_ifInteger "$mseParamMaxLength")
+                    mseParamCk=$(mse_raw_isInteger "$mseParamMaxLength")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ MaxLength field must be an integer ]"
                     else
@@ -227,7 +221,7 @@ mse_mmod_validateParams() {
                   if [ $mseParamL -ge 5 ]; then
                     mseParamMin="${mseRawCurrentParamRuleValues[4]}"
 
-                    mseParamCk=$(mse_raw_ifInteger "$mseParamMin")
+                    mseParamCk=$(mse_raw_isInteger "$mseParamMin")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ Min field must be an integer ]"
                     fi
@@ -236,7 +230,7 @@ mse_mmod_validateParams() {
                   if [ "${mseReturn}" == 1 ] && [ $mseParamL -ge 6 ]; then
                     mseParamMax="${mseRawCurrentParamRuleValues[5]}"
 
-                    mseParamCk=$(mse_raw_ifInteger "$mseParamMax")
+                    mseParamCk=$(mse_raw_isInteger "$mseParamMax")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ Max field must be an integer ]"
                     fi
@@ -295,7 +289,7 @@ mse_mmod_validateParams() {
 
                   #
                   # Verifica e valida a coleção de legendas válidas
-                  mseParamCk=$(mse_raw_ifHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
+                  mseParamCk=$(mse_raw_isHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
                   if [ $mseParamCk == 0 ]; then
                     mseReturn="Invalid parameter definition; [ List field lost the label collection ]"
                   else
@@ -318,7 +312,7 @@ mse_mmod_validateParams() {
                   #
                   # Verifica e valida a coleção de valores válidos
                   if [ "${mseReturn}" == 1 ]; then
-                    mseParamCk=$(mse_raw_ifHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
+                    mseParamCk=$(mse_raw_isHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ List field lost the value collection ]"
                     else
@@ -353,13 +347,20 @@ mse_mmod_validateParams() {
 
 
             if [ "${mseReturn}" == 1 ]; then
+
+              #
+              # Identifica se o parametro atual está setado.
+              if [ "$mseCurrentParam" -lt "$mseRawParamDataLength" ]; then
+                mseCurrentParamIsSet=1
+                mseRawCurrentParamDataValue="${mseRawParamData[$mseCurrentParam]}"
+              fi
+
               #
               # Assume o valor padrão caso exista um definido
               if [ $mseCurrentParamIsSet == 0 ] && [ "${mseParamDefault}" != "" ]; then
                 mseCurrentParamIsSet=1
                 mseRawCurrentParamDataValue="${mseParamDefault}"
               fi
-
 
               #
               # Se o parametro é obrigatório mas não está definido
@@ -370,12 +371,39 @@ mse_mmod_validateParams() {
                 if [ "${mseRawCurrentParamDataValue}" != "" ]; then
                   case "${mseParamType}" in
                     string)
+                      local oLC_CTYPE="${LC_CTYPE}"
+                      LC_CTYPE=""
                       if [ "$mseParamMaxLength" != "" ] && [ "${#mseRawCurrentParamDataValue}" -gt $mseParamMaxLength ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" is greater than the defined max length ( ${mseParamMaxLength} )"
                       fi
+                      LC_CTYPE="${oLC_CTYPE}"
+                    ;;
+                    char)
+                      mseParamCk=$(mse_raw_isChar "${mseRawCurrentParamDataValue}")
+                      if [ $mseParamCk == 0 ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" is not a char"
+                      fi
+                    ;;
+                    charDecimal)
+                      mseParamCk=$(mse_raw_isCharDecimal "${mseRawCurrentParamDataValue}")
+                      if [ $mseParamCk == 0 ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid decimal representation of char"
+                      fi
+                    ;;
+                    charHex)
+                      mseParamCk=$(mse_raw_isCharHex "${mseRawCurrentParamDataValue}")
+                      if [ $mseParamCk == 0 ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid hexadecimal representation of char"
+                      fi
+                    ;;
+                    charOctal)
+                      mseParamCk=$(mse_raw_isCharOctal "${mseRawCurrentParamDataValue}")
+                      if [ $mseParamCk == 0 ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid octal representation of char"
+                      fi
                     ;;
                     int)
-                      mseParamCk=$(mse_raw_ifInteger "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_raw_isInteger "${mseRawCurrentParamDataValue}")
                       if [ "$mseParamCk" == 0 ]; then
                       mseReturn="Parameter \"${mseParamLabel}\" is not an integer"
                       else
@@ -403,7 +431,7 @@ mse_mmod_validateParams() {
                       fi
                     ;;
                     functionName)
-                      mseParamCk=$(mse_raw_ifFunctionExists "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_raw_isFunctionExists "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" must be a name of a existent function"
                       fi

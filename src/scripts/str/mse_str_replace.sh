@@ -27,7 +27,7 @@
 mse_str_replace() {
   local mseReturn
 
-  declare -a mseParamData=($@)
+  declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=3
   mseParamRules["param_0"]="Old :: r :: string"

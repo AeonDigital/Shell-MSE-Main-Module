@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# myShellEnv v 1.0 [aeondigital.com.br]
+
+
+
+
+
+
+
+#
+# @desc
+# Converte o valor Octal informado para o respectivo Caracter.
+#
+# Use múltiplos valores separados por espaços para representar caracteres
+# multibyte.
+#
+# Importante salientar que os caracteres correspondentes aos decimais acima do
+# número 127 dependem da fonte sendo usada no terminal e no fato de ele estar
+# ou não preparado para usar caracteres UTF-8.
+#
+# @param int $1
+# Valor que será convertido.
+#
+# @param bool $2
+# Se omitido, ou se '0' irá retornar o valor convertido e adicionará uma linha
+# em branco após a impressão.
+# Se '1' retornará apenas o caracter.
+#
+# @example
+#   mse_str_convert_octalToChar "303 255"    # converte para -> í
+#   result=$(mse_str_convert_octalToChar "303 255" 1)
+mse_str_convert_octalToChar() {
+  local mseReturn
+
+  declare -a mseParamData=("$@")
+  declare -A mseParamRules
+  mseParamRules["count"]=1
+  mseParamRules["param_0"]="Octal :: r :: charOctal"
+
+  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseReturn" != 1 ]; then
+    printf "%s" "${mseReturn}"
+    return 1
+  else
+    mseReturn=""
+    local mseTmp
+    local mseByte
+    local mseArrParam
+
+    #
+    # Esplita o valor inicial em bytes
+    # e então converte cada byte remontando o char final
+    mseArrParam=(${1// / })
+    for mseByte in "${mseArrParam[@]}"; do
+      mseReturn+="\\${mseByte[$i]}"
+    done
+
+    printf "${mseReturn}"
+    return 0
+  fi
+}

@@ -23,7 +23,7 @@
 mse_check_ifCommandExists() {
   local mseReturn
 
-  declare -a mseParamData=($@)
+  declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=1
   mseParamRules["param_0"]="Command :: r :: string"
