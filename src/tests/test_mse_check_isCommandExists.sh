@@ -9,20 +9,20 @@
 
 #
 # Teste
-test_mse_check_ifCommandExists() {
-  testResult=$(mse_check_ifCommandExists)
+test_mse_check_isCommandExists() {
+  testResult=$(mse_check_isCommandExists)
   testExpected="Parameter \"Command\" is required"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_check_ifCommandExists 'ls --version')
+  testResult=$(mse_check_isCommandExists 'ls --version')
   testExpected="1"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_check_ifCommandExists 'nonexists --version')
+  testResult=$(mse_check_isCommandExists 'nonexists --version')
   testExpected="0"
 
   mse_utest_assertEqual

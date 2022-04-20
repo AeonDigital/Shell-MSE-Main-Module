@@ -40,7 +40,7 @@ mse_mmod_fontShowAttributes() {
     mseFormat="$1"
   fi
   if [ $# == 2 ]; then
-    local isInt=$(mse_check_ifInteger $2)
+    local isInt=$(mse_check_isInteger $2)
     if [ $isInt == 1 ]; then
       mseLineItens=$2
     fi

@@ -20,7 +20,7 @@
 # @return bool
 # '1' se o comando existir
 # '0' se o comando não existir
-mse_check_ifCommandExists() {
+mse_check_isCommandExists() {
   local mseReturn
 
   declare -a mseParamData=("$@")

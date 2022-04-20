@@ -21,7 +21,7 @@
 # @return bool
 # '1' se a chave está no array
 # '0' se a chave não está no array
-mse_check_ifHasKeyInAssocArray() {
+mse_check_hasKeyInAssocArray() {
   local mseReturn
 
   declare -a mseParamData=("$@")

@@ -9,29 +9,32 @@
 
 #
 # @desc
-# Permite identificar se uma função está definida no escopo atual do terminal.
+# Permite identificar se um valor passado é uma string indicada
+# representa adequadamente um numeral inteiro.
 # Printa '1' se sim e '0' se não.
 #
 # @param string $1
-# Nome da função que está sendo verificada.
+# Valor que será testado.
 #
 # @return bool
-# '1' se a função existir
-# '0' se a função não existir
-mse_check_ifFunctionExists() {
+# '1' se o valor é um numeral inteiro
+# '0' se o valor não é um numeral inteiro
+mse_check_isInteger() {
   local mseReturn
 
   declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=1
-  mseParamRules["param_0"]="FunctionName :: r :: string"
+  mseParamRules["param_0"]="Value :: r :: string"
 
   mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1
   else
-    if [ "$(type -t $1)" == "function" ]; then mseReturn=1; else mseReturn=0; fi
+    local regEx
+    regEx='^[-]?[0-9]+$'
+    if [[ $1 =~ $regEx ]]; then mseReturn=1; else mseReturn=0; fi
 
     printf "%s" "${mseReturn}"
     return 0

@@ -21,7 +21,7 @@
 # @return bool
 # '1' se o valor está no array
 # '0' se o valor não está no array
-mse_check_ifHasValueInArray() {
+mse_check_hasValueInArray() {
   local mseReturn
 
   declare -a mseParamData=("$@")
