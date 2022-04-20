@@ -112,10 +112,10 @@ MSE_GLOBAL_MODULE_SPLIT_RESULT=()
 
 #
 # O array associativo 'MSE_GLOBAL_MODULE_READ_BLOCK' permite configurar
-# a função 'mse_mmod_fileRead' indicando para ela como encontrar um ou
+# a função 'mse_file_read' indicando para ela como encontrar um ou
 # mais bloco de informações que devem ser retornadas.
 #
-# Tenha em mente que a função 'mse_mmod_fileRead', por padrão irá printar
+# Tenha em mente que a função 'mse_file_read', por padrão irá printar
 # na tela todas as linhas de dados do arquivo passado, no entanto, usando
 # esta variável e suas chaves você pode informar a ele apenas os pontos
 # que lhe interessa dentro de um arquivo.
@@ -182,10 +182,10 @@ MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
 
 #
 # O array associativo 'MSE_GLOBAL_MODULE_READ_LINE' permite configurar
-# a função 'mse_mmod_fileRead' indicando para ela como saber se a linha
+# a função 'mse_file_read' indicando para ela como saber se a linha
 # atualmente sendo verificada deve ou não ser retornada.
 #
-# Tenha em mente que a função 'mse_mmod_fileRead', por padrão irá printar
+# Tenha em mente que a função 'mse_file_read', por padrão irá printar
 # na tela todas as linhas de dados do arquivo passado, no entanto, usando
 # esta variável e suas chaves você pode informar a ele como identificar
 # com precisão as linhas exatas que deseja retornar.

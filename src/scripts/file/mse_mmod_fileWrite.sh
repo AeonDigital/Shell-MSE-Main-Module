@@ -83,7 +83,7 @@ mse_mmod_fileWrite()
       if [ -f "$1" ]; then
         mseFilePath="$1"
         mseFileContent=$(< "$mseFilePath")
-        mseFileLastLine=$(mse_mmod_fileCountLines "$mseFilePath")
+        mseFileLastLine=$(mse_file_countLines "$mseFilePath")
       else
         mseReturn="Invalid parameter \$1 [ File not found ]"
       fi

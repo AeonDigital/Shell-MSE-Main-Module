@@ -19,7 +19,7 @@
 #
 # @return
 # Traz a string original transformada conforme indicado na descrição.
-mse_mmod_fileRead_transformLine_normalizeKeyValue() {
+mse_file_read_transformLine_normalizeKeyValue() {
   local mseLine
 
   if [ $# -ge 2 ] && [ "$2" != "" ]; then

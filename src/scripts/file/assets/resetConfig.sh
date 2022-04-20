@@ -9,7 +9,7 @@
 
 #
 # Reseta todas as configurações atualmente definidas para o comando 'readFile'.
-mse_mmod_fileRead_resetConfig() {
+mse_file_read_resetConfig() {
   unset MSE_GLOBAL_MODULE_READ_BLOCK
   declare -gA MSE_GLOBAL_MODULE_READ_BLOCK
 

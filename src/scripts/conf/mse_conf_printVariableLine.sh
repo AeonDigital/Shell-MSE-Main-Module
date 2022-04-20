@@ -38,16 +38,16 @@ mse_conf_printVariableLine()
   mseRawLine=""
 
   if [ "$mseRawSection" != "" ]; then
-    mse_mmod_fileRead_resetConfig
+    mse_file_read_resetConfig
 
-    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_mmod_fileRead_checkLine_hasVariable"
+    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_hasVariable"
     MSE_GLOBAL_MODULE_READ_LINE["check_args"]="$2"
     MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
 
     unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
     declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("#" ";")
 
-    mseRawLine=$(mse_mmod_fileRead "$mseRawSection")
+    mseRawLine=$(mse_file_read "$mseRawSection")
   fi
 
   printf "${mseRawLine%[[:cntrl:]]*}"
