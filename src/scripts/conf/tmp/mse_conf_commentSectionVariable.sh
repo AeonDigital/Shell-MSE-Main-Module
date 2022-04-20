@@ -9,7 +9,7 @@
 
 #
 # @desc
-# Permite editar uma configuração do tipo chave=valor e comentar uma
+# Permite editar um arquivo de configuração do tipo chave=valor e comentar uma
 # variável indicada.
 #
 # Se o arquivo de configuração estiver mal formatado e existir dentro da mesma

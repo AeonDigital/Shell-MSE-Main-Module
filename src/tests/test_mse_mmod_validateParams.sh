@@ -161,6 +161,17 @@ test_mse_mmod_validateParams() {
   #
   # SUCCESS DEFINITION: Type options
   pData=("")
+  pRules["param_0"]="P1 :: 0 :: bool"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  #
+  # SUCCESS DEFINITION: Type options
+  pData=("")
   pRules["param_0"]="P1 :: 0 :: string"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -267,6 +278,43 @@ test_mse_mmod_validateParams() {
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
   testExpected="1"
+
+  mse_utest_assertEqual
+
+
+
+
+
+  #
+  # FAIL DEFINITION: Bool: Invalid
+  pData=("2")
+  pRules["param_0"]="P1 :: o :: bool"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="Parameter \"P1\" is not a bool"
+
+
+  mse_utest_assertEqual
+
+
+  #
+  pData=("0")
+  pRules["param_0"]="P1 :: o :: bool"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
+
+  mse_utest_assertEqual
+
+
+  #
+  pData=("1")
+  pRules["param_0"]="P1 :: o :: bool"
+
+  testResult=$(mse_mmod_validateParams "pRules" "pData")
+  testExpected="1"
+
 
   mse_utest_assertEqual
 

@@ -167,7 +167,7 @@ mse_mmod_validateParams() {
 
                 if [ "${#mseRawCurrentParamRuleValues[@]}" -ge 4 ]; then
                   case "$mseParamType" in
-                    string | char | charDecimal | charHex | charOctal | int | fileName | dirName | functionName | arrayName | assocName | list)
+                    bool | string | char | charDecimal | charHex | charOctal | int | fileName | dirName | functionName | arrayName | assocName | list)
                       mseParamDefault="${mseRawCurrentParamRuleValues[3]}"
                     ;;
                     validateFN)
@@ -370,6 +370,11 @@ mse_mmod_validateParams() {
               else
                 if [ "${mseRawCurrentParamDataValue}" != "" ]; then
                   case "${mseParamType}" in
+                    bool)
+                      if [ "${mseRawCurrentParamDataValue}" != 1 ] && [ "${mseRawCurrentParamDataValue}" != 0 ]; then
+                        mseReturn="Parameter \"${mseParamLabel}\" is not a bool"
+                      fi
+                    ;;
                     string)
                       local oLC_CTYPE="${LC_CTYPE}"
                       LC_CTYPE=""

@@ -37,6 +37,8 @@ mse_file_read()
   declare -A mseParamRules
   mseParamRules["count"]=1
   mseParamRules["param_0"]="PathToFile :: r :: fileName"
+  mseParamRules["param_1"]="ShowEmptyLines :: o :: bool :: 0"
+  mseParamRules["param_2"]="ShowLineNumber :: o :: bool :: 0"
 
   mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then

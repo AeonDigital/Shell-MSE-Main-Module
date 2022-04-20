@@ -10,7 +10,6 @@
 #
 # @desc
 # Imprime todas as variáveis do arquivo de configuração indicado.
-#
 # Linhas comentadas e vazias não serão mostradas.
 #
 # @param string $1
@@ -19,9 +18,48 @@
 # @param bool $2
 # Omita, indique "" ou "0" para retornar apenas as linhas alvo.
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
-mse_conf_printVariables()
+mse_conf_showVariables()
 {
-  local mseShowLineNumber
+  local mseReturn
+
+  declare -a mseParamData=("$@")
+  declare -A mseParamRules
+  mseParamRules["count"]=1
+  mseParamRules["param_0"]="PathToFile :: r :: fileName"
+
+  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseReturn" != 1 ]; then
+    printf "%s" "${mseReturn}"
+    return 1
+  else
+    mseReturn=0
+    local mseLineRaw
+    local mseFileContent
+    local oIFS
+
+
+    mseFileContent="$1"
+    if [ -f "$mseFileContent" ]; then
+      mseFileContent=$(< "$mseFileContent")
+    fi
+
+    if [ "${mseFileContent}" != "" ]; then
+      oIFS=$IFS
+      IFS=$'\n'
+
+      while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
+        ((mseReturn=mseReturn+1))
+      done <<< "$mseFileContent"
+
+      IFS=$oIFS
+    fi
+
+
+    printf "%s" "${mseReturn}"
+    return 0
+  fi
+
+    local mseShowLineNumber
 
   mseShowLineNumber=0
   if [ $# -ge 2 ] && [ $2 == 1 ]; then

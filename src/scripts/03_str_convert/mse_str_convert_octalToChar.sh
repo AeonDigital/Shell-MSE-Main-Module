@@ -21,11 +21,6 @@
 # @param int $1
 # Valor que será convertido.
 #
-# @param bool $2
-# Se omitido, ou se '0' irá retornar o valor convertido e adicionará uma linha
-# em branco após a impressão.
-# Se '1' retornará apenas o caracter.
-#
 # @example
 #   mse_str_convert_octalToChar "303 255"    # converte para -> í
 #   result=$(mse_str_convert_octalToChar "303 255" 1)

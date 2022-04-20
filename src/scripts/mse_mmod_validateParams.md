@@ -68,23 +68,26 @@ Use os seguintes valores:
 
 Indica o tipo de informação que é aceitável para este campo.
 
+  `bool`  
+  Aceitará como válido os valores '1' e '0'.
+
   `string`  
   Aceitará como válido qualquer string definida.
   Pela natureza do Bash significa dizer que qualquer valor especificado
   será aceito.
 
-  `char`
+  `char`  
   Aceita como válido um único caracter (UTF-8 safe).
 
-  `charDecimal`
+  `charDecimal`  
   Aceita como válido uma representação usando valores 'decimais' como 
   representação de um único caracter (UTF-8 safe).
 
-  `charHex`
+  `charHex`  
   Aceita como válido uma representação usando valores 'hex' como 
   representação de um único caracter (UTF-8 safe).
 
-  `charOctal`
+  `charOctal`  
   Aceita como válido uma representação usando valores 'octais' como 
   representação de um único caracter (UTF-8 safe).
 

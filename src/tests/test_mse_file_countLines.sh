@@ -16,7 +16,7 @@ test_mse_file_countLines() {
   mse_utest_assertEqual
 
 
-  testResult="$(mse_file_countLines "src/scripts/file/mse_file_countLines.sh")"
+  testResult="$(mse_file_countLines "src/scripts/04_file/mse_file_countLines.sh")"
   testExpected="61"
 
   mse_utest_assertEqual
