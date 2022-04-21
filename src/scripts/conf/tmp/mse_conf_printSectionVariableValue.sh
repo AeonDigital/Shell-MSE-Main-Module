@@ -23,10 +23,10 @@
 #
 # @param string $3
 # Nome da variável alvo.
-mse_conf_printSectionVariableValue()
+mse_conf_showSectionVariableValue()
 {
   local mseRawLine
-  mseRawLine=$(mse_conf_printSectionVariableLine "$1" "$2" "$3" 0)
+  mseRawLine=$(mse_conf_showSectionVariableLine "$1" "$2" "$3" 0)
 
   if [ "${mseRawLine}" != "" ]; then
     mseRawLine=$(mse_str_trimD "=" "${mseRawLine}")

@@ -38,7 +38,7 @@ mse_file_read_checkLine_isComment() {
 
   mseR=0
   if [ $# -ge 3 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "${2}")
+    mseLine=$(mse_raw_str_trim "${2}")
     #
     # Remove a informação de número da linha
     if [ $3 == 1 ]; then
@@ -95,7 +95,7 @@ mse_file_read_checkLine_isVariable() {
 
   mseR=0
   if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "${2}")
+    mseLine=$(mse_raw_str_trim "${2}")
     #
     # Remove a informação de número da linha
     if [ $3 == 1 ]; then
@@ -144,8 +144,8 @@ mse_file_read_checkLine_hasVariable() {
 
   mseR=0
   if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "$2")
-    mseLine=$(mse_str_trimD "=" "$mseLine")
+    mseLine=$(mse_raw_str_trim "$2")
+    mseLine=$(mse_raw_str_trimD "=" "$mseLine")
     #
     # Remove a informação de número da linha
     if [ $3 == 1 ]; then

@@ -45,7 +45,7 @@ mse_conf_commentSectionVariable()
 
   mseReturn=0
   if [ $# -ge 4 ]; then
-    mseRawLine=$(mse_conf_printSectionVariableLine "$1" "$2" "$3" "1")
+    mseRawLine=$(mse_conf_showSectionVariableLine "$1" "$2" "$3" "1")
     if [ "${mseRawLine}" != "" ]; then
       mseLineNumber="${mseRawLine%#*}"
       mseRawLine="${mseRawLine#*#}"
@@ -63,7 +63,7 @@ mse_conf_commentSectionVariable()
       #
       # Verifica se a variável já não está comentada...
       # Usará as definições de caracteres de comentários registradas na função
-      # 'mse_conf_printSectionVariableLine'
+      # 'mse_conf_showSectionVariableLine'
       mseIsComment=0
       for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
         if [ "${mseRawVarAssign:0:1}" == "${mseComSig}" ]; then

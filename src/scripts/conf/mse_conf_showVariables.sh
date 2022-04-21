@@ -18,61 +18,39 @@
 # @param bool $2
 # Omita, indique "" ou "0" para retornar apenas as linhas alvo.
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
+#
+# @return string
 mse_conf_showVariables()
 {
   local mseReturn
 
   declare -a mseParamData=("$@")
   declare -A mseParamRules
-  mseParamRules["count"]=1
+  mseParamRules["count"]=2
   mseParamRules["param_0"]="PathToFile :: r :: fileName"
+  mseParamRules["param_1"]="ShowLineNumber :: o :: bool :: 0"
 
   mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1
   else
-    mseReturn=0
-    local mseLineRaw
-    local mseFileContent
-    local oIFS
-
-
-    mseFileContent="$1"
-    if [ -f "$mseFileContent" ]; then
-      mseFileContent=$(< "$mseFileContent")
-    fi
-
-    if [ "${mseFileContent}" != "" ]; then
-      oIFS=$IFS
-      IFS=$'\n'
-
-      while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
-        ((mseReturn=mseReturn+1))
-      done <<< "$mseFileContent"
-
-      IFS=$oIFS
-    fi
-
-
-    printf "%s" "${mseReturn}"
-    return 0
-  fi
-
     local mseShowLineNumber
 
-  mseShowLineNumber=0
-  if [ $# -ge 2 ] && [ $2 == 1 ]; then
-    mseShowLineNumber=1
+    mseShowLineNumber=0
+    if [ $# -ge 2 ] && [ $2 == 1 ]; then
+      mseShowLineNumber=1
+    fi
+
+    mse_file_read_resetConfig
+
+    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isVariable"
+    MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
+    MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
+    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
+    MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
+
+    mse_file_read "$1" 0 "$mseShowLineNumber"
+    return 0
   fi
-
-  mse_file_read_resetConfig
-
-  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isVariable"
-  MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
-  MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
-  MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
-  MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
-
-  mse_file_read "$1" 0 "$mseShowLineNumber"
 }

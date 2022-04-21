@@ -27,7 +27,7 @@
 # @param bool $4
 # Omita, indique "" ou "0" para retornar apenas as linhas alvo.
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
-mse_conf_printSectionVariableLine()
+mse_conf_showSectionVariableLine()
 {
   local mseRawSection
   local mseRawLine
@@ -38,7 +38,7 @@ mse_conf_printSectionVariableLine()
     mseShowLineNumber=1
   fi
 
-  mseRawSection=$(mse_conf_printSectionVariables "$1" "$2" "$mseShowLineNumber")
+  mseRawSection=$(mse_conf_showSectionVariables "$1" "$2" "$mseShowLineNumber")
   mseRawLine=""
 
   if [ "$mseRawSection" != "" ]; then

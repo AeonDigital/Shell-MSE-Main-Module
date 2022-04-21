@@ -23,7 +23,7 @@
 # @param bool $3
 # Omita, indique "" ou "0" para retornar apenas as linhas alvo.
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
-mse_conf_printSectionVariables()
+mse_conf_showSectionVariables()
 {
   local mseShowLineNumber
 

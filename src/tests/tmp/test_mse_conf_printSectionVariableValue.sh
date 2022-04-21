@@ -9,14 +9,14 @@
 
 #
 # Teste
-test_mse_conf_printSectionVariableValue() {
-  testResult=$(mse_conf_printSectionVariableValue "${mseTMPDIR}/tests/.config" "webserver" "CONTAINER_WEBSERVER_NAME")
+test_mse_conf_showSectionVariableValue() {
+  testResult=$(mse_conf_showSectionVariableValue "${mseTMPDIR}/tests/.config" "webserver" "CONTAINER_WEBSERVER_NAME")
   testExpected=$(printf "dev-php-webserver")
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_printSectionVariableValue "${mseTMPDIR}/tests/.config" "email" "EMAIL_HOST")
+  testResult=$(mse_conf_showSectionVariableValue "${mseTMPDIR}/tests/.config" "email" "EMAIL_HOST")
   testExpected=$(printf "192.168.1.206")
 
   mse_utest_assertEqual

@@ -36,7 +36,7 @@ mse_file_read()
   declare -a mseParamData=("$@")
   declare -A mseParamRules
   mseParamRules["count"]=1
-  mseParamRules["param_0"]="PathToFile :: r :: fileName"
+  mseParamRules["param_0"]="PathToFile :: r :: string"
   mseParamRules["param_1"]="ShowEmptyLines :: o :: bool :: 0"
   mseParamRules["param_2"]="ShowLineNumber :: o :: bool :: 0"
 

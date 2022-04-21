@@ -29,7 +29,7 @@ mse_conf_setSectionVariable()
   local mseTgtVariable
 
   # primeiro identifica se existe a linha da variável alvo.
-  mseTgtVariable=$(mse_conf_printSectionVariable "$1" "$2" "$4");
+  mseTgtVariable=$(mse_conf_showSectionVariable "$1" "$2" "$4");
   if [ "${mseTgtVariable}" != "" ]; then
     if [ "$1" == "" ]; then
       # Todas as ocorrências.
