@@ -35,8 +35,9 @@
 # @return
 # Printa '1' se conseguir alterar o arquivo alvo ou se a variável
 # já está no estado em que deveria ficar.
+# Ou
 # Printa a mensagem do erro ocorrido.
-mse_conf_comment()
+mse_conf_mainComment()
 {
   local mseReturn
 

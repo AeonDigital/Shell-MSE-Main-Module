@@ -27,6 +27,7 @@
 # @return
 # Printa '1' se conseguir alterar o arquivo alvo ou se a variável
 # já está no estado em que deveria ficar.
+# Ou
 # Printa a mensagem do erro ocorrido.
 mse_conf_commentVariable()
 {
@@ -44,6 +45,6 @@ mse_conf_commentVariable()
     printf "%s" "${mseReturn}"
     return 1
   else
-    mse_conf_comment "$1" "" "$2" "$3" "1"
+    mse_conf_mainComment "$1" "" "$2" "$3" "1"
   fi
 }

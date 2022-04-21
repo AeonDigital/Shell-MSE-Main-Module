@@ -19,9 +19,9 @@
 #
 # @param string $3
 # Opcional. Tipo de operação que será efetuada.
-# - p|prepend : Adiciona as novas linhas no início do arquivo.
-# - a|append  : Adiciona as novas linhas no final do arquivo.
-# - r|replace : Adiciona as novas linhas em substituição a uma linha existente.
+# - prepend | p : Adiciona as novas linhas no início do arquivo.
+# - append  | a : Adiciona as novas linhas no final do arquivo.
+# - replace | r : Adiciona as novas linhas em substituição a uma linha existente.
 # Se omitido ou "" será usada a opção "append"
 #
 # @param int|string $4
@@ -46,6 +46,7 @@
 #
 # @return
 # Printa '1' se conseguir alterar o arquivo alvo.
+# Ou
 # Printa a mensagem do erro ocorrido.
 mse_file_write()
 {
