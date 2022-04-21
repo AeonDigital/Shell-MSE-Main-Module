@@ -71,7 +71,7 @@ mse_conf_showSectionVariableLine()
       mseRawLine=$(mse_file_read "$mseRawSection")
     fi
 
-    printf "${mseRawLine%[[:cntrl:]]*}"
+    printf "${mseRawLine%%[[:cntrl:]]*}"
     return 0
   fi
 }
