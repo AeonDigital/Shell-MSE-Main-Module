@@ -28,8 +28,6 @@
 # Opcional para 'prepend' e 'append'; Obrigatório para 'replace'.
 # Indica o número da linha a ser usada como posição inicial para a a escrita
 # do novo conteúdo.
-# Se há conteúdo nesta mesma linha, o mesmo será 'empurrado' para baixo exceto
-# no caso de estar usando a operação 'replace'.
 #
 # Se este parametro não for definido e o tipo for:
 # - prepend : equivalente a definir o valor '1'.
