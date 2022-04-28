@@ -33,7 +33,7 @@ mse_str_split() {
   mseParamRules["param_0"]="Delimiter :: r :: string"
   mseParamRules["param_1"]="String :: r :: string"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

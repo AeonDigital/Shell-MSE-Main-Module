@@ -29,7 +29,7 @@ mse_str_convert_octalToDecimal() {
   mseParamRules["count"]=1
   mseParamRules["param_0"]="Octal :: r :: charOctal"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

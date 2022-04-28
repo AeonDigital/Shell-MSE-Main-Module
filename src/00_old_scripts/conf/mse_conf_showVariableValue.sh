@@ -31,7 +31,7 @@ mse_conf_showVariableValue()
   mseParamRules["param_0"]="PathToFile :: r :: fileName"
   mseParamRules["param_1"]="VariableName :: r :: string"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

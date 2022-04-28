@@ -39,7 +39,7 @@ mse_str_trimD() {
   mseParamRules["param_2_labels"]="right, left, both"
   mseParamRules["param_2_values"]="r, l, b"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

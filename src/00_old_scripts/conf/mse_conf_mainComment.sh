@@ -50,7 +50,7 @@ mse_conf_mainComment()
   mseParamRules["param_3"]="CommentChar :: r :: char"
   mseParamRules["param_4"]="ToComment :: r :: bool"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

@@ -35,7 +35,7 @@ mse_conf_showSectionVariables()
   mseParamRules["param_1"]="SectionName :: r :: string"
   mseParamRules["param_2"]="ShowLineNumber :: o :: bool :: 0"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

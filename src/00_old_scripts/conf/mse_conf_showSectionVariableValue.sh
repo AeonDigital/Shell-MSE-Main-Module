@@ -36,7 +36,7 @@ mse_conf_showSectionVariableValue()
   mseParamRules["param_1"]="SectionName :: r :: string"
   mseParamRules["param_2"]="VariableName :: r :: string"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

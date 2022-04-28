@@ -29,7 +29,7 @@
 # @return
 # '1' se todos os parametros estiverem corretos.
 # Mensagem de erro encontrada (referente ao primeiro erro de validação).
-mse_mmod_validateParams() {
+mse_exec_validateParams() {
   local mseReturn
   mseReturn=1
 
@@ -42,7 +42,7 @@ mse_mmod_validateParams() {
     mseCheckParams["count"]="3"
     mseCheckParams["param_0"]="ValidateRules :: r :: assocName :: :: count"
     mseCheckParams["param_1"]="ValidateData :: r :: arrayName"
-    mseReturn=$(mse_mmod_validateParams "mseCheckParams" "mseCheckData" "1")
+    mseReturn=$(mse_exec_validateParams "mseCheckParams" "mseCheckData" "1")
   fi
 
 

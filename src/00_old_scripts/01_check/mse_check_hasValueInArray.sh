@@ -30,7 +30,7 @@ mse_check_hasValueInArray() {
   mseParamRules["param_0"]="Value :: r :: string"
   mseParamRules["param_1"]="ArrayName :: r :: arrayName"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

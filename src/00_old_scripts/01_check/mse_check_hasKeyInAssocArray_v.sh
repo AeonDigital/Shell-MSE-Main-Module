@@ -29,7 +29,7 @@ mse_check_hasKeyInAssocArray_v() {
   mseParamRules["param_0"]="KeyName :: r :: string"
   mseParamRules["param_1"]="AssocArrayName :: r :: assocName"
 
-  mseValidate=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseValidate=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseValidate" != 1 ]; then
     MSE_GLOBAL_LASTERR="${mseValidate}"
     return 1

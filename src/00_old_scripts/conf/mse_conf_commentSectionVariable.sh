@@ -44,7 +44,7 @@ mse_conf_commentSectionVariable()
   mseParamRules["param_2"]="VariableName :: r :: string"
   mseParamRules["param_3"]="CommentChar :: r :: char"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

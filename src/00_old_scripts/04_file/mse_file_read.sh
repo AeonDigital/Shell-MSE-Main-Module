@@ -40,7 +40,7 @@ mse_file_read()
   mseParamRules["param_1"]="ShowEmptyLines :: o :: bool :: 0"
   mseParamRules["param_2"]="ShowLineNumber :: o :: bool :: 0"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1

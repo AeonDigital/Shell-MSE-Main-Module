@@ -72,7 +72,7 @@ mse_conf_mainSetVariable()
   mseParamRules["param_6_labels"]="prepend, append, replace"
   mseParamRules["param_6_values"]="p, a, r"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1
