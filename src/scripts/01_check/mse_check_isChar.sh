@@ -11,12 +11,12 @@
 # @desc
 # Permite identificar se um valor passado é um único character (UTF-8 safe).
 #
-# @param char $1
+# @param string $1
 # Valor que será testado.
 #
 # @return
-# '1' se o valor é um char
-# '0' se o valor não é um char
+# '1' se 'true'
+# '0' se 'false'
 mse_check_isChar() {
   local mseReturn
   local oLC_CTYPE

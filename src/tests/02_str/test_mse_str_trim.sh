@@ -10,12 +10,6 @@
 #
 # Teste
 test_mse_str_trim() {
-  testResult=$(mse_str_trim)
-  testExpected="Parameter \"String\" is required"
-
-  mse_utest_assertEqual
-
-
   local testTmp=$(mse_str_trim "   texto   aqui   ")
 
   testResult="===${testTmp}==="

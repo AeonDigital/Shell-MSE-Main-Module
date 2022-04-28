@@ -10,18 +10,6 @@
 #
 # Teste
 test_mse_str_trimD() {
-  testResult=$(mse_str_trimD)
-  testExpected="Parameter \"Delimiter\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_trimD ":")
-  testExpected="Parameter \"String\" is required"
-
-  mse_utest_assertEqual
-
-
   local testTmp=$(mse_str_trimD ":" "  Keep  calm   :   and   ...  :   think  ")
 
   testResult="===${testTmp}==="

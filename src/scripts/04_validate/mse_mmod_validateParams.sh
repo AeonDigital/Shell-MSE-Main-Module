@@ -112,7 +112,7 @@ mse_mmod_validateParams() {
         if [ ! -z "${mseRawParamRules[$mseRawCurrentParamRuleKey]+x}" ] && [ "${mseRawParamRules[$mseRawCurrentParamRuleKey]}" != "" ]; then
 
           mseRawCurrentParamRule="${mseRawParamRules[$mseRawCurrentParamRuleKey]}"
-          mse_raw_str_split "::" "${mseRawCurrentParamRule}"
+          mse_str_split "::" "${mseRawCurrentParamRule}"
           mseRawCurrentParamRuleValues=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
           #
           # Apenas se a regra encontrada possui os 3 itens mínimos
@@ -123,7 +123,7 @@ mse_mmod_validateParams() {
             # Promove um 'trim' em todos os parametros
             mseParamL="${#mseRawCurrentParamRuleValues[@]}"
             for ((mseParamI=0; mseParamI<mseParamL; mseParamI++)); do
-              mseRawCurrentParamRuleValues[$mseParamI]=$(mse_raw_str_trim "${mseRawCurrentParamRuleValues[$mseParamI]}")
+              mseRawCurrentParamRuleValues[$mseParamI]=$(mse_str_trim "${mseRawCurrentParamRuleValues[$mseParamI]}")
             done
 
 
@@ -172,7 +172,7 @@ mse_mmod_validateParams() {
                     ;;
                     validateFN)
                       mseParamFunctionName="${mseRawCurrentParamRuleValues[3]}"
-                      mseParamCk=$(mse_raw_isFunctionExists "$mseParamFunctionName")
+                      mseParamCk=$(mse_check_isFunctionExists "$mseParamFunctionName")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Invalid parameter definition; [ ValidateFunction field points to non existent function \"${mseParamFunctionName}\" ]"
                       fi
@@ -207,7 +207,7 @@ mse_mmod_validateParams() {
                   if [ $mseParamL -ge 5 ]; then
                     mseParamMaxLength="${mseRawCurrentParamRuleValues[4]}"
 
-                    mseParamCk=$(mse_raw_isInteger "$mseParamMaxLength")
+                    mseParamCk=$(mse_check_isInteger "$mseParamMaxLength")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ MaxLength field must be an integer ]"
                     else
@@ -221,7 +221,7 @@ mse_mmod_validateParams() {
                   if [ $mseParamL -ge 5 ]; then
                     mseParamMin="${mseRawCurrentParamRuleValues[4]}"
 
-                    mseParamCk=$(mse_raw_isInteger "$mseParamMin")
+                    mseParamCk=$(mse_check_isInteger "$mseParamMin")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ Min field must be an integer ]"
                     fi
@@ -230,7 +230,7 @@ mse_mmod_validateParams() {
                   if [ "${mseReturn}" == 1 ] && [ $mseParamL -ge 6 ]; then
                     mseParamMax="${mseRawCurrentParamRuleValues[5]}"
 
-                    mseParamCk=$(mse_raw_isInteger "$mseParamMax")
+                    mseParamCk=$(mse_check_isInteger "$mseParamMax")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ Max field must be an integer ]"
                     fi
@@ -273,14 +273,14 @@ mse_mmod_validateParams() {
                   if [ $mseParamL -ge 5 ] && [ "${mseRawCurrentParamRuleValues[4]}" != "" ]; then
                     local mseI
                     local mseL
-                    mse_raw_str_split "," "${mseRawCurrentParamRuleValues[4]}"
+                    mse_str_split "," "${mseRawCurrentParamRuleValues[4]}"
                     mseParamAssocKeys=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
 
                     #
                     # Promove um 'trim' em todos os parametros
                     mseL="${#mseParamAssocKeys[@]}"
                     for ((mseI=0; mseI<mseL; mseI++)); do
-                      mseParamAssocKeys[$mseI]=$(mse_raw_str_trim "${mseParamAssocKeys[$mseI]}")
+                      mseParamAssocKeys[$mseI]=$(mse_str_trim "${mseParamAssocKeys[$mseI]}")
                     done
                   fi
                 ;;
@@ -289,7 +289,7 @@ mse_mmod_validateParams() {
 
                   #
                   # Verifica e valida a coleção de legendas válidas
-                  mseParamCk=$(mse_raw_isHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
+                  mseParamCk=$(mse_check_hasKeyInAssocArray "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
                   if [ $mseParamCk == 0 ]; then
                     mseReturn="Invalid parameter definition; [ List field lost the label collection ]"
                   else
@@ -297,14 +297,14 @@ mse_mmod_validateParams() {
                     if [ "$mseParamTmpList" == "" ]; then
                       mseReturn="Invalid parameter definition; [ List field has an empty label collection ]"
                     else
-                      mse_raw_str_split "," "${mseParamTmpList}"
+                      mse_str_split "," "${mseParamTmpList}"
                       mseParamListLabels=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
 
                       #
                       # Promove um 'trim' em todos os parametros
                       mseL="${#mseParamListLabels[@]}"
                       for ((mseI=0; mseI<mseL; mseI++)); do
-                        mseParamListLabels[$mseI]=$(mse_raw_str_trim "${mseParamListLabels[$mseI]}")
+                        mseParamListLabels[$mseI]=$(mse_str_trim "${mseParamListLabels[$mseI]}")
                       done
                     fi
                   fi
@@ -312,7 +312,7 @@ mse_mmod_validateParams() {
                   #
                   # Verifica e valida a coleção de valores válidos
                   if [ "${mseReturn}" == 1 ]; then
-                    mseParamCk=$(mse_raw_isHasKeyInAssocArray "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
+                    mseParamCk=$(mse_check_hasKeyInAssocArray "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
                     if [ $mseParamCk == 0 ]; then
                       mseReturn="Invalid parameter definition; [ List field lost the value collection ]"
                     else
@@ -320,14 +320,14 @@ mse_mmod_validateParams() {
                       if [ "$mseParamTmpList" == "" ]; then
                         mseReturn="Invalid parameter definition; [ List field has an empty value collection ]"
                       else
-                        mse_raw_str_split "," "${mseParamTmpList}"
+                        mse_str_split "," "${mseParamTmpList}"
                         mseParamListValues=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
 
                         #
                         # Promove um 'trim' em todos os parametros
                         mseL="${#mseParamListValues[@]}"
                         for ((mseI=0; mseI<mseL; mseI++)); do
-                          mseParamListValues[$mseI]=$(mse_raw_str_trim "${mseParamListValues[$mseI]}")
+                          mseParamListValues[$mseI]=$(mse_str_trim "${mseParamListValues[$mseI]}")
                         done
                       fi
                     fi
@@ -384,31 +384,31 @@ mse_mmod_validateParams() {
                       LC_CTYPE="${oLC_CTYPE}"
                     ;;
                     char)
-                      mseParamCk=$(mse_raw_isChar "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isChar "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" is not a char"
                       fi
                     ;;
                     charDecimal)
-                      mseParamCk=$(mse_raw_isCharDecimal "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isCharDecimal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" is not a valid decimal representation of char"
                       fi
                     ;;
                     charHex)
-                      mseParamCk=$(mse_raw_isCharHex "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isCharHex "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" is not a valid hexadecimal representation of char"
                       fi
                     ;;
                     charOctal)
-                      mseParamCk=$(mse_raw_isCharOctal "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isCharOctal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" is not a valid octal representation of char"
                       fi
                     ;;
                     int)
-                      mseParamCk=$(mse_raw_isInteger "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isInteger "${mseRawCurrentParamDataValue}")
                       if [ "$mseParamCk" == 0 ]; then
                       mseReturn="Parameter \"${mseParamLabel}\" is not an integer"
                       else
@@ -442,7 +442,7 @@ mse_mmod_validateParams() {
                       fi
                     ;;
                     functionName)
-                      mseParamCk=$(mse_raw_isFunctionExists "${mseRawCurrentParamDataValue}")
+                      mseParamCk=$(mse_check_isFunctionExists "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
                         mseReturn="Parameter \"${mseParamLabel}\" must be a name of a existent function"
                       fi

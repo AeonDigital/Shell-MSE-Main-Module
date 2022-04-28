@@ -10,19 +10,6 @@
 #
 # Teste
 test_mse_str_split() {
-  testResult=$(mse_str_split)
-  testExpected="Parameter \"Delimiter\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_split "-")
-  testExpected="Parameter \"String\" is required"
-
-  mse_utest_assertEqual
-
-
-
   mse_str_split "-" "2022-12-22"
 
   testResult="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"

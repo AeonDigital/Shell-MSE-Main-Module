@@ -25,15 +25,15 @@
 #   Qualquer outro valor será ignorado
 #
 # @example
-#   result=$(mse_raw_str_trimD ":" "  Keep  calm   :   and   ... :   think  ")
+#   result=$(mse_str_trimD ":" "  Keep  calm   :   and   ... :   think  ")
 #   printf $result # "  Keep  calm:and   ...:think"
-mse_raw_str_trimD() {
+mse_str_trimD() {
   local mseArrTmp
   local mseArrLen
   local mseArrLen
 
   mseReturn="$2"
-  mse_raw_str_split "$1" "$2"
+  mse_str_split "$1" "$2"
   mseArrTmp=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
   mseArrLen="${#mseArrTmp[@]}"
 
@@ -90,7 +90,6 @@ mse_raw_str_trimD() {
   fi
 
 
-
-  mseReturn=$(mse_raw_str_join "$1" "mseArrTmp")
+  mseReturn=$(mse_str_join "$1" "mseArrTmp")
   printf "%s" "${mseReturn}"
 }

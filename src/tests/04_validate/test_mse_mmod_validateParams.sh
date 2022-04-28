@@ -569,7 +569,7 @@ test_mse_mmod_validateParams() {
 
 
   #
-  pData=("src/tests/expected/mse_mmod_validateParams_fileName")
+  pData=("src/tests/00_assets/expected/mse_mmod_validateParams_fileName")
   pRules["param_0"]="P1 :: 1 :: fileName"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -579,7 +579,7 @@ test_mse_mmod_validateParams() {
 
 
   # FAIL : File not exist
-  pData=("src/tests/expected/mse_mmod_validateParams_nonexist")
+  pData=("src/tests/00_assets/expected/mse_mmod_validateParams_nonexist")
   pRules["param_0"]="P1 :: 1 :: fileName"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -589,10 +589,10 @@ test_mse_mmod_validateParams() {
 
 
   # FAIL : File not exist but created
-  if [ -f "src/tests/expected/mse_mmod_validateParams_created" ]; then
-    rm "src/tests/expected/mse_mmod_validateParams_created"
+  if [ -f "src/tests/00_assets/expected/mse_mmod_validateParams_created" ]; then
+    rm "src/tests/00_assets/expected/mse_mmod_validateParams_created"
   fi
-  pData=("src/tests/expected/mse_mmod_validateParams_created")
+  pData=("src/tests/00_assets/expected/mse_mmod_validateParams_created")
   pRules["param_0"]="P1 :: 1 :: fileName :: :: 1"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -600,7 +600,7 @@ test_mse_mmod_validateParams() {
 
   mse_utest_assertEqual
 
-  testResult=$([ -f "src/tests/expected/mse_mmod_validateParams_created" ] && echo "1")
+  testResult=$([ -f "src/tests/00_assets/expected/mse_mmod_validateParams_created" ] && echo "1")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -610,7 +610,7 @@ test_mse_mmod_validateParams() {
 
 
   #
-  pData=("src/tests/expected/dirName")
+  pData=("src/tests/00_assets/expected/dirName")
   pRules["param_0"]="P1 :: 1 :: dirName"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -620,7 +620,7 @@ test_mse_mmod_validateParams() {
 
 
   # FAIL : Directory not exist
-  pData=("src/tests/expected/nonexist")
+  pData=("src/tests/00_assets/expected/nonexist")
   pRules["param_0"]="P1 :: 1 :: dirName"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -630,10 +630,10 @@ test_mse_mmod_validateParams() {
 
 
   # FAIL : Directory not exist but created
-  if [ -d "src/tests/expected/created" ]; then
-    rm -rf "src/tests/expected/created"
+  if [ -d "src/tests/00_assets/expected/created" ]; then
+    rm -rf "src/tests/00_assets/expected/created"
   fi
-  pData=("src/tests/expected/created")
+  pData=("src/tests/00_assets/expected/created")
   pRules["param_0"]="P1 :: 1 :: dirName :: :: 1"
 
   testResult=$(mse_mmod_validateParams "pRules" "pData")
@@ -641,7 +641,7 @@ test_mse_mmod_validateParams() {
 
   mse_utest_assertEqual
 
-  testResult=$([ -d "src/tests/expected/created" ] && echo "1")
+  testResult=$([ -d "src/tests/00_assets/expected/created" ] && echo "1")
   testExpected="1"
 
   mse_utest_assertEqual
