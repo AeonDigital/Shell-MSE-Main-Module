@@ -1,0 +1,2 @@
+for mseFile in src/scripts/00_raw/*; do . mseFile; done
+. src/scripts/mse_mmod_validateParams.sh

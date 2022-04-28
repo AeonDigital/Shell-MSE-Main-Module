@@ -10,19 +10,18 @@
 #
 # @desc
 # Identifica se a chave indicada existe no array associativo alvo.
-# Printa '1' se sim e '0' se não.
 #
 # @param string $1
-# Nome da chave procurada
+# Nome da chave procurada.
 #
 # @param string $2
 # Nome do array associativo em que a pesquisa deve ser feita.
 #
-# @return bool
+# @return
 # '1' se a chave está no array
 # '0' se a chave não está no array
-mse_check_hasKeyInAssocArray() {
-  local mseReturn
+mse_check_hasKeyInAssocArray_v() {
+  local mseValidate
 
   declare -a mseParamData=("$@")
   declare -A mseParamRules
@@ -30,15 +29,12 @@ mse_check_hasKeyInAssocArray() {
   mseParamRules["param_0"]="KeyName :: r :: string"
   mseParamRules["param_1"]="AssocArrayName :: r :: assocName"
 
-  mseReturn=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
+  mseValidate=$(mse_mmod_validateParams "mseParamRules" "mseParamData")
+  if [ "$mseValidate" != 1 ]; then
+    MSE_GLOBAL_LASTERR="${mseValidate}"
     return 1
   else
-    declare -n assocName="$2"
-    if [ ! -z "${assocName[$1]+x}" ]; then mseReturn=1; else mseReturn=0; fi
-
-    printf "%s" "${mseReturn}"
+    MSE_GLOBAL_RETURN=$(mse_check_hasKeyInAssocArray "$1" "$2")
     return 0
   fi
 }
