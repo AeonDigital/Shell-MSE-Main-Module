@@ -23,7 +23,7 @@ mse_file_read_transformLine_normalizeKeyValue() {
   local mseLine
 
   if [ $# -ge 2 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_raw_str_trimD "=" "$2")
+    mseLine=$(mse_str_trimD "=" "$2")
   fi
 
   printf "${mseLine}"
