@@ -10,18 +10,6 @@
 #
 # Teste
 test_mse_str_convert_charToOctal() {
-  testResult=$(mse_str_convert_charToOctal)
-  testExpected="Parameter \"Char\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_convert_charToOctal "not")
-  testExpected="Parameter \"Char\" is not a char"
-
-  mse_utest_assertEqual
-
-
   testResult=$(mse_str_convert_charToOctal "i")
   testExpected="151"
 

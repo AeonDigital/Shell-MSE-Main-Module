@@ -10,18 +10,6 @@
 #
 # Teste
 test_mse_str_convert_decimalToHex() {
-  testResult=$(mse_str_convert_decimalToHex)
-  testExpected="Parameter \"Decimal\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_convert_decimalToHex "not")
-  testExpected="Parameter \"Decimal\" is not a valid decimal representation of char"
-
-  mse_utest_assertEqual
-
-
   testResult=$(mse_str_convert_decimalToHex "69")
   testExpected="45"
 

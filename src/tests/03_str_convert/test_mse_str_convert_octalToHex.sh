@@ -10,18 +10,6 @@
 #
 # Teste
 test_mse_str_convert_octalToHex() {
-  testResult=$(mse_str_convert_octalToHex)
-  testExpected="Parameter \"Octal\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_convert_octalToHex "not")
-  testExpected="Parameter \"Octal\" is not a valid octal representation of char"
-
-  mse_utest_assertEqual
-
-
   testResult=$(mse_str_convert_octalToHex "151")
   testExpected="69"
 

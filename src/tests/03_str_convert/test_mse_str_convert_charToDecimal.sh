@@ -10,18 +10,6 @@
 #
 # Teste
 test_mse_str_convert_charToDecimal() {
-  testResult=$(mse_str_convert_charToDecimal)
-  testExpected="Parameter \"Char\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_str_convert_charToDecimal "not")
-  testExpected="Parameter \"Char\" is not a char"
-
-  mse_utest_assertEqual
-
-
   testResult=$(mse_str_convert_charToDecimal "i")
   testExpected="105"
 
