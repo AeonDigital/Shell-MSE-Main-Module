@@ -10,7 +10,6 @@
 #
 # @desc
 # Identifica se a chave indicada existe no array associativo alvo.
-# Printa '1' se sim e '0' se não.
 #
 # @param string $1
 # Nome da chave procurada.

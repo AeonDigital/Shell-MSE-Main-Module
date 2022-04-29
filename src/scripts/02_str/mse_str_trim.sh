@@ -24,6 +24,16 @@ mse_str_trim() {
   str="${str%"${str##*[![:space:]]}"}" # trim R
 
   printf "%s" "${str}"
+
+  #
+  # usando 'sed'
+  # printf "$1" | sed 's/^\s*//g' | sed 's/\s*$//g'
+
+  #
+  # usando 'xargs'
+  # Elimina toda ocorrencia de múltiplos espaços entre
+  # as palavras portanto não é adequada ao que se deseja.
+  # printf "$1" | xargs
 }
 
 

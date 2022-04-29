@@ -10,12 +10,6 @@
 #
 # Teste
 test_mse_str_toLowerCase() {
-  testResult=$(mse_str_toLowerCase)
-  testExpected="Parameter \"String\" is required"
-
-  mse_utest_assertEqual
-
-
   testResult=$(mse_str_toLowerCase "CONVERT To Lower Case")
   testExpected="convert to lower case"
 

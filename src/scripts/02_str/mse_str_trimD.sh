@@ -92,6 +92,10 @@ mse_str_trimD() {
 
   mseReturn=$(mse_str_join "$1" "mseArrTmp")
   printf "%s" "${mseReturn}"
+
+  #
+  # usando 'sed'
+  # sed 's/\s*'"$1"'\s*/'"$1"'/g' <<< "$2"
 }
 
 
