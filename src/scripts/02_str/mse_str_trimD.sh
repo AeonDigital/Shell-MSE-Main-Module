@@ -93,3 +93,19 @@ mse_str_trimD() {
   mseReturn=$(mse_str_join "$1" "mseArrTmp")
   printf "%s" "${mseReturn}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_trimD_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="String :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="Type :: o :: list :: both"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2_labels"]="right, left, both"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2_values"]="r, l, b"
+}

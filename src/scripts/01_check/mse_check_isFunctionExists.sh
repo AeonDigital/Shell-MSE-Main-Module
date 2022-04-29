@@ -25,3 +25,15 @@ mse_check_isFunctionExists() {
 
   printf "%s" "${mseReturn}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_check_isFunctionExists_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
+}

@@ -25,3 +25,15 @@ mse_str_trim() {
 
   printf "%s" "${str}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_trim_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
+}

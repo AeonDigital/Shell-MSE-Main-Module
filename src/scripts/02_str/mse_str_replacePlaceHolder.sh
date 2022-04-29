@@ -33,3 +33,17 @@ mse_str_replacePlaceHolder() {
 
   printf "%s" "${mseOriginalString//${msePH}/${mseNewValue}}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_replacePlaceHolder_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PlaceHolderName :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="NewValue :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="OriginalString :: r :: string"
+}

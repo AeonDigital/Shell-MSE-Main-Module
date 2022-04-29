@@ -27,3 +27,15 @@ mse_check_isInteger() {
 
   printf "%s" "${mseReturn}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_check_isInteger_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
+}

@@ -10,6 +10,24 @@
 #
 # Teste
 test_mse_check_hasKeyInAssocArray() {
+  unset testAssocArray
+  declare -A testAssocArray
+  testAssocArray["key1"]="one"
+  testResult=$(mse_check_hasKeyInAssocArray "key2" "testAssocArray")
+  testExpected="0"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_check_hasKeyInAssocArray "key1" "testAssocArray")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+
+
+
   testResult=$(mse_exec_validate mse_check_hasKeyInAssocArray)
   testExpected="0"
 
@@ -27,25 +45,9 @@ test_mse_check_hasKeyInAssocArray() {
   #
   # Se quiser/precisar usar um subshell e precisar do resultado de
   # ambos valores, uma solução como a descrita abaixo pode ser tentada.
-  mseTest=$(mse_exec_validate mse_check_hasKeyInAssocArray; printf " :: ${MSE_GLOBAL_LASTERR}")
+  mseTest=$(mse_exec_validate mse_check_hasKeyInAssocArray && printf " :: ${MSE_GLOBAL_RETURN}" || printf " :: ${MSE_GLOBAL_LASTERR}")
   testResult="${mseTest}"
   testExpected="0 :: Parameter \"KeyName\" is required"
-
-  mse_utest_assertEqual
-
-
-
-  unset testAssocArray
-  declare -A testAssocArray
-  testAssocArray["key1"]="one"
-  testResult=$(mse_check_hasKeyInAssocArray "key2" "testAssocArray")
-  testExpected="0"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_check_hasKeyInAssocArray "key1" "testAssocArray")
-  testExpected="1"
 
   mse_utest_assertEqual
 }

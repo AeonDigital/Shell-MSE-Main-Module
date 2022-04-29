@@ -46,3 +46,16 @@ mse_str_split() {
     fi
   done
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_split_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="String :: r :: string"
+}

@@ -40,3 +40,16 @@ mse_str_join() {
 
   printf "%s" "${mseReturn}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_join_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Glue :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ArrayName :: r :: arrayName"
+}
