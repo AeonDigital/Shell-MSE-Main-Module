@@ -509,5 +509,5 @@ mse_exec_validateParams() {
   fi
 
 
-  printf "${mseReturn}"
+  printf "%s" "${mseReturn}"
 }

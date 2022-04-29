@@ -29,3 +29,16 @@ mse_check_hasKeyInAssocArray() {
 
   printf "%s" "${mseReturn}"
 }
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_check_hasKeyInAssocArray_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="KeyName :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="AssocArrayName :: r :: assocName"
+}
