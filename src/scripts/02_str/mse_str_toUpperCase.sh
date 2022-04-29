@@ -14,6 +14,9 @@
 # @param string $1
 # String que será convertida.
 #
+# @return
+# Printa a string de entrada em uppercase.
+#
 # @example
 #   result=$(mse_str_toUpperCase "text")
 mse_str_toUpperCase() {

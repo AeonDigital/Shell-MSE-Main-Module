@@ -18,6 +18,9 @@
 # @param string $2
 # String que será alterada.
 #
+# @return
+# Printa a string tratada.
+#
 # @example
 #   result=$(mse_str_trimDR "," "Keep calm   ,   and...")
 #   printf $result # "Keep calm   ,and..."

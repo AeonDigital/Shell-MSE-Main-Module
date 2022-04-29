@@ -20,7 +20,8 @@
 # @param string $2
 # Nome da variável alvo.
 #
-# @return string
+# @return
+# Printa o valor da variável indicada
 mse_conf_showVariableValue()
 {
   local mseReturn

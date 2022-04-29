@@ -19,12 +19,9 @@
 # Caminho até o arquivo alvo.
 #
 # @param string $2
-# Nome da seção alvo.
-#
-# @param string $3
 # Nome da variável alvo.
 #
-# @param string $4
+# @param string $3
 # Caracter usado para comentar a linha.
 #
 # @return
@@ -32,23 +29,21 @@
 # já está no estado em que deveria ficar.
 # Ou
 # Printa a mensagem do erro ocorrido.
-mse_conf_commentSectionVariable()
+mse_conf_commentVariable()
 {
-  local mseReturn
+  mse_conf_mainComment "$1" "" "$2" "$3" "1"
+}
 
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=4
-  mseParamRules["param_0"]="PathToFile :: r :: fileName"
-  mseParamRules["param_1"]="SectionName :: r :: string"
-  mseParamRules["param_2"]="VariableName :: r :: string"
-  mseParamRules["param_3"]="CommentChar :: r :: char"
 
-  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
-    mse_conf_mainComment "$1" "$2" "$3" "$4" "1"
-  fi
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_conf_commentVariable_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="VariableName :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="CommentChar :: r :: char"
 }

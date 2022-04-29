@@ -9,27 +9,24 @@
 
 #
 # @desc
-# Permite editar um arquivo de configuração do tipo chave=valor e comentar uma
-# variável indicada.
+# Imprime na tela o valor da variável pesquisada.
+# A variável será pesquisada apenas na seção indicada.
 #
 # Se o arquivo de configuração estiver mal formatado e existir dentro da mesma
 # seção uma variável duplicada, apenas a primeira será levada em consideração.
 #
 # @param string $1
-# Caminho até o arquivo alvo.
+# Caminho até o arquivo que deve ser verificado.
 #
 # @param string $2
-# Nome da variável alvo.
+# Nome da seção alvo.
 #
 # @param string $3
-# Caracter usado para comentar a linha.
+# Nome da variável alvo.
 #
 # @return
-# Printa '1' se conseguir alterar o arquivo alvo ou se a variável
-# já está no estado em que deveria ficar.
-# Ou
-# Printa a mensagem do erro ocorrido.
-mse_conf_commentVariable()
+# Printa o valor da variável indicada
+mse_conf_showSectionVariableValue()
 {
   local mseReturn
 
@@ -37,14 +34,21 @@ mse_conf_commentVariable()
   declare -A mseParamRules
   mseParamRules["count"]=3
   mseParamRules["param_0"]="PathToFile :: r :: fileName"
-  mseParamRules["param_1"]="VariableName :: r :: string"
-  mseParamRules["param_2"]="CommentChar :: r :: char"
+  mseParamRules["param_1"]="SectionName :: r :: string"
+  mseParamRules["param_2"]="VariableName :: r :: string"
 
   mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
   if [ "$mseReturn" != 1 ]; then
     printf "%s" "${mseReturn}"
     return 1
   else
-    mse_conf_mainComment "$1" "" "$2" "$3" "1"
+    local mseRawLine
+    mseRawLine=$(mse_conf_showSectionVariableLine "$1" "$2" "$3" 0)
+
+    if [ "${mseRawLine}" != "" ]; then
+      mseRawLine=$(mse_str_trimD "=" "${mseRawLine}")
+      printf "${mseRawLine#${3}=}"
+    fi
+    return 0
   fi
 }

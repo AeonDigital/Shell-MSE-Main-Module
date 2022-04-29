@@ -14,6 +14,9 @@
 # @param string $1
 # String que será convertida
 #
+# @return
+# Printa a string de entrada em lowercase.
+#
 # @example
 #   result=$(mse_str_toLowerCase "TEXT")
 mse_str_toLowerCase() {

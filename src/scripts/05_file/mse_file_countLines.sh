@@ -17,7 +17,7 @@
 # @param string $1
 # Caminho para o arquivo ou string que será usada.
 #
-# @return int
+# @return
 # Total de linhas do arquivo
 mse_file_countLines() {
   local mseReturn

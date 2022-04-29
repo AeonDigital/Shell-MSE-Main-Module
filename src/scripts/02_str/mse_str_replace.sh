@@ -21,6 +21,9 @@
 # @param string $3
 # String original. Onde ocorrerá a substituição
 #
+# @return
+# Printa o resultado da substituição realizada.
+#
 # @example
 #   result=$(mse_str_replace "22" "20" "2022-12-22")
 #   printf $result # "2020-12-20"

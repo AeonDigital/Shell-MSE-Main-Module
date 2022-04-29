@@ -14,6 +14,9 @@
 # @param string $1
 # String que será alterada.
 #
+# @return
+# Printa a string tratada.
+#
 # @example
 #   result=$(mse_str_trimL "   texto aqui   ")
 #   printf $result # "texto aqui   "

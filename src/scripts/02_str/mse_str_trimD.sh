@@ -24,6 +24,9 @@
 #   l : para efetuar um 'trim' apenas à esquerda do separador
 #   Qualquer outro valor será ignorado
 #
+# @return
+# Printa a string tratada.
+#
 # @example
 #   result=$(mse_str_trimD ":" "  Keep  calm   :   and   ... :   think  ")
 #   printf $result # "  Keep  calm:and   ...:think"

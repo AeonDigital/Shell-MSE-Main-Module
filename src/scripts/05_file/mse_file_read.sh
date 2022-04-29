@@ -26,7 +26,7 @@
 # O número da linha será retornado como primeira informação e estará
 # separada do início do texto por um caracter '#'.
 #
-# @return string
+# @return
 # Coleção de linhas selecionadas na leitura do arquivo conforme os critérios
 # indicados.
 mse_file_read()
