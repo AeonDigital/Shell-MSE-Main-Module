@@ -182,6 +182,7 @@ mse_conf_mainSetVariable()
       fi
     fi
   else
+    printf ""
     #
     #
     # MELHORAR 'RETURN' E 'ERROR' DAS FUNÇÕES.

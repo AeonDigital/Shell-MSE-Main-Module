@@ -20,15 +20,15 @@ test_mse_file_write() {
 
   #
   # Cria/recria um novo arquivo de testes
-  cp "src/tests/00_assets/samples/test_mse_file_write_raw" "src/tests/00_assets/expected/test_mse_file_write_result"
+  cp "src/tests/00_assets/samples/file_write/test_mse_file_write_raw" "src/tests/00_assets/expected/file_write/test_mse_file_write_result"
 
-  testResult=$(mse_file_write "src/tests/00_assets/expected/test_mse_file_write_result" "ContentArrayName" "p")
+  testResult=$(mse_file_write "src/tests/00_assets/expected/file_write/test_mse_file_write_result" "ContentArrayName" "p")
   testExpected="1"
 
   mse_utest_assertEqual
 
-  testResult="$(< "src/tests/00_assets/expected/test_mse_file_write_result")"
-  testExpected="$(< "src/tests/00_assets/expected/test_mse_file_write_result_1")"
+  testResult="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result")"
+  testExpected="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result_1")"
 
   mse_utest_assertEqual
 
@@ -38,15 +38,15 @@ test_mse_file_write() {
 
   #
   # Cria/recria um novo arquivo de testes
-  cp "src/tests/00_assets/samples/test_mse_file_write_raw" "src/tests/00_assets/expected/test_mse_file_write_result"
+  cp "src/tests/00_assets/samples/file_write/test_mse_file_write_raw" "src/tests/00_assets/expected/file_write/test_mse_file_write_result"
 
-  testResult=$(mse_file_write "src/tests/00_assets/expected/test_mse_file_write_result" "ContentArrayName" "r" "3")
+  testResult=$(mse_file_write "src/tests/00_assets/expected/file_write/test_mse_file_write_result" "ContentArrayName" "r" "3")
   testExpected="1"
 
   mse_utest_assertEqual
 
-  testResult="$(< "src/tests/00_assets/expected/test_mse_file_write_result")"
-  testExpected="$(< "src/tests/00_assets/expected/test_mse_file_write_result_2")"
+  testResult="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result")"
+  testExpected="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result_2")"
 
   mse_utest_assertEqual
 
@@ -55,15 +55,15 @@ test_mse_file_write() {
 
   #
   # Cria/recria um novo arquivo de testes
-  cp "src/tests/00_assets/samples/test_mse_file_write_raw" "src/tests/00_assets/expected/test_mse_file_write_result"
+  cp "src/tests/00_assets/samples/file_write/test_mse_file_write_raw" "src/tests/00_assets/expected/file_write/test_mse_file_write_result"
 
-  testResult=$(mse_file_write "src/tests/00_assets/expected/test_mse_file_write_result" "ContentArrayName" "a")
+  testResult=$(mse_file_write "src/tests/00_assets/expected/file_write/test_mse_file_write_result" "ContentArrayName" "a")
   testExpected="1"
 
   mse_utest_assertEqual
 
-  testResult="$(< "src/tests/00_assets/expected/test_mse_file_write_result")"
-  testExpected="$(< "src/tests/00_assets/expected/test_mse_file_write_result_3")"
+  testResult="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result")"
+  testExpected="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result_3")"
 
   mse_utest_assertEqual
 }

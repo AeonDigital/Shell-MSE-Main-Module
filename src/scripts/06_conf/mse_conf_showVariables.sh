@@ -9,13 +9,17 @@
 
 #
 # @desc
-# Imprime todas as variáveis do arquivo de configuração indicado.
+# Imprime as variáveis do arquivo de configuração indicado.
 # Linhas comentadas e vazias não serão mostradas.
 #
 # @param string $1
 # Caminho até o arquivo que deve ser verificado.
 #
-# @param bool $2
+# @param string $2
+# Nome da seção alvo.
+# Use "" para mostrar variáveis de todo o arquivo.
+#
+# @param bool $3
 # Omita, indique "" ou "0" para retornar apenas as linhas alvo.
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
 #
@@ -24,34 +28,42 @@
 mse_conf_showVariables()
 {
   local mseReturn
+  local mseShowLineNumber
 
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=2
-  mseParamRules["param_0"]="PathToFile :: r :: fileName"
-  mseParamRules["param_1"]="ShowLineNumber :: o :: bool :: 0"
+  mse_file_read_resetConfig
 
-  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
-    local mseShowLineNumber
+  if [ $# -ge 2 ] && [ "$2" != "" ]; then
+    MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkSection_start"
+    MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="$2"
+    MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=","
 
-    mseShowLineNumber=0
-    if [ $# -ge 2 ] && [ $2 == 1 ]; then
-      mseShowLineNumber=1
-    fi
-
-    mse_file_read_resetConfig
-
-    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isVariable"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
-    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
-    MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
-
-    mse_file_read "$1" 0 "$mseShowLineNumber"
-    return 0
+    MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkSection_end"
   fi
+
+  mseShowLineNumber=0
+  if [ $# -ge 3 ] && [ $3 == 1 ]; then
+    mseShowLineNumber=1
+  fi
+
+  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isVariable"
+  MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
+  MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
+  MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
+  MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
+
+  mse_file_read "$1" 0 "$mseShowLineNumber"
+}
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_conf_showVariables_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="SectionName :: o :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ShowLineNumber :: o :: bool :: 0"
 }

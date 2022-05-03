@@ -18,32 +18,38 @@
 # Caminho até o arquivo que deve ser verificado.
 #
 # @param string $2
+# Nome da seção alvo.
+# Use "" para procurar a variável em todo o arquivo.
+#
+# @param string $3
 # Nome da variável alvo.
 #
 # @return
-# Printa o valor da variável indicada
+# Printa o valor da variável indicada.
+# Atenção para casos em que o valor da variável é vazio ( "" ) pois o fato
+# de não obter uma saída pode ser interpretado da mesma forma que se ela
+# não existisse no arquivo de configuração ou seção indicada.
 mse_conf_showVariableValue()
 {
   local mseReturn
 
-  declare -a mseParamData=("$@")
-  declare -A mseParamRules
-  mseParamRules["count"]=2
-  mseParamRules["param_0"]="PathToFile :: r :: fileName"
-  mseParamRules["param_1"]="VariableName :: r :: string"
-
-  mseReturn=$(mse_exec_validateParams "mseParamRules" "mseParamData")
-  if [ "$mseReturn" != 1 ]; then
-    printf "%s" "${mseReturn}"
-    return 1
-  else
-    local mseRawLine
-    mseRawLine=$(mse_conf_showVariableLine "$1" "$2")
-
-    if [ "${mseRawLine}" != "" ]; then
-      mseRawLine=$(mse_raw_str_trimD "=" "${mseRawLine}")
-      printf "${mseRawLine#${2}=}"
-    fi
-    return 0
+  mseReturn=$(mse_conf_showVariableLine "$1" "$2" "$3" 0)
+  if [ "${mseReturn}" != "" ]; then
+    mseReturn=$(mse_str_trimD "=" "${mseReturn}")
+    printf "${mseReturn#${3}=}"
   fi
+}
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_conf_showVariableValue_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="SectionName :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="VariableName :: r :: string"
 }
