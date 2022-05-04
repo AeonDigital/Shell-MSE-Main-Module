@@ -138,4 +138,22 @@ test_mse_file_write() {
   testExpected="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result_4")"
 
   mse_utest_assertEqual
+
+
+
+
+
+  #
+  # Cria/recria um novo arquivo de testes
+  cp "src/tests/00_assets/samples/file_write/test_mse_file_write_raw" "src/tests/00_assets/expected/file_write/test_mse_file_write_result"
+
+  testResult=$(mse_file_write "src/tests/00_assets/expected/file_write/test_mse_file_write_result" "ContentArrayName" "d" "2 4")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  testResult="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result")"
+  testExpected="$(< "src/tests/00_assets/expected/file_write/test_mse_file_write_result_5")"
+
+  mse_utest_assertEqual
 }

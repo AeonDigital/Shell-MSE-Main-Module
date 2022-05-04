@@ -22,10 +22,11 @@
 # - prepend | p : Adiciona as novas linhas no início do arquivo.
 # - append  | a : Adiciona as novas linhas no final do arquivo.
 # - replace | r : Adiciona as novas linhas em substituição a uma linha existente.
+# - delete  | d : Exclui a linha ou linhas indicadas.
 # Se omitido ou "" será usada a opção "append"
 #
 # @param int|string $4
-# Opcional para 'prepend' e 'append'; Obrigatório para 'replace'.
+# Opcional para 'prepend' e 'append'; Obrigatório para 'replace' e 'delete'.
 # Indica o número da linha a ser usada como posição inicial para a escrita
 # do novo conteúdo.
 #
@@ -33,6 +34,7 @@
 # - prepend : equivalente a definir o valor '1'.
 # - append  : equivalente a definir o número da última linha do arquivo.
 # - replace : falhará a execução.
+# - delete  : falhará a execução.
 #
 # SE
 # o valor passado for uma string, esta deverá ser:
@@ -108,6 +110,12 @@ mse_file_write()
         mseAction="r"
         if [ $# -lt 4 ]; then
           mseReturn="Parameter \"TargetLine\" is required for \"replace\" operation"
+        fi
+      ;;
+      delete | d)
+        mseAction="d"
+        if [ $# -lt 4 ]; then
+          mseReturn="Parameter \"TargetLine\" is required for \"delete\" operation"
         fi
       ;;
     esac
@@ -200,10 +208,12 @@ mse_file_write()
           mseNewFileContent+="${mseLineRaw}\n"
         fi
 
-        local mseNL
-        for mseNL in "${mseContentArrayName[@]}"; do
-          mseNewFileContent+="${mseNL}\n"
-        done
+        if [ $mseAction != "d" ]; then
+          local mseNL
+          for mseNL in "${mseContentArrayName[@]}"; do
+            mseNewFileContent+="${mseNL}\n"
+          done
+        fi
 
         if [ $mseAction == "p" ]; then
           mseNewFileContent+="${mseLineRaw}\n"
