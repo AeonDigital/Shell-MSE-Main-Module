@@ -280,7 +280,7 @@ mse_file_read()
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_file_countLines_vldtr() {
+mse_file_read_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ShowEmptyLines :: o :: bool :: 0"

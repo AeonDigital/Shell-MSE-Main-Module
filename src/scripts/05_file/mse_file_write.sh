@@ -12,7 +12,7 @@
 # Escreve uma ou mais linhas de dados no arquivo alvo na posição indicada.
 #
 # @param string $1
-# Caminho até o arquivo que será lida.
+# Caminho até o arquivo alvo da alteração.
 #
 # @param string $2
 # Nome do array contendo as novas linhas de dados a serem adicionadas.
@@ -26,7 +26,7 @@
 #
 # @param int|string $4
 # Opcional para 'prepend' e 'append'; Obrigatório para 'replace'.
-# Indica o número da linha a ser usada como posição inicial para a a escrita
+# Indica o número da linha a ser usada como posição inicial para a escrita
 # do novo conteúdo.
 #
 # Se este parametro não for definido e o tipo for:
@@ -35,10 +35,16 @@
 # - replace : falhará a execução.
 #
 # SE
-# o valor passado for uma string, esta deverá ser o nome de uma função a ser
-# executada para identificar o número da linha em que a escrita deve ser feita.
+# o valor passado for uma string, esta deverá ser:
+# - o nome de uma função a ser executada para identificar o número da linha em
+#   que a escrita deve ser feita.
+# OU
+# - 2 valores inteiros separados por espaço, sendo estes dois valores o range
+#   entre 2 linhas nas quais o novo valor será adicionado
+#   (ex: "10 15" substituirá totalmente o conteúdo das linhas 10, 11, 12, 13,
+#   14 e 15 pelo conteúdo novo a ser adicionado)
 #
-# Em qualquer dos casos, se não receber um valor inteiro válido (entre 1 e o
+# Em qualquer dos casos, se não receber valores inteiros válidos (entre 1 e o
 # número da última linha do arquivo conforme ele está atualmente salvo) a
 # ação não será feita e uma falha ocorrerá.
 #
@@ -56,7 +62,8 @@ mse_file_write()
 
   declare -n mseContentArrayName
   local mseAction
-  local mseTargetLine
+  local mseTargetFirstLine
+  local mseTargetLastLine
 
   local oIFS
   local mseCountLine
@@ -89,11 +96,13 @@ mse_file_write()
     case "$3" in
       prepend | p)
         mseAction="p"
-        mseTargetLine=1
+        mseTargetFirstLine=1
+        mseTargetLastLine=0
       ;;
       append | a)
         mseAction="a"
-        mseTargetLine=$mseFileLastLine
+        mseTargetFirstLine=$mseFileLastLine
+        mseTargetLastLine=0
       ;;
       replace | r)
         mseAction="r"
@@ -112,17 +121,53 @@ mse_file_write()
   if [ "$mseReturn" == 1 ] && [ $# -ge 4 ]; then
     #
     # Uma vez que este parametro foi passado
-    # verifica se trata-se de um número
-    if [[ $4 =~ ^[0-9]+$ ]]; then
-      mseTargetLine=$4
+    # verifica se trata-se de um único número inteiro...
+    if [[ "$4" =~ ^[0-9]+$ ]]; then
+      mseTargetFirstLine=$4
+      mseTargetLastLine=0
     else
+      local mseFnName
+      local mseFnResult
+      local mseFnResultParts
+
+
       #
-      # Senão, tratando-se de uma string... identifica se a mesma indica o nome
-      # de uma função
+      # Senão, verifica se a string é ou não o nome de uma função.
+      mseFnResult="$4"
       if [ "$(type -t $4)" == "function" ]; then
-        mseTargetLine=$($4)
+        mseFnName="fn $4"
+        mseFnResult=$($4)
       else
-        mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a valid function name or line number ]"
+        mseFnName="Received"
+      fi
+
+
+
+      #
+      # Executa um split no valor obtido para ver se trata-se de 2 inteiros
+      mse_str_split " " "$mseFnResult"
+      mseFnResultParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+
+      if [ "$mseFnResultParts" == 0 ] || [ "$mseFnResultParts" -gt 2 ]; then
+        mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 1 ]"
+      else
+        mseTargetFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
+        mseTargetLastLine=0
+
+        if ! [[ "${mseTargetFirstLine}" =~ ^[0-9]+$ ]]; then
+          mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 2 ]"
+        else
+          if [ "$mseFnResultParts" == 2 ] && [ "${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}" != "$mseTargetFirstLine" ]; then
+            mseTargetLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"
+            if ! [[ "${mseTargetLastLine}" =~ ^[0-9]+$ ]]; then
+              mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 3 ]"
+            else
+              if [ $mseTargetFirstLine -gt $mseTargetLastLine ]; then
+                mseReturn="Parameter \"TargetLine\" has an invalid value [ First line must be less than the last: \"$mseFnResult\" ]"
+              fi
+            fi
+          fi
+        fi
       fi
     fi
 
@@ -130,7 +175,7 @@ mse_file_write()
     #
     # Verifica se o número da linha indicada é válida
     if [ "$mseReturn" == 1 ]; then
-      if [ $mseTargetLine -lt 1 ] || [ $mseTargetLine -gt $mseFileLastLine ]; then
+      if [ "$mseTargetFirstLine" -lt 1 ] || [ "$mseTargetFirstLine" -gt "$mseFileLastLine" ] || [ "$mseTargetLastLine" -gt "$mseFileLastLine" ]; then
         mseReturn="Parameter \"TargetLine\" has an invalid value [ Outside the file limits; 1 - $mseFileLastLine ]"
       fi
     fi
@@ -150,7 +195,7 @@ mse_file_write()
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseCountLine=mseCountLine+1))
 
-      if [ $mseCountLine == $mseTargetLine ]; then
+      if [ $mseCountLine == $mseTargetFirstLine ]; then
         if [ $mseAction == "a" ]; then
           mseNewFileContent+="${mseLineRaw}\n"
         fi
@@ -164,7 +209,9 @@ mse_file_write()
           mseNewFileContent+="${mseLineRaw}\n"
         fi
       else
-        mseNewFileContent+="${mseLineRaw}\n"
+        if [ $mseTargetLastLine == 0 ] || [ $mseCountLine -lt $mseTargetFirstLine ] || [ $mseCountLine -gt $mseTargetLastLine ]; then
+          mseNewFileContent+="${mseLineRaw}\n"
+        fi
       fi
 
     done <<< "$mseFileContent"
@@ -179,7 +226,6 @@ mse_file_write()
 
 
   printf "${mseReturn}"
-  return 0
 }
 
 
@@ -189,11 +235,11 @@ mse_file_write()
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_file_countLines_vldtr() {
+mse_file_write_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ContentArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ContentArrayName :: o :: list :: append"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="OperationType :: o :: list :: append"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2_labels"]="prepend, append, replace"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2_values"]="p, a, r"
 }

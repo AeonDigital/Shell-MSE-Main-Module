@@ -18,7 +18,7 @@
 # String original (que será 'esplitada')
 #
 # @return
-# Preenche o array global 'MSE_GLOBAL_MODULE_SPLIT' com o resultado
+# Preenche o array global 'MSE_GLOBAL_MODULE_SPLIT_RESULT' com o resultado
 # do 'split' feito.
 mse_str_split() {
   local mseDelimiter
