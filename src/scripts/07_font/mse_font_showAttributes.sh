@@ -13,6 +13,7 @@
 # estilização das mensagens da interface.
 #
 # @param string $1
+# Opcional.
 # Indica o formato que os atributos devem ser apresentados.
 #
 # Use 'list' ou omita este parametro para ver uma lista linha a linha
@@ -21,13 +22,14 @@
 # Use 'table' para ver as cores em um formato de tabela.
 #
 # @param int $2
+# Opcional.
 # Indique a quantidade de itens por linha que devem ser mostrados.
 # Se omitido, assumirá o total de 6 itens por linha.
 #
-# @exemple
-#   mse_mmod_fontShowColors
-mse_mmod_fontShowAttributes() {
-
+# @return
+# Printa na tela as opções de atributos conforme o formato de apresentação
+# selecionado
+mse_font_showAttributes() {
   local i
   local mseFormat="list"
   local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}
@@ -70,4 +72,19 @@ mse_mmod_fontShowAttributes() {
   printf "DEFAULT\n"
   mseRawTable=$(printf "${mseRawTable}")
   column -e -t -s ":" <<< "${mseRawTable}"
+}
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_font_showAttributes_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Format :: o :: list :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="list, table"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="list, table"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 6"
 }

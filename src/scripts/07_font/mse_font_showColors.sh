@@ -9,11 +9,11 @@
 
 #
 # @desc
-# Mostra as cores básicas disponíveis no shell
-# que podem ser utilizadas para a estilização das mensagens
-# de interface.
+# Mostra as cores básicas de fonte que podem ser utilizados para a
+# estilização das mensagens da interface.
 #
 # @param string $1
+# Opcional.
 # Indica o formato que as cores devem ser apresentadas.
 #
 # Use 'list' ou omita este parametro para ver uma lista linha a linha
@@ -24,11 +24,13 @@
 # Use 'codes' para ver a correlação de cores, nomes, variáveis e aparencia.
 #
 # @param int $2
+# Opcional.
 # Indique a quantidade de itens por linha que devem ser mostrados.
 # Se omitido, assumirá o total de 8 itens por linha.
 #
-# @exemple
-#   mse_mmod_fontShowColors
+# @return
+# Printa na tela as opções de atributos conforme o formato de apresentação
+# selecionado
 mse_mmod_fontShowColors() {
 
   local i
@@ -107,4 +109,19 @@ mse_mmod_fontShowColors() {
     mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
     column -e -t -s ":" <<< "${mseRawTable}"
   fi
+}
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_mmod_fontShowColors_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Format :: o :: list :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="list, table, codes"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="list, table, codes"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 8"
 }
