@@ -49,7 +49,6 @@ mse_inter_errorAlert() {
     mseErrorMsg+=("$3")
   fi
 
-
   mse_inter_alertUser "mseErrorMsg" "e" "1"
 }
 

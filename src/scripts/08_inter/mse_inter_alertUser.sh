@@ -19,17 +19,20 @@
 # Opcional. Tipo de mensagem.
 # Permite indicar exatamente que tipo de mensagem está sendo mostrada.
 #
-#   - info      | i   : Informação genérica (valor padrão).
+#   - none      | n   : Não definido (valor padrão).
+#   - info      | i   : Informação genérica.
 #   - attention | a   : Atenção.
 #   - warning   | w   : Alerta.
 #   - error     | e   : Erro em uma operação.
 #   - fail      | f   : Falha em uma operação.
 #   - success   | s   : Sucesso em uma operação.
 #
-# @param string $3
+# @param char $3
 # Opcional.
-# Indique "1" ou omita para usar cores.
-# Indique "0" ou "" para não usar cores.
+# Use "0" ou "" para não usar cores.
+# Use "1" para usar as cores do tema selecionado no título e na mensagem.
+# Use "2" para usar as cores do tema selecionado apenas no título.
+# Se omitido, usará o valor padrão "1"
 #
 # @param string $4
 # Opcional.
@@ -49,15 +52,28 @@
 #   mse_mmod_alertUser "mseArrMSG" "s"
 mse_inter_alertUser() {
   local mseMessage
+  local mseMessageType
   local mseThemeFunctionName
-  local mseThemeUseColors
+  local mseThemeColorsType
 
 
   #
   # Identifica se deve ou não usar cores
-  mseThemeUseColors="1"
-  if [ $# -ge 3 ] && ([ "$3" == "" ] || [ "$3" == "0" ]); then
-    mseThemeUseColors="0"
+  mseMessageType="none"
+  if [ $# -ge 2 ] && [ "$2" != "" ]; then
+    mseMessageType="$2"
+  fi
+
+
+  #
+  # Identifica se deve ou não usar cores
+  mseThemeColorsType="1"
+  if [ $# -ge 3 ]; then
+    if [ "$3" == "" ] || [ "$3" == "0" ]; then
+      mseThemeColorsType="0"
+    elif [ "$3" == "2" ]; then
+      mseThemeColorsType="2"
+    fi
   fi
 
 
@@ -72,7 +88,7 @@ mse_inter_alertUser() {
   #
   # Processa a mensagem e mostra na tela se o processamento for
   # bem sucedido, ou, guarda seu erro para ser consultado posteriormente.
-  mseMessage=$($mseThemeFunctionName "$1" "$2" "$mseThemeUseColors")
+  mseMessage=$($mseThemeFunctionName "$1" "$mseMessageType" "$mseThemeColorsType")
 
   if [ $? == 0 ]; then
     printf "${mseMessage}"
@@ -94,8 +110,8 @@ mse_inter_alertUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="ArrayName :: r :: arrayName"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="AlertType :: o :: list :: i"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="info, attention, warning, error, fail, success"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="UseColors :: o :: bool :: 1"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="none, info, attention, warning, error, fail, success"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="n, i, a, w, e, f, s"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="UseColors :: o :: char :: 1"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName :: mse_inter_theme_default"
 }
