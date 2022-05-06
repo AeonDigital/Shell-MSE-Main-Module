@@ -31,7 +31,7 @@
 # @return
 # Printa na tela as opções de atributos conforme o formato de apresentação
 # selecionado
-mse_mmod_fontShowColors() {
+mse_font_showColors() {
 
   local i
   local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
