@@ -36,6 +36,17 @@
 # Use "0" para omitir o título.
 # Use "1" para mostrar o título.
 #
+# [TopSeparatorTitle]
+# Separador no topo do título.
+# Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
+# Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
+# ou outro caracter de sua preferencia.
+#
+# [TopSeparatorTitleColor]
+# Indica se deve ou não permitir a colorização do separador no topo.
+# Use "0" para não.
+# Use "1" para sim.
+#
 # [IndentTitle]
 # Indentação para o título.
 # Use apenas espaços em branco.
@@ -60,13 +71,13 @@
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [SeparatorTitle]
+# [BottomSeparatorTitle]
 # Separador entre título e corpo da mensagem.
 # Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
 # Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
 # ou outro caracter de sua preferencia.
 #
-# [SeparatorTitleColor]
+# [BottomSeparatorTitleColor]
 # Indica se deve ou não permitir a colorização do separador do título.
 # Use "0" para não.
 # Use "1" para sim.
@@ -148,13 +159,17 @@ mse_inter_theme_default() {
   # Padrão para as configurações das mensagens de tipo previsto
   if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomMessageType]}" == "" ]; then
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorTitle"]="\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorTitleColor"]="0"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
