@@ -26,8 +26,9 @@
 #   - fail      | f   : Falha em uma operação.
 #   - success   | s   : Sucesso em uma operação.
 #
-# [CustomMessageType]
-# Tipo de mensagem personalizada (implementação especial definida pelo tema).
+# [CustomMessageGenerator]
+# Nome de uma função que possui uma formatação especial para a mensagem.
+# Se for passado um valor inválido, a função padrão será evocada.
 #
 #
 #
@@ -157,32 +158,30 @@ mse_inter_theme_default() {
 
   #
   # Padrão para as configurações das mensagens de tipo previsto
-  if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomMessageType]}" == "" ]; then
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
-  fi
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
+  MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
 
 
   mse_inter_showMessage_createTitle

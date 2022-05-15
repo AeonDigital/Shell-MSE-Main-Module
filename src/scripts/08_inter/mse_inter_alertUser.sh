@@ -28,9 +28,10 @@
 # usadas para montar o corpo da mensagem.
 #
 # @param string $3
+# Opcional.
 # Nome da função/tema usada para renderizar as mensagens a serem mostradas
-# na tela. Se nenhuma for indicada, usará o tema padrão
-# "mse_inter_theme_default".
+# na tela. Se nenhuma for indicada, usará o tema padrão definido na
+# variável global 'MSE_GLOBAL_THEME_FUNCTION'
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
@@ -43,7 +44,7 @@
 #   mse_inter_alertUser "s" "mseArrMSG"
 mse_inter_alertUser() {
   if [ $# -ge 2 ]; then
-    local mseTheme="mse_inter_theme_default"
+    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
 
     if [ "$3" != "" ]; then
       mseTheme="$3"
@@ -65,5 +66,5 @@ mse_inter_alertUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="BodyMessageArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="Theme :: o :: functionName :: mse_inter_theme_default"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="Theme :: o :: functionName"
 }
