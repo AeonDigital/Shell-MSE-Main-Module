@@ -18,7 +18,7 @@
 #
 # @param string $2
 # Mensagem resumida do erro.
-# Aparecerá ao lado do nome da função., no título da mensagem de erro.
+# Aparecerá ao lado do nome da função, no título da mensagem de erro.
 #
 # @param string $3
 # Nome de um array unidimensional em que estão as frases que devem ser
@@ -40,23 +40,15 @@
 #   mse_inter_errorAlert "${FUNCNAME[0]}" "Falha" "mseArrMSG"
 mse_inter_errorAlert() {
   if [ $# -ge 3 ]; then
-
-    local mseTitle=""
-    local mseErrorColor="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[error]}"
-    if [ "$2" == "" ]; then
-      mseTitle+="${mseNONE}[ ${mseErrorColor}${1} ${mseNONE}] : ${mseErrorColor}${lbl_inter_alert_header_error}${mseNONE}"
-    else
-      mseTitle+="[  ] : $2"
-    fi
-
-
     local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+    local mseThemeAltMessage="mse_inter_theme_default_title_alt_1"
+
     if [ "$4" != "" ]; then
       mseTheme="$4"
+      mseThemeAltMessage=""
     fi
 
-
-    mse_inter_showMessage "e" "e" "" "" "" "" "" "${1} :: ${2}" "" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "e" "${mseThemeAltMessage}" "" "" "" "" "" "" "${1}::${2}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
   fi
 }
 

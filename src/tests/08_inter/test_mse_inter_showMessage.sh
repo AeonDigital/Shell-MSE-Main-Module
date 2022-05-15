@@ -14,14 +14,14 @@ test_mse_inter_showMessage() {
   testResult="${MSE_GLOBAL_LASTERR}"
   testExpected="Lost 24 arguments."
 
-  #mse_utest_assertEqual
+  mse_utest_assertEqual
 
 
   mse_inter_showMessage "a1" "a2"
   testResult="${MSE_GLOBAL_LASTERR}"
   testExpected="Lost 22 arguments."
 
-  #mse_utest_assertEqual
+  mse_utest_assertEqual
 
 
 
@@ -29,7 +29,7 @@ test_mse_inter_showMessage() {
 
   declare -A mseArgs
   mseArgs["MessageType"]="a"
-  mseArgs["CustomMessageType"]="Custom"
+  mseArgs["CustomMessageGenerator"]="UTEST"
 
   mseArgs["DisplayTitle"]="1"
   mseArgs["TopSeparatorTitle"]="\n  ----------------------\n"
@@ -64,7 +64,7 @@ test_mse_inter_showMessage() {
 
   #
   # Valida os argumentos passados
-  mse_exec_validate mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageType]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default" &> /dev/null
+  mse_exec_validate mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageGenerator]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default" &> /dev/null
 
   testResult="${MSE_GLOBAL_LASTERR}"
   testExpected=""
@@ -77,9 +77,9 @@ test_mse_inter_showMessage() {
   #
   # Verifica os valores realmente definidos
   # e que serão passados para a função do tema gerador da mensagem
-  mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageType]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default" &> /dev/null
+  mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageGenerator]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default" &> /dev/null
 
-  mseArgs["MessageType"]="Custom"
+  mseArgs["MessageType"]="attention"
   local mseKey
   for mseKey in "${!mseArgs[@]}"; do
     testResult="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[$mseKey]}"
@@ -89,10 +89,10 @@ test_mse_inter_showMessage() {
   done
 
 
-  # #
-  # # Verifica se o output está configurado conforme se espera.
+  #
+  # Verifica se o output está configurado conforme se espera.
   mseArgs["MessageType"]="a"
-  mseArgs["CustomMessageType"]=""
+  mseArgs["CustomMessageGenerator"]=""
   mseArgs["TextTitle"]=""
-  mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageType]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default"
+  mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[CustomMessageGenerator]}" "${mseArgs[DisplayTitle]}" "${mseArgs[TopSeparatorTitle]}" "${mseArgs[TopSeparatorTitleColor]}" "${mseArgs[IndentTitle]}" "${mseArgs[BulletTitle]}" "${mseArgs[BulletTitleColor]}" "${mseArgs[TextTitle]}" "${mseArgs[TextTitleColor]}" "${mseArgs[BottomSeparatorTitle]}" "${mseArgs[BottomSeparatorTitleColor]}" "${mseArgs[DisplayBodyMessage]}" "${mseArgs[IndentBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLine]}" "${mseArgs[BulletBodyMessageFirstLineColor]}" "${mseArgs[IndentBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLines]}" "${mseArgs[BulletBodyMessageAnotherLinesColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[SeparatorBodyMessage]}" "${mseArgs[SeparatorBodyMessageColor]}" "mse_inter_theme_default"
 }

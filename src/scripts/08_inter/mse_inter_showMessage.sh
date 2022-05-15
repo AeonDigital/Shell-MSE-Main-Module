@@ -27,7 +27,8 @@
 #   - success   | s   : Sucesso em uma operação.
 #
 # @param string $2
-# Tipo de mensagem personalizada (implementação especial definida pelo tema).
+# Nome de uma função que possui uma formatação especial para a mensagem.
+# Se for passado um valor inválido, a função padrão será evocada.
 #
 #
 #
@@ -178,7 +179,7 @@ mse_inter_showMessage() {
   else
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${1}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageType"]="${2}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]="${2}"
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="${3}"
 
@@ -213,9 +214,6 @@ mse_inter_showMessage() {
     # Verifica o tipo de mensagem a ser usada.
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]}" == "" ]; then
       MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="n"
-    fi
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageType"]}" != "" ]; then
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageType"]}"
     fi
 
 
@@ -270,9 +268,32 @@ mse_inter_showMessage() {
 
 
     #
+    # Seleciona a função que deve ser usada para renderizar a mensagem.
+    local mseThemeMainFunction="${24}"
+    #
+    # Verifica se a função é válida, não sendo
+    # seta a função definida na variável global 'MSE_GLOBAL_THEME_FUNCTION'
+    if [ "$(type -t $mseThemeMainFunction)" != "function" ]; then
+      mseThemeMainFunction="${MSE_GLOBAL_THEME_FUNCTION}"
+    fi
+
+
+    #
+    # Se há uma função customizada definida, usa-a
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]}" != "" ]; then
+      mseThemeMainFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]}"
+
+      #
+      # Verifica se ela é válida, não sendo
+      # seta a função definida na variável global 'MSE_GLOBAL_THEME_FUNCTION'
+      if [ "$(type -t $mseThemeMainFunction)" != "function" ]; then
+        mseThemeMainFunction="${MSE_GLOBAL_THEME_FUNCTION}"
+      fi
+    fi
+
+
+    #
     # Evoca a função que está definida para criar a mensagem
-    local mseReturn
-    local mseThemeMainFunction=${24}
     $mseThemeMainFunction
   fi
 }
@@ -289,7 +310,7 @@ mse_inter_showMessage_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: o :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CustomMessageType :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CustomMessageGenerator :: r :: string"
 
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="DisplayTitle :: r :: bool"
 
