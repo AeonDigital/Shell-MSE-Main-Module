@@ -428,16 +428,16 @@ mse_inter_theme_default_title_alt_1_render() {
     local mseUseAltColor=""
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitleColor]}" == "1" ]; then
       mseUseColor="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[${mseTitleType}]}"
-      mseUseAltColor="${mseLPURPLE}"
+      mseUseAltColor="\e[2;37;91m"
     fi
 
     mse_str_split "::" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
     mseTextTitleParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
 
     if [ "${mseTextTitleParts}" -le "1" ]; then
-      mseReturn+="[ ${mseUseAltColor}script${mseNONE} ] : ${mseUseColor}${mseTitleText}${mseNONE}"
+      mseReturn+="[ ${mseUseAltColor}script${mseNONE} ] ${mseUseColor}${mseTitleText}${mseNONE}"
     elif [ "${mseTextTitleParts}" == "2" ]; then
-      mseReturn+="[ ${mseUseAltColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] : ${mseUseColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
+      mseReturn+="[ ${mseUseAltColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] ${mseUseColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
     else
       mseReturn+="${mseUseColor}${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}${mseNONE}"
     fi

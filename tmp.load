@@ -4,3 +4,6 @@ for mseFile in src/scripts/00_raw/*; do . mseFile; done
 
 progress bar | spinner
 https://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script
+
+colors
+https://misc.flogisoft.com/bash/tip_colors_and_formatting
