@@ -49,7 +49,7 @@ mse_inter_alertUser() {
     if [ "$3" != "" ]; then
       mseTheme="$3"
     fi
-    mse_inter_showMessage "$1" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "$2" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "$1" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "$2" "" "" "" "${mseTheme}"
   fi
 }
 

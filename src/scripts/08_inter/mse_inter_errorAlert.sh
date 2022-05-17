@@ -53,7 +53,7 @@ mse_inter_errorAlert() {
       mseThemeAltMessage=""
     fi
 
-    mse_inter_showMessage "e" "${mseThemeAltMessage}" "" "" "" "" "" "" "${mseTitle}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "e" "${mseThemeAltMessage}" "" "" "" "" "" "" "" "${mseTitle}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
   fi
 }
 

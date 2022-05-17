@@ -52,7 +52,7 @@ mse_font_showAttributes() {
   for (( i=0; i<mseLength; i++)); do
     mseAttrName=${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}
 
-    if [ "${mseAttrName}" != "DEFAULT" ]; then
+    if [ "${mseAttrName}" != "NONE" ]; then
 
       mseLine="${mseAttrName}"
       if [ "${mseFormat}" == "list" ]; then
@@ -69,7 +69,7 @@ mse_font_showAttributes() {
     fi
   done
 
-  printf "DEFAULT\n"
+  printf "NONE\n"
   mseRawTable=$(printf "${mseRawTable}")
   column -e -t -s ":" <<< "${mseRawTable}"
 }

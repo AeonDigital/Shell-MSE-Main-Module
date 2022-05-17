@@ -24,9 +24,9 @@
 # \e[Atributo;Fundo;Fonte
 #
 # Exemplo:
-# printf "\e[0;44;93mTexto estilizado\e[0;37;37m"
+# printf "\e[0;44;93mTexto estilizado\e[0;49;39m"
 # O código acima exibirá o texto sem nenhum atributo especial onde a cor da fonte é amarelo claro
-# e o fundo é azul
+# e o fundo é azul.
 #
 # Conheça abaixo o código de cada variação de cada modificador
 #
@@ -35,35 +35,50 @@
 
 #
 # Atributos
+# Códigos aceitos: 0 20 1 2 4 5 7 8 21 22 24 25 27 28
 #
 # 0:  Remove todos os modificadores; Sejam atributos, cor de fonte ou cor de fundo.
-# 1:  Negrito*
-# 2:  Dim*
-# 4:  Sublinhado*
-# 5:  Piscando*
+#
+# 20: Reset (reseta as definições de atributos)
+#
+# 1:  Negrito
+# 2:  Dim (simula uma cor 'translucida'/'enfraquecida')
+# 4:  Sublinhado
+# 5:  Piscando
 # 7:  Inverte a seleção de cor de fonte e cor de fundo
 #     No exemplo acima o código \e[0;93;44] exibe um texto onde a cor da fonte é amarelo claro
 #     e o fundo é azul, já o código \e[7;93;44] inverterá a seleção criando um texto onde
 #     a cor da fonte será azul e o fundo será amarelo.
-# 8:  Oculto*; Use para ocultar informações sensíveis
+# 8:  Oculto; Use para ocultar informações sensíveis como senhas
 #
-# 21: Remove o Negrito*
-# 22: Remove o Dim*
-# 24: Remove o Sublinhado*
-# 25: Remove o Piscado*
-# 27: Remove a Inversão*
-# 28: Remove o Oculto*
+# 21: Remove o Negrito
+# 22: Remove o Dim
+# 24: Remove o Sublinhado
+# 25: Remove o Piscado
+# 27: Remove a Inversão
+# 28: Remove o Oculto
 #
-# *:  Estes ítens não puderam ser testados direto no terminal via VM possivelmente por que
-#     necessitavam de uma fonte que correspondesse aos mesmos.
+#
+#
+# Atributos múltiplos
+# Você não está restrito a escolher apenas um atributo. Se desejar, pode definir vários
+# ao mesmo tempo bastando separá-los por um sinal de ponto e vírgula. O interpretador irá
+# concatenar os atributos indicados item a item até que o primeiro código inválido para
+# atributos for encontrado.
+#
+# ex:
+# printf "\e[1;4mNegrito e sublinhado \n"
+# printf "\e[1;4;2mNegrito, sublinhado e 'enfraquecido' \n"
 #
 
 
 
 #
-# Cor do fundo
+# Cor do fundo (8/16 cores)
+# Códigos aceitos: 49 {40..47} {100..107}
 #
-# 37:   Padrão        (assume o fundo atual do terminal)
+# 49:   Reset         (reseta as definições de cor de fundo)
+#
 # 40:   Preto
 # 41:   Vermelho
 # 42:   Verde
@@ -72,7 +87,8 @@
 # 45:   Púrpura
 # 46:   Ciano
 # 47:   Cinza claro   (não use com fonte branca)
-# 100:  Cinza escuro  (não use com fonte preta; Aparenta não funcionar)
+#
+# 100:  Cinza escuro  (não use com fonte preta)
 # 101:  Vermelho claro
 # 102:  Verde claro   (não use com fonte branca)
 # 103:  Amarelo claro (não use com fonte branca)
@@ -81,13 +97,26 @@
 # 106:  Ciano claro   (não use com fonte branca)
 # 107:  Branco        (não use com fontes claras)
 #
+#
+#
+# Cor de fundo (88/256 cores)
+# Alguns terminais suportam 88 ou 256 cores mas para usá-las é preciso
+# indicar o código de cor conforme o modelo abaixo:
+#
+# \e[Atributo;48;5;{1..256};Fonte
+#
+# Ex:
+# printf "\e[1;4;48;5;82;30mNegrito e sublinhado em um fundo verde brilhoso e uma fonte preta\e[0;49;39m\n"
+#
 
 
 
 #
-# Cor da fonte
+# Cor da fonte (8/16 cores)
+# Códigos aceitos: 39 {30..37} {90..97}
 #
-# 39:   Padrão
+# 39:   Reset         (reseta as definições de cor de fonte)
+#
 # 30:   Preto         (combine com um fundo colorido para obter um bom resultado)
 # 31:   Vermelho      (Não use com um fundo verde)
 # 32:   Verde
@@ -96,6 +125,7 @@
 # 35:   Púrpura
 # 36:   Ciano
 # 37:   Cinza claro
+#
 # 90:   Cinza escuro
 # 91:   Vermelho claro
 # 92:   Verde claro
@@ -104,6 +134,17 @@
 # 95:   Púrpura claro|Pink
 # 96:   Ciano claro
 # 97:   Branco
+#
+#
+#
+# Cor de fundo (88/256 cores)
+# Alguns terminais suportam 88 ou 256 cores mas para usá-las é preciso
+# indicar o código de cor conforme o modelo abaixo:
+#
+# \e[Atributo;Fundo;38;5;{1..256}
+#
+# Ex:
+# printf "\e[1;4;38;5;82mNegrito e sublinhado em um verde brilhoso\e[0;49;39m\n"
 #
 
 
@@ -117,30 +158,30 @@
 # 'L' indica 'Light'
 #
 
-mseNONE='\e[0;37;37m'
+mseNONE='\e[20;49;39m'
 
-mseBLACK='\e[0;47;30m'
-mseDGREY='\e[0;37;90m'
-mseLGREY='\e[0;37;37m'
-mseWHITE='\e[0;37;97m'
+mseBLACK='\e[20;47;30m'
+mseDGREY='\e[20;49;90m'
+mseLGREY='\e[20;49;37m'
+mseWHITE='\e[20;49;97m'
 
-mseRED='\e[0;37;31m'
-mseLRED='\e[0;37;91m'
+mseRED='\e[20;49;31m'
+mseLRED='\e[20;49;91m'
 
-mseGREEN='\e[0;37;32m'
-mseLGREEN='\e[0;37;92m'
+mseGREEN='\e[20;49;32m'
+mseLGREEN='\e[20;49;92m'
 
-mseYELLOW='\e[0;37;33m'
-mseLYELLOW='\e[0;37;93m'
+mseYELLOW='\e[20;49;33m'
+mseLYELLOW='\e[20;49;93m'
 
-mseBLUE='\e[0;37;34m'
-mseLBLUE='\e[0;37;94m'
+mseBLUE='\e[20;49;34m'
+mseLBLUE='\e[20;49;94m'
 
-msePURPLE='\e[0;37;35m'
-mseLPURPLE='\e[0;37;95m'
+msePURPLE='\e[20;49;35m'
+mseLPURPLE='\e[20;49;95m'
 
-mseCYAN='\e[0;37;36m'
-mseLCYAN='\e[0;37;96m'
+mseCYAN='\e[20;49;36m'
+mseLCYAN='\e[20;49;96m'
 
 
 
@@ -159,7 +200,7 @@ MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
 )
 
 MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
-  '37'
+  '39'
   '30' '90' '37' '97' '31' '91'
   '32' '92' '33' '93' '34' '94'
   '35' '95' '36' '96'
@@ -181,12 +222,12 @@ MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
 # 'R' indica 'Remove'
 #
 MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
-  'DEFAULT'
+  'NONE'
   'BOLD' 'DIM' 'UNDERLINE' 'BLINK' 'INVERT' 'HIDDEN'
   'RBOLD' 'RDIM' 'RUNDERLINE' 'RBLINK' 'RINVERT' 'RHIDDEN'
 )
 MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
-  '0'
+  '20'
   '1' '2' '4' '5' '7' '8'
   '21' '22' '24' '25' '27' '28'
 )
