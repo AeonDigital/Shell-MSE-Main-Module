@@ -26,9 +26,11 @@
 #   - fail      | f   : Falha em uma operação.
 #   - success   | s   : Sucesso em uma operação.
 #
-# [CustomMessageGenerator]
-# Nome de uma função que possui uma formatação especial para a mensagem.
-# Se for passado um valor inválido, a função padrão será evocada.
+# [CustomSpecification]
+# Configuração especial.
+# Pode ser o nome de uma função que possui uma formatação especial para a
+# mensagem ou um outro valor qualquer que pode ser usado para alguma definição
+# especial do tema escolhido
 #
 #
 #
@@ -36,6 +38,35 @@
 # Mostrar título.
 # Use "0" para omitir o título.
 # Use "1" para mostrar o título.
+#
+# [TitleType]
+# Tipo do título.
+#
+# Abaixo segue uma lista dos tipos disponíveis para seleção.
+# Na primeira linha está o código e uma breve descrição do tipo. Na linha
+# imediatamente abaixo há um exemplo ddo respectivo modelo.
+#
+#   O código {ic_x} indica o início de uma área colorida.
+#   No lugar do 'x' será usado um número que identifica uma cor.
+#   O código {ec} indica o final da área colorida.
+#
+#   - 1   : Título simples (padrão)
+#           {ic_1}Texto de título{ec}
+#
+#   - 2   : Título com 2 informações monocolor.
+#           {ic_1}[ info_1 ] info_2{ec}
+#           No texto do título cada uma das informações indicadas acima
+#           devem vir separadas por '::'
+#
+#   - 3   : Título com 2 informações bicolor.
+#           [ {ic_1}info_1{ec} ] {ic_2}info_2{ec}
+#           No texto do título cada uma das informações indicadas acima
+#           devem vir separadas por '::'
+#
+# A cor de cada área varia conforme o tema selecionado.
+# Se o valor indicado não for válido, ou, se durante a formatação do título
+# for identificada alguma inconsistência, reverterá o tipo do título para o
+# valor padrão "1".
 #
 # [TopSeparatorTitle]
 # Separador no topo do título.
@@ -158,48 +189,56 @@ mse_inter_theme_default() {
 
   #
   # Padrão para as configurações das mensagens de tipo previsto
-  if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomMessageGenerator]}" != "UTEST" ]; then
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+  if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" != "UTEST" ]; then
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" == "CHECK" ]; then
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
+    else
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
+    fi
   fi
 
 
 
   #
   # Gera a mensagem conforme o tipo selecionado
-  case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomMessageGenerator]}" in
-    mse_inter_theme_default_title_alt_1)
-      mse_inter_theme_default_title_alt_1_render
-      mse_inter_showMessage_createBody
-    ;;
-    *)
-      mse_inter_showMessage_createTitle
-      mse_inter_showMessage_createBody
-    ;;
-  esac
-
+  mse_inter_showMessage_createTitle
+  mse_inter_showMessage_createBody
 }
 
 
@@ -240,14 +279,20 @@ mse_inter_theme_default_setColorDefinition() {
     # Note que para este tema as cores de cada uma das partes que compõe a mensagem são
     # sempre as mesmas, mas nada impediria de existir uma configuração diferente.
     declare -A mseThemeColors
-    mseThemeColors["info"]=$(mse_font_createStyle "DGREY" "NONE" "BOLD")
-    mseThemeColors["attention"]=$(mse_font_createStyle "LBLUE" "NONE" "BOLD")
-    mseThemeColors["warning"]=$(mse_font_createStyle "LYELLOW" "NONE" "BOLD")
-    mseThemeColors["error"]=$(mse_font_createStyle "RED" "NONE" "BOLD")
-    mseThemeColors["fail"]=$(mse_font_createStyle "LRED" "NONE" "BOLD")
-    mseThemeColors["success"]=$(mse_font_createStyle "GREEN" "NONE" "BOLD")
+    mseThemeColors["info"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
+    mseThemeColors["info_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "DGREY" "1")
+    mseThemeColors["attention"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["attention_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
+    mseThemeColors["warning"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["warning_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
+    mseThemeColors["error"]=$(mse_font_createStyle "0" "BOLD" "NONE" "RED" "1")
+    mseThemeColors["error_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "RED" "1")
+    mseThemeColors["fail"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["fail_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
+    mseThemeColors["success"]=$(mse_font_createStyle "0" "BOLD" "NONE" "GREEN" "1")
+    mseThemeColors["success_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "GREEN" "1")
 
-    mseThemeColors["body"]=$(mse_font_createStyle "DGREY" "NONE" "BOLD")
+    mseThemeColors["body"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
 
 
 
@@ -326,138 +371,4 @@ mse_inter_theme_default_setColorDefinition() {
       MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYSEPARATOR_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
     done
   fi
-}
-
-
-
-
-
-#
-# Wrapper para a função principal geradora da mensagem.
-mse_inter_theme_default_title_alt_1() {
-  mse_inter_theme_default
-}
-#
-# Monta toda a parte do título da mensagem conforme as configurações
-# definidas e o tema utilizado
-mse_inter_theme_default_title_alt_1_render() {
-  local mseReturn
-  local mseTitleText
-  local mseTitleType
-  local mseTextTitleParts
-
-
-  if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[DisplayTitle]}" == "0" ]; then
-    mseReturn=""
-  else
-    mseTitleType="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
-
-
-    #
-    # Conforme o tipo da mensagem
-    case "${mseTitleType}" in
-      none | n)
-        mseTitleText=""
-      ;;
-      info | i)
-        mseTitleText="${lbl_inter_alert_header_info}"
-      ;;
-      attention | a)
-        mseTitleText="${lbl_inter_alert_header_attention}"
-      ;;
-      warning | w)
-        mseTitleText="${lbl_inter_alert_header_warning}"
-      ;;
-      error | e)
-        mseTitleText="${lbl_inter_alert_header_error}"
-      ;;
-      fail | f)
-        mseTitleText="${lbl_inter_alert_header_fail}"
-      ;;
-      success | s)
-        mseTitleText="${lbl_inter_alert_header_success}"
-      ;;
-      *)
-        mseTitleText="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
-      ;;
-    esac
-
-
-    #
-    # Monta a linha do título parte a parte
-    #
-    # Parte 1 : Separador do topo
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitle]}" != "" ]; then
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseTitleType}]}"
-      fi
-
-      mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitle]}"
-
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${mseNONE}"
-      fi
-    fi
-
-
-    #
-    # Parte 2 : Indentação
-    mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[IndentTitle]}"
-
-
-    #
-    # Parte 3 : Bullet
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitle]}" != "" ]; then
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS[${mseTitleType}]}"
-      fi
-
-      mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitle]}"
-
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitleColor]}" == "1" ]; then
-        mseReturn+="${mseNONE}"
-      fi
-    fi
-
-
-    #
-    # Parte 4 : Texto
-    #
-    # Splita os valores passados no 'TextTitle' original
-    local mseUseColor=""
-    local mseUseAltColor=""
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitleColor]}" == "1" ]; then
-      mseUseColor="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[${mseTitleType}]}"
-      mseUseAltColor="\e[2;37;91m"
-    fi
-
-    mse_str_split "::" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
-    mseTextTitleParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
-
-    if [ "${mseTextTitleParts}" -le "1" ]; then
-      mseReturn+="[ ${mseUseAltColor}script${mseNONE} ] ${mseUseColor}${mseTitleText}${mseNONE}"
-    elif [ "${mseTextTitleParts}" == "2" ]; then
-      mseReturn+="[ ${mseUseAltColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] ${mseUseColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
-    else
-      mseReturn+="${mseUseColor}${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}${mseNONE}"
-    fi
-
-
-    #
-    # Parte 5 : Separador
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitle]}" != "" ]; then
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseTitleType}]}"
-      fi
-
-      mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitle]}"
-
-      if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${mseNONE}"
-      fi
-    fi
-  fi
-
-
-  printf "${mseReturn}"
 }

@@ -27,8 +27,10 @@
 #   - success   | s   : Sucesso em uma operação.
 #
 # @param string $2
-# Nome de uma função que possui uma formatação especial para a mensagem.
-# Se for passado um valor inválido, a função padrão será evocada.
+# Configuração especial.
+# Pode ser o nome de uma função que possui uma formatação especial para a
+# mensagem ou um outro valor qualquer que pode ser usado para alguma definição
+# especial do tema escolhido
 #
 #
 #
@@ -37,82 +39,111 @@
 # Use "0" para omitir o título.
 # Use "1" para mostrar o título.
 #
-# @param string $4
+# @param bool $4
+# Tipo do título.
+#
+# Abaixo segue uma lista dos tipos disponíveis para seleção.
+# Na primeira linha está o código e uma breve descrição do tipo. Na linha
+# imediatamente abaixo há um exemplo ddo respectivo modelo.
+#
+#   O código {ic_x} indica o início de uma área colorida.
+#   No lugar do 'x' será usado um número que identifica uma cor.
+#   O código {ec} indica o final da área colorida.
+#
+#   - 1   : Título simples (padrão)
+#           {ic_1}Texto de título{ec}
+#
+#   - 2   : Título com 2 informações monocolor.
+#           {ic_1}[ info_1 ] info_2{ec}
+#           No texto do título cada uma das informações indicadas acima
+#           devem vir separadas por '::'
+#
+#   - 3   : Título com 2 informações bicolor.
+#           [ {ic_1}info_1{ec} ] {ic_2}info_2{ec}
+#           No texto do título cada uma das informações indicadas acima
+#           devem vir separadas por '::'
+#
+# A cor de cada área varia conforme o tema selecionado.
+# Se o valor indicado não for válido, ou, se durante a formatação do título
+# for identificada alguma inconsistência, reverterá o tipo do título para o
+# valor padrão "1".
+#
+# @param string $5
 # Separador de topo.
 # Aparece acima da primeira linha da mensagem.
 #
-# @param bool $5
+# @param bool $6
 # Indica se deve ou não permitir a colorização do separador de topo.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# @param string $6
+# @param string $7
 # Indentação para o título.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# @param string $7
+# @param string $8
 # Bullet para o título.
 # Deixe vazio para não usar.
 #
-# @param bool $8
+# @param bool $9
 # Indica se deve ou não permitir a colorização do bullet do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# @param string $9
+# @param string $10
 # Título da mensagem.
 # Se "", usará o título padrão conforme o tipo de mensagem, ou, deixará a linha
 # do título vazia em caso de tipo de mensagem "none".
 #
-# @param bool $10
+# @param bool $11
 # Indica se deve ou não permitir a colorização do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# @param string $11
+# @param string $12
 # Separador entre título e corpo da mensagem.
 # Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
 # Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
 # ou outro caracter de sua preferencia.
 #
-# @param bool $12
+# @param bool $13
 # Indica se deve ou não permitir a colorização do separador do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
 #
 #
-# @param bool $13
+# @param bool $14
 # Mostrar o corpo da mensagem.
 # Use "0" para omitir o corpo da mensagem.
 # Use "1" para mostrar o corpo da mensagem.
 #
-# @param string $14
+# @param string $15
 # Indentação para a primeira linha do corpo da mensagem.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# @param string $15
+# @param string $16
 # Bullet para a primeira linha do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# @param bool $16
+# @param bool $17
 # Indica se deve ou não permitir a colorização do bullet da primeira linha do
 # corpo da mensagem.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# @param string $17
+# @param string $18
 # Indentação para a segunda linha em diante do corpo da mensagem.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# @param string $18
+# @param string $19
 # Bullet para a segunda linha em diante do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# @param bool $19
+# @param bool $20
 # Indica se deve ou não permitir a colorização do bullet da segunda linha em
 # diante do corpo da mensagem.
 # Use "0" para não.
@@ -120,29 +151,29 @@
 #
 #
 #
-# @param string $20
+# @param string $21
 # Nome de um array unidimensional em que estão as frases que devem ser
 # usadas para montar o corpo da mensagem.
 #
-# @param bool $21
+# @param bool $22
 # Indica se deve ou não permitir a colorização do corpo da mensagem.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# @param string $22
+# @param string $23
 # Separador entre o corpo da mensagem e a próxima linha do prompt do terminal.
 # Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
 # Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
 # ou outro caracter de sua preferencia.
 #
-# @param bool $23
+# @param bool $24
 # Indica se deve ou não permitir a colorização do separador do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
 #
 #
-# @param string $24
+# @param string $25
 # Nome da função/tema usada para renderizar as mensagens a serem mostradas
 # na tela.
 #
@@ -170,43 +201,44 @@ mse_inter_showMessage() {
 
   #
   # Apenas se todos os parametros foram passados
-  if [ $# -lt 24 ]; then
+  if [ $# -lt 25 ]; then
     local mseArgs="$#"
     local mseLost
-    ((mseLost=24-mseArgs))
+    ((mseLost=25-mseArgs))
 
     MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
   else
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${1}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]="${2}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomSpecification"]="${2}"
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="${3}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleType"]="${4}"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="${4}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="${5}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="${5}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="${6}"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="${6}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]="${7}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="${8}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitle"]="${9}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="${10}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="${7}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]="${8}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="${9}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitle"]="${10}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="${11}"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="${11}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="${12}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="${12}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="${13}"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="${13}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="${14}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]="${15}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="${16}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="${17}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]="${18}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="${19}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="${14}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="${15}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]="${16}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="${17}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="${18}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]="${19}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="${20}"
 
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayName"]="${20}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="${21}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="${22}"
-    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="${23}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayName"]="${21}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="${22}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="${23}"
+    MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="${24}"
 
 
 
@@ -225,32 +257,39 @@ mse_inter_showMessage() {
 
       case "${mseKey}" in
         MessageType)
+          local mseTmp="none"
 
           case "${mseValue}" in
-            none | n)
-              mseValue="none"
-            ;;
             info | i)
-              mseValue="info"
+              mseTmp="info"
             ;;
             attention | a)
-              mseValue="attention"
+              mseTmp="attention"
             ;;
             warning | w)
-              mseValue="warning"
+              mseTmp="warning"
             ;;
             error | e)
-              mseValue="error"
+              mseTmp="error"
             ;;
             fail | f)
-              mseValue="fail"
+              mseTmp="fail"
             ;;
             success | s)
-              mseValue="success"
+              mseTmp="success"
             ;;
           esac
 
-          MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${mseValue}"
+          MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${mseTmp}"
+        ;;
+
+        TitleType)
+
+          if [ "${mseValue}" != "1" ] && [ "${mseValue}" != "2" ] && [ "${mseValue}" != "3" ]; then
+            mseValue="1"
+          fi
+
+          MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleType"]="${mseValue}"
         ;;
 
         DisplayTitle | BulletTitleColor | TextTitleColor | SeparatorTitleColor | DisplayBodyMessage | BulletBodyMessageFirstLineColor | BulletBodyMessageAnotherLinesColor | BodyMessageArrayNameColor | SeparatorBodyMessageColor)
@@ -269,7 +308,7 @@ mse_inter_showMessage() {
 
     #
     # Seleciona a função que deve ser usada para renderizar a mensagem.
-    local mseThemeMainFunction="${24}"
+    local mseThemeMainFunction="${25}"
     #
     # Verifica se a função é válida, não sendo
     # seta a função definida na variável global 'MSE_GLOBAL_THEME_FUNCTION'
@@ -280,8 +319,8 @@ mse_inter_showMessage() {
 
     #
     # Se há uma função customizada definida, usa-a
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]}" != "" ]; then
-      mseThemeMainFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomMessageGenerator"]}"
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomSpecification"]}" != "" ]; then
+      mseThemeMainFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["CustomSpecification"]}"
 
       #
       # Verifica se ela é válida, não sendo
@@ -310,36 +349,39 @@ mse_inter_showMessage_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: o :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CustomMessageGenerator :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CustomSpecification :: r :: string"
 
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="DisplayTitle :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="TitleType :: o :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3_labels"]="1, 2, 3"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3_values"]="1, 2, 3"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="TopSeparatorTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="TopSeparatorTitleColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="TopSeparatorTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="TopSeparatorTitleColor :: r :: bool"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="IndentTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6"]="BulletTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7"]="BulletTitleColor :: r :: bool"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8"]="TextTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9"]="TextTitleColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6"]="IndentTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7"]="BulletTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8"]="BulletTitleColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9"]="TextTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_10"]="TextTitleColor :: r :: bool"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_10"]="BottomSeparatorTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_11"]="BottomSeparatorTitleColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_11"]="BottomSeparatorTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_12"]="BottomSeparatorTitleColor :: r :: bool"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_12"]="DisplayBodyMessage :: r :: bool"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_13"]="IndentBodyMessageFirstLine :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_14"]="BulletBodyMessageFirstLine :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_15"]="BulletBodyMessageFirstLineColor :: r :: bool"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_16"]="IndentBodyMessageAnotherLines :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_17"]="BulletBodyMessageAnotherLines :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_18"]="BulletBodyMessageAnotherLinesColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_13"]="DisplayBodyMessage :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_14"]="IndentBodyMessageFirstLine :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_15"]="BulletBodyMessageFirstLine :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_16"]="BulletBodyMessageFirstLineColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_17"]="IndentBodyMessageAnotherLines :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_18"]="BulletBodyMessageAnotherLines :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_19"]="BulletBodyMessageAnotherLinesColor :: r :: bool"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_19"]="BodyMessageArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_20"]="BodyMessageArrayNameColor :: r :: bool"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_21"]="SeparatorBodyMessage :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_22"]="SeparatorBodyMessageColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_20"]="BodyMessageArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_21"]="BodyMessageArrayNameColor :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_22"]="SeparatorBodyMessage :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_23"]="SeparatorBodyMessageColor :: r :: bool"
 
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_23"]="Theme :: o :: functionName :: mse_inter_theme_default"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_24"]="Theme :: o :: functionName :: mse_inter_theme_default"
 }
 
 
@@ -351,22 +393,25 @@ mse_inter_showMessage_vldtr() {
 # definidas e o tema utilizado
 mse_inter_showMessage_createTitle() {
   local mseReturn
-  local mseTitleText
+  local mseMessageType
+
   local mseTitleType
+  local mseTitleText
+
 
 
   if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[DisplayTitle]}" == "0" ]; then
     mseReturn=""
   else
-    mseTitleType="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
+    mseTitleType="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TitleType]}"
+    mseMessageType="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
+
 
 
     #
     # Conforme o tipo da mensagem
-    case "${mseTitleType}" in
-      none | n)
-        mseTitleText=""
-      ;;
+    mseTitleText=""
+    case "${mseMessageType}" in
       info | i)
         mseTitleText="${lbl_inter_alert_header_info}"
       ;;
@@ -385,9 +430,6 @@ mse_inter_showMessage_createTitle() {
       success | s)
         mseTitleText="${lbl_inter_alert_header_success}"
       ;;
-      *)
-        mseTitleText="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
-      ;;
     esac
 
 
@@ -397,7 +439,7 @@ mse_inter_showMessage_createTitle() {
     # Parte 1 : Separador do topo
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitle]}" != "" ]; then
       if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseTitleType}]}"
+        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseMessageType}]}"
       fi
 
       mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TopSeparatorTitle]}"
@@ -417,7 +459,7 @@ mse_inter_showMessage_createTitle() {
     # Parte 3 : Bullet
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitle]}" != "" ]; then
       if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS[${mseTitleType}]}"
+        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS[${mseMessageType}]}"
       fi
 
       mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BulletTitle]}"
@@ -428,28 +470,77 @@ mse_inter_showMessage_createTitle() {
     fi
 
 
+
     #
     # Parte 4 : Texto
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}" == "" ] && [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitleColor]}" == "1" ]; then
-      mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[${mseTitleType}]}"
+    # Conforme o tipo do título
+    local mseTitleMainColor=""
+    local mseTitleColorAlt1=""
+    local mseTitleColorNone=""
+    local mseTextTitleParts
+
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitleColor]}" == "1" ]; then
+      mseTitleMainColor="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[${mseMessageType}]}"
+      mseTitleColorAlt1="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[${mseMessageType}_a1]}"
     fi
 
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}" == "" ]; then
-      mseReturn+="${mseTitleText}"
-    else
-      mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
-    fi
+    case "${mseTitleType}" in
+      1)
 
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}" == "" ] && [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitleColor]}" == "1" ]; then
-      mseReturn+="${mseNONE}"
-    fi
+        mseReturn+="${mseTitleMainColor}"
+
+        if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}" == "" ]; then
+          mseReturn+="${mseTitleText}"
+        else
+          mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
+        fi
+
+        mseReturn+="${mseNONE}"
+
+      ;;
+      2)
+
+        mse_str_split "::" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
+        mseTextTitleParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+
+        mseReturn+="${mseTitleMainColor}"
+
+        if [ "${mseTextTitleParts}" -le "1" ]; then
+          mseReturn+="[ script ] ${mseTitleText}"
+        elif [ "${mseTextTitleParts}" == "2" ]; then
+          mseReturn+="[ ${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]} ] ${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}"
+        else
+          mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
+        fi
+
+        mseReturn+="${mseNONE}"
+
+      ;;
+      3)
+
+        mse_str_split "::" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}"
+        mseTextTitleParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+
+        mseReturn+=""
+
+        if [ "${mseTextTitleParts}" -le "1" ]; then
+          mseReturn+="[ ${mseTitleColorAlt1}script${mseNONE} ] ${mseTitleMainColor}${mseTitleText}${mseNONE}"
+        elif [ "${mseTextTitleParts}" == "2" ]; then
+          mseReturn+="[ ${mseTitleColorAlt1}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] ${mseTitleMainColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
+        else
+          mseReturn+="${mseTitleMainColor}${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TextTitle]}${mseNONE}"
+        fi
+
+      ;;
+    esac
+
 
 
     #
     # Parte 5 : Separador
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitle]}" != "" ]; then
       if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitleColor]}" == "1" ]; then
-        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseTitleType}]}"
+        mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[${mseMessageType}]}"
       fi
 
       mseReturn+="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[BottomSeparatorTitle]}"

@@ -39,21 +39,21 @@
 #
 #   mse_inter_errorAlert "${FUNCNAME[0]}" "Falha" "mseArrMSG"
 mse_inter_errorAlert() {
-  if [ $# -ge 3 ]; then
+  if [ "$#" -ge 3 ]; then
     local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
-    local mseThemeAltMessage="mse_inter_theme_default_title_alt_1"
-    local mseTitle="${1}"
+    local mseTitle
 
+
+    mseTitle="${1}"
     if [ "$2" != "" ]; then
       mseTitle="${1}::${2}"
     fi
 
     if [ "$4" != "" ]; then
       mseTheme="$4"
-      mseThemeAltMessage=""
     fi
 
-    mse_inter_showMessage "e" "${mseThemeAltMessage}" "" "" "" "" "" "" "" "${mseTitle}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "e" "" "" "3" "" "" "" "" "" "${mseTitle}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
   fi
 }
 

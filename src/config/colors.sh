@@ -158,7 +158,7 @@
 # 'L' indica 'Light'
 #
 
-mseNONE='\e[20;49;39m'
+mseNONE='\e[0m'
 
 mseBLACK='\e[20;47;30m'
 mseDGREY='\e[20;49;90m'
