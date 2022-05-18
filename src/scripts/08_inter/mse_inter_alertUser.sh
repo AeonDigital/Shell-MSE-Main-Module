@@ -24,10 +24,18 @@
 #   - success   | s   : Sucesso em uma operação.
 #
 # @param string $2
-# Nome de um array unidimensional em que estão as frases que devem ser
-# usadas para montar o corpo da mensagem.
+# Opcional. Código da mensagem.
+# Quando usado, alterna o tipo de título para o "3".
 #
 # @param string $3
+# Opcional. Título da mensagem.
+# Se não for usado, o título da mensagem será correspondente ao tipo da mesma.
+#
+# @param string $4
+# Opcional. Nome de um array unidimensional em que estão as frases que devem
+# ser usadas para montar o corpo da mensagem.
+#
+# @param string $5
 # Opcional.
 # Nome da função/tema usada para renderizar as mensagens a serem mostradas
 # na tela. Se nenhuma for indicada, usará o tema padrão definido na
@@ -41,15 +49,41 @@
 #   mseArrMSG+=("Sucesso!")
 #   mseArrMSG+=("Todos os scripts foram atualizados")
 #
-#   mse_inter_alertUser "s" "mseArrMSG"
+#   mse_inter_alertUser "i" "" "" "mseArrMSG"
 mse_inter_alertUser() {
-  if [ $# -ge 2 ]; then
-    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+  if [ $# -ge 3 ]; then
+    local mseMessageType="$1"
+    local mseMessageCode="$2"
+    local mseMessageTitle="$3"
+    local mseMessageBodyArrayName="$4"
+    mseEmptyArr=()
 
-    if [ "$3" != "" ]; then
-      mseTheme="$3"
+
+    #
+    # Verifica de que forma o título deve ser mostrado
+    local mseMessageTitleType="1"
+    if [ "${mseMessageCode}" != "" ] && [ "${mseMessageTitle}" != "" ]; then
+      mseMessageTitleType="3"
+      mseMessageTitle="${mseMessageCode}::${mseMessageTitle}"
     fi
-    mse_inter_showMessage "$1" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "$2" "" "" "" "${mseTheme}"
+
+
+    #
+    # Mostrará o corpo da mensagem caso existam informações no array indicado
+    local mseCustomSpecification="FULL"
+    if [ "${mseMessageBodyArrayName}" == "" ]; then
+      mseCustomSpecification="TITLE"
+    fi
+
+
+    #
+    # Identifica o tema a ser usado
+    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+    if [ "$5" != "" ]; then
+      mseTheme="$5"
+    fi
+
+    mse_inter_showMessage "${mseMessageType}" "${mseCustomSpecification}" "" "${mseMessageTitleType}" "" "" "" "" "" "${mseMessageTitle}" "" "" "" "" "" "" "" "" "" "" "${mseMessageBodyArrayName}" "" "" "" "${mseTheme}"
   fi
 }
 
@@ -61,10 +95,12 @@ mse_inter_alertUser() {
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_alertUser_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: o :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="BodyMessageArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="Theme :: o :: functionName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MessageCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MessageTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="MessageBodyArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="Theme :: o :: functionName"
 }

@@ -190,47 +190,66 @@ mse_inter_theme_default() {
   #
   # Padrão para as configurações das mensagens de tipo previsto
   if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" != "UTEST" ]; then
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" == "CHECK" ]; then
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+    case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" in
+      CHECK)
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]=""
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]=""
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=""
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=""
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]=""
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]=""
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
-    else
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
+      ;;
+      TITLE)
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n\n"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
+      ;;
+      FULL | *)
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
-    fi
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
+        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
+      ;;
+    esac
   fi
 
 

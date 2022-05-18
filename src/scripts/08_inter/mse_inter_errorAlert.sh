@@ -13,16 +13,17 @@
 # algum script.
 #
 # @param string $1
-# Nome da função onde ocorreu o erro.
+# Opcional. Nome da função onde ocorreu o erro ou um código que identifique
+# o erro ocorrido.
 # Se não for definido, usará o valor padrão 'script'.
 #
 # @param string $2
-# Mensagem resumida do erro.
-# Aparecerá ao lado do nome da função, no título da mensagem de erro.
+# Opcional. Título da mensagem ou mensagem resumida do erro.
+# Se não for definido, usará a legenda padrão para mensagens do tipo 'error'.
 #
 # @param string $3
-# Nome de um array unidimensional em que estão as frases que devem ser
-# usadas para montar o corpo da mensagem.
+# Opcional. Nome de um array unidimensional em que estão as frases que devem
+# ser usadas para montar o corpo da mensagem.
 #
 # @param string $4
 # Opcional.
@@ -35,25 +36,27 @@
 #
 # @example
 #   declare -a mseArrMSG
-#   mseArrMSG+=("Houve uma falha inesperada.")
+#   mseArrMSG+=("Houve uma falha inesperada")
 #
 #   mse_inter_errorAlert "${FUNCNAME[0]}" "Falha" "mseArrMSG"
 mse_inter_errorAlert() {
-  if [ "$#" -ge 3 ]; then
-    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
-    local mseTitle
+  if [ "$#" -ge 2 ]; then
+    local mseMessageCode="$1"
+    local mseMessageTitle="$2"
 
-
-    mseTitle="${1}"
-    if [ "$2" != "" ]; then
-      mseTitle="${1}::${2}"
+    #
+    # Verifica o código a ser informado para este erro
+    if [ "${mseMessageCode}" == "" ]; then
+      mseMessageCode="script"
     fi
 
-    if [ "$4" != "" ]; then
-      mseTheme="$4"
+    #
+    # Verifica a mensagem básica do título a ser usado para este erro
+    if [ "${mseMessageTitle}" == "" ]; then
+      mseMessageTitle="${lbl_inter_alert_header_error}"
     fi
 
-    mse_inter_showMessage "e" "" "" "3" "" "" "" "" "" "${mseTitle}" "" "" "" "" "" "" "" "" "" "" "$3" "" "" "" "${mseTheme}"
+    mse_inter_alertUser "e" "$mseMessageCode" "$mseMessageTitle" "$3" "$4"
   fi
 }
 
@@ -66,9 +69,9 @@ mse_inter_errorAlert() {
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_alertUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="FunctionName :: r :: string :: script"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleMessage :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BodyMessageArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MessageTitle :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MessageBodyArrayName :: r :: arrayName"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
 }
 

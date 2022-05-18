@@ -506,7 +506,7 @@ mse_inter_showMessage_createTitle() {
         mseReturn+="${mseTitleMainColor}"
 
         if [ "${mseTextTitleParts}" -le "1" ]; then
-          mseReturn+="[ script ] ${mseTitleText}"
+          mseReturn+="[   ] ${mseTitleText}"
         elif [ "${mseTextTitleParts}" == "2" ]; then
           mseReturn+="[ ${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]} ] ${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}"
         else
