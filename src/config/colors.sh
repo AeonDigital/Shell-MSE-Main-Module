@@ -93,7 +93,7 @@
 # 102:  Verde claro   (não use com fonte branca)
 # 103:  Amarelo claro (não use com fonte branca)
 # 104:  Azul claro    (não use com fonte amarelo clara)
-# 105:  Púrpura claro|Pink (não use com fontes claras)
+# 105:  Púrpura claro (não use com fontes claras)
 # 106:  Ciano claro   (não use com fonte branca)
 # 107:  Branco        (não use com fontes claras)
 #
@@ -131,7 +131,7 @@
 # 92:   Verde claro
 # 93:   Amarelo claro
 # 94:   Azul claro
-# 95:   Púrpura claro|Pink
+# 95:   Púrpura claro
 # 96:   Ciano claro
 # 97:   Branco
 #
@@ -195,8 +195,8 @@ MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
 MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
   'Normal'
   'Black' 'Dark grey' 'Light grey' 'White' 'Red' 'Light red'
-  'Green' 'Light green' 'Brown' 'Yellow' 'Blue' 'Light blue'
-  'Purple' 'Light purple' 'Ciano' 'Light ciano'
+  'Green' 'Light green' 'Yellow' 'Light yellow' 'Blue' 'Light blue'
+  'Purple' 'Light purple' 'Cyan' 'Light cyan'
 )
 
 MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(

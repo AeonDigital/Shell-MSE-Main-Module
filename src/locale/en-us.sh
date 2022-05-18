@@ -17,3 +17,10 @@ lbl_inter_alert_header_fail="Fail"
 lbl_inter_alert_header_success="Success"
 
 lbl_inter_wait_user_any_key="Press any key to proceed"
+
+
+
+#
+# Fontes e Backgrounds
+lbl_font_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
+lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in the place of 'X': "
