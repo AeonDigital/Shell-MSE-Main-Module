@@ -14,6 +14,8 @@
 # @param string $1
 # Tipo de mensagem.
 #
+#   Mensagens de Alerta
+#
 #   - ""        | ""  : Não definido (valor padrão).
 #   - none      | n   : Não definido (mesmo que acima).
 #   - info      | i   : Informação genérica.

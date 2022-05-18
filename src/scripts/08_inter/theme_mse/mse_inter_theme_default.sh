@@ -17,6 +17,8 @@
 # [MessageType]
 # Tipo de mensagem.
 #
+#   Mensagens de Alerta
+#
 #   - ""        | ""  : Não definido (valor padrão).
 #   - none      | n   : Não definido (mesmo que acima).
 #   - info      | i   : Informação genérica.
@@ -25,6 +27,16 @@
 #   - error     | e   : Erro em uma operação.
 #   - fail      | f   : Falha em uma operação.
 #   - success   | s   : Sucesso em uma operação.
+#
+#
+#   Mensagens de Prompt
+#
+#   - friendly  | fr  : Amigável. Questão sem muita importância.
+#   - ordinary  | or  : Comum. Questão padrão.
+#   - caution   | ca  : Cuidado. Questão que exige atenção do usuário ou que
+#                       tenha potencial de alguma alteração permanente.
+#   - important | im  : Importante. Questão com potencial de causar alteração
+#                       permanente no processamento do script ou no próprio PC
 #
 # [CustomSpecification]
 # Configuração especial.
