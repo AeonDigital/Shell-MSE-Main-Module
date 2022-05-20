@@ -12,6 +12,21 @@
 # Renderiza uma mensagem a ser mostrada para o usuário utilizando as
 # configurações definidas no array associativo 'MSE_GLOBAL_SHOW_MESSAGE_CONFIG'.
 #
+# A composição da mensagem é estruturada em blocos, cada qual com
+# características próprias mas com algumas características e funcionamento em
+# comum.
+#
+# Os blocos são configurados na passagem de parametros na mesma ordem em que
+# serão exibidos na tela. Abaixo há um esquema simples de como é - de forma
+# geral - a estrutura usando todos os blocos.
+#
+# - Bloco 01: Separador superior da mensagem
+# - Bloco 02: Título
+# - Bloco 03: Corpo da mensagem
+# - Bloco 04: Separador inferior da mensagem
+#
+#
+#
 # São esperadas as seguintes chaves de configuração:
 #
 # [MessageType]
@@ -38,18 +53,28 @@
 #   - important | im  : Importante. Questão com potencial de causar alteração
 #                       permanente no processamento do script ou no próprio PC
 #
-# [CustomSpecification]
-# Configuração especial.
-# Pode ser o nome de uma função que possui uma formatação especial para a
-# mensagem ou um outro valor qualquer que pode ser usado para alguma definição
-# especial do tema escolhido
+# [MessageFormat]
+# Formato.
+# Pode ser um tipo específico de formatação definido no tema a ser usado ou
+# o nome de uma função que possui uma formatação especial para a mensagem.
+# Se não for definido, internamente usará o valor padrão 'FULLMESSAGE'.
 #
 #
 #
-# [DisplayTitle]
+# [MessageTopSeparator]
+# Separador superior da mensagem.
+#
+# [MessageTopSeparatorColor]
+# Indica se deve permitir a colorização do separador superior da mensagem.
+# Use "0" para não.
+# Use "1" para sim.
+#
+#
+#
+# [TitleDisplay]
 # Mostrar título.
-# Use "0" para omitir o título.
-# Use "1" para mostrar o título.
+# Use "0" para omitir.
+# Use "1" para mostrar.
 #
 # [TitleType]
 # Tipo do título.
@@ -80,89 +105,94 @@
 # for identificada alguma inconsistência, reverterá o tipo do título para o
 # valor padrão "1".
 #
-# [TopSeparatorTitle]
-# Separador no topo do título.
-# Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
-# Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
-# ou outro caracter de sua preferencia.
+# [TitleTopSeparator]
+# Separador superior do título.
 #
-# [TopSeparatorTitleColor]
-# Indica se deve ou não permitir a colorização do separador no topo.
+# [TitleTopSeparatorColor]
+# Indica se deve permitir a colorização do separador superior do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [IndentTitle]
+# [TitleIndent]
 # Indentação para o título.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# [BulletTitle]
+# [TitleBullet]
 # Bullet para o título.
 # Deixe vazio para não usar.
 #
-# [BulletTitleColor]
-# Indica se deve ou não permitir a colorização do bullet do título.
+# [TitleBulletColor]
+# Indica se deve permitir a colorização do bullet do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [TextTitle]
+# [TitleText]
 # Título da mensagem.
-# Se "", usará o título padrão conforme o tipo de mensagem, ou, deixará a linha
-# do título vazia em caso de tipo de mensagem "none".
+# Se "", usará o título padrão conforme o tipo de mensagem, ou, deixará a
+# linha do título vazia em caso de tipo de mensagem "none".
 #
-# [TextTitleColor]
-# Indica se deve ou não permitir a colorização do título.
+# [TitleTextColor]
+# Indica se deve permitir a colorização do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [BottomSeparatorTitle]
-# Separador entre título e corpo da mensagem.
-# Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
-# Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
-# ou outro caracter de sua preferencia.
+# [TitleBottomSeparator]
+# Separador inferior do título.
 #
-# [BottomSeparatorTitleColor]
-# Indica se deve ou não permitir a colorização do separador do título.
+# [TitleBottomSeparatorColor]
+# Indica se deve permitir a colorização do separador inferior do título.
 # Use "0" para não.
 # Use "1" para sim.
 #
 #
 #
-# [DisplayBodyMessage]
+# [BodyMessageDisplay]
 # Mostrar o corpo da mensagem.
-# Use "0" para omitir o corpo da mensagem.
-# Use "1" para mostrar o corpo da mensagem.
+# Use "0" para omitir.
+# Use "1" para mostrar.
 #
-# [IndentBodyMessageFirstLine]
+#
+# [BodyMessageTopSeparator]
+# Separador superior do corpo da mensagem.
+#
+# [BodyMessageTopSeparatorColor]
+# Indica se deve permitir a colorização do separador superior corpo da
+# mensagem.
+# Use "0" para não.
+# Use "1" para sim.
+#
+#
+# [BodyMessageFirstLineIndent]
 # Indentação para a primeira linha do corpo da mensagem.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# [BulletBodyMessageFirstLine]
+# [BodyMessageFirstLineBullet]
 # Bullet para a primeira linha do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# [BulletBodyMessageFirstLineColor]
+# [BodyMessageFirstLineBulletColor]
 # Indica se deve ou não permitir a colorização do bullet da primeira linha do
 # corpo da mensagem.
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [IndentBodyMessageAnotherLines]
+#
+# [BodyMessageAnotherLinesIndent]
 # Indentação para a segunda linha em diante do corpo da mensagem.
 # Use apenas espaços em branco.
 # Deixe vazio para não usar.
 #
-# [BulletBodyMessageAnotherLines]
+# [BodyMessageAnotherLinesBullet]
 # Bullet para a segunda linha em diante do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# [BulletBodyMessageAnotherLinesColor]
+# [BodyMessageAnotherLinesBulletColor]
 # Indica se deve ou não permitir a colorização do bullet da segunda linha em
 # diante do corpo da mensagem.
 # Use "0" para não.
 # Use "1" para sim.
-#
 #
 #
 # [BodyMessageArrayName]
@@ -174,16 +204,58 @@
 # Use "0" para não.
 # Use "1" para sim.
 #
-# [SeparatorBodyMessage]
-# Separador entre o corpo da mensagem e a próxima linha do prompt do terminal.
-# Use apenas "\n" caso queira apenas adicionar um ou mais espaços em branco.
-# Outras opções são adicionar separadores gráficos como uma linha de "-" ou "="
-# ou outro caracter de sua preferencia.
 #
-# [SeparatorBodyMessageColor]
-# Indica se deve ou não permitir a colorização do separador do título.
+# [BodyMessageBottomSeparator]
+# Separador inferior do corpo da mensagem.
+#
+# [BodyMessageBottomSeparatorColor]
+# Indica se deve permitir a colorização do separador inferior corpo da
+# mensagem.
 # Use "0" para não.
 # Use "1" para sim.
+#
+#
+#
+# [MessageBottomSeparator]
+# Separador inferior da mensagem.
+#
+# [MessageBottomSeparatorColor]
+# Indica se deve permitir a colorização do separador inferior da mensagem.
+# Use "0" para não.
+# Use "1" para sim.
+#
+#
+#
+# Observação:
+# Quando uma função de tema é acionada ela deve carregar uma série de
+# informações sobre cada cor que será usada em cada tipo de mensagem.
+# As cores devem ser registradas em arrays associativos que correspondem a
+# cada elemento capaz de receber colorização em cada um dos blocos que formam
+# a mensagem como um todo.
+# Abaixo segue uma lista contendo o nome de cada array associativo usado para
+# tal finalidade.
+#
+# MSE_GSMCTC = MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_COLOR
+#
+# [Bloco 01: Separador superior da mensagem]
+# - MSE_GSMCTC_B01_TOP_SEPARATOR
+#
+# [Bloco 02: Título]
+# - MSE_GSMCTC_B02_TOP_SEPARATOR
+# - MSE_GSMCTC_B02_BULLET
+# - MSE_GSMCTC_B02_TEXT
+# - MSE_GSMCTC_B02_BOTTOM_SEPARATOR
+#
+# [Bloco 03: Corpo da mensagem]
+# - MSE_GSMCTC_B03_TOP_SEPARATOR
+# - MSE_GSMCTC_B03_FIRST_LINE_BULLET
+# - MSE_GSMCTC_B03_ANOTHER_LINES_BULLET
+# - MSE_GSMCTC_B03_FIRST_LINE_TEXT
+# - MSE_GSMCTC_B03_ANOTHER_LINES_TEXT
+# - MSE_GSMCTC_B03_BOTTOM_SEPARATOR
+#
+# [Bloco 04: Separador inferior da mensagem]
+# - MSE_GSMCTC_B04_BOTTOM_SEPARATOR
 #
 #
 #
@@ -201,75 +273,177 @@ mse_inter_theme_default() {
 
   #
   # Padrão para as configurações das mensagens de tipo previsto
-  if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" != "UTEST" ]; then
-    case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[CustomSpecification]}" in
-      CHECK)
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+  case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageFormat]}" in
+    FULLMESSAGE)
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]=""
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+      #
+      # Configuração geral para uma mensagem padrão
+      # Imprime todos os 4 blocos de uma mensagem.
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=""
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+      #
+      # Bloco 01: Separador superior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparatorColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]=""
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
-      ;;
-      TITLE)
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+      #
+      # Bloco 02: Título
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleDisplay"]="1"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparatorColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n\n"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleIndent"]="  "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBullet"]=":: "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBulletColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="0"
-      ;;
-      FULL | *)
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayTitle"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTextColor"]="1"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitle"]="\n"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TopSeparatorTitleColor"]="0"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparatorColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentTitle"]="  "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitle"]=":: "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletTitleColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TextTitleColor"]="1"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitle"]="\n"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BottomSeparatorTitleColor"]="0"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["DisplayBodyMessage"]="1"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageFirstLine"]="     "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLine"]=""
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageFirstLineColor"]="0"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["IndentBodyMessageAnotherLines"]="     "
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLines"]=""
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BulletBodyMessageAnotherLinesColor"]="0"
+      #
+      # Bloco 03: Corpo da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageDisplay"]="1"
 
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessage"]="\n\n"
-        MSE_GLOBAL_SHOW_MESSAGE_CONFIG["SeparatorBodyMessageColor"]="0"
-      ;;
-    esac
-  fi
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageTopSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageTopSeparatorColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageFirstLineIndent"]="     "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageFirstLineBullet"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageFirstLineBulletColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageAnotherLinesIndent"]="     "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageAnotherLinesBullet"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageAnotherLinesBulletColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageArrayNameColor"]="1"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageBottomSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageBottomSeparatorColor"]="0"
+
+
+
+      #
+      # Bloco 04: Separador inferior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparatorColor"]="0"
+
+    ;;
+
+    SHOWSTATUS)
+
+      #
+      # Configuração geral para uma mensagem do tipo 'show status'
+      #
+      # Usa o tipo de título 3 para passar uma informação como resultado
+      # de um processamento qualquer que pode indicar o aguardo do término
+      # de um processo ou a realização com sucesso ou falha também.
+      #
+      # O cursor é interrompido imediatamente ao lado do final do título
+      # permitindo que possa ser usado '\r' para retornar ao início da linha
+      # e substituí-la se necessário, alterando assim o status printado na tela.
+      #
+      # Este tipo de mensagem NÃO conta com um corpo e nem utiliza espaços
+      # acima ou abaixo da mensagem deixando este tipo de estilização para
+      # o escopo do script que evocar a mensagem.
+
+      #
+      # Bloco 01: Separador superior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparatorColor"]="0"
+
+
+
+      #
+      # Bloco 02: Título
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleDisplay"]="1"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleType"]="3"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparatorColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleIndent"]="  "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBullet"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBulletColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTextColor"]="1"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparatorColor"]="0"
+
+
+
+      #
+      # Bloco 03: Corpo da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageDisplay"]="0"
+
+
+
+      #
+      # Bloco 04: Separador inferior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparatorColor"]="0"
+
+    ;;
+
+    TITLE)
+
+      #
+      # Configuração geral para uma mensagem de título
+      # Imprime apenas o bloco do título com espaçamento simples
+      # acima e abaixo.
+
+      #
+      # Bloco 01: Separador superior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageTopSeparatorColor"]="0"
+
+
+
+      #
+      # Bloco 02: Título
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleDisplay"]="1"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTopSeparatorColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleIndent"]="  "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBullet"]=":: "
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBulletColor"]="0"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleTextColor"]="1"
+
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["TitleBottomSeparatorColor"]="0"
+
+
+
+      #
+      # Bloco 03: Corpo da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["BodyMessageDisplay"]="0"
+
+
+
+      #
+      # Bloco 04: Separador inferior da mensagem
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparatorColor"]="0"
+
+    ;;
+  esac
 
 
 
   #
   # Gera a mensagem conforme o tipo selecionado
+  mse_inter_showMessage_createSeparator "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageTopSeparator]}" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageTopSeparatorColor]}" "MSE_GSMCTC_B01_TOP_SEPARATOR"
   mse_inter_showMessage_createTitle
   mse_inter_showMessage_createBody
+  mse_inter_showMessage_createSeparator "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageBottomSeparator]}" "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageBottomSeparatorColor]}" "MSE_GSMCTC_B04_BOTTOM_SEPARATOR"
 }
 
 
@@ -278,128 +452,145 @@ mse_inter_theme_default() {
 
 #
 # Define as cores a serem usadas para este tema.
+# Para isto, preenche os arrays associativos 'MSE_GSMCTC' descritos
+# na documentação
 mse_inter_theme_default_setColorDefinition() {
-  local mseRedefineColors=0
-  declare -a mseAssocArrays
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS")
-
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_FIRSTLINE_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_FIRSTLINE_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_ANOTHERLINES_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_ANOTHERLINES_COLORS")
-  mseAssocArrays+=("MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYSEPARATOR_COLORS")
-
-
-  local mseArrName
-  for mseArrName in "${mseAssocArrays[@]}"; do
-    if [ "${mseRedefineColors}" == 0 ] && [[ ! "$(declare -p $mseArrName 2> /dev/null)" =~ "declare -A" ]]; then
-      mseRedefineColors=1
-    fi
-  done
 
 
   #
-  # Apenas se as definições de cores ainda não foram definidas
-  if [ "${mseRedefineColors}" == "1" ]; then
-    local mseMessageType
+  # Apenas se o tema não está carregado ...
+  if [ -z ${MSE_GLOBAL_THEME_LOADED+x} ] || [ "${MSE_GLOBAL_THEME_LOADED}" == "" ] || [ "${MSE_GLOBAL_THEME_LOADED}" != "mse_inter_theme_default" ]; then
+
+    #
+    # Reseta todos os arrays associativos que estão correlacionados
+    # as cores usadas nas mensagens
+
+    #
+    # [Bloco 01: Separador superior da mensagem]
+    unset MSE_GSMCTC_B01_TOP_SEPARATOR
+    declare -gA MSE_GSMCTC_B01_TOP_SEPARATOR
+
+    #
+    # [Bloco 02: Título]
+    unset MSE_GSMCTC_B02_TOP_SEPARATOR
+    unset MSE_GSMCTC_B02_BULLET
+    unset MSE_GSMCTC_B02_TEXT
+    unset MSE_GSMCTC_B02_BOTTOM_SEPARATOR
+
+    declare -gA MSE_GSMCTC_B02_TOP_SEPARATOR
+    declare -gA MSE_GSMCTC_B02_BULLET
+    declare -gA MSE_GSMCTC_B02_TEXT
+    declare -gA MSE_GSMCTC_B02_BOTTOM_SEPARATOR
+
+    #
+    # [Bloco 03: Corpo da mensagem]
+    unset MSE_GSMCTC_B03_TOP_SEPARATOR
+    unset MSE_GSMCTC_B03_FIRST_LINE_BULLET
+    unset MSE_GSMCTC_B03_ANOTHER_LINES_BULLET
+    unset MSE_GSMCTC_B03_FIRST_LINE_TEXT
+    unset MSE_GSMCTC_B03_ANOTHER_LINES_TEXT
+    unset MSE_GSMCTC_B03_BOTTOM_SEPARATOR
+
+    declare -gA MSE_GSMCTC_B03_TOP_SEPARATOR
+    declare -gA MSE_GSMCTC_B03_FIRST_LINE_BULLET
+    declare -gA MSE_GSMCTC_B03_ANOTHER_LINES_BULLET
+    declare -gA MSE_GSMCTC_B03_FIRST_LINE_TEXT
+    declare -gA MSE_GSMCTC_B03_ANOTHER_LINES_TEXT
+    declare -gA MSE_GSMCTC_B03_BOTTOM_SEPARATOR
+
+    #
+    # [Bloco 04: Separador inferior da mensagem]
+    unset MSE_GSMCTC_B04_BOTTOM_SEPARATOR
+    declare -gA MSE_GSMCTC_B04_BOTTOM_SEPARATOR
+
+
+
 
 
     #
-    # Note que para este tema as cores de cada uma das partes que compõe a mensagem são
-    # sempre as mesmas, mas nada impediria de existir uma configuração diferente.
+    # Inicia um array associativo contendo a cor que cada tipo de mensagem deve usar.
+    #
+    # Note que toda cor definida para uso nos títulos possui uma variação "a1" que é
+    # usada dentro da construção padrão.
     declare -A mseThemeColors
+
+    #
+    # Mensagens de Alerta
     mseThemeColors["info"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
     mseThemeColors["info_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "DGREY" "1")
+
     mseThemeColors["attention"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
     mseThemeColors["attention_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
+
     mseThemeColors["warning"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
     mseThemeColors["warning_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
+
     mseThemeColors["error"]=$(mse_font_createStyle "0" "BOLD" "NONE" "RED" "1")
     mseThemeColors["error_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "RED" "1")
+
     mseThemeColors["fail"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
     mseThemeColors["fail_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
+
     mseThemeColors["success"]=$(mse_font_createStyle "0" "BOLD" "NONE" "GREEN" "1")
     mseThemeColors["success_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "GREEN" "1")
 
+
+    #
+    # Mensagens de Prompt
+    mseThemeColors["friendly"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LGREEN" "1")
+    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LGREEN" "1")
+
+    mseThemeColors["ordinary"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
+
+    mseThemeColors["caution"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["caution_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
+
+    mseThemeColors["important"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["important_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
+
+
+    #
+    # Corpo de mensagems
     mseThemeColors["body"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
 
 
 
 
     #
-    # Cores para o bullet do título
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS
+    # Carrega cada um dos arraya associativos com as informações
+    # das cores
+    local mseMessageType
     for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLEBULLET_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      #
+      # [Bloco 01: Separador superior da mensagem]
+      MSE_GSMCTC_B01_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+
+      #
+      # [Bloco 02: Título]
+      MSE_GSMCTC_B02_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B02_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B02_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B02_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+
+      #
+      # [Bloco 03: Corpo da mensagem]
+      MSE_GSMCTC_B03_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B03_FIRST_LINE_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B03_ANOTHER_LINES_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B03_FIRST_LINE_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B03_ANOTHER_LINES_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSMCTC_B03_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+
+      #
+      # [Bloco 04: Separador inferior da mensagem]
+      MSE_GSMCTC_B04_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
     done
+
 
 
     #
-    # Cores para o texto do título
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLETEXT_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-    #
-    # Cores para o separador do título
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_TITLESEPARATOR_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-
-
-
-    #
-    # Cores para o bullet da primeira linha do corpo da mensagem
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_FIRSTLINE_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_FIRSTLINE_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_FIRSTLINE_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-    #
-    # Cores para o texto da primeira linha do corpo da mensagem
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_FIRSTLINE_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_FIRSTLINE_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_FIRSTLINE_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-    #
-    # Cores para o bullet da segunda linha em diante do corpo da mensagem.
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_ANOTHERLINES_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_ANOTHERLINES_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYBULLET_ANOTHERLINES_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-    #
-    # Cores para o texto da segunda linha em diante do corpo da mensagem.
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_ANOTHERLINES_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_ANOTHERLINES_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYTEXT_ANOTHERLINES_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-    #
-    # Cores para o separador do corpo da mensagem.
-    unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYSEPARATOR_COLORS
-    declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYSEPARATOR_COLORS
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_BODYSEPARATOR_COLORS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
+    # Registra que este tema foi carregado
+    declare -g MSE_GLOBAL_THEME_LOADED="mse_inter_theme_default"
   fi
 }

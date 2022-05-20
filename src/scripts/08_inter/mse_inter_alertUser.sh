@@ -54,38 +54,36 @@
 #   mse_inter_alertUser "i" "" "" "mseArrMSG"
 mse_inter_alertUser() {
   if [ $# -ge 3 ]; then
-    local mseMessageType="$1"
-    local mseMessageCode="$2"
-    local mseMessageTitle="$3"
-    local mseMessageBodyArrayName="$4"
-    mseEmptyArr=()
+    declare -A mseArgs
+    mseArgs["MessageType"]="${1}"
+    mseArgs["MessageFormat"]="FULLMESSAGE"
+    mseArgs["TitleType"]="1"
+    mseArgs["TitleCode"]="${2}"
+    mseArgs["TitleText"]="${3}"
+    mseArgs["BodyMessageArrayName"]="${4}"
 
 
     #
     # Verifica de que forma o título deve ser mostrado
-    local mseMessageTitleType="1"
-    if [ "${mseMessageCode}" != "" ] && [ "${mseMessageTitle}" != "" ]; then
-      mseMessageTitleType="3"
-      mseMessageTitle="${mseMessageCode}::${mseMessageTitle}"
+    if [ "${2}" != "" ] && [ "${3}" != "" ]; then
+      mseArgs["TitleType"]="3"
+      mseArgs["TitleText"]="${2}::${3}"
     fi
-
 
     #
     # Mostrará o corpo da mensagem caso existam informações no array indicado
-    local mseCustomSpecification="FULL"
-    if [ "${mseMessageBodyArrayName}" == "" ]; then
-      mseCustomSpecification="TITLE"
+    if [ "${4}" == "" ]; then
+      mseArgs["MessageFormat"]="TITLE"
     fi
-
 
     #
     # Identifica o tema a ser usado
     local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
-    if [ "$5" != "" ]; then
-      mseTheme="$5"
+    if [ "${5}" != "" ]; then
+      mseTheme="${5}"
     fi
 
-    mse_inter_showMessage "${mseMessageType}" "${mseCustomSpecification}" "" "${mseMessageTitleType}" "" "" "" "" "" "${mseMessageTitle}" "" "" "" "" "" "" "" "" "" "" "${mseMessageBodyArrayName}" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "" "" "" "${mseArgs[TitleType]}" "" "" "" "" "" "${mseArgs[TitleText]}" "" "" "" "" "" "" "" "" "" "" "" "" "${mseArgs[BodyMessageArrayName]}" "" "" "" "" "" "${mseTheme}"
   fi
 }
 
@@ -101,8 +99,8 @@ mse_inter_alertUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MessageCode :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MessageTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="MessageBodyArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyMessageArrayName :: r :: arrayName"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="Theme :: o :: functionName"
 }

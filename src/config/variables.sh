@@ -23,6 +23,10 @@ declare -g MSE_GLOBAL_RETURN=""
 #
 # Função do 'theme' usada para renderizar as mensagens de interface
 MSE_GLOBAL_THEME_FUNCTION="mse_inter_theme_default"
+#
+# Indica o 'theme' que está carregado no momento.
+# Geralmente será o último a ter sido usado.
+MSE_GLOBAL_THEME_LOADED=""
 
 
 

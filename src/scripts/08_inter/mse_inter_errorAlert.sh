@@ -41,22 +41,28 @@
 #   mse_inter_errorAlert "${FUNCNAME[0]}" "Falha" "mseArrMSG"
 mse_inter_errorAlert() {
   if [ "$#" -ge 2 ]; then
-    local mseMessageCode="$1"
-    local mseMessageTitle="$2"
+    declare -A mseArgs
+    mseArgs["MessageType"]="e"
+    mseArgs["MessageFormat"]="FULLMESSAGE"
+    mseArgs["TitleType"]="3"
+    mseArgs["TitleCode"]="${1}"
+    mseArgs["TitleText"]="${2}"
+    mseArgs["BodyMessageArrayName"]="${3}"
+
 
     #
     # Verifica o código a ser informado para este erro
-    if [ "${mseMessageCode}" == "" ]; then
-      mseMessageCode="script"
+    if [ "${1}" == "" ]; then
+      mseArgs["TitleCode"]="script"
     fi
 
     #
     # Verifica a mensagem básica do título a ser usado para este erro
-    if [ "${mseMessageTitle}" == "" ]; then
-      mseMessageTitle="${lbl_inter_alert_header_error}"
+    if [ "${2}" == "" ]; then
+      mseArgs["TitleText"]="${lbl_inter_alert_header_error}"
     fi
 
-    mse_inter_alertUser "e" "$mseMessageCode" "$mseMessageTitle" "$3" "$4"
+    mse_inter_alertUser "${mseArgs[MessageType]}" "${mseArgs[TitleCode]}" "${mseArgs[TitleText]}" "${mseArgs[BodyMessageArrayName]}" "${4}"
   fi
 }
 
@@ -67,25 +73,10 @@ mse_inter_errorAlert() {
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_inter_alertUser_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageCode :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MessageTitle :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MessageBodyArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
-}
-
-
-
-
-
-
-#
-# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
-# com as regras de validação dos parametros aceitáveis.
 mse_inter_errorAlert_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
-
-
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ExtraInformation :: o :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="TitleCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleText :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BodyMessageArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
 }
