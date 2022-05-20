@@ -15,7 +15,7 @@
 # global 'MSE_GLOBAL_MODULE_PROMPT_RESULT'.
 #
 # @param string $1
-# Tipo de mensagem.
+# Tipo de mensagem.on
 #
 #   Mensagens de Prompt
 #
