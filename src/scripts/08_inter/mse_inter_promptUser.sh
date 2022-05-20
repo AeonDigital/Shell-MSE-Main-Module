@@ -12,10 +12,11 @@
 # Mostra uma mensagem para o usuário e permite que ele ofereça uma resposta.
 #
 # O resultado selecionado/digitado pelo usuário ficará definido na variável
-# global 'MSE_GLOBAL_MODULE_PROMPT_RESULT'.
+# global 'MSE_GLOBAL_PROMPT_RESULT'.
 #
 # @param string $1
-# Tipo de mensagem.on
+# Tom de mensagem de prompt.
+# Se não for definido usará o tipo "ordinary"
 #
 #   Mensagens de Prompt
 #
@@ -27,27 +28,19 @@
 #                       permanente no processamento do script ou no próprio PC
 #
 # @param string $2
+# Código da mensagem.
+# Se não for definido, usará o caracter "?".
 #
+# @param string $3
+# Título da mensagem.
+# Use para orientar o usuário sobre a resposta requerida.
 #
-mse_inter_promptUser() {
-  printf ""
-
-}
-
-
-
-
+# @param string $4
+# Nome de um array unidimensional em que estão as frases que devem
+# ser usadas para montar o corpo da mensagem.
 #
-# Mostra uma mensagem para o usuário e permite que ele ofereça uma resposta.
-#
-# O resultado selecionado pelo usuário ficará definido na variável global
-# 'MSE_GLOBAL_MODULE_PROMPT_RESULT'.
-#
-# Quando usar os tipos 'bool' e 'list', defina as chaves de valores
-# sempre em minúsculas.
-#
-# @param string $1
-# Tipo de valor que é esperado como resposta do prompt.
+# @param string $5
+# Informe o tipo de valor que é esperado como resposta do prompt.
 # Se nenhum valor for informado, usará o tipo 'bool'.
 #
 # Os tipos válidos são:
@@ -55,190 +48,250 @@ mse_inter_promptUser() {
 # - list  : espera uma resposta baseada em uma lista pré-definida.
 # - value : aceita qualquer resposta como válida.
 #
+# @param string $6
+# Legendas de valores aceitáveis. Usado para o tipo 'list'.
+# Indique o nome de um array unidimensional em que estão os valores que servem
+# de referencia para o usuário selecionar uma opção válida.
+# A comparação se dará de forma case insensitive.
 #
-# Para usar o tipo 'list' é necessário preencher as variáveis
-# ${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS} e ${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES}
-# com as chaves/valores que são aceitos para a mesma.
+# @param string $7
+# Valores reais aceitáveis. Usado para o tipo 'list'.
+# Indique o nome de um array unidimensional em que estão os valores reais
+# correspondentes a cada legenda informada acima.
+# Internamente,
 #
-# Em "LABELS" armazene as 'keys' que são as strings que o usuário pode
-# digitar. Já em "VALUES" deve existir um valor correspondente à posição de
-# cada "key" previamente definida.
-# O valor selecionado irá ficar armazenado na variável
-# ${MSE_GLOBAL_MODULE_PROMPT_RESULT}
+# O valor selecionado irá ficar armazenado na variável global
+# 'MSE_GLOBAL_PROMPT_RESULT'.
 #
-# @example
-#   MSE_GLOBAL_MODULE_PROMPT_MSG=()
-#   MSE_GLOBAL_MODULE_PROMPT_MSG[0]=$(printf "ATENÇÃO!")
-#   MSE_GLOBAL_MODULE_PROMPT_MSG[1]=$(printf "Deseja prosseguir?")
+# @param string $8
+# Opcional.
+# Nome da função/tema usada para renderizar as mensagens a serem mostradas
+# na tela. Se nenhuma for indicada, usará o tema padrão definido na
+# variável global 'MSE_GLOBAL_THEME_FUNCTION'
 #
-#   mse_mmod_promptUser
-#   if [ "$MSE_GLOBAL_MODULE_PROMPT_RESULT" == "1" ]; then
-#     printf "Escolhido Sim"
-#   else
-#     printf "Escolhido Não"
-#   fi
-#
-#
-#
-#   MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS=(
-#     "arch" "ubuntu" "debian"
-#   )
-#   MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES=(
-#     "Arch" "Ubuntu" "Debian"
-#   )
-#
-#   MSE_GLOBAL_MODULE_PROMPT_MSG=()
-#   MSE_GLOBAL_MODULE_PROMPT_MSG[0]=$(printf "ATENÇÃO!")
-#   MSE_GLOBAL_MODULE_PROMPT_MSG[1]=$(printf "Selecione sua distribuição preferida:")
-#
-#   mse_inter_promptUser "list"
-#   printf "Você escolheu a opção: $MSE_GLOBAL_MODULE_PROMPT_RESULT"
-mse_inter_promptUserrr() {
-  MSE_GLOBAL_MODULE_PROMPT_RESULT=""
+# @return
+# Printa na tela as informações desejadas conforme configuração passada.
+mse_inter_promptUser() {
+  MSE_GLOBAL_LASTERR=""
+  MSE_GLOBAL_PROMPT_RESULT=""
 
   #
-  # Se não há uma mensagem a ser mostrada para o usuário
-  if [ ${#MSE_GLOBAL_MODULE_PROMPT_MSG[@]} == 0 ] && [ ${#MSE_GLOBAL_MODULE_GENERAL_MSG[@]} == 0 ]; then
-    mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_emptyArray} MSE_GLOBAL_MODULE_PROMPT_MSG"
+  # Apenas se todos os parametros foram passados
+  if [ $# -lt 5 ]; then
+    local mseArgs="$#"
+    local mseLost
+    ((mseLost=5-mseArgs))
+
+    MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
+    return 1
   else
-    local mseType
-    local mseIndex
-    local mseKey
-    local mseValue
-    local msePromptOptions
-    local msePromptReadLineMessage
-    local msePromptValue
-    local mseMsg
+
+    declare -A mseArgs
+    mseArgs["MessageType"]="${1}"
+    mseArgs["MessageFormat"]="FULLMESSAGE"
+    mseArgs["TitleType"]="3"
+    mseArgs["TitleCode"]="${2}"
+    mseArgs["TitleText"]="${3}"
+    mseArgs["BodyMessageArrayName"]="${4}"
+
+    declare -a mseTmpLines
+    declare -n mseBodyMessageArrayName
+
 
     #
-    # Verifica o tipo de prompt
-    mseType="bool"
-    if [ $# == 1 ] && [ "$1" != "" ]; then
-      mseType="$1"
+    # Verifica o tipo da mensagem
+    if [ "${1}" == "" ]; then
+      mseArgs["MessageType"]="or"
     fi
 
+    #
+    # Verifica o código da mensagem
+    if [ "${2}" == "" ]; then
+      mseArgs["TitleCode"]="?"
+    fi
 
-    if [ "$mseType" != "bool" ] && [ "$mseType" != "list" ] && [ "$mseType" != "value" ]; then
-      mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_invalidType} ${mseType}"
+    #
+    # Verifica a mensagem
+    if [ "${3}" == "" ]; then
+      mseArgs["TitleText"]="?"
+    fi
+
+    #
+    # Mostrará o corpo da mensagem caso existam informações no array indicado
+    if [ "${4}" == "" ]; then
+      mseArgs["MessageFormat"]="TITLE"
     else
       #
-      # Prepara a mensagem principal
-      if [ ${#MSE_GLOBAL_MODULE_PROMPT_MSG[@]} == 0 ]; then
-        MSE_GLOBAL_MODULE_PROMPT_MSG=("${MSE_GLOBAL_MODULE_GENERAL_MSG[@]}")
-      fi
-
-
-
-      mseKey=""
-      mseValue=""
-      msePromptOptions=""
-      msePromptReadLineMessage=""
-      if [ "$mseType" == "bool" ]; then
-        for mseIndex in "${!lbl_generic_boolPromptLabels[@]}"; do
-          mseKey="${lbl_generic_boolPromptLabels[$mseIndex]}"
-
-          if [ "$mseValue" != "${lbl_generic_boolPromptValues[$mseIndex]}" ]; then
-            mseValue="${lbl_generic_boolPromptValues[$mseIndex]}"
-
-            if [ "$msePromptOptions" != "" ]; then
-              msePromptOptions="${msePromptOptions} | "
-            fi
-          else
-            if [ "$msePromptOptions" != "" ]; then
-              msePromptOptions="${msePromptOptions}/"
-            fi
-          fi
-
-          msePromptOptions="${msePromptOptions}${mseKey}"
-          msePromptReadLineMessage="${MSE_GLOBAL_MODULE_PROMPT_INDENT}[ ${msePromptOptions} ] : "
-        done
-
-      elif [ "$mseType" == "list" ]; then
-
-        for mseIndex in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
-          mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$mseIndex]}"
-
-          if [ "$mseValue" != "${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}" ]; then
-            mseValue="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}"
-
-            if [ "$msePromptOptions" != "" ]; then
-              msePromptOptions="${msePromptOptions} | "
-            fi
-          else
-            if [ "$msePromptOptions" != "" ]; then
-              msePromptOptions="${msePromptOptions}/"
-            fi
-          fi
-
-          msePromptOptions="${msePromptOptions}${mseKey}"
-          msePromptReadLineMessage="${MSE_GLOBAL_MODULE_PROMPT_INDENT}[ ${msePromptOptions} ] : "
-        done
-
+      # Verifica se o nome do array passado é válido
+      if [[ ! "$(declare -p ${4} 2> /dev/null)" =~ "declare -a" ]]; then
+        MSE_GLOBAL_LASTERR="Parameter \"BodyMessageArrayName\" must be an array"
+        return 1
       else
-        msePromptReadLineMessage="${MSE_GLOBAL_MODULE_PROMPT_INDENT}: "
-      fi
-
-
-
-      if [ "$msePromptOptions" == "" ] && [ "$mseType" == "bool" ]; then
-        mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_emptyListOfBooleanOptions}"
-      elif [ "$msePromptOptions" == "" ] && [ "$mseType" == "list" ]; then
-        mse_mmod_errorAlert "${FUNCNAME[0]}" "${lbl_genericError_emptyListOfOptions}"
-      else
-
-        #
-        # Efetua um loop recebendo valores do usuário até que seja digitado algum válido.
-        msePromptValue=""
-        while [ "$MSE_GLOBAL_MODULE_PROMPT_RESULT" == "" ]; do
-          if [ $MSE_GLOBAL_MODULE_PROMPT_TEST == 0 ]; then
-            if [ "$msePromptValue" != "" ]; then
-              printf "${MSE_GLOBAL_MODULE_PROMPT_INDENT}${lbl_genericError_invalidValue}. ${lbl_genericError_expectedOnly} [ ${msePromptOptions} ]: \"$msePromptValue\" \n"
-            fi
-
-            for mseMsg in "${MSE_GLOBAL_MODULE_PROMPT_MSG[@]}"; do
-              printf "${MSE_GLOBAL_MODULE_ALERT_INDENT}${mseMsg}\n"
-            done
-          fi
-
-          #
-          # Permite que o usuário digite sua resposta
-          read -p "${msePromptReadLineMessage}" msePromptValue
-
-          #
-          # Verifica se o valor digitado corresponde a algum dos valores válidos.
-          if [ "$mseType" == "bool" ]; then
-            msePromptValue=$(printf "$msePromptValue" | awk '{print tolower($0)}')
-
-            for mseIndex in "${!lbl_generic_boolPromptLabels[@]}"; do
-              mseKey="${lbl_generic_boolPromptLabels[$mseIndex]}"
-              if [ "$mseKey" == "$msePromptValue" ]; then
-                MSE_GLOBAL_MODULE_PROMPT_RESULT=${lbl_generic_boolPromptValues[$mseIndex]}
-              fi
-            done
-          elif [ "$mseType" == "list" ]; then
-            msePromptValue=$(printf "$msePromptValue" | awk '{print tolower($0)}')
-
-            for mseIndex in "${!MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[@]}"; do
-              mseKey="${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_LABELS[$mseIndex]}"
-              if [ "$mseKey" == "$msePromptValue" ]; then
-                MSE_GLOBAL_MODULE_PROMPT_RESULT=${MSE_GLOBAL_MODULE_PROMPT_LIST_OPTIONS_VALUES[$mseIndex]}
-              fi
-            done
-          else
-              MSE_GLOBAL_MODULE_PROMPT_RESULT=$msePromptValue
-              break
-          fi
-        done
-
-      fi
-
-
-      MSE_GLOBAL_MODULE_PROMPT_MSG=()
-      MSE_GLOBAL_MODULE_GENERAL_MSG=()
-
-      if [ $MSE_GLOBAL_MODULE_PROMPT_TEST == 1 ]; then
-        printf "${MSE_GLOBAL_MODULE_PROMPT_RESULT}\n"
+        mseBodyMessageArrayName="${4}"
       fi
     fi
+
+
+
+    #
+    # Verifica o tipo do prompt
+    local msePromptValueType="bool"
+    declare -n msePromptLabelArrayName
+    declare -n msePromptValueArrayName
+    case "${5}" in
+      bool | list | value)
+        msePromptValueType="${5}"
+
+        if [ "${5}" == "bool" ]; then
+          msePromptLabelArrayName="lbl_inter_prompt_boolLabels"
+          msePromptValueArrayName="lbl_inter_prompt_boolValues"
+        elif [ "${5}" == "list" ]; then
+          mseArgs["MessageFormat"]="FULLMESSAGE"
+
+          if [ "${4}" == "" ]; then
+            mseArgs["BodyMessageArrayName"]="mseTmpLines"
+            mseBodyMessageArrayName="mseTmpLines"
+          fi
+        fi
+      ;;
+    esac
+
+
+
+    #
+    # Sendo um prompt do tipo 'list', verifica se existem
+    # informações definidas nos arrays de chave/valor
+    if [ "${msePromptValueType}" == "list" ]; then
+      if [ "${6}" == "" ] || [[ ! "$(declare -p ${6} 2> /dev/null)" =~ "declare -a" ]]; then
+        MSE_GLOBAL_LASTERR="Parameter \"PromptLabelArrayName\" must be an array"
+        return 1
+      elif [ "${7}" == "" ] || [[ ! "$(declare -p ${7} 2> /dev/null)" =~ "declare -a" ]]; then
+        MSE_GLOBAL_LASTERR="Parameter \"PromptValueArrayName\" must be an array"
+        return 1
+      else
+        msePromptLabelArrayName="${6}"
+        msePromptValueArrayName="${7}"
+
+        if [ "${#msePromptLabelArrayName[@]}" == 0 ]; then
+          MSE_GLOBAL_LASTERR="Parameter \"PromptLabelArrayName\" is an empty array"
+          return 1
+        elif [ "${#msePromptValueArrayName[@]}" == 0 ]; then
+          MSE_GLOBAL_LASTERR="Parameter \"PromptValueArrayName\" is an empty array"
+          return 1
+        elif [ "${#msePromptLabelArrayName[@]}" != "${#msePromptValueArrayName[@]}" ]; then
+          MSE_GLOBAL_LASTERR="Parameters \"PromptLabelArrayName\" and \"PromptValueArrayName\" must have the same number of elements."
+          return 1
+        fi
+      fi
+    fi
+
+
+
+    #
+    # Monta as informações de opções válidas para o usuário
+    local mseIndex
+    local mseLabel
+    local mseValue
+    local mseStrValidOptions
+    if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
+
+      for mseIndex in "${!msePromptLabelArrayName[@]}"; do
+        mseLabel="${msePromptLabelArrayName[$mseIndex]}"
+
+        if [ "$mseValue" != "${msePromptValueArrayName[$mseIndex]}" ]; then
+          mseValue="${msePromptValueArrayName[$mseIndex]}"
+
+          if [ "$mseStrValidOptions" != "" ]; then
+            mseStrValidOptions="${mseStrValidOptions} | "
+          fi
+        else
+          if [ "$mseStrValidOptions" != "" ]; then
+            mseStrValidOptions="${mseStrValidOptions}/"
+          fi
+        fi
+
+        mseStrValidOptions="${mseStrValidOptions}${mseLabel}"
+      done
+
+      mseBodyMessageArrayName+=("[ ${mseStrValidOptions} ] : ")
+    fi
+
+
+
+    #
+    # Identifica o tema a ser usado
+    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+    if [ "${8}" != "" ]; then
+      mseTheme="${8}"
+    fi
+
+
+
+    local msePromptUserMessage
+    local msePromptUserValue
+    msePromptUserMessage=$(mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "" "" "" "${mseArgs[TitleType]}" "" "" "" "" "" "${mseArgs["TitleCode"]}::${mseArgs[TitleText]}" "" "" "" "" "" "" "" "" "" "" "" "" "${mseArgs[BodyMessageArrayName]}" "" "" "" "" "" "${mseTheme}" || echo "${MSE_GLOBAL_PROMPT_RESULT}")
+    while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
+      #
+      # Se está chegando aqui novamente significa que o valor digitado é inválido
+      # mostra uma mensagem de erro para o usuário
+      if [ "${msePromptUserValue}" != "" ]; then
+        mse_inter_errorAlert "X" "Invalid value \"${msePromptUserValue}\"."
+        mse_inter_toTopLine
+      fi
+
+      #
+      # Mostra a mensagem e permite ao usuário digitar uma resposta
+      read -r -p "${msePromptUserMessage}" msePromptUserValue
+
+      #
+      # Valida o valor digitado
+      if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
+        for mseIndex in "${!msePromptLabelArrayName[@]}"; do
+          mseLabel="${msePromptLabelArrayName[$mseIndex]}"
+          mseValue="${msePromptValueArrayName[$mseIndex]}"
+
+          if [ "${msePromptUserValue^^}" == "${mseLabel^^}" ] || [ "${msePromptUserValue^^}" == "${mseValue^^}" ]; then
+            MSE_GLOBAL_PROMPT_RESULT="${mseValue}"
+          fi
+        done
+      else
+        MSE_GLOBAL_PROMPT_RESULT="${msePromptUserValue}"
+      fi
+    done
+
+    #
+    # Remove a linha de opções do array alvo
+    if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
+      unset 'mseBodyMessageArrayName[-1]'
+    fi
+
+    printf "\n"
   fi
+}
+
+
+# mseArr=("Selecione o estado pela sigla")
+# mseArrLabels=(rs sc pr)
+# mseArrValues=("Rio Grande do Sul" "Santa Catarina" "Paraná")
+# mse_inter_promptUser "" "" "Qual o seu estado?" "mseArr" "list" "mseArrLabels" "mseArrValues" || echo "${MSE_GLOBAL_LASTERR}"
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_inter_promptUser_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=8
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="friendly, ordinary, caution, important"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="fr, or, ca, im"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyMessageArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="PromptValueType :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_labels"]="bool, list, value"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_values"]="bool, list, value"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="PromptLabelArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6"]="PromptValueArrayName :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7"]="Theme :: o :: functionName"
 }

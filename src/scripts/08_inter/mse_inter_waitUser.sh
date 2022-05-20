@@ -13,7 +13,6 @@
 # que ele digite uma tecla qualquer.
 #
 # @param string $1
-# Opcional.
 # Tom de mensagem de aguardo.
 # Se não for definido usará o tipo "info"
 #
@@ -29,12 +28,10 @@
 #   - success   | s   : Sucesso em uma operação.
 #
 # @param string $2
-# Opcional.
 # Código da mensagem.
 # Se não for definido, usará o caracter "!".
 #
 # @param string $3
-# Opcional.
 # Mensagem que indica para o usuário o motivo de estar aguardando.
 #
 # @param string $4
@@ -96,10 +93,10 @@ mse_inter_waitUser() {
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_waitUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: o :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: o :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: o :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
 }

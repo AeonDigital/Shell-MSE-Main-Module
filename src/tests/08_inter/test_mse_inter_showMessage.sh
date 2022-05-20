@@ -120,7 +120,7 @@ test_mse_inter_showMessage() {
   done
 
 
-  local mseTestInShell="1"
+  local mseTestInShell="0"
   if [ "${mseTestInShell}" == "1" ]; then
     #
     # Verifica se o output está configurado conforme se espera.

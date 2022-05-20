@@ -28,6 +28,10 @@ MSE_GLOBAL_THEME_FUNCTION="mse_inter_theme_default"
 # Geralmente será o último a ter sido usado.
 MSE_GLOBAL_THEME_LOADED=""
 
+#
+# Armazena a última resposta do usuário a um prompt.
+MSE_GLOBAL_PROMPT_RESULT=""
+
 
 
 #
