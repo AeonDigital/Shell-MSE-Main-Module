@@ -71,6 +71,14 @@
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
+#
+# @example
+#   mseArr=("Selecione o estado pela sigla")
+#   mseArrLabels=(rs sc pr)
+#   mseArrValues=("Rio Grande do Sul" "Santa Catarina" "Paraná")
+#   mse_inter_promptUser "" "" "Qual o seu estado?" "mseArr" "list" "mseArrLabels" "mseArrValues"
+#
+#   printf "${MSE_GLOBAL_PROMPT_RESULT}"
 mse_inter_promptUser() {
   MSE_GLOBAL_LASTERR=""
   MSE_GLOBAL_PROMPT_RESULT=""
@@ -236,7 +244,7 @@ mse_inter_promptUser() {
       # mostra uma mensagem de erro para o usuário
       if [ "${msePromptUserValue}" != "" ]; then
         mse_inter_errorAlert "X" "Invalid value \"${msePromptUserValue}\"."
-        mse_inter_toTopLine
+
       fi
 
       #
@@ -270,10 +278,6 @@ mse_inter_promptUser() {
 }
 
 
-# mseArr=("Selecione o estado pela sigla")
-# mseArrLabels=(rs sc pr)
-# mseArrValues=("Rio Grande do Sul" "Santa Catarina" "Paraná")
-# mse_inter_promptUser "" "" "Qual o seu estado?" "mseArr" "list" "mseArrLabels" "mseArrValues" || echo "${MSE_GLOBAL_LASTERR}"
 
 
 

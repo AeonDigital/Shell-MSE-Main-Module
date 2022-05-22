@@ -149,7 +149,7 @@ test_mse_inter_showMessage() {
     mseArgs["MessageFormat"]="SHOWSTATUS"
     mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
 
-    mse_inter_clearLine
+    mse_inter_clearLine "" "1"
 
     mseArgs["MessageType"]="s"
     mseArgs["TitleText"]="V::Tudo certo!"

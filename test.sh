@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-#Background
-for clbg in {40..47} {100..107} 49 ; do
-    #Foreground
-    for clfg in {30..37} {90..97} 39 ; do
-        #Formatting
-        for attr in 0 1 2 4 5 7 ; do
-            #Print the result
-            echo -en "\e[${attr};${clbg};${clfg}m ^[${attr};${clbg};${clfg}m \e[0m"
-        done
-        echo #Newline
-    done
-done
+# #Background
+# for clbg in {40..47} {100..107} 49 ; do
+#     #Foreground
+#     for clfg in {30..37} {90..97} 39 ; do
+#         #Formatting
+#         for attr in 0 1 2 4 5 7 ; do
+#             #Print the result
+#             echo -en "\e[${attr};${clbg};${clfg}m ^[${attr};${clbg};${clfg}m \e[0m"
+#         done
+#         echo #Newline
+#     done
+# done
 
 
 # for fgbg in 38 48 ; do # Foreground / Background
@@ -25,3 +25,17 @@ done
 #     done
 #     echo # New line
 # done
+. src/init.sh
+clear
+ls -la
+ls -la
+mse_inter_setCursorPosition top 10 l
+mse_inter_clearLine
+printf "teste"
+mse_inter_setCursorPosition bottom 1 l
+mse_inter_setCursorPosition right 0 r
+mse_inter_clearLine
+printf "##"
+mse_inter_setCursorPosition bottom 5
+mse_inter_setCursorPosition left 15
+mse_inter_clearLine r

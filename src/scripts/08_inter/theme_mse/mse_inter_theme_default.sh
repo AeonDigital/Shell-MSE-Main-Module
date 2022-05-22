@@ -329,7 +329,7 @@ mse_inter_theme_default() {
 
       #
       # Bloco 04: Separador inferior da mensagem
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]="\n"
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]=""
       MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparatorColor"]="0"
 
     ;;
