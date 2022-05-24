@@ -65,9 +65,9 @@
 #
 # @param string $8
 # Opcional.
-# Nome da função/tema usada para renderizar as mensagens a serem mostradas
-# na tela. Se nenhuma for indicada, usará o tema padrão definido na
-# variável global 'MSE_GLOBAL_THEME_FUNCTION'
+# Nome do tema usado para renderizar a mensagem a ser mostrada na tela.
+# Se nenhuma for indicada, usará o tema padrão definido na variável global
+# 'MSE_GLOBAL_THEME_NAME'.
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
@@ -96,7 +96,7 @@ mse_inter_promptUser() {
 
     declare -A mseArgs
     mseArgs["MessageType"]="${1}"
-    mseArgs["MessageFormat"]="FULLMESSAGE"
+    mseArgs["MessageFormat"]="DEFAULTFORMAT"
     mseArgs["TitleType"]="3"
     mseArgs["TitleCode"]="${2}"
     mseArgs["TitleText"]="${3}"
@@ -154,7 +154,7 @@ mse_inter_promptUser() {
           msePromptLabelArrayName="lbl_inter_prompt_boolLabels"
           msePromptValueArrayName="lbl_inter_prompt_boolValues"
         elif [ "${5}" == "list" ]; then
-          mseArgs["MessageFormat"]="FULLMESSAGE"
+          mseArgs["MessageFormat"]="DEFAULTFORMAT"
 
           if [ "${4}" == "" ]; then
             mseArgs["BodyMessageArrayName"]="mseTmpLines"
@@ -228,7 +228,7 @@ mse_inter_promptUser() {
 
     #
     # Identifica o tema a ser usado
-    local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+    local mseTheme="${MSE_GLOBAL_THEME_NAME}"
     if [ "${8}" != "" ]; then
       mseTheme="${8}"
     fi

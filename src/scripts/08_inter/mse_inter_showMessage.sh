@@ -9,8 +9,8 @@
 
 #
 # @desc
-# Permite mostrar uma mensagem para o usuário oferecendo uma série de recursos
-# padronizados para a montagem de uma interface padrão para seus scripts.
+# Permite mostrar uma mensagem no terminal oferecendo uma série de
+# recursos para a estilização da mesma em seus scripts.
 #
 # A composição da mensagem é estruturada em blocos, cada qual com
 # características próprias mas com algumas características e funcionamento em
@@ -55,7 +55,7 @@
 # Formato.
 # Pode ser um tipo específico de formatação definido no tema a ser usado ou
 # o nome de uma função que possui uma formatação especial para a mensagem.
-# Se não for definido, internamente usará o valor padrão 'FULLMESSAGE'.
+# Se não for definido, internamente usará o valor padrão 'DEFAULTFORMAT'.
 #
 #
 #
@@ -225,8 +225,9 @@
 #
 #
 # @param string $31
-# Nome da função/tema usada para renderizar as mensagens a serem mostradas
-# na tela.
+# Nome do tema usado para renderizar a mensagem a ser mostrada na tela.
+# Se nenhuma for indicada, usará o tema padrão definido na variável global
+# 'MSE_GLOBAL_THEME_NAME'.
 #
 #
 #
@@ -409,7 +410,7 @@ mse_inter_showMessage() {
         MessageFormat)
 
           if [ "${mseValue}" == "" ]; then
-            MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]="FULLMESSAGE"
+            MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]="DEFAULTFORMAT"
           else
             MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]="${mseValue^^}"
           fi
@@ -439,32 +440,33 @@ mse_inter_showMessage() {
 
     #
     # Seleciona a função que deve ser usada para renderizar a mensagem.
-    local mseThemeMainFunction="${31}"
+    local mseThemeName="${31}"
+    local mseThemeFunction="${mseThemeName}_createMessage"
     #
     # Verifica se a função é válida, não sendo
-    # seta a função definida na variável global 'MSE_GLOBAL_THEME_FUNCTION'
-    if [ "$(type -t $mseThemeMainFunction)" != "function" ]; then
-      mseThemeMainFunction="${MSE_GLOBAL_THEME_FUNCTION}"
+    # seta a função definida na variável global 'MSE_GLOBAL_THEME_NAME'
+    if [ "$(type -t $mseThemeFunction)" != "function" ]; then
+      mseThemeFunction="${MSE_GLOBAL_THEME_NAME}_createMessage"
     fi
 
 
     #
     # Se há uma função customizada definida, usa-a
     if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]}" != "" ]; then
-      mseThemeMainFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]}"
+      mseThemeFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]}"
 
       #
       # Verifica se ela é válida, não sendo
-      # seta a função definida na variável global 'MSE_GLOBAL_THEME_FUNCTION'
-      if [ "$(type -t $mseThemeMainFunction)" != "function" ]; then
-        mseThemeMainFunction="${MSE_GLOBAL_THEME_FUNCTION}"
+      # seta a função definida na variável global 'MSE_GLOBAL_THEME_NAME'
+      if [ "$(type -t $mseThemeFunction)" != "function" ]; then
+        mseThemeFunction="${MSE_GLOBAL_THEME_NAME}_createMessage"
       fi
     fi
 
 
     #
     # Evoca a função que está definida para criar a mensagem
-    $mseThemeMainFunction
+    $mseThemeFunction
   fi
 }
 
@@ -540,7 +542,7 @@ mse_inter_showMessage_vldtr() {
 
   #
   # Tema selecionado
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_30"]="Theme :: o :: functionName :: mse_inter_theme_default"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_30"]="ThemeName :: o :: string"
 }
 
 

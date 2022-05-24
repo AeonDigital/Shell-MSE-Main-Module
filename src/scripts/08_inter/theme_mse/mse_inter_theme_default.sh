@@ -9,8 +9,8 @@
 
 #
 # @desc
-# Renderiza uma mensagem a ser mostrada para o usuário utilizando as
-# configurações definidas no array associativo 'MSE_GLOBAL_SHOW_MESSAGE_CONFIG'.
+# Permite mostrar uma mensagem no terminal oferecendo uma série de
+# recursos para a estilização da mesma em seus scripts.
 #
 # A composição da mensagem é estruturada em blocos, cada qual com
 # características próprias mas com algumas características e funcionamento em
@@ -57,7 +57,7 @@
 # Formato.
 # Pode ser um tipo específico de formatação definido no tema a ser usado ou
 # o nome de uma função que possui uma formatação especial para a mensagem.
-# Se não for definido, internamente usará o valor padrão 'FULLMESSAGE'.
+# Se não for definido, internamente usará o valor padrão 'DEFAULTFORMAT'.
 #
 #
 #
@@ -261,7 +261,7 @@
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
-mse_inter_theme_default() {
+mse_inter_theme_default_createMessage() {
   local mseMessageTitle
   local mseMessageBody
 
@@ -274,7 +274,15 @@ mse_inter_theme_default() {
   #
   # Padrão para as configurações das mensagens de tipo previsto
   case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageFormat]}" in
-    FULLMESSAGE)
+    FREEFORMAT)
+
+      #
+      # Permite uma configuração livre do componente
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]="FREEFORMAT"
+
+    ;;
+
+    DEFAULTFORMAT)
 
       #
       # Configuração geral para uma mensagem padrão
@@ -451,6 +459,227 @@ mse_inter_theme_default() {
 
 
 #
+# @desc
+# Permite montar uma barra de progresso no terminal oferecendo uma série de
+# recursos para a estilização do mesmo em seus scripts.
+#
+# A barra de progresso é um componente de uma única linha mas que possui dois
+# blocos. Um é a própria barra de progresso e o outro é uma área
+# informativa que pode ou não ser usada e serve para adicionar alguma
+# extra na barra. Esta área informativa pode ser atualizada a cada nova
+# iteração.
+#
+#
+#
+# São esperadas as seguintes chaves de configuração:
+#
+# [ProgressBarIndent]
+# Indentação para a barra.
+# Use apenas espaços em branco.
+# Deixe vazio para não usar.
+#
+# [ProgressBarFormat]
+# Formato.
+# Pode ser um tipo específico de formatação definido no tema a ser usado ou
+# o nome de uma função que possui uma formatação especial para a barra de
+# progresso.
+# Se não for definido, internamente usará o valor padrão 'DEFAULTFORMAT'.
+#
+#
+#
+# [ProgressBarColor]
+# Indica se deve permitir a colorização do bloco da barra de progresso.
+# Use "0" para não.
+# Use "1" para sim.
+#
+# [ProgressBarBlockStart]
+# Caracteres que demarcam o início da barra de progresso.
+# Deixe vazio para não usar.
+#
+# [ProgressBarBlockEnd]
+# Caracteres que demarcam o fim da barra de progresso.
+# Deixe vazio para não usar.
+#
+# [ProgressBarBlockChar]
+# Caracter que será usado para preencher a barra de progresso.
+# Se for deixado vazio, usará o caracter "#"
+#
+# [ProgressBarTotalCharLength]
+# Tamanho total da barra de progresso (em caracteres).
+# O valor mínimo aceitável é de 20 caracteres e o máximo de 100.
+# Esta é a medida apenas da própria barra de progresso.
+# Valores inválidos serão revertidos para "30".
+#
+# [ProgressBarAtualPercentProgress]
+# Percentual atual de andamento do progresso.
+# Use apenas valores entre 0 e 100.
+# Valores inválidos serão revertidos para "0".
+#
+# [ProgressBarAtualBarLength]
+# CONTROLADO INTERNAMENTE
+# Cálculo do tamanho total (em chars) que o componente da barra deve ter
+# para representar o percentual de progresso atual.
+#
+#
+#
+# [ProgressBarInfoDisplay]
+# Indica se deve mostrar a área informativa da barra contendo
+# informações extras sobre a mesma.
+# Use "0" para não mostrar (padrão).
+# Use "1" para mostrar.
+#
+# [ProgressBarInfoColor]
+# Indica se deve permitir a colorização do bloco da área informativa.
+# Use "0" para não.
+# Use "1" para sim.
+#
+# [ProgressBarInfoPosition]
+# Posicionamento da área informativa em relação à barra de progresso.
+#   - l   : à esquerda.
+#   - r   : à direita (padrão).
+#
+# [ProgressBarInfoBlockStart]
+# Caracteres que demarcam o início da área informativa.
+# Deixe vazio para não usar.
+#
+# [ProgressBarInfoBlockEnd]
+# Caracteres que demarcam o fim da área informativa.
+# Deixe vazio para não usar.
+#
+# [ProgressBarInfoUsePercent]
+# Indica se deve usar o percentual atual do progresso para preencher a
+# informação da área informativa.
+# Use "0" para não.
+# Use "1" para sim.
+#
+# [ProgressBarInfoData]
+# Informação que deve ser usada para preencher a área informativa.
+#
+#
+#
+# Observação 01:
+# A real aplicabilidade de cor em cada uma das partes depende do tema
+# selecionado. Então, indicar que se deseja aplicar cor a toda barra
+# implica em informar ao formatador do tema selecionado que ele pode aplicar
+# cores em todos os elementos que ele está apto a fazê-lo.
+#
+# Observação 02:
+# A cor de cada parte é definida conforme o "tema" selecionado para a
+# barra de progresso.
+# Se uma cor for definida diretamente na referida parte, estas, se sobreporão
+# ao que é indicado pelo "tema" selecionado.
+#
+# Observação 03:
+# Quando uma função de tema é acionada ela deve carregar uma série de
+# informações sobre cada cor que será usada em cada tipo de barra de progresso.
+# As cores devem ser registradas em arrays associativos que correspondem a
+# cada elemento capaz de receber colorização em cada um dos blocos que formam
+# a barra como um todo.
+# Abaixo segue uma lista contendo o nome de cada array associativo usado para
+# tal finalidade.
+#
+# MSE_GSPBCTC = MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG_THEME_COLOR
+#
+# [Bloco 01: Barra de progresso]
+# - MSE_GSPBCTC_B01_DELIMITERS
+# - MSE_GSPBCTC_B01_CHAR
+#
+# [Bloco 02: Título]
+# - MSE_GSPBCTC_B02_DELIMITERS
+# - MSE_GSPBCTC_B02_DATA
+#
+#
+#
+# @return
+# printa a barra de progresso conforme as indicações passadas.
+mse_inter_theme_default_createProgressBar() {
+
+  #
+  # Inicia a configuração das cores deste tema
+  mse_inter_theme_default_setColorDefinition
+
+
+  #
+  # Padrão para as configurações das barras de progresso de tipo previsto
+  case "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[ProgressBarFormat]}" in
+    FREEFORMAT)
+
+      #
+      # Permite uma configuração livre do componente
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarFormat"]="FREEFORMAT"
+
+    ;;
+
+    DEFAULTFORMAT)
+
+      #
+      # Configuração geral para uma barra de progresso padrão
+      # Imprime a barra e a área informativa.
+
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarIndent"]="  "
+
+
+      #
+      # Bloco 01: Barra de progresso
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarColor"]="1"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockStart"]="[ "
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockEnd"]=" ] "
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockChar"]="#"
+
+      # Controlado internamente
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarAtualBarLength"]="0"
+
+
+      #
+      # Bloco 02: Área informativa
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoDisplay"]="1"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoColor"]="1"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoPosition"]="r"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoBlockStart"]="("
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoBlockEnd"]=")"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoData"]="  0%"
+
+    ;;
+
+    ONLYBAR)
+
+      #
+      # Configuração para uma barra de progresso em que apenas a barra
+      # é apresentada. A área informativa é omitida
+
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarIndent"]="  "
+
+
+      #
+      # Bloco 01: Barra de progresso
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarColor"]="1"
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockStart"]="[ "
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockEnd"]=" ] "
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockChar"]="#"
+
+      # Controlado internamente
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarAtualBarLength"]="0"
+
+
+      #
+      # Bloco 02: Área informativa
+      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoDisplay"]="0"
+
+    ;;
+  esac
+
+
+
+  #
+  # Efetivamente printa a barra de progresso
+  mse_inter_setProgressBar "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[ProgressBarAtualPercentProgress]}"
+}
+
+
+
+
+
+#
 # Define as cores a serem usadas para este tema.
 # Para isto, preenche os arrays associativos 'MSE_GSMCTC' descritos
 # na documentação
@@ -505,6 +734,28 @@ mse_inter_theme_default_setColorDefinition() {
 
 
 
+    #
+    # Reseta todos os arrays associativos que estão correlacionados
+    # as cores usadas nas barras de progresso
+
+    #
+    # [Bloco 01: Barra de progresso]
+    unset MSE_GSPBCTC_B01_CHAR
+    unset MSE_GSPBCTC_B01_DELIMITERS
+
+    declare -gA MSE_GSPBCTC_B01_CHAR
+    declare -gA MSE_GSPBCTC_B01_DELIMITERS
+
+    #
+    # [Bloco 02: Área informativa]
+    unset MSE_GSPBCTC_B02_DATA
+    unset MSE_GSPBCTC_B02_DELIMITERS
+
+    declare -gA MSE_GSPBCTC_B02_DATA
+    declare -gA MSE_GSPBCTC_B02_DELIMITERS
+
+
+
 
 
     #
@@ -555,6 +806,15 @@ mse_inter_theme_default_setColorDefinition() {
     mseThemeColors["body"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
 
 
+    #
+    # Barra de progresso
+    mseThemeColors["b01_char"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "0" "DIM" "NONE" "WHITE" "1")
+
+    mseThemeColors["b01_data"]=$(mse_font_createStyle "0" "" "NONE" "WHITE" "1")
+    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
+
+
 
 
     #
@@ -585,6 +845,18 @@ mse_inter_theme_default_setColorDefinition() {
       #
       # [Bloco 04: Separador inferior da mensagem]
       MSE_GSMCTC_B04_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+
+
+      #
+      # Barra de progresso
+      # [Bloco 01: Barra de progresso]
+      MSE_GSPBCTC_B01_CHAR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSPBCTC_B01_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+
+      #
+      # [Bloco 02: Área informativa]
+      MSE_GSPBCTC_B02_DATA[$mseMessageType]=${mseThemeColors[$mseMessageType]}
+      MSE_GSPBCTC_B02_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
     done
 
 

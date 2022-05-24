@@ -36,9 +36,9 @@
 #
 # @param string $4
 # Opcional.
-# Nome da função/tema usada para renderizar as mensagens a serem mostradas
-# na tela. Se nenhuma for indicada, usará o tema padrão definido na
-# variável global 'MSE_GLOBAL_THEME_FUNCTION'
+# Nome do tema usado para renderizar a mensagem a ser mostrada na tela.
+# Se nenhuma for indicada, usará o tema padrão definido na variável global
+# 'MSE_GLOBAL_THEME_NAME'.
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
@@ -72,7 +72,7 @@ mse_inter_waitUser() {
 
   #
   # Identifica o tema a ser usado
-  local mseTheme="${MSE_GLOBAL_THEME_FUNCTION}"
+  local mseTheme="${MSE_GLOBAL_THEME_NAME}"
   if [ "${3}" != "" ]; then
     mseTheme="${3}"
   fi
@@ -98,5 +98,5 @@ mse_inter_waitUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: string"
 }

@@ -27,9 +27,9 @@
 #
 # @param string $4
 # Opcional.
-# Nome da função/tema usada para renderizar as mensagens a serem mostradas
-# na tela. Se nenhuma for indicada, usará o tema padrão definido na
-# variável global 'MSE_GLOBAL_THEME_FUNCTION'
+# Nome do tema usado para renderizar a mensagem a ser mostrada na tela.
+# Se nenhuma for indicada, usará o tema padrão definido na variável global
+# 'MSE_GLOBAL_THEME_NAME'.
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
@@ -43,7 +43,7 @@ mse_inter_errorAlert() {
   if [ "$#" -ge 2 ]; then
     declare -A mseArgs
     mseArgs["MessageType"]="e"
-    mseArgs["MessageFormat"]="FULLMESSAGE"
+    mseArgs["MessageFormat"]="DEFAULTFORMAT"
     mseArgs["TitleType"]="3"
     mseArgs["TitleCode"]="${1}"
     mseArgs["TitleText"]="${2}"
@@ -78,5 +78,5 @@ mse_inter_errorAlert_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="TitleCode :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleText :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BodyMessageArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: functionName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="Theme :: o :: string"
 }

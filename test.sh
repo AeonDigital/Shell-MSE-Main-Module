@@ -42,30 +42,31 @@
 # mse_inter_setCursorPosition left 15
 # mse_inter_clearLine r
 
-mse_inter_progressBar "#" "50" "0"
-sleep 1
-mse_inter_progressBar "#" "50" "1"
-sleep 1
-mse_inter_progressBar "#" "50" "2"
-sleep 1
-mse_inter_progressBar "#" "50" "3"
-sleep 1
-mse_inter_progressBar "#" "50" "4"
-sleep 1
-mse_inter_progressBar "#" "50" "5"
-sleep 1
-mse_inter_progressBar "#" "50" "10"
-sleep 1
-mse_inter_progressBar "#" "50" "15"
-sleep 1
-mse_inter_progressBar "#" "50" "20"
-sleep 1
-mse_inter_progressBar "#" "50" "25"
-sleep 1
-mse_inter_progressBar "#" "50" "50"
-sleep 1
-mse_inter_progressBar "#" "50" "75"
-sleep 1
-mse_inter_progressBar "#" "50" "100"
-sleep 1
-
+mse_inter_showProgressBar "" "" "" "" ""   "" "" "" "" ""  "" "" "" "" ""
+mse_inter_setProgressBar "0"
+sleep 0.5
+mse_inter_setProgressBar "1"
+sleep 0.5
+mse_inter_setProgressBar "2"
+sleep 0.5
+mse_inter_setProgressBar "3"
+sleep 0.5
+mse_inter_setProgressBar "4"
+sleep 0.5
+mse_inter_setProgressBar "5"
+sleep 0.5
+mse_inter_setProgressBar "10"
+sleep 0.5
+mse_inter_setProgressBar "15"
+sleep 0.5
+mse_inter_setProgressBar "20"
+sleep 0.5
+mse_inter_setProgressBar "25"
+sleep 0.5
+mse_inter_setProgressBar "50"
+sleep 0.5
+mse_inter_setProgressBar "75"
+sleep 0.5
+mse_inter_setProgressBar "100"
+sleep 0.5
+#  [ ################################################## ] (100%)
