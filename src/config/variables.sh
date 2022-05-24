@@ -32,6 +32,20 @@ MSE_GLOBAL_THEME_LOADED=""
 # Armazena a última resposta do usuário a um prompt.
 MSE_GLOBAL_PROMPT_RESULT=""
 
+#
+# Armazena o ID do processo de controle do spinner.
+trap mse_inter_stopSpinner EXIT
+MSE_GLOBAL_SPINNER_PID=""
+
+#
+# Modelo de spinner padrão
+MSE_GLOBAL_SPINNER_DEFAULT=(" / " " - " " \\ " " | ")
+
+#
+# Modelo de spinner vai e vem
+MSE_GLOBAL_SPINNER_COMESANDGOES=(" •      " "  •     " "   •    " "    •   " "     •  " "      • " "     •  " "    •   " "   •    " "  •     ")
+
+
 
 
 #
