@@ -10,7 +10,7 @@
 #
 # Teste
 test_mse_str_replacePlaceHolder() {
-  testResult=$(mse_str_replacePlaceHolder "PH" "test" "this is a [[PH]]")
+  testResult=$(mse_str_replacePlaceHolder "this is a [[PH]]" "PH" "test")
   testExpected=$(printf "this is a test")
 
   mse_utest_assertEqual

@@ -1,0 +1,2 @@
+- Conversão de todas as mensagens para permitir o uso de 'locale'
+- Procurar por [" e "] para eliminar este tipo de uso de 'evocação' de chaves em arrays associativos.
