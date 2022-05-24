@@ -148,10 +148,10 @@ mse_inter_showProgressBar() {
 
   #
   # Apenas se todos os parametros foram passados
-  if [ $# -lt 15 ]; then
+  if [ $# -lt 16 ]; then
     local mseArgs="$#"
     local mseLost
-    ((mseLost=15-mseArgs))
+    ((mseLost=16-mseArgs))
 
     MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
   else

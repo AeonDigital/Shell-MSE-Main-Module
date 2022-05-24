@@ -29,7 +29,7 @@ test_mse_inter_showMessage() {
 
   declare -A mseArgs
   mseArgs["MessageType"]="a"
-  mseArgs["MessageFormat"]="UTEST"
+  mseArgs["MessageFormat"]="FREEFORMAT"
 
   #
   # Bloco 01: Separador superior da mensagem
@@ -120,7 +120,7 @@ test_mse_inter_showMessage() {
   done
 
 
-  local mseTestInShell="1"
+  local mseTestInShell="0"
   if [ "${mseTestInShell}" == "1" ]; then
     #
     # Verifica se o output está configurado conforme se espera.
