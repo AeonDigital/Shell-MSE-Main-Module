@@ -84,6 +84,9 @@ mse_exec_validateParams() {
     local mseParamFunctionName
 
 
+    local mseTmpMsg
+
+
 
 
     mseCurrentParam=0
@@ -117,7 +120,7 @@ mse_exec_validateParams() {
           #
           # Apenas se a regra encontrada possui os 3 itens mínimos
           if [ "${#mseRawCurrentParamRuleValues[@]}" -lt 3 ]; then
-            mseReturn="Invalid parameter definition; [ ${mseRawCurrentParamRule} ]"
+            mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseRawCurrentParamRule}")
           else
             #
             # Promove um 'trim' em todos os parametros
@@ -135,13 +138,15 @@ mse_exec_validateParams() {
             #
             # Valida o nome do campo
             if [ "$mseParamLabel" == "" ]; then
-              mseReturn="Invalid parameter definition; [ Label field cannot be empty ]"
+              mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_CannotBeEmpty}" "FIELDNAME_A" "Label")
+              mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
             fi
             #
             # Valida a configuração de obrigatoriedade do campo
             if [ "${mseReturn}" == 1 ]; then
               if [ "$mseParamRequired" == "" ]; then
-                mseReturn="Invalid parameter definition; [ Required field cannot be empty ]"
+                mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_CannotBeEmpty}" "FIELDNAME_A" "Required")
+                mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
               else
                 case "$mseParamRequired" in
                   optional | opt | o | 0)
@@ -151,7 +156,8 @@ mse_exec_validateParams() {
                     mseParamRequired=1
                   ;;
                   *)
-                    mseReturn="Invalid parameter definition; [ Required field has an invalid value \"${mseParamRequired}\" ]"
+                    mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnInvalidValue}" "FIELDNAME_A" "Required")
+                    mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                   ;;
                 esac
               fi
@@ -160,7 +166,8 @@ mse_exec_validateParams() {
             # Valida a configuração de tipo do campo
             if [ "${mseReturn}" == 1 ]; then
               if [ "$mseParamType" == "" ]; then
-                mseReturn="Invalid parameter definition; [ Type field cannot be empty ]"
+                mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_CannotBeEmpty}" "FIELDNAME_A" "Type")
+                mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
               else
                 mseParamDefault=""
                 mseParamFunctionName=""
@@ -174,11 +181,13 @@ mse_exec_validateParams() {
                       mseParamFunctionName="${mseRawCurrentParamRuleValues[3]}"
                       mseParamCk=$(mse_check_isFunctionExists "$mseParamFunctionName")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Invalid parameter definition; [ ValidateFunction field points to non existent function \"${mseParamFunctionName}\" ]"
+                        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction}" "FIELDNAME_A" "ValidateFunction")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                       fi
                     ;;
                     *)
-                      mseReturn="Invalid parameter definition; [ Type field has an invalid value \"${mseParamType}\" ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnInvalidValue}" "FIELDNAME_A" "Type")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     ;;
                   esac
                 fi
@@ -209,10 +218,12 @@ mse_exec_validateParams() {
 
                     mseParamCk=$(mse_check_isInteger "$mseParamMaxLength")
                     if [ $mseParamCk == 0 ]; then
-                      mseReturn="Invalid parameter definition; [ MaxLength field must be an integer ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_MustBeAnInteger}" "FIELDNAME_A" "MaxLength")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     else
                       if [ $mseParamMaxLength -lt 1 ]; then
-                        mseReturn="Invalid parameter definition; [ MaxLength field must be greater than 0 ]"
+                        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero}" "FIELDNAME_A" "MaxLength")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                       fi
                     fi
                   fi
@@ -223,7 +234,8 @@ mse_exec_validateParams() {
 
                     mseParamCk=$(mse_check_isInteger "$mseParamMin")
                     if [ $mseParamCk == 0 ]; then
-                      mseReturn="Invalid parameter definition; [ Min field must be an integer ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_MustBeAnInteger}" "FIELDNAME_A" "Min")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     fi
                   fi
 
@@ -232,21 +244,25 @@ mse_exec_validateParams() {
 
                     mseParamCk=$(mse_check_isInteger "$mseParamMax")
                     if [ $mseParamCk == 0 ]; then
-                      mseReturn="Invalid parameter definition; [ Max field must be an integer ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_MustBeAnInteger}" "FIELDNAME_A" "Max")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     fi
                   fi
 
                   if [ "$mseReturn" == 1 ]; then
                     if [ "$mseParamMin" != "" ] && [ "$mseParamMax" != "" ] && [ "$mseParamMin" -gt "$mseParamMax" ]; then
-                      mseReturn="Invalid parameter definition; [ Min field is greater than Max field ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB}" "FIELDNAME_A" "Min" "FIELDNAME_B" "Max")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     fi
                   fi
 
                   if [ "$mseReturn" == 1 ] && [ "$mseParamType" == "arrayName" ]; then
                     if [ "$mseParamMin" != "" ] && [ "$mseParamMin" -lt 0 ]; then
-                      mseReturn="Invalid parameter definition; [ For \"arrayName\" type, Min field must be greater or equals to 0 ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero}" "TYPE_A" "arrayName" "FIELDNAME_A" "Min")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     elif [ "$mseParamMax" != "" ] && [ "$mseParamMax" -lt 1 ]; then
-                      mseReturn="Invalid parameter definition; [ For \"arrayName\" type, Max field must be greater or equals to 1 ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne}" "TYPE_A" "arrayName" "FIELDNAME_A" "Max")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     fi
                   fi
                 ;;
@@ -262,7 +278,8 @@ mse_exec_validateParams() {
                         mseParamCreate=0
                       ;;
                       *)
-                        mseReturn="Invalid parameter definition; [ Create field has an invalid option ]"
+                        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnInvalidOption}" "FIELDNAME_A" "${mseParamType}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                       ;;
                     esac
                   fi
@@ -291,11 +308,13 @@ mse_exec_validateParams() {
                   # Verifica e valida a coleção de legendas válidas
                   mseParamCk=$(mse_check_hasKeyInAssocArray "${mseRawCurrentParamRuleKey}_labels" "${mseRawParamRulesName}")
                   if [ $mseParamCk == 0 ]; then
-                    mseReturn="Invalid parameter definition; [ List field lost the label collection ]"
+                    mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_LostThe_A_Collection}" "FIELDNAME_A" "List" "A" "label")
+                    mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                   else
                     mseParamTmpList="${mseRawParamRules[${mseRawCurrentParamRuleKey}_labels]}"
                     if [ "$mseParamTmpList" == "" ]; then
-                      mseReturn="Invalid parameter definition; [ List field has an empty label collection ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection}" "FIELDNAME_A" "List" "A" "label")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     else
                       mse_str_split "," "${mseParamTmpList}"
                       mseParamListLabels=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
@@ -314,11 +333,13 @@ mse_exec_validateParams() {
                   if [ "${mseReturn}" == 1 ]; then
                     mseParamCk=$(mse_check_hasKeyInAssocArray "${mseRawCurrentParamRuleKey}_values" "${mseRawParamRulesName}")
                     if [ $mseParamCk == 0 ]; then
-                      mseReturn="Invalid parameter definition; [ List field lost the value collection ]"
+                      mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_LostThe_A_Collection}" "FIELDNAME_A" "List" "A" "value")
+                      mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                     else
                       mseParamTmpList="${mseRawParamRules[${mseRawCurrentParamRuleKey}_values]}"
                       if [ "$mseParamTmpList" == "" ]; then
-                        mseReturn="Invalid parameter definition; [ List field has an empty value collection ]"
+                        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection}" "FIELDNAME_A" "List" "A" "value")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                       else
                         mse_str_split "," "${mseParamTmpList}"
                         mseParamListValues=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
@@ -336,7 +357,8 @@ mse_exec_validateParams() {
                   #
                   # Verifica se o número de legendas e valores está correto
                   if [ "${mseReturn}" == 1 ] && [ ${#mseParamListLabels[@]} != ${#mseParamListValues[@]} ]; then
-                    mseReturn="Invalid parameter definition; [ List field has an incorrect correlation between labels and values ]"
+                    mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B}" "FIELDNAME_A" "List" "A" "labels" "B" "values")
+                    mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_ipd_mainMessage}" "MSG" "${mseTmpMsg}")
                   fi
                 ;;
               esac
@@ -366,56 +388,56 @@ mse_exec_validateParams() {
               # Se o parametro é obrigatório mas não está definido
               if [ $mseParamRequired == 1 ] && [ $mseCurrentParamIsSet == 0 ]; then
                 ((mseCurrentParam=mseCurrentParam+1))
-                mseReturn="Parameter \"${mseParamLabel}\" is required"
+                mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsRequired}" "PARAM_A" "${mseParamLabel}")
               else
                 if [ "${mseRawCurrentParamDataValue}" != "" ]; then
                   case "${mseParamType}" in
                     bool)
                       if [ "${mseRawCurrentParamDataValue}" != 1 ] && [ "${mseRawCurrentParamDataValue}" != 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not a bool"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "bool")
                       fi
                     ;;
                     string)
                       local oLC_CTYPE="${LC_CTYPE}"
                       LC_CTYPE=""
                       if [ "$mseParamMaxLength" != "" ] && [ "${#mseRawCurrentParamDataValue}" -gt $mseParamMaxLength ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is greater than the defined max length ( ${mseParamMaxLength} )"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsGreaterThanMaxLength}" "PARAM_A" "${mseParamLabel}" "MAXLENGTH" "${mseParamMaxLength}")
                       fi
                       LC_CTYPE="${oLC_CTYPE}"
                     ;;
                     char)
                       mseParamCk=$(mse_check_isChar "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not a char"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "char")
                       fi
                     ;;
                     charDecimal)
                       mseParamCk=$(mse_check_isCharDecimal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid decimal representation of char"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "decimal" "B" "char")
                       fi
                     ;;
                     charHex)
                       mseParamCk=$(mse_check_isCharHex "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid hexadecimal representation of char"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "hexadecimal" "B" "char")
                       fi
                     ;;
                     charOctal)
                       mseParamCk=$(mse_check_isCharOctal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not a valid octal representation of char"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "octal" "B" "char")
                       fi
                     ;;
                     int)
                       mseParamCk=$(mse_check_isInteger "${mseRawCurrentParamDataValue}")
                       if [ "$mseParamCk" == 0 ]; then
-                      mseReturn="Parameter \"${mseParamLabel}\" is not an integer"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "integer")
                       else
                         if [ "$mseParamMin" != "" ] && [ "${mseRawCurrentParamDataValue}" -lt "$mseParamMin" ]; then
-                          mseReturn="Parameter \"${mseParamLabel}\" must be greater or equals than ${mseParamMin}"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeGreaterOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMin}")
                         elif [ "$mseParamMax" != "" ] && [ "${mseRawCurrentParamDataValue}" -gt "$mseParamMax" ]; then
-                          mseReturn="Parameter \"${mseParamLabel}\" must be less or equals than ${mseParamMax}"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeLessOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMax}")
                         fi
                       fi
                     ;;
@@ -423,42 +445,42 @@ mse_exec_validateParams() {
                       if [ "${mseParamCreate}" == 1 ] && [ ! -f "${mseRawCurrentParamDataValue}" ]; then
                         > "${mseRawCurrentParamDataValue}"
                         if [ "$?" != 0 ]; then
-                          mseReturn="Cannot create a new file in ${mseRawCurrentParamDataValue}"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_cannotCreateNewFileIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
                         fi
                       fi
                       if [ ! -f "${mseRawCurrentParamDataValue}" ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" points to a non existent file"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_PointsToNonExistentFile}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     dirName)
                       if [ "${mseParamCreate}" == 1 ] && [ ! -d "${mseRawCurrentParamDataValue}" ]; then
                         mkdir -p "${mseRawCurrentParamDataValue}"
                         if [ $? != 0 ]; then
-                          mseReturn="Cannot create a new directory in ${mseRawCurrentParamDataValue}"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_cannotCreateNewDirectoryIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
                         fi
                       fi
                       if [ ! -d "${mseRawCurrentParamDataValue}" ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" points to a non existent directory"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_PointsToNonExistentDirectory}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     functionName)
                       mseParamCk=$(mse_check_isFunctionExists "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" must be a name of a existent function"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeNameOfExistentFunction}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     arrayName)
                       #
                       # Identifica se o array de fato existe
                       if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -a" ]]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not an array name"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "array name")
                       else
                         declare -n mseTmpArrayName="${mseRawCurrentParamDataValue}"
 
                         if [ "$mseParamMin" != "" ] && [ "${#mseTmpArrayName[@]}" -lt "$mseParamMin" ]; then
-                          mseReturn="Parameter \"${mseParamLabel}\" must be an array with at least ${mseParamMin} elements"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Min}" "PARAM_A" "${mseParamLabel}" "MIN" ${mseParamMin})
                         elif [ "$mseParamMax" != "" ] && [ "${#mseTmpArrayName[@]}" -gt "$mseParamMax" ]; then
-                          mseReturn="Parameter \"${mseParamLabel}\" must be an array with at most ${mseParamMax} elements"
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Max}" "PARAM_A" "${mseParamLabel}" "MAX" ${mseParamMax})
                         fi
                       fi
                     ;;
@@ -466,14 +488,14 @@ mse_exec_validateParams() {
                       #
                       # Identifica se o array de fato existe
                       if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -A" ]]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" is not an associative array name"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "associative array name")
                       else
                         declare -n mseTmpAssocArrayName="${mseRawCurrentParamDataValue}"
                         local mseTmpAssocKey
 
                         for mseTmpAssocKey in "${mseParamAssocKeys[@]}"; do
                           if [ "$mseReturn" == 1 ] && [ -z "${mseTmpAssocArrayName[$mseTmpAssocKey]+x}" ]; then
-                            mseReturn="Parameter \"${mseParamLabel}\" lost the required key \"${mseTmpAssocKey}\""
+                            mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_LostTheRequiredKey_Key}" "PARAM_A" "${mseParamLabel}" "KEY" ${mseTmpAssocKey})
                           fi
                         done
                       fi
@@ -494,7 +516,7 @@ mse_exec_validateParams() {
                       done
 
                       if [ "$mseTmpMatch" == 0 ]; then
-                        mseReturn="Parameter \"${mseParamLabel}\" has an invalid value"
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_HasInvalidValue}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                   esac

@@ -482,7 +482,7 @@ test_mse_exec_validateParams() {
   pRules["param_0"]="P1 :: 0 :: fileName :: :: invalid"
 
   testResult=$(mse_exec_validateParams "pRules" "pData")
-  testExpected="Invalid parameter definition; [ Create field has an invalid option ]"
+  testExpected="Invalid parameter definition; [ fileName field has an invalid option ]"
 
   mse_utest_assertEqual
 

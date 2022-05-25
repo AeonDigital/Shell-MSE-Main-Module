@@ -53,7 +53,7 @@ lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid 
 lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="[[FIELDNAME_A]] field points to non existent function"
 lbl_exec_vp_ipd_fieldA_MustBeAnInteger="[[FIELDNAME_A]] field must be an integer"
 lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="[[FIELDNAME_A]] field must be greater than 0"
-lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]]"
+lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]] field"
 lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 0"
 lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 1"
 lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]] collection"
@@ -62,9 +62,22 @@ lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]]
 
 #
 # [ vp = validateParans ]
-lbl_exec_vp_lfcbe="xxxx"
-lbl_exec_vp_lfcbe="xxxx"
-lbl_exec_vp_lfcbe="xxxx"
-lbl_exec_vp_lfcbe="xxxx"
-lbl_exec_vp_lfcbe="xxxx"
-lbl_exec_vp_lfcbe="xxxx"
+lbl_exec_vp_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
+lbl_exec_vp_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
+lbl_exec_vp_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
+lbl_exec_vp_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
+lbl_exec_vp_paramA_IsGreaterThanMaxLength="Parameter \"[[PARAM_A]]\" is greater than the defined max length ( [[MAXLENGTH]] )"
+lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B="Parameter \"[[PARAM_A]]\" is not a valid [[A]] representation of [[B]]"
+lbl_exec_vp_paramA_MustBeGreaterOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be greater or equals than [[A]]"
+lbl_exec_vp_paramA_MustBeLessOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be less or equals than [[A]]"
+lbl_exec_vp_paramA_MustBeNameOfExistentFunction="Parameter \"[[PARAM_A]]\" must be a name of a existent function"
+
+lbl_exec_vp_cannotCreateNewFileIn="Cannot create a new file in [[LOCAL]]"
+lbl_exec_vp_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a non existent file"
+
+lbl_exec_vp_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
+lbl_exec_vp_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
+
+lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
+lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
+lbl_exec_vp_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
