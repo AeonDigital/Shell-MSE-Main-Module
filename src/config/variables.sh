@@ -8,6 +8,22 @@
 
 
 #
+# Armazena o nome de cada um dos módulos atualmente carregados.
+declare -ga MSE_GLOBAL_MODULES
+
+#
+# Array associativo que armazena o nome de cada uma das funções dos módulos
+# carregados relacionados com o nome do próprio módulo.
+# O valor de cada conjunto "módulo/função" será o caminho completo até o local
+# em que está o arquivo que contém o código daquela função.
+#
+# Ex:
+#   [Shell-MSE-Main-Module::mse_font_showColors]="/home/user/.mse/Shell-MSE-Main-Module/src/scripts/07_font/mse_font_showColors.sh"
+declare -gA MSE_GLOBAL_MODULES_FUNCTIONS
+
+
+
+#
 # Armazena a última mensagem de erro ocorrida na execução de uma função.
 declare -g MSE_GLOBAL_LASTERR=""
 

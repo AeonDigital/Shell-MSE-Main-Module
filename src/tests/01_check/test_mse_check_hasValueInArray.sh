@@ -25,6 +25,24 @@ test_mse_check_hasValueInArray() {
   mse_utest_assertEqual
 
 
+  testResult=$(mse_check_hasValueInArray "TREE" "testArray")
+  testExpected="0"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_check_hasValueInArray "TREE" "testArray" "1")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_check_hasValueInArray "TREE" "testArray" "1" "1")
+  testExpected="2"
+
+  mse_utest_assertEqual
+
+
 
 
 

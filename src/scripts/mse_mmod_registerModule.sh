@@ -25,38 +25,35 @@ mse_mmod_registerModule() {
 
   local rawLine
   local mseFullFileName
-  local mseScriptName
+  local mseFunctionName
+
+  local mseMFName
 
 
 
-  mseModFiles=$(find "$2/scripts" -name "*.sh")
+  mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
   if [ "$mseModFiles" != "" ]; then
     mseModuleName="$1"
     mseModuleSrcDirectory="$2"
 
 
     #
-    # Tratando-se do módulo base...
-    if [ "${mseModuleName}" == "#MainModule" ]; then
-      while read rawLine; do
-        mseFullFileName=$(basename -- "$rawLine")
-        mseScriptName="${mseFullFileName%.*}"
+    # Carrega os arquivos de scripts deste módulo
+    MSE_GLOBAL_MODULES+=("${mseModuleName}")
 
-        unset "${mseScriptName}"
-        . "$rawLine" || true
-      done <<< ${mseModFiles}
-    else
+    while read rawLine; do
+      mseFullFileName=$(basename -- "$rawLine")
+      mseFunctionName="${mseFullFileName%.*}"
 
+      unset "${mseFunctionName}"
+      . "$rawLine" || true
 
       #
-      # Carrega os arquivos de scripts deste módulo
-      while read rawLine; do
-        mseFullFileName=$(basename -- "$rawLine")
-        mseScriptName="${mseFullFileName%.*}"
-
-        unset "${mseScriptName}"
-        . "$rawLine" || true
-      done <<< ${mseModFiles}
-    fi
+      # Registra a função
+      # Apenas se a mesma não está em uma pasta do tipo 'assets'
+      if [[ ! ${rawLine} =~ "/assets/" ]]; then
+        MSE_GLOBAL_MODULES_FUNCTIONS["${mseModuleName}::${mseFunctionName}"]="${rawLine}"
+      fi
+    done <<< ${mseModFiles}
   fi
 }

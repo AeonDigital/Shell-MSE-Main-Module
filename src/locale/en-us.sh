@@ -8,6 +8,11 @@
 
 
 #
+# Main Module
+lbl_mmod_invalidModuleName="The module name indicated is invalid. Use the \"mse_mmod_showModules\" function to get a list of valid options. [ \"[[MODULE]]\" ]"
+
+
+#
 # Interface
 lbl_inter_alert_header_info="Information"
 lbl_inter_alert_header_attention="Attention"

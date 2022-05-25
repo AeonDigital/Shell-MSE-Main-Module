@@ -39,7 +39,7 @@ fi
 
 
 . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_registerModule.sh"
-mse_mmod_registerModule "#MainModule" "${MSE_TMP_THIS_DIRECTORY}"
+mse_mmod_registerModule "Shell-MSE-Main-Module" "${MSE_TMP_THIS_DIRECTORY}"
 
 
 unset MSE_TMP_THIS_DIRECTORY
