@@ -95,36 +95,36 @@ mse_file_read()
     mseSectionEndFunctionName=""
     mseSectionEndFunctionArgs=""
     mseSectionShowFirstLine=0
-    if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["start"]}" != "" ]; then
+    if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[start]}" != "" ]; then
       mseValidSection=0
-      mseSectionStartFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK["start"]}"
-      mseSectionStartFunctionArgs="${MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]}"
+      mseSectionStartFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK[start]}"
+      mseSectionStartFunctionArgs="${MSE_GLOBAL_MODULE_READ_BLOCK[start_args]}"
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'start_args'
-      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]}" != "" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[start_args_sep]}" != "" ]; then
         unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
         declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()
 
-        mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]}" "$mseSectionStartFunctionArgs"
+        mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK[start_args_sep]}" "$mseSectionStartFunctionArgs"
         MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
 
 
-      mseSectionEndFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK["end"]}"
-      mseSectionEndFunctionArgs="${MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]}"
+      mseSectionEndFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK[end]}"
+      mseSectionEndFunctionArgs="${MSE_GLOBAL_MODULE_READ_BLOCK[end_args]}"
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'end_args'
-      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]}" != "" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[end_args_sep]}" != "" ]; then
         unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
         declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=()
 
-        mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]}" "$mseSectionEndFunctionArgs"
+        mse_str_split "${MSE_GLOBAL_MODULE_READ_BLOCK[end_args_sep]}" "$mseSectionEndFunctionArgs"
         MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
 
-      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]}" == "1" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[print_start_line]}" == "1" ]; then
         mseSectionShowFirstLine=1
       fi
 
@@ -136,25 +136,25 @@ mse_file_read()
     mseLineCheckFunctionArgs=""
     mseLineCheckFunctionInvert=0
     mseLineCheckFunctionNumberLine=0
-    if [ "${MSE_GLOBAL_MODULE_READ_LINE["check"]}" != "" ]; then
-      mseLineCheckFunctionName="${MSE_GLOBAL_MODULE_READ_LINE["check"]}"
-      mseLineCheckFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE["check_args"]}"
+    if [ "${MSE_GLOBAL_MODULE_READ_LINE[check]}" != "" ]; then
+      mseLineCheckFunctionName="${MSE_GLOBAL_MODULE_READ_LINE[check]}"
+      mseLineCheckFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE[check_args]}"
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'check'
-      if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]}" != "" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE[check_args_sep]}" != "" ]; then
         unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
         declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=()
 
-        mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]}" "$mseLineCheckFunctionArgs"
+        mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE[check_args_sep]}" "$mseLineCheckFunctionArgs"
         MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
 
-      if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_invert"]}" == "1" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE[check_invert]}" == "1" ]; then
         mseLineCheckFunctionInvert=1
       fi
 
-      if [ "${MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]}" == "1" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE[check_has_linenumber]}" == "1" ]; then
         mseLineCheckFunctionNumberLine=1
       fi
     fi
@@ -164,21 +164,21 @@ mse_file_read()
     mseTransformLineFunctionName=""
     mseTransformLineFunctionArgs=""
     mseTransformLineFunctionNumberLine=0
-    if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform"]}" != "" ]; then
-      mseTransformLineFunctionName="${MSE_GLOBAL_MODULE_READ_LINE["transform"]}"
-      mseTransformLineFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE["transform_args"]}"
+    if [ "${MSE_GLOBAL_MODULE_READ_LINE[transform]}" != "" ]; then
+      mseTransformLineFunctionName="${MSE_GLOBAL_MODULE_READ_LINE[transform]}"
+      mseTransformLineFunctionArgs="${MSE_GLOBAL_MODULE_READ_LINE[transform_args]}"
 
       #
       # Verifica necessidade de 'splitar' os argumentos de 'transform'
-      if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" != "" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE[transform_args_sep]}" != "" ]; then
         unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
         declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=()
 
-        mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]}" "$mseTransformLineFunctionArgs"
+        mse_str_split "${MSE_GLOBAL_MODULE_READ_LINE[transform_args_sep]}" "$mseTransformLineFunctionArgs"
         MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY=("${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}")
       fi
 
-      if [ "${MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]}" == "1" ]; then
+      if [ "${MSE_GLOBAL_MODULE_READ_LINE[transform_has_linenumber]}" == "1" ]; then
         mseTransformLineFunctionNumberLine=1
       fi
     fi

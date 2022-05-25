@@ -355,7 +355,7 @@ mse_inter_showMessage() {
 
     #
     # Verifica o tipo de mensagem a ser usada.
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]}" == "" ]; then
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}" == "" ]; then
       MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="n"
     fi
 
@@ -452,8 +452,8 @@ mse_inter_showMessage() {
 
     #
     # Se há uma função customizada definida, usa-a
-    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]}" != "" ]; then
-      mseThemeFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageFormat"]}"
+    if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageFormat]}" != "" ]; then
+      mseThemeFunction="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageFormat]}"
 
       #
       # Verifica se ela é válida, não sendo

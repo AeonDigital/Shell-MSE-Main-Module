@@ -281,8 +281,8 @@ mse_inter_showProgressBar() {
 
     #
     # Se há uma função customizada definida, usa-a
-    if [ "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["MessageFormat"]}" != "" ]; then
-      mseThemeFunction="${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["MessageFormat"]}"
+    if [ "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[MessageFormat]}" != "" ]; then
+      mseThemeFunction="${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[MessageFormat]}"
 
       #
       # Verifica se ela é válida, não sendo
