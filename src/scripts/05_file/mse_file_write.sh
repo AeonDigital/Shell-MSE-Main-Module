@@ -109,13 +109,13 @@ mse_file_write()
       replace | r)
         mseAction="r"
         if [ $# -lt 4 ]; then
-          mseReturn="Parameter \"TargetLine\" is required for \"replace\" operation"
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_RequiredFor_A_Operation}" "PARAM_A" "TargetLine" "A" "replace")
         fi
       ;;
       delete | d)
         mseAction="d"
         if [ $# -lt 4 ]; then
-          mseReturn="Parameter \"TargetLine\" is required for \"delete\" operation"
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_RequiredFor_A_Operation}" "PARAM_A" "TargetLine" "A" "delete")
         fi
       ;;
     esac
@@ -138,6 +138,8 @@ mse_file_write()
       local mseFnResult
       local mseFnResultParts
 
+      local mseTmpMsg
+
 
       #
       # Senão, verifica se a string é ou não o nome de uma função.
@@ -157,21 +159,25 @@ mse_file_write()
       mseFnResultParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
 
       if [ "$mseFnResultParts" == 0 ] || [ "$mseFnResultParts" -gt 2 ]; then
-        mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 1 ]"
+        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "1")
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpMsg}")
       else
         mseTargetFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
         mseTargetLastLine=0
 
         if ! [[ "${mseTargetFirstLine}" =~ ^[0-9]+$ ]]; then
-          mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 2 ]"
+          mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "2")
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpMsg}")
         else
           if [ "$mseFnResultParts" == 2 ] && [ "${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}" != "$mseTargetFirstLine" ]; then
             mseTargetLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"
             if ! [[ "${mseTargetLastLine}" =~ ^[0-9]+$ ]]; then
-              mseReturn="Parameter \"TargetLine\" has an invalid value [ Expected a function name or one/two integers; \"${mseFnName}\": \"$mseFnResult\"  :: 3 ]"
+              mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "3")
+              mseReturn=$(mse_str_replacePlaceHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpMsg}")
             else
               if [ $mseTargetFirstLine -gt $mseTargetLastLine ]; then
-                mseReturn="Parameter \"TargetLine\" has an invalid value [ First line must be less than the last: \"$mseFnResult\" ]"
+                mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_fw_iv_firstLineMustBeLessThanTheLast}" "RESULT" "${mseFnResult}")
+                mseReturn=$(mse_str_replacePlaceHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpMsg}")
               fi
             fi
           fi
@@ -184,7 +190,8 @@ mse_file_write()
     # Verifica se o número da linha indicada é válida
     if [ "$mseReturn" == 1 ]; then
       if [ "$mseTargetFirstLine" -lt 1 ] || [ "$mseTargetFirstLine" -gt "$mseFileLastLine" ] || [ "$mseTargetLastLine" -gt "$mseFileLastLine" ]; then
-        mseReturn="Parameter \"TargetLine\" has an invalid value [ Outside the file limits; 1 - $mseFileLastLine ]"
+        mseTmpMsg=$(mse_str_replacePlaceHolder "${lbl_fw_iv_outsideTheFileLimits}" "LASTLINE" "${mseFileLastLine}")
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpMsg}")
       fi
     fi
   fi
@@ -230,7 +237,7 @@ mse_file_write()
 
     printf "${mseNewFileContent}" > "${mseFilePath}"
     if [ $? != 0 ]; then
-      mseReturn="Error on save. Do you have permissions to change the target file?"
+      mseReturn="${lbl_fw_iv_errorOnSave}"
     fi
   fi
 

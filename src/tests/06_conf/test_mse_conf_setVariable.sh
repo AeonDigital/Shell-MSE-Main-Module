@@ -15,7 +15,7 @@ test_mse_conf_setVariable() {
   cp "src/tests/00_assets/.config" "src/tests/00_assets/expected/setVariable/.config"
 
   testResult=$(mse_conf_setVariable)
-  testExpected="Lost parameters. Expect 6"
+  testExpected="Lost 6 parameters."
 
   mse_utest_assertEqual
 
@@ -45,13 +45,13 @@ test_mse_conf_setVariable() {
 
 
   testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "in" "#" "in")
-  testExpected="Parameter \"Operation\" is invalid"
+  testExpected="Parameter \"Operation\" has an invalid option"
 
   mse_utest_assertEqual
 
 
   testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "a" "#" "in")
-  testExpected="Parameter \"Position\" is invalid"
+  testExpected="Parameter \"Position\" has an invalid option"
 
   mse_utest_assertEqual
 

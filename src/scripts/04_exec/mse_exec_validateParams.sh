@@ -388,56 +388,56 @@ mse_exec_validateParams() {
               # Se o parametro é obrigatório mas não está definido
               if [ $mseParamRequired == 1 ] && [ $mseCurrentParamIsSet == 0 ]; then
                 ((mseCurrentParam=mseCurrentParam+1))
-                mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsRequired}" "PARAM_A" "${mseParamLabel}")
+                mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "${mseParamLabel}")
               else
                 if [ "${mseRawCurrentParamDataValue}" != "" ]; then
                   case "${mseParamType}" in
                     bool)
                       if [ "${mseRawCurrentParamDataValue}" != 1 ] && [ "${mseRawCurrentParamDataValue}" != 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "bool")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "bool")
                       fi
                     ;;
                     string)
                       local oLC_CTYPE="${LC_CTYPE}"
                       LC_CTYPE=""
                       if [ "$mseParamMaxLength" != "" ] && [ "${#mseRawCurrentParamDataValue}" -gt $mseParamMaxLength ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsGreaterThanMaxLength}" "PARAM_A" "${mseParamLabel}" "MAXLENGTH" "${mseParamMaxLength}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsGreaterThanMaxLength}" "PARAM_A" "${mseParamLabel}" "MAXLENGTH" "${mseParamMaxLength}")
                       fi
                       LC_CTYPE="${oLC_CTYPE}"
                     ;;
                     char)
                       mseParamCk=$(mse_check_isChar "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "char")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNot_A}" "PARAM_A" "${mseParamLabel}" "A" "char")
                       fi
                     ;;
                     charDecimal)
                       mseParamCk=$(mse_check_isCharDecimal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "decimal" "B" "char")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "decimal" "B" "char")
                       fi
                     ;;
                     charHex)
                       mseParamCk=$(mse_check_isCharHex "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "hexadecimal" "B" "char")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "hexadecimal" "B" "char")
                       fi
                     ;;
                     charOctal)
                       mseParamCk=$(mse_check_isCharOctal "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "octal" "B" "char")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotValid_A_RepresentationOf_B}" "PARAM_A" "${mseParamLabel}" "A" "octal" "B" "char")
                       fi
                     ;;
                     int)
                       mseParamCk=$(mse_check_isInteger "${mseRawCurrentParamDataValue}")
                       if [ "$mseParamCk" == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "integer")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "integer")
                       else
                         if [ "$mseParamMin" != "" ] && [ "${mseRawCurrentParamDataValue}" -lt "$mseParamMin" ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeGreaterOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMin}")
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeGreaterOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMin}")
                         elif [ "$mseParamMax" != "" ] && [ "${mseRawCurrentParamDataValue}" -gt "$mseParamMax" ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeLessOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMax}")
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeLessOrEqualsThan_A}" "PARAM_A" "${mseParamLabel}" "A" "${mseParamMax}")
                         fi
                       fi
                     ;;
@@ -445,42 +445,42 @@ mse_exec_validateParams() {
                       if [ "${mseParamCreate}" == 1 ] && [ ! -f "${mseRawCurrentParamDataValue}" ]; then
                         > "${mseRawCurrentParamDataValue}"
                         if [ "$?" != 0 ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_cannotCreateNewFileIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_cannotCreateNewFileIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
                         fi
                       fi
                       if [ ! -f "${mseRawCurrentParamDataValue}" ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_PointsToNonExistentFile}" "PARAM_A" "${mseParamLabel}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_PointsToNonExistentFile}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     dirName)
                       if [ "${mseParamCreate}" == 1 ] && [ ! -d "${mseRawCurrentParamDataValue}" ]; then
                         mkdir -p "${mseRawCurrentParamDataValue}"
                         if [ $? != 0 ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_cannotCreateNewDirectoryIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_cannotCreateNewDirectoryIn}" "LOCAL" "${mseRawCurrentParamDataValue}")
                         fi
                       fi
                       if [ ! -d "${mseRawCurrentParamDataValue}" ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_PointsToNonExistentDirectory}" "PARAM_A" "${mseParamLabel}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_PointsToNonExistentDirectory}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     functionName)
                       mseParamCk=$(mse_check_isFunctionExists "${mseRawCurrentParamDataValue}")
                       if [ $mseParamCk == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeNameOfExistentFunction}" "PARAM_A" "${mseParamLabel}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeNameOfExistentFunction}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                     arrayName)
                       #
                       # Identifica se o array de fato existe
                       if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -a" ]]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "array name")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "array name")
                       else
                         declare -n mseTmpArrayName="${mseRawCurrentParamDataValue}"
 
                         if [ "$mseParamMin" != "" ] && [ "${#mseTmpArrayName[@]}" -lt "$mseParamMin" ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Min}" "PARAM_A" "${mseParamLabel}" "MIN" ${mseParamMin})
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArrayWithAtLast_Min}" "PARAM_A" "${mseParamLabel}" "MIN" ${mseParamMin})
                         elif [ "$mseParamMax" != "" ] && [ "${#mseTmpArrayName[@]}" -gt "$mseParamMax" ]; then
-                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Max}" "PARAM_A" "${mseParamLabel}" "MAX" ${mseParamMax})
+                          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArrayWithAtLast_Max}" "PARAM_A" "${mseParamLabel}" "MAX" ${mseParamMax})
                         fi
                       fi
                     ;;
@@ -488,14 +488,14 @@ mse_exec_validateParams() {
                       #
                       # Identifica se o array de fato existe
                       if [[ ! "$(declare -p ${mseRawCurrentParamDataValue} 2> /dev/null)" =~ "declare -A" ]]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "associative array name")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsNotAn_A}" "PARAM_A" "${mseParamLabel}" "A" "associative array name")
                       else
                         declare -n mseTmpAssocArrayName="${mseRawCurrentParamDataValue}"
                         local mseTmpAssocKey
 
                         for mseTmpAssocKey in "${mseParamAssocKeys[@]}"; do
                           if [ "$mseReturn" == 1 ] && [ -z "${mseTmpAssocArrayName[$mseTmpAssocKey]+x}" ]; then
-                            mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_LostTheRequiredKey_Key}" "PARAM_A" "${mseParamLabel}" "KEY" ${mseTmpAssocKey})
+                            mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_LostTheRequiredKey_Key}" "PARAM_A" "${mseParamLabel}" "KEY" ${mseTmpAssocKey})
                           fi
                         done
                       fi
@@ -516,7 +516,7 @@ mse_exec_validateParams() {
                       done
 
                       if [ "$mseTmpMatch" == 0 ]; then
-                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_exec_vp_paramA_HasInvalidValue}" "PARAM_A" "${mseParamLabel}")
+                        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "${mseParamLabel}")
                       fi
                     ;;
                   esac

@@ -290,7 +290,7 @@ mse_inter_showMessage() {
     local mseLost
     ((mseLost=31-mseArgs))
 
-    MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
+    MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_lostParameters}" "LOST" "${mseLost}")
   else
 
     MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageType"]="${1}"

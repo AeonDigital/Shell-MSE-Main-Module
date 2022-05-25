@@ -75,20 +75,24 @@ mse_conf_setVariable()
 
   mseReturn=1
   if [ $# -lt 6 ]; then
-    mseReturn="Lost parameters. Expect 6"
+    local mseArgs="$#"
+    local mseLost
+    ((mseLost=6-mseArgs))
+
+    mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_lostParameters}" "LOST" "${mseLost}")
   else
     if [ $# -ge 1 ] && [ "$1" == "" ]; then
-      mseReturn="Parameter \"PathToFile\" is required"
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "PathToFile")
     elif [ $# -ge 3 ] && [ "$3" == "" ]; then
-      mseReturn="Parameter \"VariableName\" is required"
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "VariableName")
     elif [ $# -ge 5 ] && [ "$5" == "" ]; then
-      mseReturn="Parameter \"Operation\" is required"
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "Operation")
     elif [ $# -ge 6 ] && [ "$6" == "" ]; then
-      mseReturn="Parameter \"CommentChar\" is required"
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "CommentChar")
     fi
 
     if [ "$mseReturn" == 1 ] && [ ! -f "$1" ]; then
-      mseReturn="Parameter \"PathToFile\" points to a non existent file"
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_PointsToNonExistentFile}" "PARAM_A" "PathToFile")
     fi
   fi
 
@@ -115,7 +119,7 @@ mse_conf_setVariable()
         mseOperation="u"
       ;;
       *)
-        mseReturn="Parameter \"Operation\" is invalid"
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidOption}" "PARAM_A" "Operation")
       ;;
     esac
   fi
@@ -151,7 +155,7 @@ mse_conf_setVariable()
             msePosition="a"
           ;;
           *)
-            mseReturn="Parameter \"Position\" is invalid"
+            mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidOption}" "PARAM_A" "Position")
           ;;
         esac
       fi
@@ -172,16 +176,16 @@ mse_conf_setVariable()
     # causará um erro se ela já existir.
     if [ "$mseOperation" == "a" ]; then
       if [ "$mseRawVarLine" != "" ]; then
-        mseReturn="Variable \"$3\" already exists"
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableAlreadExists}" "VAR" "$3")
       fi
     else
       #
       # Em qualquer outro caso, a ausencia da variável alvo causará um erro.
       if [ "$mseRawVarLine" == "" ]; then
         if [ "$2" == "" ]; then
-          mseReturn="Variable \"$3\" do not exists"
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExists}" "VAR" "$3")
         else
-          mseReturn="Variable \"$3\" do not exists in \"$2\" section"
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExistsInSection}" "VAR" "$3" "SECTION" "$2")
         fi
       else
         #
@@ -219,7 +223,7 @@ mse_conf_setVariable()
     # Executa um split no valor obtido para ver se trata-se de 2 inteiros
     mse_str_split " " "$mseTargetLines"
     if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" != 2 ]; then
-      mseReturn="Cannot identify the target line to perform this operation."
+      mseReturn="${lbl_cf_cannotIdentifyTargetLine}"
     else
       mseTargetFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
       mseTargetLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"

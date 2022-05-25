@@ -12,14 +12,14 @@
 test_mse_inter_showMessage() {
   mse_inter_showMessage
   testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 31 arguments."
+  testExpected="Lost 31 parameters."
 
   mse_utest_assertEqual
 
 
   mse_inter_showMessage "a1" "a2"
   testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 29 arguments."
+  testExpected="Lost 29 parameters."
 
   mse_utest_assertEqual
 

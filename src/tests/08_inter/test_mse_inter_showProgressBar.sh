@@ -12,14 +12,14 @@
 test_mse_inter_showProgressBar() {
   mse_inter_showProgressBar
   testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 16 arguments."
+  testExpected="Lost 16 parameters."
 
   mse_utest_assertEqual
 
 
   mse_inter_showProgressBar "a1" "a2"
   testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 14 arguments."
+  testExpected="Lost 14 parameters."
 
   mse_utest_assertEqual
 

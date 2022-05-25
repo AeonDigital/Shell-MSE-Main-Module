@@ -153,7 +153,7 @@ mse_inter_showProgressBar() {
     local mseLost
     ((mseLost=16-mseArgs))
 
-    MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
+    MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_lostParameters}" "LOST" "${mseLost}")
   else
 
     MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarIndent"]="${1}"

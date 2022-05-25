@@ -90,7 +90,7 @@ mse_inter_promptUser() {
     local mseLost
     ((mseLost=5-mseArgs))
 
-    MSE_GLOBAL_LASTERR="Lost ${mseLost} arguments."
+    MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_lostParameters}" "LOST" "${mseLost}")
     return 1
   else
 
@@ -132,7 +132,7 @@ mse_inter_promptUser() {
       #
       # Verifica se o nome do array passado é válido
       if [[ ! "$(declare -p ${4} 2> /dev/null)" =~ "declare -a" ]]; then
-        MSE_GLOBAL_LASTERR="Parameter \"BodyMessageArrayName\" must be an array"
+        MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArray}" "PARAM_A" "BodyMessageArrayName")
         return 1
       else
         mseBodyMessageArrayName="${4}"
@@ -171,23 +171,23 @@ mse_inter_promptUser() {
     # informações definidas nos arrays de chave/valor
     if [ "${msePromptValueType}" == "list" ]; then
       if [ "${6}" == "" ] || [[ ! "$(declare -p ${6} 2> /dev/null)" =~ "declare -a" ]]; then
-        MSE_GLOBAL_LASTERR="Parameter \"PromptLabelArrayName\" must be an array"
+        MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArray}" "PARAM_A" "PromptLabelArrayName")
         return 1
       elif [ "${7}" == "" ] || [[ ! "$(declare -p ${7} 2> /dev/null)" =~ "declare -a" ]]; then
-        MSE_GLOBAL_LASTERR="Parameter \"PromptValueArrayName\" must be an array"
+        MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArray}" "PARAM_A" "PromptValueArrayName")
         return 1
       else
         msePromptLabelArrayName="${6}"
         msePromptValueArrayName="${7}"
 
         if [ "${#msePromptLabelArrayName[@]}" == 0 ]; then
-          MSE_GLOBAL_LASTERR="Parameter \"PromptLabelArrayName\" is an empty array"
+          MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsAnEmptyArray}" "PARAM_A" "PromptLabelArrayName")
           return 1
         elif [ "${#msePromptValueArrayName[@]}" == 0 ]; then
-          MSE_GLOBAL_LASTERR="Parameter \"PromptValueArrayName\" is an empty array"
+          MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsAnEmptyArray}" "PARAM_A" "PromptValueArrayName")
           return 1
         elif [ "${#msePromptLabelArrayName[@]}" != "${#msePromptValueArrayName[@]}" ]; then
-          MSE_GLOBAL_LASTERR="Parameters \"PromptLabelArrayName\" and \"PromptValueArrayName\" must have the same number of elements."
+          MSE_GLOBAL_LASTERR=$(mse_str_replacePlaceHolder "${lbl_err_paramA_BothArraysMustHaveSameNumberOfElements}" "PARAM_A" "PromptLabelArrayName" "PARAM_B" "PromptValueArrayName")
           return 1
         fi
       fi

@@ -44,9 +44,43 @@ lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in 
 
 #
 # Falhas na passagem de argumentos, parametros ou variáveis
+lbl_err_lostParameters="Lost [[LOST]] parameters."
+lbl_err_variableAlreadExists="Variable \"[[VAR]]\" already exists"
+lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
+lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[SECTION]]\" section"
+
+lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
+lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"
+lbl_err_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
+lbl_err_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
+lbl_err_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
+lbl_err_paramA_IsGreaterThanMaxLength="Parameter \"[[PARAM_A]]\" is greater than the defined max length ( [[MAXLENGTH]] )"
+lbl_err_paramA_IsNotValid_A_RepresentationOf_B="Parameter \"[[PARAM_A]]\" is not a valid [[A]] representation of [[B]]"
+lbl_err_paramA_MustBeGreaterOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be greater or equals than [[A]]"
+lbl_err_paramA_MustBeLessOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be less or equals than [[A]]"
+lbl_err_paramA_MustBeNameOfExistentFunction="Parameter \"[[PARAM_A]]\" must be a name of a existent function"
+
+lbl_err_cannotCreateNewFileIn="Cannot create a new file in [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a non existent file"
+
+lbl_err_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
+
+lbl_err_paramA_MustBeAnArray="Parameter \"[[PARAM_A]]\" must be an array"
+lbl_err_paramA_IsAnEmptyArray="Parameter \"[[PARAM_A]]\" is an empty array"
+lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parameters \"[[PARAM_A]]\" and \"[[PARAM_B]]\" must have the same number of elements"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
+lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
+
+lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
+
+
+
 #
-# [ vp_ipd = validateParans :: invalid parameter definition ]
+# [ vp_ipd = validateParans invalid parameter definition ]
 lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
+
 lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
 lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
 lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid option"
@@ -60,24 +94,17 @@ lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]
 lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="[[FIELDNAME_A]] field has an empty [[A]] collection"
 lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]] field has an incorrect correlation between [[A]] and [[B]]"
 
+
 #
-# [ vp = validateParans ]
-lbl_exec_vp_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
-lbl_exec_vp_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
-lbl_exec_vp_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
-lbl_exec_vp_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
-lbl_exec_vp_paramA_IsGreaterThanMaxLength="Parameter \"[[PARAM_A]]\" is greater than the defined max length ( [[MAXLENGTH]] )"
-lbl_exec_vp_paramA_IsNotValid_A_RepresentationOf_B="Parameter \"[[PARAM_A]]\" is not a valid [[A]] representation of [[B]]"
-lbl_exec_vp_paramA_MustBeGreaterOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be greater or equals than [[A]]"
-lbl_exec_vp_paramA_MustBeLessOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be less or equals than [[A]]"
-lbl_exec_vp_paramA_MustBeNameOfExistentFunction="Parameter \"[[PARAM_A]]\" must be a name of a existent function"
+# [ fw_iv = file_write has an invalid value ]
+lbl_fw_iv_mainMessage="Parameter \"[[PARAM_A]]\" has an invalid value [ [[MSG]] ]"
 
-lbl_exec_vp_cannotCreateNewFileIn="Cannot create a new file in [[LOCAL]]"
-lbl_exec_vp_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a non existent file"
+lbl_fw_iv_expectedFunctionNameOrInteger="Expected a function name or one/two integers; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
+lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last: \"[[RESULT]]\""
+lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
+lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
 
-lbl_exec_vp_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
-lbl_exec_vp_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
 
-lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
-lbl_exec_vp_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
-lbl_exec_vp_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
+#
+# [ cf = conf ]
+lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
