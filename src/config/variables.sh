@@ -8,18 +8,59 @@
 
 
 #
-# Armazena o nome de cada um dos módulos atualmente carregados.
-declare -ga MSE_GLOBAL_MODULES
+# Identificadores dos submódulos.
+# Cada identificador é um prefixo usado no nome das respectivas funções
+MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter"
+
+
+
+
+
+#
+# Armazena todas as meta informações referentes a cada módulo, submódulo
+# e funções carregadas.
+#
+# Cada chave será composta conforme os 3 modelos indicados abaixo:
+#   - Módulos
+#   [M::ModuleName]
+#   Valor: Total de funções
+#   - SubMódulos
+#   [S::ModuleName::SubModuleName]
+#   Valor: Total de funções
+#   - Funções
+#   [F::ModuleName::SubModuleName::FunctionName]
+#   Valor: Caminho completo até o arquivo de definição da função.
+declare -gA MSE_GLOBAL_MODULES_METADATA
+#
+# Armazena as chaves que identificam os módulos, submódulos e funções
+# em ordem alfabética de apresentação (com submódulos e funções devidamente
+# aninhadas).
+declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
+
+#
+# Submódulos que são carregados junto com este.
+#
+# Para cada módulo carregado, será adicionada uma nova entrada neste array
+# associativo cuja chave será o nome do módulo e o valor deverá ser uma
+# string contendo o nome de cada um dos submódulos separados por "::".
+#
+# A variável global "MSE_TMP_SUBMODULES" será usada para preencher
+# automaticamente este array associativo. Esta variável deve estar presente
+# nos arquivos "variables.sh" de cada módulo carregado contendo a informação
+# que será incorporada pelo "registerModules".
+#declare -gA MSE_GLOBAL_MODULES_SUBMODULES
 
 #
 # Array associativo que armazena o nome de cada uma das funções dos módulos
-# carregados relacionados com o nome do próprio módulo.
-# O valor de cada conjunto "módulo/função" será o caminho completo até o local
-# em que está o arquivo que contém o código daquela função.
+# carregados relacionados com o nome de seus módulos e submódulos.
+# O valor de cada conjunto "módulo/submódulo/função" será o caminho completo
+# até o local em que está o arquivo que contém o código daquela função.
 #
 # Ex:
-#   [Shell-MSE-Main-Module::mse_font_showColors]="/home/user/.mse/Shell-MSE-Main-Module/src/scripts/07_font/mse_font_showColors.sh"
-declare -gA MSE_GLOBAL_MODULES_FUNCTIONS
+#   [Shell-MSE-Main-Module::font::mse_font_showColors]="/home/user/.mse/Shell-MSE-Main-Module/src/scripts/07_font/mse_font_showColors.sh"
+#declare -gA MSE_GLOBAL_MODULES_FUNCTIONS
+
+
 
 
 

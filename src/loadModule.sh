@@ -40,6 +40,7 @@ fi
 
 . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_registerModule.sh"
 mse_mmod_registerModule "Shell-MSE-Main-Module" "${MSE_TMP_THIS_DIRECTORY}"
+mse_mmod_reorderMetadataIndexes
 
 
 unset MSE_TMP_THIS_DIRECTORY
