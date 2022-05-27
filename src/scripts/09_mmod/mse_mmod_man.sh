@@ -167,8 +167,15 @@ mse_mmod_man() {
       mse_inter_errorAlert "err" "${lbl_man_noUsageDescriptionFoundForFunction}"
     else
       mseDescriptionLines+=("")
+      local mseCod="MAN"
+      local mseTtl="$1"
 
-      local mseReturn=$(mse_inter_alertUser "a" "MAN" "$1" "mseDescriptionLines")
+      if [ "$1" == "mse_mmod_help" ]; then
+        mseCod="MSE"
+        mseTtl="My Shell Env"
+      fi
+
+      local mseReturn=$(mse_inter_alertUser "a" "${mseCod}" "${mseTtl}" "mseDescriptionLines")
       if [ "$#" -ge 2 ] && [ "$2" == "0" ]; then
         printf "${mseReturn}\n"
       else

@@ -17,6 +17,7 @@ MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter"
 # Neste array associativo, cada chave é uma versão abreviada da respectiva
 # função que fica armazenada na posição do valor.
 declare -gA MSE_GLOBAL_CMD
+MSE_GLOBAL_CMD["help"]="mse_mmod_help"
 MSE_GLOBAL_CMD["man"]="mse_mmod_man"
 MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
 MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"

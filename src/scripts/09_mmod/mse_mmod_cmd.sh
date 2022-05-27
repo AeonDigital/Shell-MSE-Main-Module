@@ -30,6 +30,7 @@
 #   > mse_mmod_searchFunction replace
 #
 mse_mmod_cmd() {
+
   if [ "$#" -ge 1 ] && [ "$1" != "" ]; then
     local i
     local mseOffSet=1
