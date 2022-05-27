@@ -113,3 +113,8 @@ lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the targ
 #
 # [ cf = conf ]
 lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
+
+
+#
+# [ mmod ]
+lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."

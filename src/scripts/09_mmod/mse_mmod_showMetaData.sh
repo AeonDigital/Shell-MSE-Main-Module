@@ -263,6 +263,7 @@ mse_mmod_showMetaData() {
               mseReturnData+=($(printf "${mseSubModuleLine}"))
             fi
           ;;
+
           F)
             if [ "${MSE_GLOBAL_MODULE_SPLIT_RESULT[2]}" == "-" ]; then
               if [ "${mseModStart}" == "1" ]; then
