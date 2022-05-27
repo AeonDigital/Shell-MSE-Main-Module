@@ -53,7 +53,7 @@ mse_mmod_man() {
     mse_inter_setCursorPosition top 2
     mse_inter_alertUser "i" "" "${lbl_man_searchForAValidFunction}"
   else
-    mseMetaData=$(mse_mmod_showRawMetaData 0 0 1 "" "" "$1")
+    mseMetaData=$(mse_mmod_showRawMetaData 0 0 1 "" "" "$1" "1")
 
     if [ "${mseMetaData}" == "" ]; then
       mseMSG=$(mse_str_replacePlaceHolder "${lbl_man_couldNotFindHelpForFunction}" "FUNCTION" "$1")
@@ -67,6 +67,13 @@ mse_mmod_man() {
         mse_inter_errorAlert "err" "${mseMSG}"
       else
         msePathToFile="${MSE_GLOBAL_MODULE_SPLIT_RESULT[4]}"
+
+        #
+        # Verifica se há uma versão deste manual para a lingua atualmente setada
+        local mseLocaleMan=$(mse_str_replace "/src/scripts/" "/src/locale/man/${MSE_GLOBAL_MODULE_LOCALE}/" "${msePathToFile}")
+        if [ -f "${mseLocaleMan}" ]; then
+          msePathToFile="${mseLocaleMan}"
+        fi
       fi
     fi
   fi

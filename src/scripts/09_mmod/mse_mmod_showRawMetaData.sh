@@ -76,6 +76,14 @@
 #
 # A pesquisa ocorrerá de forma "case insensitive"
 #
+#
+# @param bool $7
+# Opcional. Tipo de pesquisa para as funções.
+# Indica se deve executar uma pesquisa pelo nome exato da função indicada.
+#   - Omita ou indique "0" para fazer uma pesquisa aproximada.
+#   - Indique "1" para uma pesquisa objetiva.
+#
+#
 # @return
 # Uma lista contendo todas as informações requeridas formatadas conforme
 # indicado. A lista será sempre ordenada alfabeticamente.
@@ -116,6 +124,12 @@ mse_mmod_showRawMetaData() {
   if [ "$6" != "" ]; then
     mseFilterFunctions="$6"
   fi
+
+  local mseFilterFunctionsExact=0
+  if [ "$7" == "1" ]; then
+    mseFilterFunctionsExact="1"
+  fi
+
 
 
   local i
@@ -187,7 +201,7 @@ mse_mmod_showRawMetaData() {
           if [ "${mseFilterSubModules}" == "" ] || [[ "${mseValue^^}" =~ "F::${mseModuleName^^}::${mseFilterSubModules^^}" ]]; then
             #
             # Verifica o filtro de função
-            if [ "${mseFilterFunctions}" == "" ] || [[ "${mseValue^^}" =~ "${mseFilterFunctions^^}" ]]; then
+            if [ "${mseFilterFunctions}" == "" ] || ([ "${mseFilterFunctionsExact}" == "0" ] && [[ "${mseValue^^}" =~ "${mseFilterFunctions^^}" ]]) || ([ "${mseFilterFunctionsExact}" == "1" ] && [[ "${mseValue^^}" == "F::${mseModuleName^^}::${mseSubModuleName^^}::${mseFilterFunctions^^}" ]]); then
               if [ "${mseShowFunctionNames}" == "1" ]; then
                 mseSelected+=("${mseValue}")
               fi

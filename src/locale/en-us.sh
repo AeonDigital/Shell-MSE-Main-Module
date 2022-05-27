@@ -123,7 +123,7 @@ lbl_man_enterAFunction="Enter the name of a function."
 lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
 lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_showMetaData\"."
 lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
-lbl_man_fileOfFunctionNotFound="File of function not found [ [[PATH]] ]"
+lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
 lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
 
 lbl_searchFunction_enterAFunction="Enter the name of a function."
