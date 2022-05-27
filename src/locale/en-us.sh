@@ -118,3 +118,14 @@ lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this
 #
 # [ mmod ]
 lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
+
+lbl_man_enterAFunction="Enter the name of a function."
+lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
+lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_showMetaData\"."
+lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
+lbl_man_fileOfFunctionNotFound="File of function not found [ [[PATH]] ]"
+lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
+
+lbl_searchFunction_enterAFunction="Enter the name of a function."
+
+lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
