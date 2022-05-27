@@ -9,6 +9,7 @@
 
 #
 # @desc
+#
 # Apresenta para o usuário uma breve descrição de uso dos recursos que estão
 # disponíveis com o MyShellEnv.
 mse_mmod_help() {
