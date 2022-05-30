@@ -1,7 +1,7 @@
 #
 # @desc
 #
-# O MyShellEnv é um módulo gerenciador de recursos multipropósitos para uso
+# O myShellEnv é um módulo gerenciador de recursos multipropósitos para uso
 # em terminais de linha de comando (Shell). Compatível principalmente com o
 # Bash.
 #
@@ -46,5 +46,4 @@
 #
 #
 # @ Aeon Digital
-# Rianna Cantarelli - 2022
 #
