@@ -41,7 +41,7 @@ mse_file_read_checkLine_isComment() {
     mseLine=$(mse_str_trim "${2}")
     #
     # Remove a informação de número da linha
-    if [ $3 == 1 ]; then
+    if [ "$3" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 

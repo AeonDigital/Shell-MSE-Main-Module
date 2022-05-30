@@ -7,6 +7,12 @@
 #
 # @desc
 # Adiciona um cabeçalho.
+#
+# @param string $1
+# Título que será escrito no cabeçalho.
+#
+# @param string $2
+# Subtítulo que será adicionado abaixo do título.
 mse_misc_setHeader() {
   # Não cor
   local mseNColor="\e[0m"

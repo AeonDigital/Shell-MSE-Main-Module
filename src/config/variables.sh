@@ -49,6 +49,9 @@ declare -gA MSE_GLOBAL_MODULES_METADATA
 # em ordem alfabética de apresentação (com submódulos e funções devidamente
 # aninhadas).
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
+#
+# Armazena o caminho completo até o diretório "src" de cada módulo carregado.
+declare -gA MSE_GLOBAL_MODULES_PATH
 
 
 

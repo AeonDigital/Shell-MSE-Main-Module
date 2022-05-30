@@ -31,6 +31,44 @@ mse_mmod_registerModule() {
 
 
 
+
+
+  #
+  # Carrega as legendas referentes ao locale configurado
+  MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
+  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
+    MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
+  fi
+  . "${MSE_TMP_PATH_TO_LOCALE}"
+
+
+
+  #
+  # Carrega as variáveis de ambiente do módulo caso um arquivo 'env.sh' esteja definido
+  if [ -f "${2}/config/env.sh" ]; then
+    . "${2}/config/env.sh"
+  fi
+
+
+
+  #
+  # Carrega as variáveis locais do módulo caso um arquivo 'variables.sh' esteja definido
+  if [ -f "${2}/config/variables.sh" ]; then
+    . "${2}/config/variables.sh"
+  fi
+
+
+
+  #
+  # Carrega os 'aliases' do módulo caso um arquivo 'aliases.sh' esteja definido
+  if [ -f "${2}/config/aliases.sh" ]; then
+    . "${2}/config/aliases.sh"
+  fi
+
+
+
+  #
+  # Identifica os scripts do módulo
   mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
   if [ "$mseModFiles" != "" ]; then
     local i
@@ -48,6 +86,7 @@ mse_mmod_registerModule() {
     mseModuleMetaDataKey="M::${mseModuleName}"
     mseModuleTotalFunctionCount=0
 
+    MSE_GLOBAL_MODULES_PATH[${mseModuleName}]="$2"
     MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]=0
     MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseModuleMetaDataKey}")
 
