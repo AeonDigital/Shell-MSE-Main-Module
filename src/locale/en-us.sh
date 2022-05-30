@@ -7,95 +7,125 @@
 
 
 
-lbl_generic_MainModuleNotFound+="\n"
-lbl_generic_MainModuleNotFound+="    Attention\n"
-lbl_generic_MainModuleNotFound+="    The module \"Shell-MSE-Main-Module\" was not found.\n"
-lbl_generic_MainModuleNotFound+="    Use the following commands to add and configure it:\n"
-lbl_generic_MainModuleNotFound+="    - git submodule add https://github.com/AeonDigital/Shell-MSE-Main-Module.git \n"
-lbl_generic_MainModuleNotFound+="    - git submodule set-branch --branch main -- ./Shell-MSE-Main-Module \n"
-lbl_generic_MainModuleNotFound+="    - git submodule update --remote \n"
-lbl_generic_MainModuleNotFound+="\n"
-lbl_generic_MainModuleNotFound+="    If the module \"Shell-MSE-Main-Module\" is already part of the current repository you can\n"
-lbl_generic_MainModuleNotFound+="    start it using the following commands:\n"
-lbl_generic_MainModuleNotFound+="    - git submodule init \n"
-lbl_generic_MainModuleNotFound+="    - git submodule update --remote \n"
-lbl_generic_MainModuleNotFound+="\n"
-
-
-lbl_generic_UnitTestNotFound+="\n"
-lbl_generic_UnitTestNotFound+="    Attention\n"
-lbl_generic_UnitTestNotFound+="    Could not run tests because module \"Shell-MSE-UnitTest\" was not found.\n"
-lbl_generic_UnitTestNotFound+="    Use the following commands to add and configure it:\n"
-lbl_generic_UnitTestNotFound+="    - git submodule add https://github.com/AeonDigital/Shell-MSE-UnitTest.git \n"
-lbl_generic_UnitTestNotFound+="    - git submodule set-branch --branch main -- ./Shell-MSE-UnitTest \n"
-lbl_generic_UnitTestNotFound+="    - git submodule update --remote \n"
-lbl_generic_UnitTestNotFound+="\n"
-lbl_generic_UnitTestNotFound+="    If the module \"Shell-MSE-UnitTest\" is already part of the current repository you can\n"
-lbl_generic_UnitTestNotFound+="    start it using the following commands:\n"
-lbl_generic_UnitTestNotFound+="    - git submodule init \n"
-lbl_generic_UnitTestNotFound+="    - git submodule update --remote \n"
-lbl_generic_UnitTestNotFound+="\n"
-
-
-lbl_generic_ModuleNotFound+="\n"
-lbl_generic_ModuleNotFound+="    Attention\n"
-lbl_generic_ModuleNotFound+="    The module \"[[MODULE]]\" was not found.\n"
-lbl_generic_ModuleNotFound+="    Use the following commands to load it:\n"
-lbl_generic_ModuleNotFound+="    - git submodule update --remote \n"
-lbl_generic_ModuleNotFound+="\n"
-
-
-lbl_generic_ERROR="ERROR"
-lbl_generic_in="in"
-lbl_generic_expected="expected"
-
-lbl_genericError_lostArgument="lost argument"
-lbl_genericError_emptyArray="empty array"
-lbl_genericError_invalidType="invalid type"
-lbl_genericError_invalidValue="invalid value"
-lbl_genericError_invalidArgument="invalid argument"
-lbl_genericError_expectedOnly="expected only"
-lbl_genericError_cannotSave="cannot save"
-lbl_genericError_emptyListOfOptions="empty list options"
-lbl_genericError_emptyListOfBooleanOptions="empty list of boolean options"
-lbl_genericError_checkValidOptionsIn="check for valid options in"
-lbl_genericError_especifiedFileNotExists="the specified file does not exist"
-lbl_genericError_configurationFileNotFound="configuration file not found"
-
-lbl_genericMessage_pressAnyKeyToProceed="Press any key to proceed"
-
-
-lbl_registerModule_EmptyDir+="\n"
-lbl_registerModule_EmptyDir+="    Attention:\n"
-lbl_registerModule_EmptyDir+="    The scripts directory is empty: [[DIR]] \n"
-lbl_registerModule_EmptyDir+="    Aborted operation!\n\n"
-
-
-
+#
+# Main Module
+lbl_mmod_invalidModuleName="The module name indicated is invalid. Use the \"mse_mmod_showModules\" function to get a list of valid options. [ \"[[MODULE]]\" ]"
 
 
 #
+# Interface
+lbl_inter_alert_header_info="Information"
+lbl_inter_alert_header_attention="Attention"
+lbl_inter_alert_header_warning="Warning"
+lbl_inter_alert_header_error="Error"
+lbl_inter_alert_header_fail="Fail"
+lbl_inter_alert_header_success="Success"
+
+lbl_inter_wait_user_any_key="Press any key to proceed"
+
+#
 # Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
-unset lbl_generic_boolPromptLabels
-lbl_generic_boolPromptLabels=(
+unset lbl_inter_prompt_boolLabels
+lbl_inter_prompt_boolLabels=(
   "yes" "y" "no" "n"
 )
 
 #
 # Coleção de valores correspondentes às opções de 'labels' de um 'prompt'
 # do tipo 'bool'.
-unset lbl_generic_boolPromptValues
-lbl_generic_boolPromptValues=(
+unset lbl_inter_prompt_boolValues
+lbl_inter_prompt_boolValues=(
   1 1 0 0
 )
 
 
 
+#
+# Fontes e Backgrounds
+lbl_font_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
+lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in the place of 'X': "
 
 
 
+#
+# Falhas na passagem de argumentos, parametros ou variáveis
+lbl_err_lostParameters="Lost [[LOST]] parameters."
+lbl_err_variableAlreadExists="Variable \"[[VAR]]\" already exists"
+lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
+lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[SECTION]]\" section"
 
-lbl_icolor_showFontAttributes_AttrOptions="The following attribute options are available"
-lbl_icolor_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
-lbl_icolor_showTextColors_TableFilter01="Variable"
-lbl_icolor_showTextColors_TableFilter02="Color,Variable"
+lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
+lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"
+lbl_err_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
+lbl_err_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
+lbl_err_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
+lbl_err_paramA_IsGreaterThanMaxLength="Parameter \"[[PARAM_A]]\" is greater than the defined max length ( [[MAXLENGTH]] )"
+lbl_err_paramA_IsNotValid_A_RepresentationOf_B="Parameter \"[[PARAM_A]]\" is not a valid [[A]] representation of [[B]]"
+lbl_err_paramA_MustBeGreaterOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be greater or equals than [[A]]"
+lbl_err_paramA_MustBeLessOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be less or equals than [[A]]"
+lbl_err_paramA_MustBeNameOfExistentFunction="Parameter \"[[PARAM_A]]\" must be a name of a existent function"
+
+lbl_err_cannotCreateNewFileIn="Cannot create a new file in [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a non existent file"
+
+lbl_err_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
+
+lbl_err_paramA_MustBeAnArray="Parameter \"[[PARAM_A]]\" must be an array"
+lbl_err_paramA_IsAnEmptyArray="Parameter \"[[PARAM_A]]\" is an empty array"
+lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parameters \"[[PARAM_A]]\" and \"[[PARAM_B]]\" must have the same number of elements"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
+lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
+
+lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
+
+
+
+#
+# [ vp_ipd = validateParans invalid parameter definition ]
+lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
+
+lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid option"
+lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="[[FIELDNAME_A]] field points to non existent function"
+lbl_exec_vp_ipd_fieldA_MustBeAnInteger="[[FIELDNAME_A]] field must be an integer"
+lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="[[FIELDNAME_A]] field must be greater than 0"
+lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]] field"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 0"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 1"
+lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]] collection"
+lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="[[FIELDNAME_A]] field has an empty [[A]] collection"
+lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]] field has an incorrect correlation between [[A]] and [[B]]"
+
+
+#
+# [ fw_iv = file_write has an invalid value ]
+lbl_fw_iv_mainMessage="Parameter \"[[PARAM_A]]\" has an invalid value [ [[MSG]] ]"
+
+lbl_fw_iv_expectedFunctionNameOrInteger="Expected a function name or one/two integers; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
+lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last: \"[[RESULT]]\""
+lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
+lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
+
+
+#
+# [ cf = conf ]
+lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
+
+
+#
+# [ mmod ]
+lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
+
+lbl_man_enterAFunction="Enter the name of a function."
+lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
+lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_showMetaData\"."
+lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
+lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
+lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
+
+lbl_searchFunction_enterAFunction="Enter the name of a function."
+
+lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."

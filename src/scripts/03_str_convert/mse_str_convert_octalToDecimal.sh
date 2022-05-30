@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# myShellEnv v 1.0 [aeondigital.com.br]
+
+
+
+
+
+
+
+#
+# @desc
+# Converte um 'octal' para seu respectivo 'decimal'.
+#
+# @param charOctal $1
+# Valor que será convertido.
+#
+# @return
+# Representação 'decimal' do 'octal' informado.
+#
+# @example
+#   mse_str_convert_octalToDecimal "241"       # converte para -> 161
+#   mse_str_convert_octalToDecimal "303 255"   # converte para -> "195 173"
+#   result=$(mse_str_convert_octalToDecimal "241" 1)
+mse_str_convert_octalToDecimal() {
+  local mseReturn
+  local mseTmp
+  local mseByte
+  local mseArrParam
+
+  #
+  # Esplita o valor inicial em bytes
+  # e então converte cada byte remontando o char final
+  mseReturn=""
+  mseArrParam=(${1// / })
+  for mseByte in "${mseArrParam[@]}"; do
+    if [ "$mseReturn" != "" ]; then
+      mseReturn+=" "
+    fi
+    mseTmp=$(printf $((8#${mseByte})))
+    mseReturn+="${mseTmp}"
+  done
+
+  printf "${mseReturn}"
+}
+
+
+
+
+
+#
+# Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
+# com as regras de validação dos parametros aceitáveis.
+mse_str_convert_octalToDecimal_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
+}
