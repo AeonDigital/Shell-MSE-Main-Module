@@ -359,6 +359,6 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
 # Registra as variáveis relativas às cores disponíveis para uso
 # Outras cores podem ser definidas. Use sempre o prefixo 'mse'
 # para evitar conflitos com outras libs.
-if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh" ]; then
+if [ ! -z "${MSE_TMP_THIS_DIRECTORY+x}" ] && [ -f "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh" ]; then
   . "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh"
 fi

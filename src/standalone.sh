@@ -136,7 +136,7 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
 MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
-if [ -f "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh" ]; then
+if [ ! -z "${MSE_TMP_THIS_DIRECTORY+x}" ] && [ -f "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh" ]; then
   . "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh"
 fi
 # END :: variables.sh
@@ -4262,5 +4262,3 @@ mse_mmod_processTargetObjectIndex() {
   done
 }
 # END :: mse_mmod_registerModule.sh
-
-
