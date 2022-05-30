@@ -10,7 +10,7 @@
 #
 # Identificadores dos submódulos.
 # Cada identificador é um prefixo usado no nome das respectivas funções
-MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter"
+MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc"
 
 #
 # Coleção de comandos que facilitam o acesso a funções do módulo
@@ -22,6 +22,8 @@ MSE_GLOBAL_CMD["man"]="mse_mmod_man"
 MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
 MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
+MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
+
 
 
 
