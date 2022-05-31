@@ -84,14 +84,14 @@ else
         mseTMPInstallMessage+=("Please check permissions and try again")
       else
 
-        mse_inter_alertUser "i" "MSE" "Cloning main module repository" ""
+        mse_inter_alertUser "i" "MSE" "Cloning main module repository" "" ""
 
         git clone --depth=1 "${mseTMPMainModuleRepo}" "${mseTMPInstallationPath}"
         if [ $? != 0 ] || [ ! -d "${mseTMPInstallationPath}/src" ]; then
           mseIsOK=0
-          mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage"
+          mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage" ""
         else
-          mse_inter_alertUser "s" "MSE" "Clone success" ""
+          mse_inter_alertUser "s" "MSE" "Clone success" "" ""
         fi
       fi
     fi
