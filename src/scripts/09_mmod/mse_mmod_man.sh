@@ -172,7 +172,7 @@ mse_mmod_man() {
 
       if [ "$1" == "mse_mmod_help" ]; then
         mseCod="MSE"
-        mseTtl="My Shell Env"
+        mseTtl="myShellEnv"
       fi
 
       local mseReturn=$(mse_inter_alertUser "a" "${mseCod}" "${mseTtl}" "mseDescriptionLines")

@@ -243,8 +243,8 @@ mse_inter_promptUser() {
       # Se está chegando aqui novamente significa que o valor digitado é inválido
       # mostra uma mensagem de erro para o usuário
       if [ "${msePromptUserValue}" != "" ]; then
-        mse_inter_errorAlert "X" "Invalid value \"${msePromptUserValue}\"."
-
+        local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
+        mse_inter_errorAlert "X" "${mseErrMsg}"
       fi
 
       #

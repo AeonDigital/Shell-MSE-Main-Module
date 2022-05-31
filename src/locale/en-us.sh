@@ -23,6 +23,8 @@ lbl_inter_alert_header_success="Success"
 
 lbl_inter_wait_user_any_key="Press any key to proceed"
 
+lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
+
 #
 # Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
 unset lbl_inter_prompt_boolLabels
@@ -129,3 +131,20 @@ lbl_man_noUsageDescriptionFoundForFunction="No usage description found for targe
 lbl_searchFunction_enterAFunction="Enter the name of a function."
 
 lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
+
+lbl_generateStandalone_moduleNotFound="Module name not found."
+lbl_update_updateStart="Updating all \"myShellEnv\" modules."
+lbl_update_updateSuccess="All modules has been updated"
+lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
+
+lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
+lbl_uninstall_uninstallPromptTitle="Confirm this action to proceed"
+
+declare -a lbl_uninstall_uninstallPromptMessage
+lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
+lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
+lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
+lbl_uninstall_uninstallPromptMessage+=("")
+lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
+
+lbl_uninstall_uninstallAborted="Action interrupted by the user."

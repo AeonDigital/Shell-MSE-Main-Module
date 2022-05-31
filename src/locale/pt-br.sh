@@ -23,6 +23,8 @@ lbl_inter_alert_header_success="Sucesso"
 
 lbl_inter_wait_user_any_key="Precione qualquer tecla para prosseguir"
 
+lbl_inter_prompt_invalidValue="O valor \"[[VALUE]]\" é inválido."
+
 #
 # Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
 unset lbl_inter_prompt_boolLabels
@@ -129,3 +131,20 @@ lbl_man_noUsageDescriptionFoundForFunction="Nenhuma descrição de uso foi encon
 lbl_searchFunction_enterAFunction="Entre o nome da função."
 
 lbl_cmd_commandNotFound="O comando \"[[CMD]]\" não foi encontrado."
+
+lbl_generateStandalone_moduleNotFound="Módulo não encontrado."
+lbl_update_updateStart="Atualizando todos os módulos \"myShellEnv\"."
+lbl_update_updateSuccess="Todos os módulos foram atualizados"
+lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualizar todos os módulos [ [[ERRCODE]] ]"
+
+lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
+lbl_uninstall_uninstallPromptTitle="Confirme esta ação para prosseguir"
+
+declare -a lbl_uninstall_uninstallPromptMessage
+lbl_uninstall_uninstallPromptMessage+=("Esta ação não pode ser desfeita.")
+lbl_uninstall_uninstallPromptMessage+=("Todos os dados e configurações de todos os módulos atualmente instalados")
+lbl_uninstall_uninstallPromptMessage+=("serão perdidos permanentemente.")
+lbl_uninstall_uninstallPromptMessage+=("")
+lbl_uninstall_uninstallPromptMessage+=("Você tem certeza que deseja prosseguir?")
+
+lbl_uninstall_uninstallAborted="Ação interrompida pelo usuário."

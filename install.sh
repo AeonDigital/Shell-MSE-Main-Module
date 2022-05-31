@@ -135,7 +135,7 @@ else
 
 
   #
-  # Se o arquivo do respectivo shell existir...
+  # Se o arquivo 'rc' do respectivo shell existir...
   if [ -f "${mseAtualShellRCPath}" ]; then
     mseMyEnvShellInitiCode=""
     mseMyEnvShellInitiCode+="\n\n"

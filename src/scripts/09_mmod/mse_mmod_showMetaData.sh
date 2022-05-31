@@ -175,7 +175,6 @@ mse_mmod_showMetaData() {
             mseTmpLine+="${msePFColorSeparator})${mseNONE}"
 
 
-            #mseTmpLine=$(mse_inter_alertUser "a" "${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}" "${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]} (${MSE_GLOBAL_MODULE_SPLIT_RESULT[3]}/${MSE_GLOBAL_MODULE_SPLIT_RESULT[2]})")
             mseReturnData+=($(printf "${mseTmpLine}"))
 
             #
