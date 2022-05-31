@@ -15,8 +15,9 @@
 mseTtlColor="\e[1;2;49;34m"
 mseTxtColor="\e[20;49;90m"
 mseNColor="\e[0m"
+clear
 printf "  :: ${mseTtlColor}myShellEnv${mseNColor} \n"
-printf "     ${mseTxtColor}Starting installation${mseNColor}"
+printf "     ${mseTxtColor}Starting installation${mseNColor}\n\n"
 
 
 set -eu
