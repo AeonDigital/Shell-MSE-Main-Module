@@ -70,6 +70,7 @@ else
       mseTMPInstallMessage+=("There is already a version of \"myShellEnv\" installed in")
       mseTMPInstallMessage+=("${mseTMPInstallationPath}")
       mseTMPInstallMessage+=("Uninstall the previous version to install a new one.")
+      mseTMPInstallMessage+=("")
     else
 
       #
