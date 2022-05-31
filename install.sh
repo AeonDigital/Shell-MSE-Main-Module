@@ -125,14 +125,15 @@ else
 
   mseTMPInstallMessage=()
   mseTMPInstallMessage+=("To enable your shell env")
-  mseTMPInstallMessage+=("change your .bashrc or zshll.rc file and append the")
+  mseTMPInstallMessage+=("change your .bashrc or .zshrc file and append the")
   mseTMPInstallMessage+=("following code in the end of it")
   mseTMPInstallMessage+=("")
-  mseTMPInstallMessage+=("${mseTtlColor}if [ -f ~/.config/myShellEnv/src/init.sh ]; then${mseNONE}")
-  mseTMPInstallMessage+=("${mseTtlColor}  . ~/.myShellEnv/src/init.sh || true${mseNONE}")
+  mseTMPInstallMessage+=("${mseTtlColor}if${mseNONE} [ -f ~/.config/myShellEnv/src/init.sh ]; ${mseTtlColor}then${mseNONE}")
+  mseTMPInstallMessage+=("  . ~/.myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
   mseTMPInstallMessage+=("${mseTtlColor}fi${mseNONE}")
+  mseTMPInstallMessage+=("")
 
-  mse_inter_alertUser "i" "MSE" "Installation success!" "" ""
+  mse_inter_alertUser "a" "MSE" "Installation success!" "mseTMPInstallMessage" ""
 fi
 
 
