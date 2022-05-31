@@ -25,7 +25,7 @@ mseIsOK=1
 mseCheck=0
 mseTMPInstallMessage=()
 
-mseTMPTargetURL="https://raw.githubusercontent.com/AeonDigital/Shell-MSE-Main-Module/main/src/standalone.sh"
+mseTMPTargetURL="https://raw.githubusercontent.com/AeonDigital/Shell-MSE-Main-Module/main/src/standalone.sh?$(date +%s)"
 mseTMPMainModuleRepo="https://github.com/AeonDigital/Shell-MSE-Main-Module.git"
 mseTMPTargetOutputFile="${HOME}/tmp_mse_standalone.sh"
 mseTMPInstallationPath="${HOME}/.config/myShellEnv"
