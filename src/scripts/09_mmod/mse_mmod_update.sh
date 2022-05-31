@@ -13,5 +13,12 @@
 mse_mmod_update() {
   local mseInstallationPath="${HOME}/.config/myShellEnv"
 
-  git --git-dir="${mseInstallationPath}" pull
+
+  git -C "${mseInstallationPath}" pull
+  local mseCode=$#
+  if [ "${mseCode}" == 0 ]; then
+    mse_inter_alertUser "s" "MSE" "All repositories has been updated"
+  else
+    mse_inter_alertUser "f" "MSE" "An unexpected failure occurred and the repositories could not be updated [ ${mseCode} ]"
+  fi
 }
