@@ -33,7 +33,7 @@ mseTMPCURLResultCode=""
 
 #
 # Efetua o download da versão 'standalone' do módulo principal
-rm "${mseTMPTargetOutputFile}"
+rm -rf "${mseTMPTargetOutputFile}"
 mseTMPCURLResultCode=$(curl -s -w "%{http_code}" -o "${mseTMPTargetOutputFile}" "${mseTMPTargetURL}" || true)
 
 
@@ -60,43 +60,40 @@ else
     mseTMPInstallMessage+=("Git not found.")
     mseTMPInstallMessage+=("Install it and try again.")
   else
-  fi
-
-
-
-
-
-  #
-  # Se o diretório de instalação já existe...
-  if [ -d "${mseTMPInstallationPath}" ]; then
-    mseIsOK=0
-
-    mseTMPInstallMessage+=("There is already a version of \"myShellEnv\" installed in")
-    mseTMPInstallMessage+=("${mseTMPInstallationPath}")
-    mseTMPInstallMessage+=("Uninstall the previous version to install a new one.")
-  else
 
     #
-    # cria o diretório de instalação
-    mkdir -p "${mseTMPInstallationPath}"
-    if [ ! d "${mseTMPInstallationPath}" ]; then
+    # Se o diretório de instalação já existe...
+    if [ -d "${mseTMPInstallationPath}" ]; then
       mseIsOK=0
 
-      mseTMPInstallMessage+=("Could not create installation directory:")
-      mseTMPInstallMessage+=("\"${mseTMPInstallationPath}\"")
-      mseTMPInstallMessage+=("Please check permissions and try again")
+      mseTMPInstallMessage+=("There is already a version of \"myShellEnv\" installed in")
+      mseTMPInstallMessage+=("${mseTMPInstallationPath}")
+      mseTMPInstallMessage+=("Uninstall the previous version to install a new one.")
     else
 
-      mse_inter_alertUser "i" "MSE" "Cloning main module repository"
-
-      git clone --depth=1 "${mseTMPMainModuleRepo}" "${mseTMPInstallationPath}"
-      if [ $? != 0 ] || [ ! -d "${mseTMPInstallationPath}/src" ]; then
+      #
+      # cria o diretório de instalação
+      mkdir -p "${mseTMPInstallationPath}"
+      if [ ! d "${mseTMPInstallationPath}" ]; then
         mseIsOK=0
-        mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage"
+
+        mseTMPInstallMessage+=("Could not create installation directory:")
+        mseTMPInstallMessage+=("\"${mseTMPInstallationPath}\"")
+        mseTMPInstallMessage+=("Please check permissions and try again")
       else
-        mse_inter_alertUser "s" "MSE" "Clone success"
+
+        mse_inter_alertUser "i" "MSE" "Cloning main module repository"
+
+        git clone --depth=1 "${mseTMPMainModuleRepo}" "${mseTMPInstallationPath}"
+        if [ $? != 0 ] || [ ! -d "${mseTMPInstallationPath}/src" ]; then
+          mseIsOK=0
+          mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage"
+        else
+          mse_inter_alertUser "s" "MSE" "Clone success"
+        fi
       fi
     fi
+
   fi
 fi
 
@@ -119,6 +116,7 @@ if [ "${mseIsOK}" == 0 ]; then
     mse_install_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
   fi
 else
+  rm install.sh
   printf "w"
 fi
 
