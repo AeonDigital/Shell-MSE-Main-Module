@@ -124,12 +124,11 @@ else
   rm install.sh tmp_mse_standalone.sh
 
   mseTMPInstallMessage=()
-  mseTMPInstallMessage+=("To enable your shell env")
-  mseTMPInstallMessage+=("change your .bashrc or .zshrc file and append the")
+  mseTMPInstallMessage+=("To enable your shell env change your .bashrc or .zshrc file and append the")
   mseTMPInstallMessage+=("following code in the end of it")
   mseTMPInstallMessage+=("")
   mseTMPInstallMessage+=("${mseTtlColor}if${mseNONE} [ -f ~/.config/myShellEnv/src/init.sh ]; ${mseTtlColor}then${mseNONE}")
-  mseTMPInstallMessage+=("  . ~/.myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
+  mseTMPInstallMessage+=("  ${mseNONE}. ~/.myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
   mseTMPInstallMessage+=("${mseTtlColor}fi${mseNONE}")
   mseTMPInstallMessage+=("")
 
