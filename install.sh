@@ -23,6 +23,9 @@ printf "     ${mseTxtColor}Starting installation${mseNColor}\n\n"
 set -eu
 mseIsOK=1
 mseCheck=0
+mseAtualShell="${SHELL##*/}"
+mseAtualShellRCPath=""
+mseAtualShellRCInitCodeInserted=0
 mseTMPInstallMessage=()
 
 mseTMPTargetURL="https://raw.githubusercontent.com/AeonDigital/Shell-MSE-Main-Module/main/src/standalone.sh?$(date +%s)"
@@ -121,23 +124,98 @@ if [ "${mseIsOK}" == "0" ]; then
     fi
   fi
 else
-  rm install.sh tmp_mse_standalone.sh
+
+
+
+  #
+  # Adiciona uma chamada para o "myShellEnv" no arquivo "rc" do shell
+  # atualmente sendo usado.
+  mseAtualShellRCPath="${HOME}/.${mseAtualShell,,}rc"
+
+
+
+  #
+  # Se o arquivo do respectivo shell existir...
+  if [ -f "${mseAtualShellRCPath}" ]; then
+    mseMyEnvShellInitiCode=""
+    mseMyEnvShellInitiCode+="\n\n"
+    mseMyEnvShellInitiCode+="# [[INI-MYSHELLENV]]\n"
+    mseMyEnvShellInitiCode+="if [ -f ~/.config/myShellEnv/src/init.sh ]; then\n"
+    mseMyEnvShellInitiCode+="  . ~/.myShellEnv/src/init.sh || true\n"
+    mseMyEnvShellInitiCode+="fi\n"
+    mseMyEnvShellInitiCode+="# [[END-MYSHELLENV]]\n"
+
+    mseRCFileContent=$(< "${mseAtualShellRCPath}")
+    if [ "${mseRCFileContent}" != "" ]; then
+      mseInitiCodeMatch=0
+
+      while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
+        if [[ "${mseLineRaw}" =~ "# [[INI-MYSHELLENV]]" ]]; then
+          mseInitiCodeMatch=1
+          break
+        fi
+      done <<< "$mseRCFileContent"
+
+      if [ "${mseInitiCodeMatch}" == 0 ]; then
+        printf "${mseMyEnvShellInitiCode}" >> "${mseAtualShellRCPath}"
+        if [ $? == 0 ]; then
+          mseAtualShellRCInitCodeInserted=1
+        fi
+      fi
+    fi
+
+    unset mseMyEnvShellInitiCode
+    unset mseRCFileContent
+    unset mseInitiCodeMatch
+    unset mseLineRaw
+  fi
+
+
 
   mseTMPInstallMessage=()
-  mseTMPInstallMessage+=("To enable your shell env change your .bashrc or .zshrc file and append the")
-  mseTMPInstallMessage+=("following code in the end of it")
+  if [ "${mseAtualShellRCInitCodeInserted}" == "1" ]; then
+    mseTMPInstallMessage+=("the code below has been added in the .${mseAtualShell,,}rc file")
+  else
+    mseTMPInstallMessage+=("To enable your shell env change your .${mseAtualShell,,}rc file and append the")
+    mseTMPInstallMessage+=("following code in the end of it:")
+  fi
+
   mseTMPInstallMessage+=("")
+  mseTMPInstallMessage+=("${mseNONE}# [[INI-MYSHELLENV]]")
   mseTMPInstallMessage+=("${mseTtlColor}if${mseNONE} [ -f ~/.config/myShellEnv/src/init.sh ]; ${mseTtlColor}then${mseNONE}")
   mseTMPInstallMessage+=("  ${mseNONE}. ~/.myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
   mseTMPInstallMessage+=("${mseTtlColor}fi${mseNONE}")
-  mseTMPInstallMessage+=("")
+  mseTMPInstallMessage+=("${mseNONE}# [[END-MYSHELLENV]]")
+
+
+  if [ "${mseAtualShellRCInitCodeInserted}" == "1" ]; then
+    mseTMPInstallMessage+=("")
+    mseTMPInstallMessage+=("changes will take effect immediately")
+  else
+    mseTMPInstallMessage+=("")
+    mseTMPInstallMessage+=("changes will be activated when opening a new shell")
+  fi
 
   mse_inter_alertUser "a" "MSE" "Installation success!" "mseTMPInstallMessage" ""
+  rm install.sh tmp_mse_standalone.sh
+
+
+  if [ "${mseAtualShellRCInitCodeInserted}" == "1" ]; then
+    bash
+  fi
 fi
 
 
 
+unset mseTtlColor
+unset mseTxtColor
+unset mseNColor
+
 unset mseIsOK
+unset mseCheck
+unset mseAtualShell
+unset mseAtualShellRCPath
+unset mseAtualShellRCInitCodeInserted
 unset mseTMPInstallMessage
 
 unset mseTMPTargetURL
