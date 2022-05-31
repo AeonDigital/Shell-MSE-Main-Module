@@ -30,6 +30,7 @@ mseTMPMainModuleRepo="https://github.com/AeonDigital/Shell-MSE-Main-Module.git"
 mseTMPTargetOutputFile="${HOME}/tmp_mse_standalone.sh"
 mseTMPInstallationPath="${HOME}/.config/myShellEnv"
 mseTMPCURLResultCode=""
+mseTMPRemoveInstallationDir=0
 
 
 #
@@ -83,7 +84,7 @@ else
         mseTMPInstallMessage+=("\"${mseTMPInstallationPath}\"")
         mseTMPInstallMessage+=("Please check permissions and try again")
       else
-
+        mseTMPRemoveInstallationDir=1
         mse_inter_alertUser "i" "MSE" "Cloning main module repository" "" ""
 
         git clone --depth=1 "${mseTMPMainModuleRepo}" "${mseTMPInstallationPath}"
@@ -103,23 +104,35 @@ fi
 
 
 
-if [ "${mseIsOK}" == 0 ]; then
+if [ "${mseIsOK}" == "0" ]; then
   mse_inter_errorAlert "MSE" "Installation Aborted" "mseTMPInstallMessage" ""
 
   #
-  # Remove o diretório de instalação
-  rm -rf "${mseTMPInstallationPath}"
-  if [ $? != 0 ]; then
-    mseTMPInstallMessage=()
-    mseTMPInstallMessage+=("Installation failed and could not remove cloned repository:")
-    mseTMPInstallMessage+=("${mseTMPInstallationPath}")
-    mseTMPInstallMessage+=("Before trying a new installation you need to manually remove it.")
+  # Remove o diretório de instalação caso necessário
+  if [ "${mseTMPRemoveInstallationDir}" == "1" ]; then
+    rm -rf "${mseTMPInstallationPath}"
+    if [ $? != 0 ]; then
+      mseTMPInstallMessage=()
+      mseTMPInstallMessage+=("Installation failed and could not remove cloned repository:")
+      mseTMPInstallMessage+=("${mseTMPInstallationPath}")
+      mseTMPInstallMessage+=("Before trying a new installation you need to manually remove it.")
 
-    mse_install_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
+      mse_install_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
+    fi
   fi
 else
   rm install.sh
-  printf "w"
+
+  mseTMPInstallMessage=()
+  mseTMPInstallMessage+=("To enable your shell env")
+  mseTMPInstallMessage+=("change your .bashrc or zshll.rc file and append the")
+  mseTMPInstallMessage+=("following code in the end of it")
+  mseTMPInstallMessage+=("")
+  mseTMPInstallMessage+=("${mseTtlColor}if [ -f ~/.config/myShellEnv/src/init.sh ]; then${mseNONE}")
+  mseTMPInstallMessage+=("${mseTtlColor}  . ~/.myShellEnv/src/init.sh || true${mseNONE}")
+  mseTMPInstallMessage+=("${mseTtlColor}fi${mseNONE}")
+
+  mse_inter_alertUser "i" "MSE" "Installation success!" "" ""
 fi
 
 
@@ -132,3 +145,4 @@ unset mseTMPMainModuleRepo
 unset mseTMPTargetOutputFile
 unset mseTMPInstallationPath
 unset mseTMPCURLResultCode
+unset mseTMPRemoveInstallationDir
