@@ -141,7 +141,7 @@ else
     mseMyEnvShellInitiCode+="\n\n"
     mseMyEnvShellInitiCode+="# [[INI-MYSHELLENV]]\n"
     mseMyEnvShellInitiCode+="if [ -f ~/.config/myShellEnv/src/init.sh ]; then\n"
-    mseMyEnvShellInitiCode+="  . ~/.myShellEnv/src/init.sh || true\n"
+    mseMyEnvShellInitiCode+="  . ~/.config/myShellEnv/src/init.sh || true\n"
     mseMyEnvShellInitiCode+="fi\n"
     mseMyEnvShellInitiCode+="# [[END-MYSHELLENV]]\n"
 
@@ -183,7 +183,7 @@ else
   mseTMPInstallMessage+=("")
   mseTMPInstallMessage+=("${mseNONE}# [[INI-MYSHELLENV]]")
   mseTMPInstallMessage+=("${mseTtlColor}if${mseNONE} [ -f ~/.config/myShellEnv/src/init.sh ]; ${mseTtlColor}then${mseNONE}")
-  mseTMPInstallMessage+=("  ${mseNONE}. ~/.myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
+  mseTMPInstallMessage+=("  ${mseNONE}. ~/.config/myShellEnv/src/init.sh || ${mseTtlColor}true${mseNONE}")
   mseTMPInstallMessage+=("${mseTtlColor}fi${mseNONE}")
   mseTMPInstallMessage+=("${mseNONE}# [[END-MYSHELLENV]]")
 
