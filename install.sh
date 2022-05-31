@@ -121,7 +121,7 @@ if [ "${mseIsOK}" == "0" ]; then
     fi
   fi
 else
-  rm install.sh
+  rm install.sh tmp_mse_standalone.sh
 
   mseTMPInstallMessage=()
   mseTMPInstallMessage+=("To enable your shell env")
