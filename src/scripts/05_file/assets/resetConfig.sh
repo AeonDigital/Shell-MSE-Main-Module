@@ -21,6 +21,7 @@ mse_file_read_resetConfig() {
   MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]=""
   MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
   MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]=""
 
   unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
   declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()

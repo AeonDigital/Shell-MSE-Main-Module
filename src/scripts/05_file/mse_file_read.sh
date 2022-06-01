@@ -55,8 +55,10 @@ mse_file_read()
     local mseSectionEndFunctionName
     local mseSectionEndFunctionArgs
     local mseSectionShowFirstLine
+    local mseSectionShowLastLine
 
     local mseValidLine
+    local mseValidLastLine
     local mseLineCheckFunctionName
     local mseLineCheckFunctionArgs
     local mseLineCheckFunctionInvert
@@ -95,6 +97,7 @@ mse_file_read()
     mseSectionEndFunctionName=""
     mseSectionEndFunctionArgs=""
     mseSectionShowFirstLine=0
+    mseSectionShowLastLine=0
     if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[start]}" != "" ]; then
       mseValidSection=0
       mseSectionStartFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK[start]}"
@@ -126,6 +129,9 @@ mse_file_read()
 
       if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[print_start_line]}" == "1" ]; then
         mseSectionShowFirstLine=1
+      fi
+      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[print_end_line]}" == "1" ]; then
+        mseSectionShowLastLine=1
       fi
 
     fi
@@ -195,6 +201,7 @@ mse_file_read()
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseLineCount=mseLineCount+1))
       mseValidLine=1
+      mseValidLastLine=0
 
 
       #
@@ -221,7 +228,16 @@ mse_file_read()
             #
             # Inverte a verificação anterior para que ela faça sentido dentro do contexto atual
             # e mantenha o algoritmo em uma seção válida enquanto o final da mesma não for encontrado
-            if [ $mseValidSection == 1 ]; then mseValidSection=0; else mseValidSection=1; fi
+            if [ $mseValidSection == 1 ]; then
+              if [ $mseSectionShowLastLine == 1 ]; then
+                mseValidSection=1
+                mseValidLastLine=1
+              else
+                mseValidSection=0
+              fi
+            else
+              mseValidSection=1
+            fi
           fi
         fi
 
@@ -261,6 +277,10 @@ mse_file_read()
               printf "${mseLineCount}#"
             fi
             printf "${mseLineRaw}\n"
+
+            if [ $mseValidLastLine == 1 ]; then
+              mseValidSection=0
+            fi
           fi
         fi
       fi

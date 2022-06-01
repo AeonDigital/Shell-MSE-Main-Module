@@ -76,3 +76,55 @@ mse_file_read_checkSection_end() {
 
   printf "${mseR}"
 }
+
+
+
+
+
+#
+# Identifica se a linha passada está definindo o início de uma seção de
+# configuração.
+#
+# @param int $1
+# Número da linha sendo verificada.
+#
+# @param string $2
+# Conteúdo da linha sendo verificada.
+#
+# @return
+# Printa '1' se o teste for positivo.
+# Printa '0' se o teste for negativo.
+mse_file_read_checkArbitratySection_start() {
+  local mseR=0
+
+  if [ "${2}" == "${MSE_GLOBAL_MODULE_READ_BLOCK[start_args]}" ]; then
+    mseR=1
+  fi
+
+  printf "${mseR}"
+}
+
+
+
+#
+# Identifica se a linha passada está definindo o fim de uma seção de
+# configuração.
+#
+# @param int $1
+# Número da linha sendo verificada.
+#
+# @param string $2
+# Conteúdo da linha sendo verificada.
+#
+# @return
+# Printa '1' se o teste for positivo.
+# Printa '0' se o teste for negativo.
+mse_file_read_checkArbitratySection_end() {
+  local mseR=0
+
+  if [ "${2}" == "${MSE_GLOBAL_MODULE_READ_BLOCK[end_args]}" ]; then
+    mseR=1
+  fi
+
+  printf "${mseR}"
+}

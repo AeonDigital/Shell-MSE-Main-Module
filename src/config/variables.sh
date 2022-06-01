@@ -173,6 +173,12 @@ MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
 #
+# "print_start_line"
+# Indique "" ou "0" para que a linha inicial de um bloco válido seja omitida.
+# Indique "1" para que esta primeira linha identificada seja também retornada.
+MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
+
+#
 # "end"
 # Indica o nome de uma função validadora que marcará o final de uma parte
 # 'válida' de um arquivo que se deseja retornar.
@@ -193,10 +199,10 @@ MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
 #
-# "print_start_line"
-# Indique "" ou "0" para que a linha inicial de um bloco válido seja omitida.
-# Indique "1" para que esta primeira linha identificada seja também retornada.
-MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
+# "print_end_line"
+# Indique "" ou "0" para que a linha final de um bloco válido seja omitida.
+# Indique "1" para que esta última linha identificada seja também retornada.
+MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]=""
 
 
 

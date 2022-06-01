@@ -25,7 +25,7 @@ if [ "$(type -t "mse_mmod_registerModule")" != "function" ]; then
     MSE_GLOBAL_MODULE_LOCALE="en-us"
   fi
 
-  . "${MSE_TMP_THIS_DIRECTORY}/scripts/mse_mmod_registerModule.sh"
+  . "${MSE_TMP_THIS_DIRECTORY}/scripts/09_mmod/mse_mmod_registerModule.sh"
   mse_mmod_registerModule "Shell-MSE-Main-Module" "${MSE_TMP_THIS_DIRECTORY}"
   mse_mmod_reorderMetadataIndexes
 

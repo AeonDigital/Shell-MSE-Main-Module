@@ -217,7 +217,7 @@ mse_conf_setVariable()
   if [ "$mseReturn" == 1 ]; then
     local mseTargetLines
 
-    mseTargetLines=$(mse_conf_showBoundaryLinesNumbers "$1" "$2" "$mseCommentChar")
+    mseTargetLines=$(mse_file_boundaryLineNumbers "$1" "$mseCommentChar" "1" "$2" "")
 
     #
     # Executa um split no valor obtido para ver se trata-se de 2 inteiros

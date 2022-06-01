@@ -11,6 +11,7 @@ lbl_inter_alert_header_error="Error"
 lbl_inter_alert_header_fail="Fail"
 lbl_inter_alert_header_success="Success"
 lbl_inter_wait_user_any_key="Press any key to proceed"
+lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
 unset lbl_inter_prompt_boolLabels
 lbl_inter_prompt_boolLabels=(
   "yes" "y" "no" "n"
@@ -74,6 +75,19 @@ lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
 lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
 lbl_searchFunction_enterAFunction="Enter the name of a function."
 lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
+lbl_generateStandalone_moduleNotFound="Module name not found."
+lbl_update_updateStart="Updating all \"myShellEnv\" modules."
+lbl_update_updateSuccess="All modules has been updated"
+lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
+lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
+lbl_uninstall_uninstallPromptTitle="Confirm this action to proceed"
+lbl_uninstall_uninstallPromptMessage=()
+lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
+lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
+lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
+lbl_uninstall_uninstallPromptMessage+=("")
+lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
+lbl_uninstall_uninstallAborted="Action interrupted by the user."
 # END :: en-us.sh
 
 
@@ -109,20 +123,21 @@ unset MSE_GLOBAL_VALIDATE_PARAMETERS_RULES
 declare -gA MSE_GLOBAL_VALIDATE_PARAMETERS_RULES
 declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
 unset MSE_GLOBAL_MODULE_READ_BLOCK
-declare -A MSE_GLOBAL_MODULE_READ_BLOCK
+declare -gA MSE_GLOBAL_MODULE_READ_BLOCK
 MSE_GLOBAL_MODULE_READ_BLOCK["start"]=""
 MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]=""
 MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
+MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
 MSE_GLOBAL_MODULE_READ_BLOCK["end"]=""
 MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]=""
 MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
-MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
+MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]=""
 unset MSE_GLOBAL_MODULE_READ_LINE
-declare -A MSE_GLOBAL_MODULE_READ_LINE
+declare -gA MSE_GLOBAL_MODULE_READ_LINE
 MSE_GLOBAL_MODULE_READ_LINE["check"]=""
 MSE_GLOBAL_MODULE_READ_LINE["check_args"]=""
 MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=""
@@ -1500,6 +1515,20 @@ mse_file_read_checkSection_end() {
   fi
   printf "${mseR}"
 }
+mse_file_read_checkArbitratySection_start() {
+  local mseR=0
+  if [ "${2}" == "${MSE_GLOBAL_MODULE_READ_BLOCK[start_args]}" ]; then
+    mseR=1
+  fi
+  printf "${mseR}"
+}
+mse_file_read_checkArbitratySection_end() {
+  local mseR=0
+  if [ "${2}" == "${MSE_GLOBAL_MODULE_READ_BLOCK[end_args]}" ]; then
+    mseR=1
+  fi
+  printf "${mseR}"
+}
 # END :: checkSection.sh
 
 
@@ -1514,6 +1543,7 @@ mse_file_read_resetConfig() {
   MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]=""
   MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
   MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]=""
   unset MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY
   declare -ga MSE_GLOBAL_MODULE_READ_BLOCK_START_ARGS_ARRAY=()
   unset MSE_GLOBAL_MODULE_READ_BLOCK_END_ARGS_ARRAY
@@ -1546,6 +1576,72 @@ mse_file_read_transformLine_normalizeKeyValue() {
   printf "${mseLine}"
 }
 # END :: transformLine.sh
+
+
+# INI :: mse_file_boundaryLineNumbers.sh
+mse_file_boundaryLineNumbers()
+{
+  local mseReturn=1
+  if [ $# -ge 5 ] && [ -f "${1}" ]; then
+    local msePathToFile="${1}"
+    local mseCommentChar="${2}"
+    local mseConfigFile="${3}"
+    local mseSectionStart="${4}"
+    local mseSectionEnd="${5}"
+    local mseFirstLine
+    local mseFirstLineNumber
+    local mseLastLine
+    local mseLastLineNumber
+    local mseRawLines
+    if [ "${mseSectionStart}" == "" ]; then
+      mseFirstLineNumber="1"
+      mseLastLineNumber=$(mse_file_countLines "$msePathToFile")
+    else
+      mse_file_read_resetConfig
+      if [ "${mseConfigFile}" == 1 ]; then
+        MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkSection_start"
+        MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="${mseSectionStart}"
+        MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=","
+        MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkSection_end"
+        MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+      else
+        MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
+        MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="${mseSectionStart}"
+        MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+        MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
+        MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="${mseSectionEnd}"
+        MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+        MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+        MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
+      fi
+      mseRawLines=$(mse_file_read "${msePathToFile}" 0 1)
+      if [ "$mseRawLines" != "" ]; then
+        mseFirstLine="${mseRawLines%%[[:cntrl:]]*}"
+        mseFirstLineNumber="${mseFirstLine%${mseCommentChar}*}"
+        mseFirstLineNumber="${mseFirstLineNumber%*#}"
+        mseLastLine="${mseRawLines##*[[:cntrl:]]}"
+        mseLastLineNumber="${mseLastLine%${mseCommentChar}*}"
+        mseLastLineNumber="${mseLastLineNumber%*#}"
+      fi
+    fi
+    local mseCheck01=$(mse_check_isInteger "${mseFirstLineNumber}")
+    local mseCheck02=$(mse_check_isInteger "${mseLastLineNumber}")
+    if [ "${mseCheck01}" == "1" ] && [ "${mseCheck02}" == "1" ]; then
+      mseReturn=0
+      printf "%s" "${mseFirstLineNumber} ${mseLastLineNumber}"
+    fi
+  fi
+  return "${mseReturn}"
+}
+mse_file_boundaryLineNumbers_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CommentChar :: r :: char"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ConfigFile :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="SectionStart :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="SectionEnd :: r :: string"
+}
+# END :: mse_file_boundaryLineNumbers.sh
 
 
 # INI :: mse_file_countLines.sh
@@ -1597,7 +1693,9 @@ mse_file_read()
     local mseSectionEndFunctionName
     local mseSectionEndFunctionArgs
     local mseSectionShowFirstLine
+    local mseSectionShowLastLine
     local mseValidLine
+    local mseValidLastLine
     local mseLineCheckFunctionName
     local mseLineCheckFunctionArgs
     local mseLineCheckFunctionInvert
@@ -1622,6 +1720,7 @@ mse_file_read()
     mseSectionEndFunctionName=""
     mseSectionEndFunctionArgs=""
     mseSectionShowFirstLine=0
+    mseSectionShowLastLine=0
     if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[start]}" != "" ]; then
       mseValidSection=0
       mseSectionStartFunctionName="${MSE_GLOBAL_MODULE_READ_BLOCK[start]}"
@@ -1642,6 +1741,9 @@ mse_file_read()
       fi
       if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[print_start_line]}" == "1" ]; then
         mseSectionShowFirstLine=1
+      fi
+      if [ "${MSE_GLOBAL_MODULE_READ_BLOCK[print_end_line]}" == "1" ]; then
+        mseSectionShowLastLine=1
       fi
     fi
     mseLineCheckFunctionName=""
@@ -1685,6 +1787,7 @@ mse_file_read()
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseLineCount=mseLineCount+1))
       mseValidLine=1
+      mseValidLastLine=0
       if [ "${mseLineRaw}" != "" ] || [ $mseLineShowEmpty == 1 ]; then
         if [ $mseValidSection == 0 ]; then
           if [ "${mseSectionStartFunctionName}" != "" ]; then
@@ -1696,7 +1799,16 @@ mse_file_read()
         else
           if [ "${mseSectionEndFunctionName}" != "" ]; then
             mseValidSection=$($mseSectionEndFunctionName "$mseLineCount" "${mseLineRaw}" "$mseSectionEndFunctionArgs")
-            if [ $mseValidSection == 1 ]; then mseValidSection=0; else mseValidSection=1; fi
+            if [ $mseValidSection == 1 ]; then
+              if [ $mseSectionShowLastLine == 1 ]; then
+                mseValidSection=1
+                mseValidLastLine=1
+              else
+                mseValidSection=0
+              fi
+            else
+              mseValidSection=1
+            fi
           fi
         fi
         if [ $mseValidSection == 1 ] && [ $mseValidLine == 1 ]; then
@@ -1714,6 +1826,9 @@ mse_file_read()
               printf "${mseLineCount}#"
             fi
             printf "${mseLineRaw}\n"
+            if [ $mseValidLastLine == 1 ]; then
+              mseValidSection=0
+            fi
           fi
         fi
       fi
@@ -1973,7 +2088,7 @@ mse_conf_setVariable()
   fi
   if [ "$mseReturn" == 1 ]; then
     local mseTargetLines
-    mseTargetLines=$(mse_conf_showBoundaryLinesNumbers "$1" "$2" "$mseCommentChar")
+    mseTargetLines=$(mse_file_boundaryLineNumbers "$1" "$mseCommentChar" "1" "$2" "")
     mse_str_split " " "$mseTargetLines"
     if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" != 2 ]; then
       mseReturn="${lbl_cf_cannotIdentifyTargetLine}"
@@ -2030,46 +2145,6 @@ mse_conf_mainSetVariable_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6_values"]="p, a"
 }
 # END :: mse_conf_setVariable.sh
-
-
-# INI :: mse_conf_showBoundaryLinesNumbers.sh
-mse_conf_showBoundaryLinesNumbers()
-{
-  local mseCharC
-  local mseFirstLine
-  local mseFirstLineNumber
-  local mseLastLine
-  local mseLastLineNumber
-  if [ $# == 1 ] || [ "$2" == "" ]; then
-    mseFirstLineNumber="1"
-    mseLastLineNumber=$(mse_file_countLines "$1")
-  elif [ $# -ge 3 ]; then
-    mse_file_read_resetConfig
-    MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkSection_start"
-    MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="$2"
-    MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=","
-    MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkSection_end"
-    MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
-    local mseRawLines=$(mse_file_read "$1" 0 "1")
-    if [ "$mseRawLines" != "" ]; then
-      mseCharC="$3"
-      mseFirstLine="${mseRawLines%%[[:cntrl:]]*}"
-      mseFirstLineNumber="${mseFirstLine%${mseCharC}*}"
-      mseFirstLineNumber="${mseFirstLineNumber%*${mseCharC}}"
-      mseLastLine="${mseRawLines##*[[:cntrl:]]}"
-      mseLastLineNumber="${mseLastLine%${mseCharC}*}"
-      mseLastLineNumber="${mseLastLineNumber%*${mseCharC}}"
-    fi
-  fi
-  printf "%s" "${mseFirstLineNumber} ${mseLastLineNumber}"
-}
-mse_conf_showBoundaryLinesNumbers_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="SectionName :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="CommentChar :: r :: char"
-}
-# END :: mse_conf_showBoundaryLinesNumbers.sh
 
 
 # INI :: mse_conf_showVariableLine.sh
@@ -2823,7 +2898,8 @@ mse_inter_promptUser() {
     msePromptUserMessage=$(mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "" "" "" "${mseArgs[TitleType]}" "" "" "" "" "" "${mseArgs[TitleCode]}::${mseArgs[TitleText]}" "" "" "" "" "" "" "" "" "" "" "" "" "${mseArgs[BodyMessageArrayName]}" "" "" "" "" "" "${mseTheme}" || echo "${MSE_GLOBAL_PROMPT_RESULT}")
     while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
       if [ "${msePromptUserValue}" != "" ]; then
-        mse_inter_errorAlert "X" "Invalid value \"${msePromptUserValue}\"."
+        local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
+        mse_inter_errorAlert "X" "${mseErrMsg}"
       fi
       read -r -p "${msePromptUserMessage}" msePromptUserValue
       if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
@@ -3592,7 +3668,7 @@ mse_mmod_cmd() {
 # INI :: mse_mmod_generateStandalone.sh
 mse_mmod_generateStandalone() {
   if [ -z "${MSE_GLOBAL_MODULES_PATH[$1]+x}" ]; then
-    mse_inter_errorAlert "err" "Module name not found."
+    mse_inter_errorAlert "err" "${lbl_generateStandalone_moduleNotFound}"
   else
     local rawLine
     local mseCheck
@@ -3743,7 +3819,7 @@ mse_mmod_man() {
       local mseTtl="$1"
       if [ "$1" == "mse_mmod_help" ]; then
         mseCod="MSE"
-        mseTtl="My Shell Env"
+        mseTtl="myShellEnv"
       fi
       local mseReturn=$(mse_inter_alertUser "a" "${mseCod}" "${mseTtl}" "mseDescriptionLines")
       if [ "$#" -ge 2 ] && [ "$2" == "0" ]; then
@@ -3755,6 +3831,145 @@ mse_mmod_man() {
   fi
 }
 # END :: mse_mmod_man.sh
+
+
+# INI :: mse_mmod_registerModule.sh
+mse_mmod_registerModule() {
+  local mseModFiles
+  local mseModuleName
+  local mseModuleMetaDataKey
+  local mseModuleTotalFunctionCount
+  local mseSubModuleName
+  local mseSubModuleMetaDataKey
+  local mseSubModuleTotalFunctionCount
+  MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
+  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
+    MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
+  fi
+  . "${MSE_TMP_PATH_TO_LOCALE}"
+  if [ -f "${2}/config/env.sh" ]; then
+    . "${2}/config/env.sh"
+  fi
+  if [ -f "${2}/config/variables.sh" ]; then
+    . "${2}/config/variables.sh"
+  fi
+  if [ -f "${2}/config/aliases.sh" ]; then
+    . "${2}/config/aliases.sh"
+  fi
+  mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
+  if [ "$mseModFiles" != "" ]; then
+    local i
+    local c
+    local mseTmpTotalSubModules
+    local rawLine
+    local mseFullFileName
+    local mseFunctionName
+    mseModuleName="$1"
+    mseModuleMetaDataKey="M::${mseModuleName}"
+    mseModuleTotalFunctionCount=0
+    MSE_GLOBAL_MODULES_PATH[${mseModuleName}]="$2"
+    MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]=0
+    MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseModuleMetaDataKey}")
+    mse_mmod_splitAndOrderSubModules
+    mseTmpTotalSubModules="${#MSE_TMP_LIST_SUBMODULES[@]}"
+    for  ((i=0; i<mseTmpTotalSubModules; i++)); do
+      mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
+      mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
+      MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]=0
+    done
+    while read rawLine; do
+      mseFullFileName=$(basename -- "$rawLine")
+      mseFunctionName="${mseFullFileName%.*}"
+      unset "${mseFunctionName}"
+      . "$rawLine" || true
+      if [[ ! ${rawLine} =~ "/assets/" ]]; then
+        mseSubModuleName="-"
+        ((mseModuleTotalFunctionCount=mseModuleTotalFunctionCount+1))
+        for  ((i=0; i<mseTmpTotalSubModules; i++)); do
+          if [[ "${mseFunctionName}" =~ "${MSE_TMP_LIST_SUBMODULES[$i]}_" ]]; then
+            mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
+            mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
+            c="${MSE_GLOBAL_MODULES_METADATA[${mseSubModuleMetaDataKey}]}"
+            ((c=c+1))
+            MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]="${c}"
+            break
+          fi
+        done
+        MSE_GLOBAL_MODULES_METADATA["F::${mseModuleName}::${mseSubModuleName}::${mseFunctionName}"]="${rawLine}"
+      fi
+    done <<< ${mseModFiles}
+    MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
+  fi
+}
+mse_mmod_splitAndOrderSubModules() {
+  unset MSE_TMP_LIST_SUBMODULES
+  declare -ga MSE_TMP_LIST_SUBMODULES
+  if [ "${MSE_TMP_SUBMODULES}" != "" ]; then
+    local mseDelimiter
+    local mseString
+    local mseSubStr
+    declare -a mseTmpSubModules
+    mseDelimiter="::"
+    mseString="${MSE_TMP_SUBMODULES}"
+    mseSubStr=""
+    while [ "${mseString}" != "" ]; do
+      if [[ "$mseString" != *"$mseDelimiter"* ]]; then
+        mseTmpSubModules+=("$mseString")
+        break
+      else
+        mseSubStr="${mseString%%${mseDelimiter}*}"
+        mseTmpSubModules+=("$mseSubStr")
+        mseString="${mseString#*${mseDelimiter}}"
+      fi
+    done
+    local mseIndexes
+    mseIndexes=( $(
+      for i in "${!mseTmpSubModules[@]}" ; do
+        printf '%s %s %s\n' $i "${#mseTmpSubModules[i]}" "${mseTmpSubModules[i]}"
+      done | sort -nrk2,2 -rk3 | cut -f1 -d' '
+    ))
+    for i in "${mseIndexes[@]}" ; do
+      MSE_TMP_LIST_SUBMODULES+=("${mseTmpSubModules[i]}")
+    done
+    MSE_TMP_SUBMODULES=""
+  fi
+}
+mse_mmod_reorderMetadataIndexes() {
+  unset MSE_GLOBAL_MODULES_METADATA_INDEXED
+  declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
+  IFS=$'\n'
+  declare -a mseSortedMetaData=($(sort <<< "${!MSE_GLOBAL_MODULES_METADATA[*]}"))
+  unset IFS
+  mse_mmod_processTargetObjectIndex "M" "M::"
+}
+mse_mmod_processTargetObjectIndex() {
+  local mseKey
+  local mseOType="$1"
+  local mseSearchKey="$2"
+  local mseModuleName
+  local mseSubModuleName
+  for mseKey in "${mseSortedMetaData[@]}"; do
+    if [[ "${mseKey}" =~ "${mseSearchKey}" ]]; then
+      case "${mseOType}" in
+        M)
+          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
+          mseModuleName="${mseKey#M::}"
+          mse_mmod_processTargetObjectIndex "F" "F::${mseModuleName}::-::"
+          mse_mmod_processTargetObjectIndex "S" "S::${mseModuleName}"
+        ;;
+        S)
+          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
+          mseSubModuleName="${mseKey#S::}"
+          mse_mmod_processTargetObjectIndex "F" "F::${mseSubModuleName}::"
+        ;;
+        F)
+          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
+        ;;
+      esac
+    fi
+  done
+}
+# END :: mse_mmod_registerModule.sh
 
 
 # INI :: mse_mmod_searchFunction.sh
@@ -4072,6 +4287,75 @@ mse_mmod_showRawMetaData() {
 # END :: mse_mmod_showRawMetaData.sh
 
 
+# INI :: mse_mmod_uninstall.sh
+mse_mmod_uninstall() {
+  local mseCode=0
+  mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallStart}"
+  mse_inter_promptUser "" "" "${lbl_uninstall_uninstallPromptTitle}" "lbl_uninstall_uninstallPromptMessage" "bool"
+  if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
+    mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallAborted}"
+  else
+    local mseAtualShell="${SHELL##*/}"
+    local mseAtualShellRCPath="${HOME}/.${mseAtualShell,,}rc"
+    if [ -f "${mseAtualShellRCPath}" ]; then
+      local mseCharC
+      local mseFirstLine
+      local mseLastLine
+      local mseInstallationPath="${HOME}/.config/myShellEnv"
+      MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkRCFile_MSESection_start"
+      MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]=""
+      MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+      MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkRCFile_MSESection_end"
+      MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+      local mseRawLines=$(mse_file_read "$mseInstallationPath" 0 "1")
+      if [ "$mseRawLines" != "" ]; then
+        mseCharC="#"
+        mseFirstLine="${mseRawLines%%[[:cntrl:]]*}"
+        mseFirstLineNumber="${mseFirstLine%${mseCharC}*}"
+        mseFirstLineNumber="${mseFirstLineNumber%*${mseCharC}}"
+        mseLastLine="${mseRawLines##*[[:cntrl:]]}"
+        mseLastLineNumber="${mseLastLine%${mseCharC}*}"
+        mseLastLineNumber="${mseLastLineNumber%*${mseCharC}}"
+        echo "${mseFirstLineNumber} ${mseLastLineNumber}"
+      fi
+    fi
+  fi
+  return $mseCode
+}
+mse_file_read_checkRCFile_MSESection_start() {
+  local mseR=0
+  if [ "$2" == "# [[INI-MYSHELLENV]]" ]; then
+    mseR=1
+  fi
+  printf "${mseR}"
+}
+mse_file_read_checkRCFile_MSESection_end() {
+  local mseR=0
+  if [ "$2" == "# [[END-MYSHELLENV]]" ]; then
+    mseR=1
+  fi
+  printf "${mseR}"
+}
+# END :: mse_mmod_uninstall.sh
+
+
+# INI :: mse_mmod_update.sh
+mse_mmod_update() {
+  mse_inter_alertUser "i" "MSE" "${lbl_update_updateStart}"
+  local mseInstallationPath="${HOME}/.config/myShellEnv"
+  git -C "${mseInstallationPath}" pull
+  local mseCode=$#
+  if [ "${mseCode}" == 0 ]; then
+    mse_inter_alertUser "s" "MSE" "${lbl_update_updateSuccess}"
+  else
+    local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_update_updateFail}" "ERRCODE" "${mseCode}")
+    mse_inter_alertUser "f" "MSE" "${mseErrMsg}"
+  fi
+  return $mseCode
+}
+# END :: mse_mmod_update.sh
+
+
 # INI :: mse_misc_setHeader.sh
 mse_misc_setHeader() {
   local mseNColor="\e[0m"
@@ -4125,140 +4409,3 @@ mse_misc_sysData() {
 # END :: mse_misc_sysData.sh
 
 
-# INI :: mse_mmod_registerModule.sh
-mse_mmod_registerModule() {
-  local mseModFiles
-  local mseModuleName
-  local mseModuleMetaDataKey
-  local mseModuleTotalFunctionCount
-  local mseSubModuleName
-  local mseSubModuleMetaDataKey
-  local mseSubModuleTotalFunctionCount
-  MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
-  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
-    MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
-  fi
-  . "${MSE_TMP_PATH_TO_LOCALE}"
-  if [ -f "${2}/config/env.sh" ]; then
-    . "${2}/config/env.sh"
-  fi
-  if [ -f "${2}/config/variables.sh" ]; then
-    . "${2}/config/variables.sh"
-  fi
-  if [ -f "${2}/config/aliases.sh" ]; then
-    . "${2}/config/aliases.sh"
-  fi
-  mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
-  if [ "$mseModFiles" != "" ]; then
-    local i
-    local c
-    local mseTmpTotalSubModules
-    local rawLine
-    local mseFullFileName
-    local mseFunctionName
-    mseModuleName="$1"
-    mseModuleMetaDataKey="M::${mseModuleName}"
-    mseModuleTotalFunctionCount=0
-    MSE_GLOBAL_MODULES_PATH[${mseModuleName}]="$2"
-    MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]=0
-    MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseModuleMetaDataKey}")
-    mse_mmod_splitAndOrderSubModules
-    mseTmpTotalSubModules="${#MSE_TMP_LIST_SUBMODULES[@]}"
-    for  ((i=0; i<mseTmpTotalSubModules; i++)); do
-      mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
-      mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
-      MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]=0
-    done
-    while read rawLine; do
-      mseFullFileName=$(basename -- "$rawLine")
-      mseFunctionName="${mseFullFileName%.*}"
-      unset "${mseFunctionName}"
-      . "$rawLine" || true
-      if [[ ! ${rawLine} =~ "/assets/" ]]; then
-        mseSubModuleName="-"
-        ((mseModuleTotalFunctionCount=mseModuleTotalFunctionCount+1))
-        for  ((i=0; i<mseTmpTotalSubModules; i++)); do
-          if [[ "${mseFunctionName}" =~ "${MSE_TMP_LIST_SUBMODULES[$i]}_" ]]; then
-            mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
-            mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
-            c="${MSE_GLOBAL_MODULES_METADATA[${mseSubModuleMetaDataKey}]}"
-            ((c=c+1))
-            MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]="${c}"
-            break
-          fi
-        done
-        MSE_GLOBAL_MODULES_METADATA["F::${mseModuleName}::${mseSubModuleName}::${mseFunctionName}"]="${rawLine}"
-      fi
-    done <<< ${mseModFiles}
-    MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
-  fi
-}
-mse_mmod_splitAndOrderSubModules() {
-  unset MSE_TMP_LIST_SUBMODULES
-  declare -ga MSE_TMP_LIST_SUBMODULES
-  if [ "${MSE_TMP_SUBMODULES}" != "" ]; then
-    local mseDelimiter
-    local mseString
-    local mseSubStr
-    declare -a mseTmpSubModules
-    mseDelimiter="::"
-    mseString="${MSE_TMP_SUBMODULES}"
-    mseSubStr=""
-    while [ "${mseString}" != "" ]; do
-      if [[ "$mseString" != *"$mseDelimiter"* ]]; then
-        mseTmpSubModules+=("$mseString")
-        break
-      else
-        mseSubStr="${mseString%%${mseDelimiter}*}"
-        mseTmpSubModules+=("$mseSubStr")
-        mseString="${mseString#*${mseDelimiter}}"
-      fi
-    done
-    local mseIndexes
-    mseIndexes=( $(
-      for i in "${!mseTmpSubModules[@]}" ; do
-        printf '%s %s %s\n' $i "${#mseTmpSubModules[i]}" "${mseTmpSubModules[i]}"
-      done | sort -nrk2,2 -rk3 | cut -f1 -d' '
-    ))
-    for i in "${mseIndexes[@]}" ; do
-      MSE_TMP_LIST_SUBMODULES+=("${mseTmpSubModules[i]}")
-    done
-    MSE_TMP_SUBMODULES=""
-  fi
-}
-mse_mmod_reorderMetadataIndexes() {
-  unset MSE_GLOBAL_MODULES_METADATA_INDEXED
-  declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
-  IFS=$'\n'
-  declare -a mseSortedMetaData=($(sort <<< "${!MSE_GLOBAL_MODULES_METADATA[*]}"))
-  unset IFS
-  mse_mmod_processTargetObjectIndex "M" "M::"
-}
-mse_mmod_processTargetObjectIndex() {
-  local mseKey
-  local mseOType="$1"
-  local mseSearchKey="$2"
-  local mseModuleName
-  local mseSubModuleName
-  for mseKey in "${mseSortedMetaData[@]}"; do
-    if [[ "${mseKey}" =~ "${mseSearchKey}" ]]; then
-      case "${mseOType}" in
-        M)
-          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
-          mseModuleName="${mseKey#M::}"
-          mse_mmod_processTargetObjectIndex "F" "F::${mseModuleName}::-::"
-          mse_mmod_processTargetObjectIndex "S" "S::${mseModuleName}"
-        ;;
-        S)
-          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
-          mseSubModuleName="${mseKey#S::}"
-          mse_mmod_processTargetObjectIndex "F" "F::${mseSubModuleName}::"
-        ;;
-        F)
-          MSE_GLOBAL_MODULES_METADATA_INDEXED+=("${mseKey}")
-        ;;
-      esac
-    fi
-  done
-}
-# END :: mse_mmod_registerModule.sh
