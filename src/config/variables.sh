@@ -142,7 +142,7 @@ declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
 # elas só serão ativadas se a "start" for definida pois é a partir dela
 # que todas as demais fazem sentido.
 unset MSE_GLOBAL_MODULE_READ_BLOCK
-declare -A MSE_GLOBAL_MODULE_READ_BLOCK
+declare -gA MSE_GLOBAL_MODULE_READ_BLOCK
 #
 # "start"
 # Indica o nome de uma função validadora que marcará o início de uma parte
@@ -214,7 +214,7 @@ MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]=""
 # elas só serão ativadas se a "check" for definida pois é a partir dela
 # que todas as demais fazem sentido.
 unset MSE_GLOBAL_MODULE_READ_LINE
-declare -A MSE_GLOBAL_MODULE_READ_LINE
+declare -gA MSE_GLOBAL_MODULE_READ_LINE
 #
 # "check"
 # Indica o nome de uma função validadora que permite identificar se a linha

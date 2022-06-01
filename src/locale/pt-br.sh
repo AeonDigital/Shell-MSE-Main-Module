@@ -140,7 +140,7 @@ lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualiz
 lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
 lbl_uninstall_uninstallPromptTitle="Confirme esta ação para prosseguir"
 
-declare -a lbl_uninstall_uninstallPromptMessage
+lbl_uninstall_uninstallPromptMessage=()
 lbl_uninstall_uninstallPromptMessage+=("Esta ação não pode ser desfeita.")
 lbl_uninstall_uninstallPromptMessage+=("Todos os dados e configurações de todos os módulos atualmente instalados")
 lbl_uninstall_uninstallPromptMessage+=("serão perdidos permanentemente.")

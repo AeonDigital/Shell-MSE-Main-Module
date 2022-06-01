@@ -140,7 +140,7 @@ lbl_update_updateFail="An unexpected failure occurred and the modules could not 
 lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
 lbl_uninstall_uninstallPromptTitle="Confirm this action to proceed"
 
-declare -a lbl_uninstall_uninstallPromptMessage
+lbl_uninstall_uninstallPromptMessage=()
 lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
 lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
 lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
