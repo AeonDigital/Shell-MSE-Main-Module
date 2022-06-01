@@ -38,14 +38,13 @@ mse_mmod_uninstall() {
           local mseResult=$(mse_file_write "${mseAtualShellRCPath}" "mseArr" "delete" "${mseTargetLines}")
         fi
       fi
+
+
+      if [ "${mseCode}" == "0" ]; then
+        mse_inter_alertUser "s" "MSE" "${lbl_uninstall_uninstallSuccess}"
+      fi
     fi
   fi
-
-
-  if [ "${mseCode}" == "0" ]; then
-    mse_inter_alertUser "s" "MSE" "${lbl_uninstall_uninstallSuccess}"
-  fi
-
 
   return $mseCode
 }
