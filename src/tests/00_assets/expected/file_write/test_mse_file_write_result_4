@@ -3,6 +3,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum ipsum, tin
 Proin rhoncus purus id eros venenatis, id commodo eros dictum. Vivamus vitae est et erat tristique sagittis. In in sollicitudin erat. Mauris velit arcu, sollicitudin sit amet odio a, euismod dictum tellus. Nulla at hendrerit lacus. Suspendisse vehicula varius massa. Morbi ac diam at erat maximus gravida quis nec quam. Mauris in lorem id justo convallis mattis. Etiam faucibus aliquet sapien sed elementum. Sed nunc mauris, ornare sit amet vehicula eu, convallis eget dui. Nunc lacinia dapibus turpis ut iaculis.
 
 Curabitur velit ex, sodales eget euismod quis, dignissim sed metus. Nulla congue pharetra ipsum, sed sollicitudin metus iaculis ac. Sed hendrerit tellus ut turpis pretium, vel iaculis arcu imperdiet. Integer eget ante magna. Mauris purus mi, gravida at consectetur vitae, varius eu lorem. Etiam ultricies nulla sit amet ligula ultricies, sed mattis dui bibendum. Nullam sit amet sollicitudin ante. Proin vulputate aliquam neque cursus dignissim.
+
+PS1="\[\e[0;94;49m\]\$ \[\e[0;90;49m\]\u\[\e[0;94;49m\]@\[\e[0;90;49m\]\h\[\e[0;94;49m\] in \[\e[0;37;37m\]\[\e[0;90;49m\]\w \n\076\[\e[0;37;37m\]\040"
 NL: 1
 NL: 2
 NL: 3

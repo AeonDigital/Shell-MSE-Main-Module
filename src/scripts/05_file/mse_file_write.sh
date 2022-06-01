@@ -207,7 +207,7 @@ mse_file_write()
 
     mseCountLine=0
     mseNewFileContent=""
-    while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
+    while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseCountLine=mseCountLine+1))
       mseLineRaw="${mseLineRaw//\\/\\\\}"
 

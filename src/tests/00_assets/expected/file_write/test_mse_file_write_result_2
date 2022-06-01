@@ -5,3 +5,5 @@ NL: 2
 NL: 3
 
 Curabitur velit ex, sodales eget euismod quis, dignissim sed metus. Nulla congue pharetra ipsum, sed sollicitudin metus iaculis ac. Sed hendrerit tellus ut turpis pretium, vel iaculis arcu imperdiet. Integer eget ante magna. Mauris purus mi, gravida at consectetur vitae, varius eu lorem. Etiam ultricies nulla sit amet ligula ultricies, sed mattis dui bibendum. Nullam sit amet sollicitudin ante. Proin vulputate aliquam neque cursus dignissim.
+
+PS1="\[\e[0;94;49m\]\$ \[\e[0;90;49m\]\u\[\e[0;94;49m\]@\[\e[0;90;49m\]\h\[\e[0;94;49m\] in \[\e[0;37;37m\]\[\e[0;90;49m\]\w \n\076\[\e[0;37;37m\]\040"

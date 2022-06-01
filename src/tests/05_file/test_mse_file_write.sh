@@ -59,7 +59,7 @@ test_mse_file_write() {
 
 
   testResult=$(mse_file_write "src/tests/00_assets/expected/file_write/test_mse_file_write_result" "ContentArrayName" "r" "3000")
-  testExpected="Parameter \"TargetLine\" has an invalid value [ Outside the file limits; 1 - 5 ]"
+  testExpected="Parameter \"TargetLine\" has an invalid value [ Outside the file limits; 1 - 7 ]"
 
   mse_utest_assertEqual
 
