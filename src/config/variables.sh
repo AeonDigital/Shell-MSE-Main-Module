@@ -23,7 +23,8 @@ MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
 MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
 MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
-
+MSE_GLOBAL_CMD["update"]="mse_mmod_update"
+MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"
 
 
 

@@ -148,3 +148,8 @@ lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Você tem certeza que deseja prosseguir?")
 
 lbl_uninstall_uninstallAborted="Ação interrompida pelo usuário."
+
+lbl_uninstall_uninstallError=("Operação abortada.")
+lbl_uninstall_uninstallErrorRemoveDir="Não foi possível remover o diretório \"myShellEnv\"."
+
+lbl_uninstall_uninstallSuccess="Desinstalação concluída."

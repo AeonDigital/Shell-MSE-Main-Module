@@ -88,6 +88,9 @@ lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
 lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
 lbl_uninstall_uninstallAborted="Action interrupted by the user."
+lbl_uninstall_uninstallError=("Operation aborted.")
+lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
+lbl_uninstall_uninstallSuccess="Uninstallation completed."
 # END :: en-us.sh
 
 
@@ -105,6 +108,7 @@ MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
 MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
 MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
+MSE_GLOBAL_CMD["update"]="mse_mmod_update"
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
@@ -4295,46 +4299,26 @@ mse_mmod_uninstall() {
   if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
     mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallAborted}"
   else
-    local mseAtualShell="${SHELL##*/}"
-    local mseAtualShellRCPath="${HOME}/.${mseAtualShell,,}rc"
-    if [ -f "${mseAtualShellRCPath}" ]; then
-      local mseCharC
-      local mseFirstLine
-      local mseLastLine
-      local mseInstallationPath="${HOME}/.config/myShellEnv"
-      MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkRCFile_MSESection_start"
-      MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]=""
-      MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
-      MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkRCFile_MSESection_end"
-      MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
-      local mseRawLines=$(mse_file_read "$mseInstallationPath" 0 "1")
-      if [ "$mseRawLines" != "" ]; then
-        mseCharC="#"
-        mseFirstLine="${mseRawLines%%[[:cntrl:]]*}"
-        mseFirstLineNumber="${mseFirstLine%${mseCharC}*}"
-        mseFirstLineNumber="${mseFirstLineNumber%*${mseCharC}}"
-        mseLastLine="${mseRawLines##*[[:cntrl:]]}"
-        mseLastLineNumber="${mseLastLine%${mseCharC}*}"
-        mseLastLineNumber="${mseLastLineNumber%*${mseCharC}}"
-        echo "${mseFirstLineNumber} ${mseLastLineNumber}"
+    rm -rf "${HOME}/.config/myShellEnv"
+    if [ $? != 0 ]; then
+      mse_inter_alertUser "e" "MSE" "${lbl_uninstall_uninstallErrorRemoveDir}" "lbl_uninstall_uninstallError"
+      mseCode=1
+    else
+      local mseAtualShell="${SHELL##*/}"
+      local mseAtualShellRCPath="${HOME}/.${mseAtualShell,,}rc"
+      if [ -f "${mseAtualShellRCPath}" ]; then
+        local mseTargetLines=$(mse_file_boundaryLineNumbers "${mseAtualShellRCPath}" "#" "0" "# [[INI-MYSHELLENV]]" "# [[END-MYSHELLENV]]")
+        if [ "${mseTargetLines}" != "" ]; then
+          declare -a mseArr
+          local mseResult=$(mse_file_write "${mseAtualShellRCPath}" "mseArr" "delete" "${mseTargetLines}")
+        fi
       fi
     fi
   fi
+  if [ "${mseCode}" == "0" ]; then
+    mse_inter_alertUser "s" "MSE" "${lbl_uninstall_uninstallSuccess}"
+  fi
   return $mseCode
-}
-mse_file_read_checkRCFile_MSESection_start() {
-  local mseR=0
-  if [ "$2" == "# [[INI-MYSHELLENV]]" ]; then
-    mseR=1
-  fi
-  printf "${mseR}"
-}
-mse_file_read_checkRCFile_MSESection_end() {
-  local mseR=0
-  if [ "$2" == "# [[END-MYSHELLENV]]" ]; then
-    mseR=1
-  fi
-  printf "${mseR}"
 }
 # END :: mse_mmod_uninstall.sh
 
@@ -4407,5 +4391,3 @@ mse_misc_sysData() {
   echo -e "${mseResult}"
 }
 # END :: mse_misc_sysData.sh
-
-
