@@ -209,6 +209,7 @@ mse_file_write()
     mseNewFileContent=""
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseCountLine=mseCountLine+1))
+      mseLineRaw="${mseLineRaw//\\/\\\\}"
 
       if [ $mseCountLine == $mseTargetFirstLine ]; then
         if [ $mseAction == "a" ]; then
@@ -218,7 +219,7 @@ mse_file_write()
         if [ $mseAction != "d" ]; then
           local mseNL
           for mseNL in "${mseContentArrayName[@]}"; do
-            mseNewFileContent+="${mseNL}\n"
+            mseNewFileContent+="${mseNL//\\/\\\\}\n"
           done
         fi
 
