@@ -14,68 +14,111 @@ test_mse_conf_setVariable() {
   # Cria/recria um novo arquivo de testes
   cp "src/tests/00_assets/.config" "src/tests/00_assets/expected/setVariable/.config"
 
+
+
+
+
   testResult=$(mse_conf_setVariable)
-  testExpected="Lost 6 parameters."
+  testExpected="Lost 8 parameters."
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "" "" "" "" "" "" "")
+  testResult=$(mse_conf_setVariable "" "" "" "" "" "" "" "" "")
   testExpected="Parameter \"PathToFile\" is required"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "" "" "" "" "")
-  testExpected="Parameter \"VariableName\" is required"
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.nonexistent" "" "" "" "" "" "" "" "")
+  testExpected="Parameter \"PathToFile\" points to a non existent file"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "" "" "" "")
-  testExpected="Parameter \"Operation\" is required"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "in" "" "")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "1" "" "" "" "" "" "")
   testExpected="Parameter \"CommentChar\" is required"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "in" "#" "in")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "" "" "" "" "" "" "")
+  testExpected="Parameter \"ConfigFile\" is required"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "a" "" "" "" "" "" "")
+  testExpected="Parameter \"ConfigFile\" has an invalid value"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "" "" "" "" "")
+  testExpected="Parameter \"VarType\" is required"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "z" "" "" "" "")
+  testExpected="Parameter \"VarType\" has an invalid value"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "s" "" "" "" "")
+  testExpected="Parameter \"VarName\" is required"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "i" "varName" "" "" "")
+  testExpected="Parameter \"VarValue\" must be an array"
+
+  mse_utest_assertEqual
+
+
+
+  declare -a mseTmpIndexArr
+  declare -A mseTmpAssocArr
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "i" "varName" "mseTmpAssocArr" "" "")
+  testExpected="Parameter \"VarValue\" must be an array"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "i" "varName" "mseTmpIndexArr" "" "")
   testExpected="Parameter \"Operation\" has an invalid option"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "a" "#" "in")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "i" "varName" "mseTmpIndexArr" "a" "z")
   testExpected="Parameter \"Position\" has an invalid option"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "GIT_LOG_LENGTH" "ntv_01" "a" "#")
+
+
+
+  #
+  # ARQUIVOS DE CONFIGURAÇÃO PADRÃO
+
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "s" "GIT_LOG_LENGTH" "" "a")
   testExpected="Variable \"GIT_LOG_LENGTH\" already exists"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "" "NONEXIST" "ntv_01" "d" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "s" "NONEXIST" "" "d")
   testExpected="Variable \"NONEXIST\" do not exists"
 
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "NONEXIST" "ntv_01" "d" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "NONEXIST" "" "d")
   testExpected="Variable \"NONEXIST\" do not exists in \"teste\" section"
-
-  mse_utest_assertEqual
-
-
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.nonexistent" "teste" "NONEXIST" "ntv_01" "d" "#")
-  testExpected="Parameter \"PathToFile\" points to a non existent file"
 
   mse_utest_assertEqual
 
@@ -92,8 +135,8 @@ test_mse_conf_setVariable() {
 
 
   #
-  # Adiciona a nova variável
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "NEW_TEST_VAR" "ntv_01" "a" "#" "p")
+  # Adiciona a nova variável no início da seção
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "p")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -107,31 +150,25 @@ test_mse_conf_setVariable() {
   mse_utest_assertEqual
 
 
-
-
-
   #
   # Remove a variável
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "NEW_TEST_VAR" "" "d" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "NEW_TEST_VAR" "" "d")
   testExpected="1"
 
   mse_utest_assertEqual
 
 
   #
-  # Confirma que a variável ainda não existe mains no arquivo alvo.
+  # Confirma que a variável ainda não existe mais no arquivo alvo.
   testResult=$(mse_conf_showVariableLine "src/tests/00_assets/expected/setVariable/.config" "teste" "NEW_TEST_VAR")
   testExpected=""
 
   mse_utest_assertEqual
 
 
-
-
-
   #
   # Altera o valor da variável
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "GIT_LOG_LENGTH" "50" "ch" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "GIT_LOG_LENGTH" "50" "ch")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -145,12 +182,9 @@ test_mse_conf_setVariable() {
   mse_utest_assertEqual
 
 
-
-
-
   #
   # Comenta a variável
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "GIT_LOG_LENGTH" "" "c" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "GIT_LOG_LENGTH" "" "c")
   testExpected="1"
 
   mse_utest_assertEqual
@@ -164,23 +198,170 @@ test_mse_conf_setVariable() {
   mse_utest_assertEqual
 
 
-
-
-
   #
   # Descomenta a variável
-  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "teste" "GIT_LOG_LENGTH" "" "u" "#")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "GIT_LOG_LENGTH" "" "u")
   testExpected="1"
 
   mse_utest_assertEqual
 
 
   #
-  # Confirma que a variável está descomentada.
+  # Confirma que a variável está comentada.
   testResult=$(mse_conf_showVariableLine "src/tests/00_assets/expected/setVariable/.config" "teste" "GIT_LOG_LENGTH")
   testExpected="GIT_LOG_LENGTH              =   50"
 
   mse_utest_assertEqual
 
 
+  #
+  # Adiciona a nova variável no final da seção
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "a")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+
+  #
+  # Confirma que a variável existe no arquivo alvo.
+  testResult=$(mse_conf_showVariableLine "src/tests/00_assets/expected/setVariable/.config" "teste" "NEW_TEST_VAR" "1")
+  testExpected="59#NEW_TEST_VAR=ntv_01"
+
+  mse_utest_assertEqual
+
+
+
+
+  #
+  # ARQUIVOS DE SCRIPT
+
+  #
+  # Cria/recria um novo arquivo de testes
+  cp "src/tests/00_assets/.bashrc" "src/tests/00_assets/expected/setVariable/.bashrc"
+
+
+  #
+  # Tenta adicionar uma nova variável em um local não existente
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.bashrc" "#" "0" "" "s" "NONEXIST" "ntv_01" "" "")
+  testExpected="Cannot identify the target line to perform this operation."
+
+  mse_utest_assertEqual
+
+
+
+  #
+  # Escreve uma variável do tipo escalar
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.bashrc" "#" "0" "" "s" "MSE_UTEST" "ntv_01" "" "")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  #
+  # Prepara o 'reader' para resgatar as linhas afetadas
+  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
+
+
+  declare -a tmpExpectedLines
+  tmpExpectedLines=()
+  tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
+  tmpRawExpectedLines+=("MSE_UTEST=ntv_01")
+  tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
+
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
+
+  mse_utest_assertEqual
+  unset tmpRawExpectedLines
+
+
+
+  #
+  # Escreve uma variável do tipo array indexado
+  unset mseTmpIndexArr
+  declare -a mseTmpIndexArr
+  mseTmpIndexArr=()
+  mseTmpIndexArr+=("first")
+  mseTmpIndexArr+=("second")
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.bashrc" "#" "0" "" "i" "MSE_UTEST" "mseTmpIndexArr" "" "")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  #
+  # Prepara o 'reader' para resgatar as linhas afetadas
+  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
+
+
+  declare -a tmpExpectedLines
+  tmpExpectedLines=()
+  tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
+  tmpRawExpectedLines+=("declare -a MSE_UTEST")
+  tmpRawExpectedLines+=("MSE_UTEST[0]=\"first\"")
+  tmpRawExpectedLines+=("MSE_UTEST[1]=\"second\"")
+  tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
+
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
+
+  mse_utest_assertEqual
+  unset tmpRawExpectedLines
+
+
+
+  #
+  # Escreve uma variável do tipo array associativo
+  unset mseTmpAssocArr
+  declare -A mseTmpAssocArr
+  mseTmpAssocArr["first"]="one"
+  mseTmpAssocArr["second"]="two"
+  testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.bashrc" "#" "0" "" "a" "MSE_UTEST" "mseTmpAssocArr" "" "")
+  testExpected="1"
+
+  mse_utest_assertEqual
+
+  #
+  # Prepara o 'reader' para resgatar as linhas afetadas
+  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
+  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
+  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
+
+
+  declare -a tmpExpectedLines
+  tmpExpectedLines=()
+  tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
+  tmpRawExpectedLines+=("declare -A MSE_UTEST")
+  tmpRawExpectedLines+=("MSE_UTEST[first]=\"one\"")
+  tmpRawExpectedLines+=("MSE_UTEST[second]=\"two\"")
+  tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
+
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
+
+  mse_utest_assertEqual
+  unset tmpRawExpectedLines
 }

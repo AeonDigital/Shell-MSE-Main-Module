@@ -74,6 +74,7 @@ lbl_err_cannotCreateNewDirectoryIn="Não foi possível criar um novo diretório 
 lbl_err_paramA_PointsToNonExistentDirectory="Parametro \"[[PARAM_A]]\" aponta para um diretório inexistente"
 
 lbl_err_paramA_MustBeAnArray="Parametro \"[[PARAM_A]]\" deve ser um array"
+lbl_err_paramA_MustBeAnAssocArray="Parametro \"[[PARAM_A]]\" deve ser um array associativo"
 lbl_err_paramA_IsAnEmptyArray="Parametro \"[[PARAM_A]]\" é um array vazio"
 lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parametros \"[[PARAM_A]]\" e \"[[PARAM_B]]\" devem ter o mesmo número de elementos"
 lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parametro \"[[PARAM_A]]\" deve ser um array com ao menos [[MIN]] elementos"

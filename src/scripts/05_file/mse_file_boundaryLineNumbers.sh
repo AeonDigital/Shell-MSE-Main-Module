@@ -20,12 +20,12 @@
 # Caminho até o arquivo alvo.
 #
 # @param char $2
-# Caracter usado para comentar as linhas.
+# Caracter usado para comentar as linhas dentro do arquivo alvo.
 #
 # @param bool $3
 # Identifica se trata-se de um arquivo de configuração ou outro tipo.
 # Isto altera a forma como a seção é procurada.
-#   - Omita ou use "0" para arquivos de qualquer tipo
+#   - Omita ou use "0" para arquivos de qualquer tipo.
 #   - Indique "1" se trata-se de um arquivo de configuração padrão.
 #
 # @param string $4
@@ -39,7 +39,7 @@
 # Identificador do final da seção.
 # Para arquivos em geral, o fim da seção será identificada por uma linha cujo
 # valor seja igual ao indicado. Já para arquivos de configuração, este valor
-# pode ser deixado em branco pois a seção termina ao iniciar uma nova ou ao
+# deve ser deixado em branco pois a seção termina ao iniciar uma nova ou ao
 # termino do próprio arquivo.
 #
 # @return
