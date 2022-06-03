@@ -41,6 +41,7 @@ lbl_err_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a no
 lbl_err_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
 lbl_err_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
 lbl_err_paramA_MustBeAnArray="Parameter \"[[PARAM_A]]\" must be an array"
+lbl_err_paramA_MustBeAnAssocArray="Parameter \"[[PARAM_A]]\" must be an associative array"
 lbl_err_paramA_IsAnEmptyArray="Parameter \"[[PARAM_A]]\" is an empty array"
 lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parameters \"[[PARAM_A]]\" and \"[[PARAM_B]]\" must have the same number of elements"
 lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
@@ -101,6 +102,7 @@ lbl_uninstall_uninstallSuccess="Uninstallation completed."
 
 # INI :: variables.sh
 MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc"
+declare -gA MSE_AVAILABLE_MODULES
 declare -gA MSE_GLOBAL_CMD
 MSE_GLOBAL_CMD["help"]="mse_mmod_help"
 MSE_GLOBAL_CMD["man"]="mse_mmod_man"
@@ -109,6 +111,7 @@ MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
 MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
 MSE_GLOBAL_CMD["update"]="mse_mmod_update"
+MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
@@ -1951,8 +1954,9 @@ mse_file_write()
     IFS=$'\n'
     mseCountLine=0
     mseNewFileContent=""
-    while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
+    while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseCountLine=mseCountLine+1))
+      mseLineRaw="${mseLineRaw//\\/\\\\}"
       if [ $mseCountLine == $mseTargetFirstLine ]; then
         if [ $mseAction == "a" ]; then
           mseNewFileContent+="${mseLineRaw}\n"
@@ -1960,7 +1964,7 @@ mse_file_write()
         if [ $mseAction != "d" ]; then
           local mseNL
           for mseNL in "${mseContentArrayName[@]}"; do
-            mseNewFileContent+="${mseNL}\n"
+            mseNewFileContent+="${mseNL//\\/\\\\}\n"
           done
         fi
         if [ $mseAction == "p" ]; then
@@ -1995,64 +1999,103 @@ mse_file_write_vldtr() {
 mse_conf_setVariable()
 {
   local mseReturn
-  local mseOperation
-  local mseCommentChar
-  local msePosition
-  local mseRawVarLine
-  local mseTargetFirstLine
-  local mseTargetLastLine
-  local mseTargetLineNumber
-  local mseIsComment
+  local msePathToFile="${1}"
+  local mseCommentChar="${2}"
+  local mseConfigFile="${3}"
+  local mseSectionNameStart="${4}"
+  local mseSectionNameEnd=""
+  local mseVarType="${5}"
+  local mseVarName="${6}"
+  local mseVarValue="${7}"
+  declare -n mseVarArrName
+  local mseOperation="${8}"
+  local msePosition=""
   mseReturn=1
-  if [ $# -lt 6 ]; then
+  if [ $# -lt 8 ]; then
     local mseArgs="$#"
     local mseLost
-    ((mseLost=6-mseArgs))
+    ((mseLost=8-mseArgs))
     mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_lostParameters}" "LOST" "${mseLost}")
   else
-    if [ $# -ge 1 ] && [ "$1" == "" ]; then
+    if [ "$msePathToFile" == "" ]; then
       mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "PathToFile")
-    elif [ $# -ge 3 ] && [ "$3" == "" ]; then
-      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "VariableName")
-    elif [ $# -ge 5 ] && [ "$5" == "" ]; then
-      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "Operation")
-    elif [ $# -ge 6 ] && [ "$6" == "" ]; then
-      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "CommentChar")
-    fi
-    if [ "$mseReturn" == 1 ] && [ ! -f "$1" ]; then
+    elif [ ! -f "$msePathToFile" ]; then
       mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_PointsToNonExistentFile}" "PARAM_A" "PathToFile")
     fi
-  fi
-  if [ "$mseReturn" == 1 ]; then
-    case "$5" in
-      add | a)
-        mseOperation="a"
-      ;;
-      delete | d)
-        mseOperation="d"
-      ;;
-      change | ch)
-        mseOperation="ch"
-      ;;
-      comment | c)
-        mseOperation="c"
-      ;;
-      uncomment | u)
-        mseOperation="u"
-      ;;
-      *)
-        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidOption}" "PARAM_A" "Operation")
-      ;;
-    esac
-  fi
-  if [ "$mseReturn" == 1 ]; then
-    mseCommentChar="$6"
-  fi
-  if [ "$mseReturn" == 1 ]; then
-    if [ "$mseOperation" == "a" ]; then
+    if [ "${mseReturn}" == "1" ] && [ "${mseConfigFile}" == "1" ] && [ "$mseCommentChar" == "" ]; then
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "CommentChar")
+    fi
+    if [ "${mseReturn}" == "1" ]; then
+      if [ "${mseConfigFile}" == "" ]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "ConfigFile")
+      elif [ "${mseConfigFile}" != "0" ] && [ "${mseConfigFile}" != "1" ]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "ConfigFile")
+      fi
+    fi
+    if [ "${mseReturn}" == "1" ]; then
+      if [ "${mseVarType}" == "" ]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "VarType")
+      else
+        case "${mseVarType}" in
+          s | scalar)
+            mseVarType="s"
+          ;;
+          i | index)
+            mseVarType="i"
+          ;;
+          a | assoc)
+            mseVarType="a"
+          ;;
+          *)
+            mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "VarType")
+          ;;
+        esac
+      fi
+    fi
+    if [ "${mseReturn}" == "1" ] && [ "${mseVarName}" == "" ]; then
+      mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "VarName")
+    else
+      if [ "${mseConfigFile}" == "0" ]; then
+        mseSectionNameStart="${mseCommentChar} [[INI-${mseVarName}]]"
+        mseSectionNameEnd="${mseCommentChar} [[END-${mseVarName}]]"
+      fi
+    fi
+    if [ "${mseReturn}" == "1" ] && [ "${mseVarType}" != "s" ]; then
+      local mseArrDeclare=$(declare -p "${mseVarValue}" 2> /dev/null)
+      if [ "${mseVarType}" == "i" ] && [[ ! "${mseArrDeclare}" =~ "declare -a" ]]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnArray}" "PARAM_A" "VarValue")
+      elif [ "${mseVarType}" == "a" ] && [[ ! "${mseArrDeclare}" =~ "declare -A" ]]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_MustBeAnAssocArray}" "PARAM_A" "VarValue")
+      else
+        mseVarArrName="${mseVarValue}"
+      fi
+    fi
+    if [ "${mseConfigFile}" == "1" ] && [ "$mseReturn" == 1 ]; then
+      case "$mseOperation" in
+        add | a)
+          mseOperation="a"
+        ;;
+        delete | d)
+          mseOperation="d"
+        ;;
+        change | ch)
+          mseOperation="ch"
+        ;;
+        comment | c)
+          mseOperation="c"
+        ;;
+        uncomment | u)
+          mseOperation="u"
+        ;;
+        *)
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidOption}" "PARAM_A" "Operation")
+        ;;
+      esac
+    fi
+    if [ "${mseConfigFile}" == "1" ] && [ "$mseReturn" == 1 ] && [ "$mseOperation" == "a" ]; then
       msePosition="a"
-      if [ $# -ge 7 ] && [ "$7" != "" ]; then
-        case "$7" in
+      if [ $# -ge 9 ] && [ "${9}" != "" ]; then
+        case "${9}" in
           prepend | p)
             msePosition="p"
           ;;
@@ -2066,87 +2109,137 @@ mse_conf_setVariable()
       fi
     fi
   fi
+  local mseTargetSectionLines
+  local mseTargetSectionFirstLine
+  local mseTargetSectionLastLine
   if [ "$mseReturn" == 1 ]; then
-    mseRawVarLine=$(mse_conf_showVariableLine "$1" "$2" "$3" "1")
-    if [ "$mseOperation" == "a" ]; then
-      if [ "$mseRawVarLine" != "" ]; then
-        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableAlreadExists}" "VAR" "$3")
-      fi
-    else
-      if [ "$mseRawVarLine" == "" ]; then
-        if [ "$2" == "" ]; then
-          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExists}" "VAR" "$3")
-        else
-          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExistsInSection}" "VAR" "$3" "SECTION" "$2")
-        fi
-      else
-        mseTargetLineNumber="${mseRawVarLine%${mseCommentChar}*}"
-        mseTargetLineNumber="${mseTargetLineNumber%*${mseCommentChar}}"
-        mseRawVarLine="${mseRawVarLine#${mseTargetLineNumber}#}"
-        mseIsComment=0
-        if [ "${mseRawVarLine:0:1}" == "$mseCommentChar" ]; then
-          mseIsComment=1
-        fi
-      fi
-    fi
-  fi
-  if [ "$mseReturn" == 1 ]; then
-    local mseTargetLines
-    mseTargetLines=$(mse_file_boundaryLineNumbers "$1" "$mseCommentChar" "1" "$2" "")
-    mse_str_split " " "$mseTargetLines"
+    mseTargetSectionLines=$(mse_file_boundaryLineNumbers "${msePathToFile}" "${mseCommentChar}" "${mseConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
+    mse_str_split " " "${mseTargetSectionLines}"
     if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" != 2 ]; then
       mseReturn="${lbl_cf_cannotIdentifyTargetLine}"
     else
-      mseTargetFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
-      mseTargetLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"
+      mseTargetSectionFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
+      mseTargetSectionLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"
+    fi
+  fi
+  local mseTargetVarRawLine
+  local mseTargetVarLineNumber
+  local mseTargetVarIsCommented
+  if [ "$mseReturn" == 1 ] && [ "${mseConfigFile}" == "1" ]; then
+    mseTargetVarRawLine=$(mse_conf_showVariableLine "${msePathToFile}" "${mseSectionNameStart}" "${mseVarName}" "1")
+    if [ "${mseOperation}" == "a" ]; then
+      if [ "${mseTargetVarRawLine}" != "" ]; then
+        mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableAlreadExists}" "VAR" "${mseVarName}")
+      fi
+    else
+      if [ "${mseTargetVarRawLine}" == "" ]; then
+        if [ "${mseSectionNameStart}" == "" ]; then
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExists}" "VAR" "${mseVarName}")
+        else
+          mseReturn=$(mse_str_replacePlaceHolder "${lbl_err_variableDoNotExistsInSection}" "VAR" "${mseVarName}" "SECTION" "${mseSectionNameStart}")
+        fi
+      else
+        mseTargetVarLineNumber="${mseTargetVarRawLine%${mseCommentChar}*}"
+        mseTargetVarLineNumber="${mseTargetVarLineNumber%*${mseCommentChar}}"
+        mseTargetVarRawLine="${mseTargetVarRawLine#${mseTargetVarLineNumber}#}"
+        mseTargetVarIsCommented=0
+        if [ "${mseTargetVarRawLine:0:1}" == "${mseCommentChar}" ]; then
+          mseTargetVarIsCommented=1
+        fi
+      fi
     fi
   fi
   if [ "$mseReturn" == 1 ]; then
-    local mseNewLine
-    mseNewLine=()
-    if [ "$mseOperation" == "a" ]; then
-      if [ "$msePosition" == "p" ]; then
-        mseTargetLineNumber="${mseTargetFirstLine}"
-      elif [ "$msePosition" == "a" ]; then
-        mseTargetLineNumber="${mseTargetLastLine}"
+    declare -a mseNewLine=()
+    if [ "${mseConfigFile}" == "0" ]; then
+      if [ "${mseOperation}" != "d" ]; then
+        local mseTmpComment=""
+        if [ "${mseOperation}" == "c" ]; then
+          mseTmpComment="${mseCommentChar} "
+        fi
+        mseNewLine+=("${mseSectionNameStart}")
+        case "${mseVarType}" in
+          s)
+            mseNewLine+=("${mseTmpComment}${mseVarName}=${mseVarValue}")
+          ;;
+          i)
+            local i
+            local l="${#mseVarArrName[@]}"
+            local v
+            mseNewLine+=("declare -a ${mseVarName}")
+            for ((i=0; i<l; i++)); do
+              v="${mseVarArrName[$i]}"
+              mseNewLine+=("${mseTmpComment}${mseVarName}[$i]=\"${v}\"")
+            done
+          ;;
+          a)
+            local k
+            local v
+            mseNewLine+=("declare -A ${mseVarName}")
+            for k in ${!mseVarArrName[@]}; do
+              v="${mseVarArrName[$k]}"
+              mseNewLine+=("${mseTmpComment}${mseVarName}[$k]=\"${v}\"")
+            done
+          ;;
+        esac
+        mseNewLine+=("${mseSectionNameEnd}")
+        mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "r" "${mseTargetSectionLines}")
       fi
-      mseNewLine=("${3}=${4}")
-      mseReturn=$(mse_file_write "$1" "mseNewLine" "a" "${mseTargetLineNumber}")
-    elif [ "$mseOperation" == "d" ]; then
-      mseReturn=$(mse_file_write "$1" "mseNewLine" "d" "${mseTargetLineNumber}")
-    elif [ "$mseOperation" == "ch" ]; then
-      local mseVarAssign="${mseRawVarLine%%=*}"
-      local mseVarValue="${mseRawVarLine#${mseVarAssign}=}"
-      local mseVarSep=${mseVarValue%%[^ ]*}
-      mseNewLine=("${mseVarAssign}=${mseVarSep}${4}")
-      mseReturn=$(mse_file_write "$1" "mseNewLine" "r" "${mseTargetLineNumber}")
-    elif [ "$mseOperation" == "c" ]; then
-      if [ "$mseIsComment" == 0 ]; then
-        mseNewLine=("${mseCommentChar}${mseRawVarLine}")
-        mseReturn=$(mse_file_write "$1" "mseNewLine" "r" "${mseTargetLineNumber}")
-      fi
-    elif [ "$mseOperation" == "u" ]; then
-      if [ "$mseIsComment" == 1 ]; then
-        mseNewLine=("${mseRawVarLine:1}")
-        mseReturn=$(mse_file_write "$1" "mseNewLine" "r" "${mseTargetLineNumber}")
-      fi
+    else
+      case "${mseOperation}" in
+        a)
+          if [ "${msePosition}" == "p" ]; then
+            mseTargetVarLineNumber="${mseTargetSectionFirstLine}"
+          elif [ "${msePosition}" == "a" ]; then
+            mseTargetVarLineNumber="${mseTargetSectionLastLine}"
+          fi
+          mseNewLine=("${mseVarName}=${mseVarValue}")
+          mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "a" "${mseTargetVarLineNumber}")
+        ;;
+        d)
+          mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "d" "${mseTargetVarLineNumber}")
+        ;;
+        ch)
+          local mseRawVarAssign="${mseTargetVarRawLine%%=*}"
+          local mseRawVarValue="${mseTargetVarRawLine#${mseRawVarAssign}=}"
+          local mseRawVarSep=${mseRawVarValue%%[^ ]*}
+          mseNewLine=("${mseRawVarAssign}=${mseRawVarSep}${mseVarValue}")
+          mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "r" "${mseTargetVarLineNumber}")
+        ;;
+        c)
+          if [ "${mseTargetVarIsCommented}" == 0 ]; then
+            mseNewLine=("${mseCommentChar}${mseTargetVarRawLine}")
+            mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "r" "${mseTargetVarLineNumber}")
+          fi
+        ;;
+        u)
+          if [ "${mseTargetVarIsCommented}" == 1 ]; then
+            mseNewLine=("${mseTargetVarRawLine:1}")
+            mseReturn=$(mse_file_write "${msePathToFile}" "mseNewLine" "r" "${mseTargetVarLineNumber}")
+          fi
+        ;;
+      esac
     fi
   fi
   printf "%s" "${mseReturn}"
 }
 mse_conf_mainSetVariable_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=7
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=9
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="SectionName :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="VariableName :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="VariableValue :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="Operation :: r :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_labels"]="add, delete, change, comment, uncomment"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_values"]="a, d, ch, c, u"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="CommentChar :: r :: char"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6"]="Position :: o :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6_labels"]="prepend, append"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6_values"]="p, a"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="CommentChar :: r :: char"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ConfigFile :: r :: bool"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="SectionStart :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="VarType :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_labels"]="scalar, index, assoc"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4_values"]="s, i, a"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="VarName :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_6"]="VarValue :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7"]="Operation :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7_labels"]="add, delete, change, comment, uncomment"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_7_values"]="a, d, ch, c, u"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8"]="Position :: o :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8_labels"]="prepend, append"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8_values"]="p, a"
 }
 # END :: mse_conf_setVariable.sh
 
@@ -4313,10 +4406,10 @@ mse_mmod_uninstall() {
           local mseResult=$(mse_file_write "${mseAtualShellRCPath}" "mseArr" "delete" "${mseTargetLines}")
         fi
       fi
+      if [ "${mseCode}" == "0" ]; then
+        mse_inter_alertUser "s" "MSE" "${lbl_uninstall_uninstallSuccess}"
+      fi
     fi
-  fi
-  if [ "${mseCode}" == "0" ]; then
-    mse_inter_alertUser "s" "MSE" "${lbl_uninstall_uninstallSuccess}"
   fi
   return $mseCode
 }
