@@ -113,14 +113,14 @@ mse_mmod_showMetaData() {
       msePFIndentSubModule="     "
       msePFIndentFunction="       "
 
-      msePFColorModule=$(mse_font_createStyle "0" "BOLD" "NONE" "BLUE" "1")
-      msePFColorSubModule=$(mse_font_createStyle "0" "BOLD" "NONE" "BLUE" "1")
-      msePFColorFunctions=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
+      msePFColorModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+      msePFColorSubModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+      msePFColorFunctions=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
 
-      msePFColorSeparator=$(mse_font_createStyle "0" "" "NONE" "WHITE" "1")
-      msePFColorSeparatorBar=$(mse_font_createStyle "0" "DIM" "NONE" "WHITE" "1")
-      msePFColorSelectedElements=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
-      msePFColorTotalElements=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
+      msePFColorSeparator=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+      msePFColorSeparatorBar=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
+      msePFColorSelectedElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      msePFColorTotalElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
 
       mseReturnData+=("")
     fi

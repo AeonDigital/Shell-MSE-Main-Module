@@ -12,167 +12,169 @@
 # Mostra uma tabela de cores que o terminal está apto a utilizar
 # para a estilização de fontes e fundo.
 #
-# @param string $1
+# @param int $1
+# Sistema de cor.
+# Há 3 sistemas de descrição de cores que podem ser usados conforme a
+# compatibilidade do seu terminal.
+# Escolha uma destas:
+#
+#   - 4   : Usa 4 bits para representação das cores (16 cores).
+#           Este é o sistema mais comum entre os diversos terminais.
+#   - 8   : Usa 8 bits para representação das cores (256 cores).
+#   - 32  : Usa 32 bits para representação das cores (true color).
+#
+# Se omitido, ou, se fornecido um valor inválido, será usada a representação
+# de 4 bits como padrão.
+# Não há (no momento) amostragem preparada para uma coleção de 32 bits.
+#
+# @param string $2
 # Indica o tipo de amostragem.
 #   - fg    : Mostrará a tabela de cores focando na cor das fontes (padrão).
 #   - bg    : Mostrará a tabela de cores focando nas cores de fundo.
 #
-# O valor 'fg' será automaticamente definido caso o conjunto de cores (abaixo)
-# seja de o de 16 cores.
-#
-# @param int $2
-# Conjunto de cores.
-#
-# A maioria dos terminais suporta um sistema mínimo de 16 cores.
-# Cada uma destas cores tem um 'nome' definido dentro do 'MSE' e pode ser
-# evocada para uso nos scripts usando uma variável de nome análogo.
-#
-# Omita este parametro ou use o valor '16' para conhecer estas cores básicas,
-# seus códigos de uso, nome e variáveis.
-#
-# Qualquer valor entre 17 e 256 irá mostrar uma tabela contendo a formatação
-# genérica para aquele total de cores que devem ser mostrados.
+# O valor 'fg' será automaticamente definido caso o conjunto de cores
+# seja de o de 4 bits.
 #
 # @param int $3
 # Opcional.
-# Usado para amostragem de um conjunto maior que 16 cores.
 # Indique a quantidade de itens por linha que devem ser mostrados.
 # Se omitido, assumirá o total de 12 itens por linha.
 #
 # @return
 # Printa na tela uma tabela contendo o conjunto de cores selecionado.
 mse_font_showColors() {
+  local mseUseColorSystem
   local mseTableType
-  local mseColorSet
   local mseItensPerLine
   local mseItensPerLineIsSet
+
   local mseCheck
 
 
+
+  #
+  # Identifica o sistema de cor a ser usado e as cores padrões
+  # conforme o tipo.
+  mseUseColorSystem="4"
+  if [ $# -ge 1 ]; then
+    if [ "$1" == "8" ] || [ "$1" == "32" ]; then
+      mseUseColorSystem="$1"
+    fi
+  fi
+
+  #
+  # Tipo de foco da tabela a ser mostrada.
   mseTableType="fg"
-  if [ "$#" -ge 1 ]; then
-    if [ "$1" == "fg" ] || [ "$1" == "bg" ]; then
-      mseTableType="$1"
+  if [ $# -ge 2 ]; then
+    if [ "$2" == "bg" ]; then
+      mseTableType="bg"
     fi
   fi
 
-
-  mseColorSet="16"
-  if [ "$#" -ge 2 ]; then
-    mseCheck="$(mse_check_isInteger $2)"
-
-    if [ "${mseCheck}" == "0" ] || [ "$2" -le "16" ]; then
-      mseTableType="fg"
-    else
-      mseColorSet="$2"
-    fi
-  fi
-
-
-  mseItensPerLine="12"
+  #
+  # Identifica o tanto de itens por linhas que devem ser mostrados.
+  mseItensPerLine=12
   mseItensPerLineIsSet="4"
-  if [ "$#" -ge 3 ]; then
-
+  if [ $# -ge 3 ]; then
     mseCheck="$(mse_check_isInteger $3)"
     if [ "${mseCheck}" == "1" ]; then
       if [ "$3" -le 4 ]; then
         mseItensPerLine="4"
       else
         mseItensPerLine="$3"
-        mseItensPerLineIsSet="0"
       fi
+      mseItensPerLineIsSet="0"
     fi
   fi
 
 
+  case "${mseUseColorSystem}" in
+    4)
+      local i
+      local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
 
+      local mseColorLabel
+      local mseColorName
+      local mseColorVarName
+      local mseColorCode
+      local mseLine
+      local mseRawTable
 
-  if [ "$mseColorSet" == "16" ]; then
-    local i
-    local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+      mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
 
-    local mseColorName
-    local mseColorRaw
-    local mseColorVar
-    local mseColorCod
-    local mseLine
-    local mseRawTable
+      for (( i=0; i<mseLength; i++)); do
+        mseColorLabel=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
+        mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
+        mseColorVarName="mse${mseColorName}"
+        mseColorCode="\\${!mseColorVarName}"
 
-    mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
+        mseLine="${mseColorLabel}:${mseColorName}:${mseColorCode}:${!mseColorVarName}myShellEnv${mseNONE} \n"
+        mseRawTable+="${mseLine}"
+      done
 
-    for (( i=0; i<mseLength; i++)); do
-      mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
-      mseColorRaw=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
-      mseColorVar="mse${mseColorRaw}"
-      mseColorCod="\\${!mseColorVar}"
-
-      mseLine="${mseColorName}:${mseColorRaw}:${mseColorCod}:${!mseColorVar}myShellEnv${mseNONE} \n"
-      mseRawTable+="${mseLine}"
-    done
-
-    printf "\n"
-
-    mseRawTable=$(printf "${mseRawTable}")
-    mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
-    column -e -t -s ":" <<< "${mseRawTable}"
-
-    printf "\n"
-
-  elif [ "$mseColorSet" -gt "16" ]; then
-
-    ((mseColorSet=mseColorSet-1))
-    if [ "$mseColorSet" -ge "256" ]; then
-      mseColorSet="255"
-    fi
-    local mseColorCodeMaxLength=($(eval echo {0..$mseColorSet}))
-
-    local mseColorIndex
-    local mseColorNumber
-    local mseColorMod=0
-    local mseStrColorNumber
-    local mseNewLine
-
-
-    printf "\n"
-    for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
-      mseNewLine=0
-
-      if [ "$mseColorIndex" -lt 10 ]; then
-        mseStrColorNumber="  ${mseColorIndex}"
-      elif [ "$mseColorIndex" -lt 100 ]; then
-        mseStrColorNumber=" ${mseColorIndex}"
-      else
-        mseStrColorNumber="${mseColorIndex}"
-      fi
-
-      if [ "$mseTableType" == "fg" ]; then
-        printf "\e[38;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
-      elif [ "$mseTableType" == "bg" ]; then
-        printf "\e[48;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
-      fi
-
-      ((mseColorNumber=mseColorIndex+1))
-      ((mseColorMod=mseColorNumber % mseItensPerLine))
-      if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
-        printf "\n"
-        mseNewLine=1
-      fi
-    done
-
-    if [ "${mseNewLine}" == 0 ]; then
       printf "\n"
-    fi
 
-    printf "\n${lbl_font_showTextColors_UseCodeExample}"
-    if [ "$mseTableType" == "fg" ]; then
-      printf "%s" "\\e[38;5;Xm"
-    elif [ "$mseTableType" == "bg" ]; then
-      printf "%s" "\\e[48;5;Xm"
-    fi
+      mseRawTable=$(printf "${mseRawTable}")
+      mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
+      column -e -t -s ":" <<< "${mseRawTable}"
 
-    printf "\n\n"
+      printf "\n"
 
-  fi
+    ;;
+
+    8)
+
+      local mseColorSet=255
+      local mseColorCodeMaxLength=($(eval echo {0..$mseColorSet}))
+
+      local mseColorIndex
+      local mseColorNumber=0
+      local mseColorMod=0
+      local mseStrColorNumber
+      local mseNewLine
+
+
+      printf "\n"
+      for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
+        mseNewLine=0
+
+        if [ "$mseColorIndex" -lt 10 ]; then
+          mseStrColorNumber="  ${mseColorIndex}"
+        elif [ "$mseColorIndex" -lt 100 ]; then
+          mseStrColorNumber=" ${mseColorIndex}"
+        else
+          mseStrColorNumber="${mseColorIndex}"
+        fi
+
+        if [ "$mseTableType" == "fg" ]; then
+          printf "\e[38;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+        elif [ "$mseTableType" == "bg" ]; then
+          printf "\e[48;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+        fi
+
+        ((mseColorNumber=mseColorIndex+1))
+        ((mseColorMod=mseColorNumber % mseItensPerLine))
+        if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
+          printf "\n"
+          mseNewLine=1
+        fi
+      done
+
+      if [ "${mseNewLine}" == 0 ]; then
+        printf "\n"
+      fi
+
+      printf "\n${lbl_font_showTextColors_UseCodeExample}"
+      if [ "$mseTableType" == "fg" ]; then
+        printf "%s" "\\e[38;5;Xm"
+      elif [ "$mseTableType" == "bg" ]; then
+        printf "%s" "\\e[48;5;Xm"
+      fi
+
+      printf "\n\n"
+
+    ;;
+  esac
 }
 
 
@@ -183,10 +185,12 @@ mse_font_showColors() {
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
 mse_font_showColors_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="TableType :: o :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="fg, bg"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="fg, bg"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ColorSet :: o :: int :: 16 :: 16 :: 256"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 8"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="UseColorSystem :: r :: list :: 4"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TableType :: o :: list :: fg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="fg, bg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="fg, bg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 12"
 }

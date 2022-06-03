@@ -35,10 +35,10 @@
 # está sendo usada a opção 'code'.
 #
 # @example
-#   mse_font_showCaracters 'code' 50 70
-#   mse_font_showCaracters 'code' | less -r
+#   mse_font_showCharacters 'code' 50 70
+#   mse_font_showCharacters 'code' | less -r
 #
-mse_font_showCaracters() {
+mse_font_showCharacters() {
   local mseOutputType
   local mseIniCode
   local mseEndCode
@@ -216,7 +216,7 @@ mse_font_showCaracters() {
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_font_showCaracters_vldtr() {
+mse_font_showCharacters_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="ReturnFormat :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="table, char, code"

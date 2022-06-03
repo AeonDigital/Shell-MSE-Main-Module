@@ -767,52 +767,52 @@ mse_inter_theme_default_setColorDefinition() {
 
     #
     # Mensagens de Alerta
-    mseThemeColors["info"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
-    mseThemeColors["info_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "DGREY" "1")
+    mseThemeColors["info"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
+    mseThemeColors["info_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLACK" "1")
 
-    mseThemeColors["attention"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["attention_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
+    mseThemeColors["attention"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["attention_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
 
-    mseThemeColors["warning"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["warning_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
+    mseThemeColors["warning"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["warning_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
 
-    mseThemeColors["error"]=$(mse_font_createStyle "0" "BOLD" "NONE" "RED" "1")
-    mseThemeColors["error_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "RED" "1")
+    mseThemeColors["error"]=$(mse_font_createStyle "4" "BOLD" "NONE" "RED" "1")
+    mseThemeColors["error_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "RED" "1")
 
-    mseThemeColors["fail"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["fail_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
+    mseThemeColors["fail"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["fail_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
 
-    mseThemeColors["success"]=$(mse_font_createStyle "0" "BOLD" "NONE" "GREEN" "1")
-    mseThemeColors["success_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "GREEN" "1")
+    mseThemeColors["success"]=$(mse_font_createStyle "4" "BOLD" "NONE" "GREEN" "1")
+    mseThemeColors["success_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "GREEN" "1")
 
 
     #
     # Mensagens de Prompt
-    mseThemeColors["friendly"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LGREEN" "1")
-    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LGREEN" "1")
+    mseThemeColors["friendly"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LGREEN" "1")
+    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LGREEN" "1")
 
-    mseThemeColors["ordinary"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
+    mseThemeColors["ordinary"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
 
-    mseThemeColors["caution"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["caution_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
+    mseThemeColors["caution"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["caution_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
 
-    mseThemeColors["important"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["important_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
+    mseThemeColors["important"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["important_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
 
 
     #
     # Corpo de mensagems
-    mseThemeColors["body"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
+    mseThemeColors["body"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
 
 
     #
     # Barra de progresso
-    mseThemeColors["b01_char"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "0" "DIM" "NONE" "WHITE" "1")
+    mseThemeColors["b01_char"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
 
-    mseThemeColors["b01_data"]=$(mse_font_createStyle "0" "" "NONE" "WHITE" "1")
-    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
+    mseThemeColors["b01_data"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
 
 
 

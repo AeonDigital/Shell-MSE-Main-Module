@@ -94,10 +94,10 @@ mse_mmod_man() {
     local mseLinePart
     local mseNewMarkup
 
-    local mseColorAt=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "BLUE" "1")
-    local mseColorTagName=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "BLUE" "1")
-    local mseColorTagCommom=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LCYAN" "1")
-    local mseColorParam=$(mse_font_createStyle "1" "BOLD" "NONE" "250" "1")
+    local mseColorAt=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    local mseColorTagName=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    local mseColorTagCommom=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
+    local mseColorParam=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
 
 
     while read mseRawLine || [ -n "${mseRawLine}" ]; do
