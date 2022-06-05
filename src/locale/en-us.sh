@@ -58,6 +58,7 @@ lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[
 
 lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
 lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"
+lbl_err_paramA_IsOutOfRange="Parameter \"[[PARAM_A]]\" is out of range"
 lbl_err_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
 lbl_err_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
 lbl_err_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
@@ -82,6 +83,9 @@ lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an
 lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
 
 lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
+
+lbl_err_checkForValidOptionsUsingFunction="Check for valid options using the \"[[FUNCTION]]\" function"
+lbl_err_chooseOneOfThisOptions="Choose for one of this options: "
 
 
 

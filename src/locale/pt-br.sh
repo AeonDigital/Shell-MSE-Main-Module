@@ -58,6 +58,7 @@ lbl_err_variableDoNotExistsInSection="Variável \"[[VAR]]\" não existe na seç�
 
 lbl_err_paramA_HasInvalidValue="Parametro \"[[PARAM_A]]\" foi definido com um valor inválido"
 lbl_err_paramA_HasInvalidOption="Parametro \"[[PARAM_A]]\" foi definido com uma opção inválida"
+lbl_err_paramA_IsOutOfRange="Parametro \"[[PARAM_A]]\" está fora dos limites"
 lbl_err_paramA_IsRequired="Parametro \"[[PARAM_A]]\" é obrigatório"
 lbl_err_paramA_IsNot_A="Parametro \"[[PARAM_A]]\" não é um [[A]]"
 lbl_err_paramA_IsNotAn_A="Parametro \"[[PARAM_A]]\" não é um [[A]]"
@@ -82,6 +83,9 @@ lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parametro \"[[PARAM_A]]\" deve ser u
 lbl_err_paramA_LostTheRequiredKey_Key="Parametro \"[[PARAM_A]]\" não possui a chave \"[[KEY]]\" exigida"
 
 lbl_err_paramA_RequiredFor_A_Operation="Parametro \"[[PARAM_A]]\" é exigido para a operação do tipo \"[[A]]\""
+
+lbl_err_checkForValidOptionsUsingFunction="Verifique por opções válidas usando a função \"[[FUNCTION]]\""
+lbl_err_chooseOneOfThisOptions="Escolha uma destas opções: "
 
 
 
