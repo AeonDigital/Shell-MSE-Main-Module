@@ -40,7 +40,7 @@ mse_check_isCharDecimal() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["isCharDecimal"]="mse_check_isCharDecimal"
 
 
 

@@ -33,14 +33,6 @@ declare -gA MSE_AVAILABLE_MODULES
 # Neste array associativo, cada chave é uma versão abreviada da respectiva
 # função que fica armazenada na posição do valor.
 declare -gA MSE_GLOBAL_CMD
-MSE_GLOBAL_CMD["help"]="mse_mmod_help"
-MSE_GLOBAL_CMD["man"]="mse_mmod_man"
-MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
-MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
-MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
-MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
-MSE_GLOBAL_CMD["update"]="mse_mmod_update"
-MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"
 
 
 

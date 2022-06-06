@@ -18,3 +18,4 @@
 mse_font_showFonts() {
   find / -name "*.psf*" | sort | uniq | less
 }
+MSE_GLOBAL_CMD["show fonts"]="mse_font_showFonts"

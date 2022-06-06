@@ -41,7 +41,7 @@ mse_str_convert_charToOctal() {
 
   printf "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str charToOctal"]="mse_str_convert_charToOctal"
 
 
 

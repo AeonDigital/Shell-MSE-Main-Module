@@ -22,7 +22,7 @@
 mse_str_toUpperCase() {
   printf "%s" "${1^^}"
 }
-
+MSE_GLOBAL_CMD["str toUpperCase"]="mse_str_toUpperCase"
 
 
 

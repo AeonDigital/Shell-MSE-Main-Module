@@ -101,3 +101,4 @@ mse_mmod_generateStandalone() {
     done
   fi
 }
+MSE_GLOBAL_CMD["generateStandalone"]="mse_mmod_generateStandalone"

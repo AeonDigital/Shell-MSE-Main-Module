@@ -53,7 +53,7 @@ mse_conf_showVariables()
 
   mse_file_read "$1" 0 "$mseShowLineNumber"
 }
-
+MSE_GLOBAL_CMD["show variables"]="mse_conf_showVariables"
 
 
 

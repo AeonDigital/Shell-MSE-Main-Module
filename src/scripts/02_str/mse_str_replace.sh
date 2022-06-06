@@ -40,7 +40,7 @@ mse_str_replace() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str replace"]="mse_str_replace"
 
 
 

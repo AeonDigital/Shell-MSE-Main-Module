@@ -129,7 +129,7 @@ mse_file_boundaryLineNumbers()
 
   return "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["file boundaryLineNumbers"]="mse_file_boundaryLineNumbers"
 
 
 

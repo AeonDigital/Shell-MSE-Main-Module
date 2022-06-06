@@ -59,7 +59,7 @@ mse_conf_showVariableLine()
 
   printf "${mseReturn%%[[:cntrl:]]*}"
 }
-
+MSE_GLOBAL_CMD["show variableLine"]="mse_conf_showVariableLine"
 
 
 

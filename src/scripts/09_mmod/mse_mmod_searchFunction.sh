@@ -24,3 +24,4 @@ mse_mmod_searchFunction() {
     mse_mmod_showMetaData 1 1 "" "" "$1"
   fi
 }
+MSE_GLOBAL_CMD["search function"]="mse_mmod_searchFunction"

@@ -35,7 +35,7 @@ mse_str_trim() {
   # as palavras portanto não é adequada ao que se deseja.
   # printf "$1" | xargs
 }
-
+MSE_GLOBAL_CMD["str trim"]="mse_str_trim"
 
 
 

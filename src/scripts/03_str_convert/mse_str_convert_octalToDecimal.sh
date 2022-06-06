@@ -42,7 +42,7 @@ mse_str_convert_octalToDecimal() {
 
   printf "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str octalToDecimal"]="mse_str_convert_octalToDecimal"
 
 
 

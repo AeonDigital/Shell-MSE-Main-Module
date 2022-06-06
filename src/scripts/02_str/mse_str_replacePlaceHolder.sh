@@ -64,7 +64,7 @@ mse_str_replacePlaceHolder() {
     fi
   fi
 }
-
+MSE_GLOBAL_CMD["str replacePlaceHolder"]="mse_str_replacePlaceHolder"
 
 
 

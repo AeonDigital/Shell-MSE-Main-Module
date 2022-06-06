@@ -40,7 +40,7 @@ mse_str_join() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str join"]="mse_str_join"
 
 
 

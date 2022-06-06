@@ -31,7 +31,7 @@ mse_str_trimDL() {
   # usando 'sed'
   # sed 's/\s*'"$1"'/'"$1"'/g' <<< "$2"
 }
-
+MSE_GLOBAL_CMD["str trimDL"]="mse_str_trimDL"
 
 
 

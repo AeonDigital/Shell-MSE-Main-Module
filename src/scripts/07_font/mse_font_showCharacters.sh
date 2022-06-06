@@ -208,7 +208,7 @@ mse_font_showCharacters() {
     printf "\n"
   fi
 }
-
+MSE_GLOBAL_CMD["show characters"]="mse_font_showCharacters"
 
 
 

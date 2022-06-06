@@ -28,7 +28,7 @@ mse_str_trimL() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str trimL"]="mse_str_trimL"
 
 
 

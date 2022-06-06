@@ -40,7 +40,7 @@ mse_check_isCharHex() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["isCharHex"]="mse_check_isCharHex"
 
 
 

@@ -15,3 +15,4 @@
 mse_mmod_help() {
   mse_mmod_man mse_mmod_help
 }
+MSE_GLOBAL_CMD["help"]="mse_mmod_help"

@@ -292,7 +292,7 @@ mse_file_read()
 
   return 0
 }
-
+MSE_GLOBAL_CMD["file read"]="mse_file_read"
 
 
 

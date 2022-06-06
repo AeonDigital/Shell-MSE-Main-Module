@@ -39,7 +39,7 @@ mse_conf_showVariableValue()
     printf "${mseReturn#${3}=}"
   fi
 }
-
+MSE_GLOBAL_CMD["show variableValue"]="mse_conf_showVariableValue"
 
 
 

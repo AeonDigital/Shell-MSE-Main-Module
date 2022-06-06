@@ -176,7 +176,7 @@ mse_font_showColors() {
     ;;
   esac
 }
-
+MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 
 
 

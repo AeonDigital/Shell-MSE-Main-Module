@@ -245,7 +245,7 @@ mse_file_write()
 
   printf "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["file write"]="mse_file_write"
 
 
 

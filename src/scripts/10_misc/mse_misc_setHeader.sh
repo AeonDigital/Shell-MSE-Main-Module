@@ -31,3 +31,4 @@ mse_misc_setHeader() {
 
   echo -e "${mseResult}"
 }
+MSE_GLOBAL_CMD["set header"]="mse_misc_setHeader"

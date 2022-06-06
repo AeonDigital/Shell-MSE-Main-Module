@@ -46,7 +46,7 @@ mse_str_split() {
     fi
   done
 }
-
+MSE_GLOBAL_CMD["str split"]="mse_str_split"
 
 
 

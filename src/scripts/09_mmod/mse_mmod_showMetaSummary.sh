@@ -36,3 +36,4 @@ mse_mmod_showMetaSummary() {
   mse_inter_setCursorPosition top 1
   mse_inter_alertUser "i" "" "${lbl_showMetaSummary_moreDetails}"
 }
+MSE_GLOBAL_CMD["show metaSummary"]="mse_mmod_showMetaSummary"

@@ -48,3 +48,4 @@ mse_mmod_uninstall() {
 
   return $mseCode
 }
+MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"

@@ -295,3 +295,4 @@ mse_mmod_showMetaData() {
     printf "%s\n" "${mseReturnData[@]}"
   fi
 }
+MSE_GLOBAL_CMD["show metaData"]="mse_mmod_showMetaData"

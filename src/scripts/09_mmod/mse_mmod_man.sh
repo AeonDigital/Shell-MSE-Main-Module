@@ -184,3 +184,4 @@ mse_mmod_man() {
     fi
   fi
 }
+MSE_GLOBAL_CMD["man"]="mse_mmod_man"

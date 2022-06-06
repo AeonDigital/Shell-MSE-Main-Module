@@ -100,7 +100,7 @@ mse_str_trimD() {
   # usando 'sed'
   # sed 's/\s*'"$1"'\s*/'"$1"'/g' <<< "$2"
 }
-
+MSE_GLOBAL_CMD["str trimD"]="mse_str_trimD"
 
 
 

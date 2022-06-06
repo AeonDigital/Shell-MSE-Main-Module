@@ -38,7 +38,7 @@ mse_str_convert_decimalToChar() {
 
   printf "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["str decimalToChar"]="mse_str_convert_decimalToChar"
 
 
 

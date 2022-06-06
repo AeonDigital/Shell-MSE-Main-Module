@@ -27,7 +27,7 @@ mse_check_isInteger() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["isInteger"]="mse_check_isInteger"
 
 
 

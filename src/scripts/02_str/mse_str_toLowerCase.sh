@@ -22,7 +22,7 @@
 mse_str_toLowerCase() {
   printf "%s" "${1,,}"
 }
-
+MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLowerCase"
 
 
 

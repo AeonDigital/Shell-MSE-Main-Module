@@ -45,7 +45,7 @@ mse_file_countLines() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["file countLines"]="mse_file_countLines"
 
 
 

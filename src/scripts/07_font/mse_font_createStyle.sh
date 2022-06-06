@@ -493,7 +493,7 @@ mse_font_createStyle() {
   fi
 
 }
-
+MSE_GLOBAL_CMD["createStyle"]="mse_font_createStyle"
 
 
 

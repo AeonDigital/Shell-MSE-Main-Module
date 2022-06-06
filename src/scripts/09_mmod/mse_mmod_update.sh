@@ -26,3 +26,4 @@ mse_mmod_update() {
 
   return $mseCode
 }
+MSE_GLOBAL_CMD["update"]="mse_mmod_update"

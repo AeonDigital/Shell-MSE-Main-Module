@@ -19,10 +19,10 @@
 # Indique 'on' para ativar ou 'off' para desativar o UTF-8 do seu terminal.
 #
 # @example
-#   mse_font_utf8Mode check
-#   mse_font_utf8Mode on
-#   mse_font_utf8Mode off
-mse_font_utf8Mode() {
+#   mse_font_setUTF8Mode check
+#   mse_font_setUTF8Mode on
+#   mse_font_setUTF8Mode off
+mse_font_setUTF8Mode() {
   local mseReturn=""
 
   local mseMode="check"
@@ -41,3 +41,4 @@ mse_font_utf8Mode() {
 
   printf "UTF-8: ${mseMode} \u2658 \n"
 }
+MSE_GLOBAL_CMD["set UTF8Mode"]="mse_font_setUTF8Mode"

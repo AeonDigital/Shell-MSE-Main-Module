@@ -28,7 +28,7 @@ mse_check_hasKeyInAssocArray() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["hasKeyInAssocArray"]="mse_check_hasKeyInAssocArray"
 
 
 

@@ -99,7 +99,7 @@ mse_check_hasValueInArray() {
     printf "%s" "${mseResultBool}"
   fi
 }
-
+MSE_GLOBAL_CMD["hasValueInArray"]="mse_check_hasValueInArray"
 
 
 

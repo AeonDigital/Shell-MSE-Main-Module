@@ -7,7 +7,7 @@
 #
 # @desc
 # Mostra informações do sistema.
-mse_misc_sysData() {
+mse_misc_showInfo() {
 
   #
   # Coleta informações do sistema
@@ -56,3 +56,4 @@ mse_misc_sysData() {
   clear
   echo -e "${mseResult}"
 }
+MSE_GLOBAL_CMD["show info"]="mse_misc_showInfo"

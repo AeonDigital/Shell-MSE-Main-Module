@@ -449,7 +449,7 @@ mse_conf_setVariable()
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["set variable"]="mse_conf_setVariable"
 
 
 

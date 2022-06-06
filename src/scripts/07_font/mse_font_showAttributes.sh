@@ -73,7 +73,7 @@ mse_font_showAttributes() {
   mseRawTable=$(printf "${mseRawTable}")
   column -e -t -s ":" <<< "${mseRawTable}"
 }
-
+MSE_GLOBAL_CMD["show attributes"]="mse_font_showAttributes"
 
 
 

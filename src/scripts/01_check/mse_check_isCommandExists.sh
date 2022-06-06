@@ -28,7 +28,7 @@ mse_check_isCommandExists() {
 
   printf "%s" "${mseReturn}"
 }
-
+MSE_GLOBAL_CMD["isCommandExists"]="mse_check_isCommandExists"
 
 
 
