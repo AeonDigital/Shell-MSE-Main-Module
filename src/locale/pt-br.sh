@@ -169,5 +169,6 @@ lbl_submoduleInstall_unableToEditConfigFile_msg=()
 lbl_submoduleInstall_unableToEditConfigFile_msg+=("O módulo foi instalado com sucesso mas não será")
 lbl_submoduleInstall_unableToEditConfigFile_msg+=("carregado até que sua entrada na variável global \"MSE_AVAILABLE_MODULES\" seja definida.")
 
+lbl_submoduleUninstall_submoduleDoesNotExists="O submódulo indicado não está instalado."
 lbl_submoduleUninstall_cannotRemove="Um erro ocorreu e não possível desinstalar o submódulo."
 lbl_submoduleUninstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração \"[[FILE]]\"."

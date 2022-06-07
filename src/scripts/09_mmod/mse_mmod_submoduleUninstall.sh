@@ -54,46 +54,51 @@ mse_mmod_submoduleUninstall() {
       done
 
 
-
-      declare -a mseArr
-      mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
-
-      if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
-        mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
+      if [ "${mseSubmoduleInstalled}" == "0" ]; then
+        mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_submoduleDoesNotExists}"
       else
 
-        #
-        # 1. Remove o submódulo das configurações do 'MSE'
-        local mseExecResult
+        declare -a mseArr
+        mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
 
-        unset MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]
-        mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
-
-        if [ "${mseExecResult}" == "0" ]; then
-          mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
-          mse_inter_alertUser "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
-
-        elif [ "${mseExecResult}" == "1" ]; then
+        if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
+          mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
+        else
 
           #
-          # 2. Remove totalmente o submódulo
-          git -C "${mseInstallationPath}" rm "${mseSubmoduleName}"
-          rm -rf "${mseInstallationPath}.git/modules/${mseSubmoduleName}"
-          git -C "${mseInstallationPath}" config -f "${mseInstallationPath}.git/config" --remove-section "submodule.${mseSubmoduleName}" 2> /dev/null
-          # git add .
-          # git commit -m "git remove submodule example complete"
-          # git push origin
+          # 1. Remove o submódulo das configurações do 'MSE'
+          local mseExecResult
+
+          unset MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]
+          mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+
+          if [ "${mseExecResult}" == "0" ]; then
+            mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+            mse_inter_alertUser "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
+
+          elif [ "${mseExecResult}" == "1" ]; then
+
+            #
+            # 2. Remove totalmente o submódulo
+            git -C "${mseInstallationPath}" rm "${mseSubmoduleName}"
+            rm -rf "${mseInstallationPath}.git/modules/${mseSubmoduleName}"
+            git -C "${mseInstallationPath}" config -f "${mseInstallationPath}.git/config" --remove-section "submodule.${mseSubmoduleName}" 2> /dev/null
+            # git add .
+            # git commit -m "git remove submodule example complete"
+            # git push origin
 
 
-          #
-          # Se o diretório do submódulo não foi removido ...
-          if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
-            mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_cannotRemove}" "lbl_generic_scriptInterruptedError"
-          else
-            mseCode=0
-            mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            #
+            # Se o diretório do submódulo não foi removido ...
+            if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
+              mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_cannotRemove}" "lbl_generic_scriptInterruptedError"
+            else
+              mseCode=0
+              mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            fi
           fi
         fi
+
       fi
     fi
   fi
