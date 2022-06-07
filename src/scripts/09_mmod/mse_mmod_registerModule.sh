@@ -161,7 +161,7 @@ mse_mmod_registerModule() {
   local mseKey
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
     MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
-    unset MSE_GLOBAL_CMD[$mseKey]
+    unset MSE_GLOBAL_CMD["${mseKey}"]
   done
 }
 
