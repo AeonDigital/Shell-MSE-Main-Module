@@ -160,8 +160,10 @@ mse_mmod_registerModule() {
   # maiúsculas.
   local mseKey
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
-    MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
-    unset MSE_GLOBAL_CMD["${mseKey}"]
+    if [ "${mseKey}" != "${mseKey^^}" ]; then
+      MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
+      unset MSE_GLOBAL_CMD["${mseKey}"]
+    fi
   done
 }
 

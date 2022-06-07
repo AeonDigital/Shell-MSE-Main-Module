@@ -27,7 +27,17 @@ if [ "$(type -t "mse_mmod_registerModule")" != "function" ]; then
 
   . "${MSE_TMP_THIS_DIRECTORY}/scripts/09_mmod/mse_mmod_registerModule.sh"
   mse_mmod_registerModule "Shell-MSE-Main-Module" "${MSE_TMP_THIS_DIRECTORY}"
+
+  for moduleName in "${!MSE_AVAILABLE_MODULES[@]}"; do
+    if [ "${MSE_AVAILABLE_MODULES[${moduleName}]}" == "1" ]; then
+      MSE_TMP_THIS_MODULE_DIRECTORY="${MSE_TMP_THIS_DIRECTORY}/../${moduleName}/src"
+      mse_mmod_registerModule "${moduleName}" "${MSE_TMP_THIS_MODULE_DIRECTORY}"
+    fi
+  done
+  unset moduleName
+
   mse_mmod_reorderMetadataIndexes
 
+  unset MSE_TMP_THIS_MODULE_DIRECTORY
   unset MSE_TMP_THIS_DIRECTORY
 fi

@@ -155,7 +155,6 @@ lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
 lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
 
-
 lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
 
 lbl_uninstall_uninstallSuccess="Uninstallation completed."
@@ -165,3 +164,7 @@ lbl_submoduleInstall_addSuccess="The new module has been added successfully"
 lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
 lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
 lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg=()
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("The module has been successfully installed but will not")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("be loaded until its entry in the global variable \"MSE_AVAILABLE_MODULES\" is set.")

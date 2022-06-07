@@ -100,6 +100,10 @@ lbl_submoduleInstall_addSuccess="The new module has been added successfully"
 lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
 lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
 lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg=()
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("The module has been successfully installed but will not")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("be loaded until its entry in the global variable \"MSE_AVAILABLE_MODULES\" is set.")
 # END :: en-us.sh
 
 
@@ -115,7 +119,9 @@ MSE_GLOBAL_SUBMODULES_REPOSITORIES["Terminal"]="https://github.com/AeonDigital/S
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["UnitTest"]="https://github.com/AeonDigital/Shell-MSE-UnitTest.git"
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
 declare -gA MSE_AVAILABLE_MODULES
+MSE_AVAILABLE_MODULES["Shell-MSE-Terminal"]="1"
 declare -gA MSE_GLOBAL_CMD
+echo "1?"
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
@@ -2247,7 +2253,7 @@ mse_conf_setVariable()
             local i
             local l="${#mseVarArrName[@]}"
             local v
-            mseNewLine+=("declare -a ${mseVarName}")
+            mseNewLine+=("declare -ga ${mseVarName}")
             for ((i=0; i<l; i++)); do
               v="${mseVarArrName[$i]}"
               mseNewLine+=("${mseTmpComment}${mseVarName}[$i]=\"${v}\"")
@@ -2256,10 +2262,10 @@ mse_conf_setVariable()
           a)
             local k
             local v
-            mseNewLine+=("declare -A ${mseVarName}")
+            mseNewLine+=("declare -gA ${mseVarName}")
             for k in ${!mseVarArrName[@]}; do
               v="${mseVarArrName[$k]}"
-              mseNewLine+=("${mseTmpComment}${mseVarName}[$k]=\"${v}\"")
+              mseNewLine+=("${mseTmpComment}${mseVarName}[\"$k\"]=\"${v}\"")
             done
           ;;
         esac
@@ -4184,8 +4190,16 @@ mse_mmod_installSubmodule() {
           git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleDirectory}"
           git -C "${mseInstallationPath}" submodule update --remote
           if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
-            mseCode=0
-            mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            local mseExecResult
+            MSE_AVAILABLE_MODULES["${mseSubmoduleDirectory}"]=1
+            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+            if [ "${mseExecResult}" == "1" ]; then
+              mseCode=0
+              mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            else
+              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+              mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
+            fi
           else
             mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_addFail}"
           fi
@@ -4381,8 +4395,10 @@ mse_mmod_registerModule() {
   fi
   local mseKey
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
-    MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
-    unset MSE_GLOBAL_CMD["${mseKey}"]
+    if [ "${mseKey}" != "${mseKey^^}" ]; then
+      MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
+      unset MSE_GLOBAL_CMD["${mseKey}"]
+    fi
   done
 }
 mse_mmod_splitAndOrderSubModules() {

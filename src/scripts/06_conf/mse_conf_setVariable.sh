@@ -349,7 +349,7 @@ mse_conf_setVariable()
             local l="${#mseVarArrName[@]}"
             local v
 
-            mseNewLine+=("declare -a ${mseVarName}")
+            mseNewLine+=("declare -ga ${mseVarName}")
             for ((i=0; i<l; i++)); do
               v="${mseVarArrName[$i]}"
               mseNewLine+=("${mseTmpComment}${mseVarName}[$i]=\"${v}\"")
@@ -359,10 +359,10 @@ mse_conf_setVariable()
             local k
             local v
 
-            mseNewLine+=("declare -A ${mseVarName}")
+            mseNewLine+=("declare -gA ${mseVarName}")
             for k in ${!mseVarArrName[@]}; do
               v="${mseVarArrName[$k]}"
-              mseNewLine+=("${mseTmpComment}${mseVarName}[$k]=\"${v}\"")
+              mseNewLine+=("${mseTmpComment}${mseVarName}[\"$k\"]=\"${v}\"")
             done
           ;;
         esac

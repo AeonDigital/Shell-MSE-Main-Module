@@ -164,3 +164,7 @@ lbl_submoduleInstall_addSuccess="O novo módulo foi adicionado com sucesso"
 lbl_submoduleInstall_addFail="Houve uma falha inesperada ao tentar adicionar o novo módulo"
 lbl_submoduleInstall_confirmAction="Você tem certeza que deseja adicionar o submódulo [[SUBMODULE]] à sua instância do \"myShellEnv\"?"
 lbl_submoduleInstall_alreadExists="Este submódulo já está adicionado em seu \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração  \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg=()
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("O módulo foi instalado com sucesso mas não será")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("carregado até que sua entrada na variável global \"MSE_AVAILABLE_MODULES\" seja definida.")

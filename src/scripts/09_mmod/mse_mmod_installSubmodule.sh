@@ -73,8 +73,21 @@ mse_mmod_installSubmodule() {
           git -C "${mseInstallationPath}" submodule update --remote
 
           if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
-            mseCode=0
-            mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            local mseExecResult
+            #
+            # Registra o módulo como disponível e ativo
+            # para que ele seja carregado junto no próximo reinicio.
+            MSE_AVAILABLE_MODULES["${mseSubmoduleDirectory}"]=1
+            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+
+
+            if [ "${mseExecResult}" == "1" ]; then
+              mseCode=0
+              mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+            else
+              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+              mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
+            fi
           else
             mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_addFail}"
           fi
