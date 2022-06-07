@@ -20,7 +20,7 @@ mse_mmod_submoduleInstall() {
   local mseCode=1
   local mseMsg
   local mseInstallationPath="${HOME}/.config/myShellEnv"
-  local mseSubmoduleDirectory=""
+  local mseSubmoduleName=""
 
 
 
@@ -61,23 +61,25 @@ mse_mmod_submoduleInstall() {
 
         #
         # Verifica se o módulo já existe
-        mseSubmoduleDirectory=$(basename -- "$mseTargetModuleURL")
-        mseSubmoduleDirectory="${mseSubmoduleDirectory%.*}"
-        if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
+        mseSubmoduleName=$(basename -- "$mseTargetModuleURL")
+        mseSubmoduleName="${mseSubmoduleName%.*}"
+        if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
           mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_alreadExists}" "lbl_generic_scriptInterruptedError"
         else
           mse_inter_alertUser "i" "MSE" "${lbl_submoduleInstall_addNew}"
 
           git -C "${mseInstallationPath}" submodule add "${mseTargetModuleURL}"
-          git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleDirectory}"
+          git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleName}"
           git -C "${mseInstallationPath}" submodule update --remote
+          git -C "${mseInstallationPath}" add .
+          git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
 
-          if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
+          if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
             local mseExecResult
             #
             # Registra o módulo como disponível e ativo
             # para que ele seja carregado junto no próximo reinicio.
-            MSE_AVAILABLE_MODULES["${mseSubmoduleDirectory}"]=1
+            MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]=1
             mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
 
 
