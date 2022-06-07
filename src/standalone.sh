@@ -119,9 +119,7 @@ MSE_GLOBAL_SUBMODULES_REPOSITORIES["Terminal"]="https://github.com/AeonDigital/S
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["UnitTest"]="https://github.com/AeonDigital/Shell-MSE-UnitTest.git"
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
 declare -gA MSE_AVAILABLE_MODULES
-MSE_AVAILABLE_MODULES["Shell-MSE-Terminal"]="1"
 declare -gA MSE_GLOBAL_CMD
-echo "1?"
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH

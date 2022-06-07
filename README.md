@@ -19,7 +19,7 @@ Abra o seu shell e use os seguintes comandos:
 
 ``` shell
 curl -O https://raw.githubusercontent.com/AeonDigital/Shell-MSE-Main-Module/main/install.sh
-chmod u+x install.sh
+chmod +x install.sh
 ./install.sh
 ```
 
