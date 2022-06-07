@@ -95,6 +95,9 @@ else
           mseIsOK=0
           mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage" ""
         else
+          git -C "${mseTMPInstallationPath}" config --local user.email "mse@myenvshell.com.br"
+          git -C "${mseTMPInstallationPath}" config --local user.name "myEnvShell"
+
           mse_inter_alertUser "s" "MSE" "Clone success" "" ""
         fi
       fi
