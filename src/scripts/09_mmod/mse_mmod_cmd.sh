@@ -35,7 +35,7 @@ mse_mmod_cmd() {
     local i
     local mseOffSet=1
     local mseLength="$#"
-    local mseFunctionName="${MSE_GLOBAL_CMD[$1]}"
+    local mseFunctionName="${MSE_GLOBAL_CMD[${1^^}]}"
 
     #
     # Verifica o nome do comando de forma complexa
@@ -45,7 +45,7 @@ mse_mmod_cmd() {
       for ((i=2; i<=mseLength; i++)); do
         mseCmd+=" ${!i}"
 
-        mseFunctionName="${MSE_GLOBAL_CMD[$mseCmd]}"
+        mseFunctionName="${MSE_GLOBAL_CMD[${mseCmd^^}]}"
         if [ "${mseFunctionName}" != "" ]; then
           mseOffSet="$i"
           break

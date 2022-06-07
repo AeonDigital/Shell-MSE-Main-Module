@@ -151,6 +151,18 @@ mse_mmod_registerModule() {
     # Atualiza a contagem total de funções do módulo como um todo
     MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
   fi
+
+
+  #
+  # Normaliza os atalhos de comandos para que eles possam ser
+  # facilmente acessados de forma case insensitive.
+  # Para isto, converte todas as chaves definidas para suas versões em
+  # maiúsculas.
+  local mseKey
+  for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
+    MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
+    unset MSE_GLOBAL_CMD[$mseKey]
+  done
 }
 
 
