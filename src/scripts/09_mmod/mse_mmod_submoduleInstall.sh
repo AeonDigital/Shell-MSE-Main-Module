@@ -16,7 +16,7 @@
 # Também pode ser definido o nome do submódulo se ele estiver definido entre
 # uma coleção de itens pré-aprovados.
 #
-mse_mmod_installSubmodule() {
+mse_mmod_submoduleInstall() {
   local mseCode=1
   local mseMsg
   local mseInstallationPath="${HOME}/.config/myShellEnv"
@@ -99,7 +99,7 @@ mse_mmod_installSubmodule() {
 
   return $mseCode
 }
-MSE_GLOBAL_CMD["install submodule"]="mse_mmod_installSubmodule"
+MSE_GLOBAL_CMD["submodule install"]="mse_mmod_submoduleInstall"
 
 
 
@@ -107,7 +107,7 @@ MSE_GLOBAL_CMD["install submodule"]="mse_mmod_installSubmodule"
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_mmod_installSubmodule_vldtr() {
+mse_mmod_submoduleInstall_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Repositorie :: r :: string"
 }
