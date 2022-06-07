@@ -70,6 +70,9 @@ lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last:
 lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
 lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
 lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
+lbl_generic_confirmActionToProceed="Confirm this action to proceed"
+lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
+lbl_generic_scriptInterruptedError=("Operation interrupted.")
 lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
 lbl_man_enterAFunction="Enter the name of a function."
 lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
@@ -84,17 +87,19 @@ lbl_update_updateStart="Updating all \"myShellEnv\" modules."
 lbl_update_updateSuccess="All modules has been updated"
 lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
 lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
-lbl_uninstall_uninstallPromptTitle="Confirm this action to proceed"
 lbl_uninstall_uninstallPromptMessage=()
 lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
 lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
 lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
 lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
-lbl_uninstall_uninstallAborted="Action interrupted by the user."
-lbl_uninstall_uninstallError=("Operation aborted.")
 lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
 lbl_uninstall_uninstallSuccess="Uninstallation completed."
+lbl_submoduleInstall_addNew="Adding new module."
+lbl_submoduleInstall_addSuccess="The new module has been added successfully"
+lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
+lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
+lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
 # END :: en-us.sh
 
 
@@ -105,6 +110,10 @@ lbl_uninstall_uninstallSuccess="Uninstallation completed."
 
 # INI :: variables.sh
 MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc"
+declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["Terminal"]="https://github.com/AeonDigital/Shell-MSE-Terminal.git"
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["UnitTest"]="https://github.com/AeonDigital/Shell-MSE-UnitTest.git"
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
 declare -gA MSE_AVAILABLE_MODULES
 declare -gA MSE_GLOBAL_CMD
 declare -gA MSE_GLOBAL_MODULES_METADATA
@@ -4131,6 +4140,67 @@ mse_mmod_help() {
 }
 MSE_GLOBAL_CMD["help"]="mse_mmod_help"
 # END :: mse_mmod_help.sh
+
+
+# INI :: mse_mmod_installSubmodule.sh
+mse_mmod_installSubmodule() {
+  local mseCode=1
+  local mseMsg
+  local mseInstallationPath="${HOME}/.config/myShellEnv"
+  local mseSubmoduleDirectory=""
+  if [ $# == 0 ] || [ "$1" == "" ]; then
+    mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "Repositorie")
+    mse_inter_alertUser "i" "MSE" "${mseMsg}"
+  else
+    local mseTargetModuleURL=""
+    if [[ "${1}" =~ "https://" ]]; then
+      mseTargetModuleURL="${1}"
+    else
+      local mseKey
+      declare -a mseValidValues
+      for mseKey in "${!MSE_GLOBAL_SUBMODULES_REPOSITORIES[@]}"; do
+        mseValidValues+=("${mseKey}")
+        if [ "${mseKey^^}" == "${1^^}" ]; then
+          mseTargetModuleURL="${MSE_GLOBAL_SUBMODULES_REPOSITORIES[$mseKey]}"
+        fi
+      done
+    fi
+    if [ "${mseTargetModuleURL}" == "" ]; then
+      mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "Repositorie")
+      mse_inter_alertUser "i" "MSE" "${mseMsg}" "mseValidValues"
+    else
+      declare -a mseArr
+      mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
+      if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
+        mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
+      else
+        mseSubmoduleDirectory=$(basename -- "$mseTargetModuleURL")
+        mseSubmoduleDirectory="${mseSubmoduleDirectory%.*}"
+        if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
+          mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_alreadExists}" "lbl_generic_scriptInterruptedError"
+        else
+          mse_inter_alertUser "i" "MSE" "${lbl_submoduleInstall_addNew}"
+          git -C "${mseInstallationPath}" submodule add "${mseTargetModuleURL}"
+          git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleDirectory}"
+          git -C "${mseInstallationPath}" submodule update --remote
+          if [ -d "${mseInstallationPath}/${mseSubmoduleDirectory}" ]; then
+            mseCode=0
+            mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+          else
+            mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_addFail}"
+          fi
+        fi
+      fi
+    fi
+  fi
+  return $mseCode
+}
+MSE_GLOBAL_CMD["install submodule"]="mse_mmod_installSubmodule"
+mse_mmod_installSubmodule_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Repositorie :: r :: string"
+}
+# END :: mse_mmod_installSubmodule.sh
 
 
 # INI :: mse_mmod_man.sh
