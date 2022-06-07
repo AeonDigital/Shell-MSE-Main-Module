@@ -88,7 +88,7 @@ test_mse_inter_showMessage() {
 
 
 
-  declare -a arrMsg
+  declare -a arrMsg=()
   arrMsg+=("First Line")
   arrMsg+=("Second Line")
 

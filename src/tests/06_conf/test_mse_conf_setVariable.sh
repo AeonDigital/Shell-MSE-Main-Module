@@ -79,7 +79,7 @@ test_mse_conf_setVariable() {
 
 
 
-  declare -a mseTmpIndexArr
+  declare -a mseTmpIndexArr=()
   declare -A mseTmpAssocArr
   testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.config" "#" "1" "" "i" "varName" "mseTmpAssocArr" "" "")
   testExpected="Parameter \"VarValue\" must be an array"
@@ -270,7 +270,7 @@ test_mse_conf_setVariable() {
   MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
 
 
-  declare -a tmpExpectedLines
+  declare -a tmpExpectedLines=()
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
   tmpRawExpectedLines+=("MSE_UTEST=ntv_01")
@@ -287,7 +287,7 @@ test_mse_conf_setVariable() {
   #
   # Escreve uma variável do tipo array indexado
   unset mseTmpIndexArr
-  declare -a mseTmpIndexArr
+  declare -a mseTmpIndexArr=()
   mseTmpIndexArr=()
   mseTmpIndexArr+=("first")
   mseTmpIndexArr+=("second")
@@ -310,7 +310,7 @@ test_mse_conf_setVariable() {
   MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
 
 
-  declare -a tmpExpectedLines
+  declare -a tmpExpectedLines=()
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
   tmpRawExpectedLines+=("declare -a MSE_UTEST")
@@ -351,7 +351,7 @@ test_mse_conf_setVariable() {
   MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
 
 
-  declare -a tmpExpectedLines
+  declare -a tmpExpectedLines=()
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
   tmpRawExpectedLines+=("declare -A MSE_UTEST")

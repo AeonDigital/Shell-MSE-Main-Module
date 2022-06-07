@@ -38,7 +38,7 @@ mse_mmod_submoduleInstall() {
       #
       # Tenta identificar qual é a URL alvo que trata o submódulo apontado
       local mseKey
-      declare -a mseValidValues
+      declare -a mseValidValues=()
       for mseKey in "${!MSE_GLOBAL_SUBMODULES_REPOSITORIES[@]}"; do
         mseValidValues+=("${mseKey}")
         if [ "${mseKey^^}" == "${1^^}" ]; then
@@ -52,7 +52,7 @@ mse_mmod_submoduleInstall() {
       mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "Repositorie")
       mse_inter_alertUser "i" "MSE" "${mseMsg}" "mseValidValues"
     else
-      declare -a mseArr
+      declare -a mseArr=()
       mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
 
       if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then

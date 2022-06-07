@@ -35,7 +35,7 @@
 # Printa na tela as informações desejadas conforme configuração passada.
 #
 # @example
-#   declare -a mseArrMSG
+#   declare -a mseArrMSG=()
 #   mseArrMSG+=("Houve uma falha inesperada")
 #
 #   mse_inter_errorAlert "${FUNCNAME[0]}" "Falha" "mseArrMSG"

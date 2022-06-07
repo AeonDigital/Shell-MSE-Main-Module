@@ -31,7 +31,7 @@ mse_mmod_submoduleUninstall() {
     #
     # Identifica se o submódulo de nome passado é válido
     local mseKey
-    declare -a mseValidValues
+    declare -a mseValidValues=()
     for mseKey in "${!MSE_GLOBAL_SUBMODULES_REPOSITORIES[@]}"; do
       mseValidValues+=("${mseKey}")
       if [ "${mseKey^^}" == "${1^^}" ]; then
@@ -58,7 +58,7 @@ mse_mmod_submoduleUninstall() {
         mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_submoduleDoesNotExists}"
       else
 
-        declare -a mseArr
+        declare -a mseArr=()
         mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
 
         if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then

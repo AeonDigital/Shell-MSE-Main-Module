@@ -88,7 +88,7 @@ mse_mmod_showMetaData() {
     local mseAddLine
     local mseModStart=0
 
-    declare -a mseReturnData
+    declare -a mseReturnData=()
 
     local oIFS=$IFS
     IFS=$'\n'

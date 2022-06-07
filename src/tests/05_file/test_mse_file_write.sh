@@ -10,7 +10,7 @@
 #
 # Teste
 test_mse_file_write() {
-  declare -a ContentArrayName
+  declare -a ContentArrayName=()
   ContentArrayName+=("NL: 1")
   ContentArrayName+=("NL: 2")
   ContentArrayName+=("NL: 3")

@@ -47,7 +47,7 @@
 # Printa na tela as informações desejadas conforme configuração passada.
 #
 # @example
-#   declare -a mseArrMSG
+#   declare -a mseArrMSG=()
 #   mseArrMSG+=("Sucesso!")
 #   mseArrMSG+=("Todos os scripts foram atualizados")
 #

@@ -188,7 +188,7 @@ mse_mmod_splitAndOrderSubModules() {
     local mseDelimiter
     local mseString
     local mseSubStr
-    declare -a mseTmpSubModules
+    declare -a mseTmpSubModules=()
 
 
     mseDelimiter="::"

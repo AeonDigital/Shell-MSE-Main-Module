@@ -11,7 +11,7 @@
 # Teste
 test_mse_check_hasValueInArray() {
   unset testArray
-  declare -a testArray
+  declare -a testArray=()
   testArray=("one" "two" "tree")
   testResult=$(mse_check_hasValueInArray "four" "testArray")
   testExpected="0"

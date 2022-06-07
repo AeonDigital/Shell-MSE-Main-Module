@@ -102,7 +102,7 @@ mse_inter_promptUser() {
     mseArgs["TitleText"]="${3}"
     mseArgs["BodyMessageArrayName"]="${4}"
 
-    declare -a mseTmpLines
+    declare -a mseTmpLines=()
     declare -n mseBodyMessageArrayName
 
 

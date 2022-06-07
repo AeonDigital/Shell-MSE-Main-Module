@@ -263,7 +263,7 @@ mse_font_createStyle() {
     # Verifica os atributos que devem ser aplicados no estilo
     mseAttributes="20"
     if [ "$mseTmpATCode" != "" ]; then
-      declare -a mseValidAttr
+      declare -a mseValidAttr=()
       local mseTmpAttr
 
 

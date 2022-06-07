@@ -2475,7 +2475,7 @@ mse_font_createStyle() {
     fi
     mseAttributes="20"
     if [ "$mseTmpATCode" != "" ]; then
-      declare -a mseValidAttr
+      declare -a mseValidAttr=()
       local mseTmpAttr
       mse_str_split "," "${mseTmpATCode}"
       for mseUParam in "${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"; do
@@ -3226,7 +3226,7 @@ mse_inter_promptUser() {
     mseArgs["TitleCode"]="${2}"
     mseArgs["TitleText"]="${3}"
     mseArgs["BodyMessageArrayName"]="${4}"
-    declare -a mseTmpLines
+    declare -a mseTmpLines=()
     declare -n mseBodyMessageArrayName
     if [ "${1}" == "" ]; then
       mseArgs["MessageType"]="or"
@@ -4161,7 +4161,7 @@ mse_mmod_installSubmodule() {
       mseTargetModuleURL="${1}"
     else
       local mseKey
-      declare -a mseValidValues
+      declare -a mseValidValues=()
       for mseKey in "${!MSE_GLOBAL_SUBMODULES_REPOSITORIES[@]}"; do
         mseValidValues+=("${mseKey}")
         if [ "${mseKey^^}" == "${1^^}" ]; then
@@ -4173,7 +4173,7 @@ mse_mmod_installSubmodule() {
       mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "Repositorie")
       mse_inter_alertUser "i" "MSE" "${mseMsg}" "mseValidValues"
     else
-      declare -a mseArr
+      declare -a mseArr=()
       mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
       if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
         mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
@@ -4406,7 +4406,7 @@ mse_mmod_splitAndOrderSubModules() {
     local mseDelimiter
     local mseString
     local mseSubStr
-    declare -a mseTmpSubModules
+    declare -a mseTmpSubModules=()
     mseDelimiter="::"
     mseString="${MSE_TMP_SUBMODULES}"
     mseSubStr=""
@@ -4503,7 +4503,7 @@ mse_mmod_showMetaData() {
     local mseTmpLine
     local mseAddLine
     local mseModStart=0
-    declare -a mseReturnData
+    declare -a mseReturnData=()
     local oIFS=$IFS
     IFS=$'\n'
     local msePFIndentModule
@@ -4676,7 +4676,7 @@ MSE_GLOBAL_CMD["show metaSummary"]="mse_mmod_showMetaSummary"
 
 # INI :: mse_mmod_showRawMetaData.sh
 mse_mmod_showRawMetaData() {
-  declare -a mseReturn
+  declare -a mseReturn=()
   declare -A mseReturnCount
   local mseTmpKey
   local mseTmpTotal
@@ -4715,7 +4715,7 @@ mse_mmod_showRawMetaData() {
   local mseType
   local mseModuleName
   local mseSubModuleName
-  declare -a mseSelected
+  declare -a mseSelected=()
   for ((i=0; i<mseLength; i++)); do
     mseMatch=0
     mseValue="${MSE_GLOBAL_MODULES_METADATA_INDEXED[$i]}"
@@ -4807,7 +4807,7 @@ mse_mmod_uninstall() {
       if [ -f "${mseAtualShellRCPath}" ]; then
         local mseTargetLines=$(mse_file_boundaryLineNumbers "${mseAtualShellRCPath}" "#" "0" "# [[INI-MYSHELLENV]]" "# [[END-MYSHELLENV]]")
         if [ "${mseTargetLines}" != "" ]; then
-          declare -a mseArr
+          declare -a mseArr=()
           local mseResult=$(mse_file_write "${mseAtualShellRCPath}" "mseArr" "delete" "${mseTargetLines}")
         fi
       fi

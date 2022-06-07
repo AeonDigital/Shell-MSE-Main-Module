@@ -120,7 +120,7 @@ if [ "${mseIsOK}" == "0" ]; then
       mseTMPInstallMessage+=("${mseTMPInstallationPath}")
       mseTMPInstallMessage+=("Before trying a new installation you need to manually remove it.")
 
-      mse_install_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
+      mse_inter_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
     fi
   fi
 else

@@ -88,7 +88,7 @@
 # Uma lista contendo todas as informações requeridas formatadas conforme
 # indicado. A lista será sempre ordenada alfabeticamente.
 mse_mmod_showRawMetaData() {
-  declare -a mseReturn
+  declare -a mseReturn=()
   declare -A mseReturnCount
   local mseTmpKey
   local mseTmpTotal
@@ -140,7 +140,7 @@ mse_mmod_showRawMetaData() {
 
   local mseModuleName
   local mseSubModuleName
-  declare -a mseSelected
+  declare -a mseSelected=()
 
   for ((i=0; i<mseLength; i++)); do
     mseMatch=0

@@ -34,7 +34,7 @@ mse_mmod_uninstall() {
       if [ -f "${mseAtualShellRCPath}" ]; then
         local mseTargetLines=$(mse_file_boundaryLineNumbers "${mseAtualShellRCPath}" "#" "0" "# [[INI-MYSHELLENV]]" "# [[END-MYSHELLENV]]")
         if [ "${mseTargetLines}" != "" ]; then
-          declare -a mseArr
+          declare -a mseArr=()
           local mseResult=$(mse_file_write "${mseAtualShellRCPath}" "mseArr" "delete" "${mseTargetLines}")
         fi
       fi
