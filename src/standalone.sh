@@ -28,6 +28,7 @@ lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
 lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[SECTION]]\" section"
 lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
 lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"
+lbl_err_paramA_IsOutOfRange="Parameter \"[[PARAM_A]]\" is out of range"
 lbl_err_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
 lbl_err_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
 lbl_err_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
@@ -48,6 +49,8 @@ lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an
 lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
 lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
 lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
+lbl_err_checkForValidOptionsUsingFunction="Check for valid options using the \"[[FUNCTION]]\" function"
+lbl_err_chooseOneOfThisOptions="Choose for one of this options: "
 lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
 lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
 lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
@@ -104,14 +107,6 @@ lbl_uninstall_uninstallSuccess="Uninstallation completed."
 MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc"
 declare -gA MSE_AVAILABLE_MODULES
 declare -gA MSE_GLOBAL_CMD
-MSE_GLOBAL_CMD["help"]="mse_mmod_help"
-MSE_GLOBAL_CMD["man"]="mse_mmod_man"
-MSE_GLOBAL_CMD["search"]="mse_mmod_searchFunction"
-MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
-MSE_GLOBAL_CMD["alert"]="mse_inter_alertUser"
-MSE_GLOBAL_CMD["sysdata"]="mse_misc_sysData"
-MSE_GLOBAL_CMD["update"]="mse_mmod_update"
-MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
@@ -172,54 +167,94 @@ alias mse="mse_mmod_cmd"
 # INI :: colors.sh
 mseNONE='\e[0m'
 mseBLACK='\e[20;47;30m'
-mseDGREY='\e[20;49;90m'
-mseLGREY='\e[20;49;37m'
-mseWHITE='\e[20;49;97m'
+mseDBLACK='\e[2;47;30m'
+mseLBLACK='\e[20;47;90m'
+mseDLBLACK='\e[2;47;90m'
 mseRED='\e[20;49;31m'
+mseDRED='\e[2;49;31m'
 mseLRED='\e[20;49;91m'
+mseDLRED='\e[2;49;91m'
 mseGREEN='\e[20;49;32m'
+mseDGREEN='\e[2;49;32m'
 mseLGREEN='\e[20;49;92m'
+mseDLGREEN='\e[2;49;92m'
 mseYELLOW='\e[20;49;33m'
+mseDYELLOW='\e[2;49;33m'
 mseLYELLOW='\e[20;49;93m'
+mseDLYELLOW='\e[2;49;93m'
 mseBLUE='\e[20;49;34m'
+mseDBLUE='\e[2;49;34m'
 mseLBLUE='\e[20;49;94m'
+mseDLBLUE='\e[2;49;94m'
 msePURPLE='\e[20;49;35m'
+mseDPURPLE='\e[2;49;35m'
 mseLPURPLE='\e[20;49;95m'
+mseDLPURPLE='\e[2;49;95m'
 mseCYAN='\e[20;49;36m'
+mseDCYAN='\e[2;49;36m'
 mseLCYAN='\e[20;49;96m'
+mseDLCYAN='\e[2;49;96m'
+mseWHITE='\e[20;49;37m'
+mseDWHITE='\e[2;49;37m'
+mseLWHITE='\e[20;49;97m'
+mseDLWHITE='\e[2;49;97m'
 MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
   'NONE'
-  'BLACK' 'DGREY' 'LGREY' 'WHITE' 'RED' 'LRED'
-  'GREEN' 'LGREEN' 'YELLOW' 'LYELLOW' 'BLUE' 'LBLUE'
-  'PURPLE' 'LPURPLE' 'CYAN' 'LCYAN'
+  'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
+  'RED'     'DRED'    'LRED'    'DLRED'
+  'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
+  'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
+  'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
+  'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
+  'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
+  'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
 )
 MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
   'Normal'
-  'Black' 'Dark grey' 'Light grey' 'White' 'Red' 'Light red'
-  'Green' 'Light green' 'Yellow' 'Light yellow' 'Blue' 'Light blue'
-  'Purple' 'Light purple' 'Cyan' 'Light cyan'
+  'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
+  'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
+  'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
+  'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
+  'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
+  'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
+  'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
+  'White'   'White + Dark'  'White Light'   'White Light + Dark'
 )
 MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
   '39'
-  '30' '90' '37' '97' '31' '91'
-  '32' '92' '33' '93' '34' '94'
-  '35' '95' '36' '96'
+  '30' '230' '90' '290'
+  '31' '231' '91' '291'
+  '32' '232' '92' '292'
+  '33' '233' '93' '293'
+  '34' '234' '94' '294'
+  '35' '235' '95' '295'
+  '36' '236' '96' '296'
+  '37' '237' '97' '297'
 )
 MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
   '49'
-  '40' '100' '47' '107' '41' '101'
-  '42' '102' '43' '103' '44' '104'
-  '45' '105' '46' '106'
+  '40' '' '100' ''
+  '41' '' '101' ''
+  '42' '' '102' ''
+  '43' '' '103' ''
+  '44' '' '104' ''
+  '45' '' '105' ''
+  '46' '' '106' ''
+  '47' '' '107' ''
 )
 MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
   'NONE'
-  'BOLD' 'DIM' 'UNDERLINE' 'BLINK' 'INVERT' 'HIDDEN'
-  'RBOLD' 'RDIM' 'RUNDERLINE' 'RBLINK' 'RINVERT' 'RHIDDEN'
+  'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
+  'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
+  'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
+  'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
 )
 MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
   '20'
-  '1' '2' '4' '5' '7' '8'
-  '21' '22' '24' '25' '27' '28'
+  '1'   '2'   '3'   '4'
+  '5'   '6'   '7'   '8'   '9'
+  '21'  '22'  '23'  '24'
+  '25'  '16'  '27'  '28'  '29'
 )
 # END :: colors.sh
 
@@ -231,6 +266,7 @@ mse_check_hasKeyInAssocArray() {
   if [ ! -z "${assocName[$1]+x}" ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["hasKeyInAssocArray"]="mse_check_hasKeyInAssocArray"
 mse_check_hasKeyInAssocArray_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="KeyName :: r :: string"
@@ -280,6 +316,7 @@ mse_check_hasValueInArray() {
     printf "%s" "${mseResultBool}"
   fi
 }
+MSE_GLOBAL_CMD["hasValueInArray"]="mse_check_hasValueInArray"
 mse_check_hasValueInArray_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -300,6 +337,7 @@ mse_check_isChar() {
   LC_CTYPE="${oLC_CTYPE}"
   printf "%s" "$mseReturn"
 }
+MSE_GLOBAL_CMD["isChar"]="mse_check_isChar"
 mse_check_isChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: char"
@@ -326,6 +364,7 @@ mse_check_isCharDecimal() {
   done
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isCharDecimal"]="mse_check_isCharDecimal"
 mse_check_isCharDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charDecimal"
@@ -352,6 +391,7 @@ mse_check_isCharHex() {
   done
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isCharHex"]="mse_check_isCharHex"
 mse_check_isCharHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charHex"
@@ -378,6 +418,7 @@ mse_check_isCharOctal() {
   done
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isCharOctal"]="mse_check_isCharOctal"
 mse_check_isCharOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charOctal"
@@ -392,6 +433,7 @@ mse_check_isCommandExists() {
   if [ $? == 0 ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isCommandExists"]="mse_check_isCommandExists"
 mse_check_isCommandExists_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Command :: r :: string"
@@ -405,6 +447,7 @@ mse_check_isFunctionExists() {
   if [ "$(type -t $1)" == "function" ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isFunctionExists"]="mse_check_isFunctionExists"
 mse_check_isFunctionExists_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -420,6 +463,7 @@ mse_check_isInteger() {
   if [[ "$1" =~ $regEx ]]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["isInteger"]="mse_check_isInteger"
 mse_check_isInteger_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -440,6 +484,7 @@ mse_str_join() {
   fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str join"]="mse_str_join"
 mse_str_join_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Glue :: r :: string"
@@ -460,6 +505,7 @@ mse_str_replace() {
   mseReturn="${mseString//${mseOld}/${mseNew}}"
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str replace"]="mse_str_replace"
 mse_str_replace_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Old :: r :: string"
@@ -501,6 +547,7 @@ mse_str_replacePlaceHolder() {
     fi
   fi
 }
+MSE_GLOBAL_CMD["str replacePlaceHolder"]="mse_str_replacePlaceHolder"
 mse_str_replacePlaceHolder_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="OriginalString :: r :: string"
@@ -531,6 +578,7 @@ mse_str_split() {
     fi
   done
 }
+MSE_GLOBAL_CMD["str split"]="mse_str_split"
 mse_str_split_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
@@ -543,6 +591,7 @@ mse_str_split_vldtr() {
 mse_str_toLowerCase() {
   printf "%s" "${1,,}"
 }
+MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLowerCase"
 mse_str_toLowerCase_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -554,6 +603,7 @@ mse_str_toLowerCase_vldtr() {
 mse_str_toUpperCase() {
   printf "%s" "${1^^}"
 }
+MSE_GLOBAL_CMD["str toUpperCase"]="mse_str_toUpperCase"
 mse_str_toUpperCase_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -569,6 +619,7 @@ mse_str_trim() {
   str="${str%"${str##*[![:space:]]}"}" # trim R
   printf "%s" "${str}"
 }
+MSE_GLOBAL_CMD["str trim"]="mse_str_trim"
 mse_str_trim_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -627,6 +678,7 @@ mse_str_trimD() {
   mseReturn=$(mse_str_join "$1" "mseArrTmp")
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str trimD"]="mse_str_trimD"
 mse_str_trimD_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
@@ -642,6 +694,7 @@ mse_str_trimD_vldtr() {
 mse_str_trimDL() {
   mse_str_trimD "$1" "$2" "l"
 }
+MSE_GLOBAL_CMD["str trimDL"]="mse_str_trimDL"
 mse_str_trimDL_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
@@ -654,6 +707,7 @@ mse_str_trimDL_vldtr() {
 mse_str_trimDR() {
   mse_str_trimD "$1" "$2" "r"
 }
+MSE_GLOBAL_CMD["str trimDR"]="mse_str_trimDR"
 mse_str_trimDR_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
@@ -669,6 +723,7 @@ mse_str_trimL() {
   mseReturn="${mseReturn#"${mseReturn%%[![:space:]]*}"}" # trim L
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str trimL"]="mse_str_trimL"
 mse_str_trimL_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -683,6 +738,7 @@ mse_str_trimR() {
   mseReturn="${mseReturn%"${mseReturn##*[![:space:]]}"}" # trim R
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str trimR"]="mse_str_trimR"
 mse_str_trimR_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -705,6 +761,7 @@ mse_str_convert_charToDecimal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str charToDecimal"]="mse_str_convert_charToDecimal"
 mse_str_convert_charToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -727,6 +784,7 @@ mse_str_convert_charToHex() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str charToHex"]="mse_str_convert_charToHex"
 mse_str_convert_charToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -749,6 +807,7 @@ mse_str_convert_charToOctal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str charToOctal"]="mse_str_convert_charToOctal"
 mse_str_convert_charToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -770,6 +829,7 @@ mse_str_convert_decimalToChar() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str decimalToChar"]="mse_str_convert_decimalToChar"
 mse_str_convert_decimalToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -794,6 +854,7 @@ mse_str_convert_decimalToHex() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str decimalToHex"]="mse_str_convert_decimalToHex"
 mse_str_convert_decimalToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -818,6 +879,7 @@ mse_str_convert_decimalToOctal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str decimalToOctal"]="mse_str_convert_decimalToOctal"
 mse_str_convert_decimalToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -840,6 +902,7 @@ mse_str_convert_hexToChar() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str hexToChar"]="mse_str_convert_hexToChar"
 mse_str_convert_hexToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -864,6 +927,7 @@ mse_str_convert_hexToDecimal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str hexToDecimal"]="mse_str_convert_hexToDecimal"
 mse_str_convert_hexToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -889,6 +953,7 @@ mse_str_convert_hexToOctal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str hexToOctal"]="mse_str_convert_hexToOctal"
 mse_str_convert_hexToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -909,6 +974,7 @@ mse_str_convert_octalToChar() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str octalToChar"]="mse_str_convert_octalToChar"
 mse_str_convert_octalToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -933,6 +999,7 @@ mse_str_convert_octalToDecimal() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str octalToDecimal"]="mse_str_convert_octalToDecimal"
 mse_str_convert_octalToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -958,6 +1025,7 @@ mse_str_convert_octalToHex() {
   done
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["str octalToHex"]="mse_str_convert_octalToHex"
 mse_str_convert_octalToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -1640,6 +1708,7 @@ mse_file_boundaryLineNumbers()
   fi
   return "${mseReturn}"
 }
+MSE_GLOBAL_CMD["file boundaryLineNumbers"]="mse_file_boundaryLineNumbers"
 mse_file_boundaryLineNumbers_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -1672,6 +1741,7 @@ mse_file_countLines() {
   fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["file countLines"]="mse_file_countLines"
 mse_file_countLines_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -1844,6 +1914,7 @@ mse_file_read()
   fi
   return 0
 }
+MSE_GLOBAL_CMD["file read"]="mse_file_read"
 mse_file_read_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: string"
@@ -1984,6 +2055,7 @@ mse_file_write()
   fi
   printf "${mseReturn}"
 }
+MSE_GLOBAL_CMD["file write"]="mse_file_write"
 mse_file_write_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -2223,6 +2295,7 @@ mse_conf_setVariable()
   fi
   printf "%s" "${mseReturn}"
 }
+MSE_GLOBAL_CMD["set variable"]="mse_conf_setVariable"
 mse_conf_mainSetVariable_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=9
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -2267,6 +2340,7 @@ mse_conf_showVariableLine()
   fi
   printf "${mseReturn%%[[:cntrl:]]*}"
 }
+MSE_GLOBAL_CMD["show variableLine"]="mse_conf_showVariableLine"
 mse_conf_showVariableLine_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -2287,6 +2361,7 @@ mse_conf_showVariableValue()
     printf "${mseReturn#${3}=}"
   fi
 }
+MSE_GLOBAL_CMD["show variableValue"]="mse_conf_showVariableValue"
 mse_conf_showVariableValue_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -2319,6 +2394,7 @@ mse_conf_showVariables()
   MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
   mse_file_read "$1" 0 "$mseShowLineNumber"
 }
+MSE_GLOBAL_CMD["show variables"]="mse_conf_showVariables"
 mse_conf_showVariables_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="PathToFile :: r :: fileName"
@@ -2330,117 +2406,200 @@ mse_conf_showVariables_vldtr() {
 
 # INI :: mse_font_createStyle.sh
 mse_font_createStyle() {
-  local mseUseAdvancedColorSystem
-  local mseFontAttributes
+  local mseUseColorSystem
+  local mseAttributes
   local mseBGColor
   local mseFGColor
   local mseReturnLikeCode
+  local mseTmpCanSet=0
+  local mseTmpATCode="${2^^}"
+  local mseTmpBGCode="${3^^}"
+  local mseTmpFGCode="${4^^}"
   local i
   local mseLength
   local mseUParam
   local mseIsCode
   local mseIsCheck
-  if [ "$#" -ge 4 ]; then
-    mseUseAdvancedColorSystem="0"
-    mseBGColor="49"
-    mseFGColor="39"
-    if [ "$1" == "1" ]; then
-      mseUseAdvancedColorSystem="1"
-      mseBGColor="0"
-      mseFGColor="255"
-    fi
+  if [ $# -ge 4 ]; then
     mseReturnLikeCode="0"
-    if [ "$#" -ge 5 ] && [ "$5" == "1" ]; then
+    if [ $# -ge 5 ] && [ "$5" == "1" ]; then
       mseReturnLikeCode="1"
     fi
-    mseFontAttributes="20"
-    if [ "$2" != "" ]; then
-      declare mseValidAttr=()
-      mse_str_split "," "$2"
+    mseUseColorSystem="4"
+    mseBGColor="49"
+    mseFGColor="39"
+    if [ "$1" == "8" ]; then
+      mseUseColorSystem="$1"
+      mseBGColor="0"
+      mseFGColor="255"
+    elif [ "$1" == "32" ]; then
+      mseUseColorSystem="$1"
+      mseBGColor="0;0;0"
+      mseFGColor="255;255;255"
+    fi
+    if [ "$mseUseColorSystem" == "4" ]; then
+      local mseUseDark=0
+      if [ "${mseTmpBGCode:0:1}" == "D" ]; then
+        mseTmpBGCode="${mseTmpBGCode:1}"
+      fi
+      if [ "${mseTmpFGCode:0:1}" == "D" ]; then
+        mseUseDark=1
+        mseTmpFGCode="${mseTmpFGCode:1}"
+      fi
+      if [ "${mseUseDark}" == "0" ]; then
+        mseIsCode=$(mse_check_isInteger "${mseTmpFGCode}")
+        if [ "${mseIsCode}" == "1" ] && [ "${mseTmpFGCode}" -gt 200 ]; then
+          mseUseDark=1
+          ((mseTmpFGCode=mseTmpFGCode-200))
+        fi
+      fi
+      if [ "${mseUseDark}" == "1" ]; then
+        if [ "${mseTmpATCode}" != "" ]; then
+          mseTmpATCode+=","
+        fi
+        mseTmpATCode+="DARK"
+      fi
+    fi
+    mseAttributes="20"
+    if [ "$mseTmpATCode" != "" ]; then
+      declare -a mseValidAttr
+      local mseTmpAttr
+      mse_str_split "," "${mseTmpATCode}"
       for mseUParam in "${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"; do
-        mseUParam=$(mse_str_trim "${mseUParam}")
-        mseIsCode=$(mse_check_isInteger "${mseUParam}")
-        if [ "${mseIsCode}" == "1" ]; then
-          mseIsCheck=$(mse_check_hasValueInArray "${mseUParam}" "MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES")
-          if [ "${mseIsCheck}" == "1" ]; then
-              mseValidAttr+=("${mseUParam}")
-          fi
-        else
-          mseLength=${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}
-          for (( i=0; i<mseLength; i++)); do
-            if [ "${mseUParam^^}" == "${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}" ]; then
-              mseValidAttr+=("${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES[$i]}")
+        if [ "${mseUParam}" != "" ]; then
+          mseTmpAttr=""
+          mseUParam=$(mse_str_trim "${mseUParam}")
+          mseIsCode=$(mse_check_isInteger "${mseUParam}")
+          if [ "${mseIsCode}" == "1" ]; then
+            mseIsCheck=$(mse_check_hasValueInArray "${mseUParam}" "MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES")
+            if [ "${mseIsCheck}" == "1" ]; then
+              mseTmpAttr="${mseUParam}"
             fi
-          done
+          else
+            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}
+            for (( i=0; i<mseLength; i++)); do
+              if [ "${mseUParam}" == "${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}" ]; then
+                mseTmpAttr="${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES[$i]}"
+                break
+              fi
+            done
+          fi
+          if [ "${mseTmpAttr}" != "" ]; then
+            mseIsCheck=$(mse_check_hasValueInArray "${mseTmpAttr}" "mseValidAttr")
+            if [ "${mseIsCheck}" == "0" ]; then
+              mseValidAttr+=("${mseTmpAttr}")
+            fi
+          fi
         fi
       done
       if [ "${#mseValidAttr[@]}" -ge "1" ]; then
-        mseFontAttributes=$(mse_str_join ";" "mseValidAttr")
+        mseAttributes=$(mse_str_join ";" "mseValidAttr")
       fi
     fi
-    if [ "$3" != "" ]; then
-      mseIsCode=$(mse_check_isInteger "${3}")
-      if [ "${mseUseAdvancedColorSystem}" == "0" ]; then
-        if [ "${mseIsCode}" == "1" ]; then
-          mseIsCheck=$(mse_check_hasValueInArray "${3}" "MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES")
-          if [ "${mseIsCheck}" == "1" ]; then
-              mseBGColor="${3}"
-          fi
-        else
-          mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
-          for (( i=0; i<mseLength; i++)); do
-            if [ "${3^^}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
-              mseBGColor="${MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES[$i]}"
+    if [ "$mseTmpBGCode" != "" ]; then
+      mseIsCode=$(mse_check_isInteger "${mseTmpBGCode}")
+      case "${mseUseColorSystem}" in
+        4)
+          if [ "${mseIsCode}" == "1" ]; then
+            mseIsCheck=$(mse_check_hasValueInArray "${mseTmpBGCode}" "MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES")
+            if [ "${mseIsCheck}" == "1" ]; then
+                mseBGColor="${mseTmpBGCode}"
             fi
-          done
-        fi
-      else
-        if [ "${mseIsCode}" == "1" ]; then
-          if [ "${3}" -ge 0 ] && [ "${3}" -le 255 ]; then
-            mseBGColor="48;5;${3}"
+          else
+            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+            for (( i=0; i<mseLength; i++)); do
+              if [ "${mseTmpBGCode}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
+                mseBGColor="${MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES[$i]}"
+                break
+              fi
+            done
           fi
-        fi
-      fi
+        ;;
+        8)
+          if [ "${mseIsCode}" == "1" ]; then
+            if [ "${mseTmpBGCode}" -ge 0 ] && [ "${mseTmpBGCode}" -le 255 ]; then
+              mseBGColor="48;5;${mseTmpBGCode}"
+            fi
+          fi
+        ;;
+        32)
+          mse_str_split ";" "${mseTmpBGCode}"
+          if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" == "3" ]; then
+            local mseIsValid=1
+            for mseUParam in "${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"; do
+              mseIsCode=$(mse_check_isInteger "${mseUParam}")
+              if [ "${mseIsCode}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
+                mseIsValid=0
+              fi
+            done
+            if [ "${mseIsValid}" == "1" ]; then
+              mseBGColor="48;2;${mseTmpBGCode}"
+            fi
+          fi
+        ;;
+      esac
     fi
-    if [ "$4" != "" ]; then
-      mseIsCode=$(mse_check_isInteger "${4}")
-      if [ "${mseUseAdvancedColorSystem}" == "0" ]; then
-        if [ "${mseIsCode}" == "1" ]; then
-          mseIsCheck=$(mse_check_hasValueInArray "${4}" "MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES")
-          if [ "${mseIsCheck}" == "1" ]; then
-              mseFGColor="${4}"
-          fi
-        else
-          mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
-          for (( i=0; i<mseLength; i++)); do
-            if [ "${4^^}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
-              mseFGColor="${MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES[$i]}"
+    if [ "$mseTmpFGCode" != "" ]; then
+      mseIsCode=$(mse_check_isInteger "${mseTmpFGCode}")
+      case "${mseUseColorSystem}" in
+        4)
+          if [ "${mseIsCode}" == "1" ]; then
+            mseIsCheck=$(mse_check_hasValueInArray "${mseTmpFGCode}" "MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES")
+            if [ "${mseIsCheck}" == "1" ]; then
+              mseFGColor="${mseTmpFGCode}"
             fi
-          done
-        fi
-      else
-        if [ "${mseIsCode}" == "1" ]; then
-          if [ "${4}" -ge 0 ] && [ "${4}" -le 255 ]; then
-            mseFGColor="38;5;${4}"
+          else
+            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+            for (( i=0; i<mseLength; i++)); do
+              if [ "${mseTmpFGCode}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
+                mseFGColor="${MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES[$i]}"
+                break
+              fi
+            done
           fi
-        fi
-      fi
+        ;;
+        8)
+          if [ "${mseIsCode}" == "1" ]; then
+            if [ "${mseTmpFGCode}" -ge 0 ] && [ "${mseTmpFGCode}" -le 255 ]; then
+              mseFGColor="38;5;${mseTmpFGCode}"
+            fi
+          fi
+        ;;
+        32)
+          mse_str_split ";" "${mseTmpFGCode}"
+          if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" == "3" ]; then
+            local mseIsValid=1
+            for mseUParam in "${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"; do
+              mseIsCode=$(mse_check_isInteger "${mseUParam}")
+              if [ "${mseIsCode}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
+                mseIsValid=0
+              fi
+            done
+            if [ "${mseIsValid}" == "1" ]; then
+              mseFGColor="38;2;${mseTmpFGCode}"
+            fi
+          fi
+        ;;
+      esac
     fi
     if [ "${mseReturnLikeCode}" == "1" ]; then
-      printf "\e[%s;%s;%sm" "${mseFontAttributes}" "${mseBGColor}" "${mseFGColor}"
+      printf "\e[%s;%s;%sm" "${mseAttributes}" "${mseBGColor}" "${mseFGColor}"
     else
-      printf "e[%s;%s;%sm" "${mseFontAttributes}" "${mseBGColor}" "${mseFGColor}"
+      printf "e[%s;%s;%sm" "${mseAttributes}" "${mseBGColor}" "${mseFGColor}"
     fi
   fi
 }
+MSE_GLOBAL_CMD["createStyle"]="mse_font_createStyle"
 mse_font_createStyle_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="UseAdvancedColorSystem :: r :: bool :: 1"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="FontAttributes :: r :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="BOLD, DIM, UNDERLINE, BLINK, INVERT, HIDDEN, NONE, RBOLD, RDIM, RUNDERLINE, RBLINK, RINVERT, RHIDDEN"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="1, 2, 4, 5, 7, 8, 20, 21, 22, 24, 25, 27, 28"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BGColor :: r :: int :: 0 :: 0 :: 255"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="FGColor :: r :: int :: 0 :: 0 :: 255"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="UseColorSystem :: r :: list :: 4"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="Attributes :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="BOLD, DARK, ITALIC, UNDERLINE, BLINKS, BLINKF, REVERSE, HIDE, STRIKE, NONE, RBOLD, RDARK, RITALIC, RUNDERLINE, RBLINKS, RBLINKF, RREVERSE, RHIDE, RSTRIKE"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BGColor :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="FGColor :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="ReturnLikeCode :: o :: bool :: 0"
 }
 # END :: mse_font_createStyle.sh
@@ -2483,6 +2642,7 @@ mse_font_showAttributes() {
   mseRawTable=$(printf "${mseRawTable}")
   column -e -t -s ":" <<< "${mseRawTable}"
 }
+MSE_GLOBAL_CMD["show attributes"]="mse_font_showAttributes"
 mse_font_showAttributes_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Format :: o :: list :: list"
@@ -2493,118 +2653,267 @@ mse_font_showAttributes_vldtr() {
 # END :: mse_font_showAttributes.sh
 
 
+# INI :: mse_font_showCharacters.sh
+mse_font_showCharacters() {
+  local mseOutputType
+  local mseIniCode
+  local mseEndCode
+  local mseCheck
+  mseOutputType="table"
+  case "${1}" in
+    table | char | code)
+      mseOutputType="${1}"
+    ;;
+  esac
+  mseIniCode=33
+  if [ $# -ge 2 ]; then
+    mseCheck=$(mse_check_isInteger "$2")
+    if [ "${mseCheck}" == 1 ] && [ "$2" -ge 33 ] && [ "$2" -le 255 ]; then
+      mseIniCode="$2"
+    fi
+  fi
+  mseEndCode=255
+  if [ $# -ge 3 ]; then
+    mseCheck=$(mse_check_isInteger "$3")
+    if [ "${mseCheck}" == 1 ] && [ "$3" -ge 33 ] && [ "$3" -le 255 ]; then
+      mseEndCode="$3"
+    fi
+  fi
+  if [ "${mseIniCode}" -gt "${mseEndCode}" ]; then
+    mseIniCode="$3"
+    mseEndCode="$2"
+  fi
+  if [ $mseOutputType == "table" ] || [ $mseOutputType == "char" ]; then
+    if [ $mseOutputType == "table" ]; then
+      printf "\n      ";
+      for x in {0..15}; do
+        printf "%-3x" $x;
+      done;
+      printf "\n%46s\n" | sed 's/ /-/g;s/^/      /';
+    fi
+    if [ $mseOutputType == "table" ]; then
+      c=$(printf "fa" | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
+      printf "%32s" | sed 's/../'"$c"'  /g;s/^/  0   /;s/$/\n/'
+      printf "%32s" | sed 's/../'"$c"'  /g;s/^/  1   /'
+    fi
+    for x in {32..255}; do
+      (( x % 16 == 0 )) && printf "\n"
+      if [ $mseOutputType == "table" ]; then
+        n=$(expr $x % 15) || true
+        (( (x % 16) == 0 )) && printf "%-4x" $n | sed 's/0/f/;s/^/  /'
+      fi
+      printf "%02x" $x | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8' | sed 's/.*/&  /'
+      if [ $mseOutputType == "table" ]; then
+        (( x == 127 )) && printf "%46s" | sed 's/ /-/g;s/^/      /;i\ '
+      fi
+    done
+    if [ $mseOutputType == "table" ]; then
+      printf "%46s" | sed 's/ /-/g;s/^/\n      /;s/$/\n      /';
+      for x in {0..15}; do
+        printf "%-3x" $x;
+      done;
+    fi
+    printf "\n"
+  else
+    local i
+    local mseLine
+    local mseRawTable
+    local mseHasTwoDots=0
+    local mseChar
+    local mseCDec
+    local mseCHex
+    local mseCOct
+    mseRawTable="Index:Char:Decimal:Hex:Octal\n"
+    for (( i=mseIniCode; i<=mseEndCode; i++ )); do
+      if [ $i == 37 ]; then
+        mseLine="37:%%:37:25:045"
+      elif [ $i == 42 ]; then
+        mseLine="42:*:42:2A:052"
+      else
+        mseChar=$(printf "%02x" $i | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
+        mseCDec=$(mse_str_convert_charToDecimal $mseChar 1)
+        mseCHex=$(mse_str_convert_charToHex $mseChar 1)
+        mseCOct=$(mse_str_convert_charToOctal $mseChar 1)
+        if [ "${mseChar}" == ":" ]; then
+          mseChar="[[TWODOTS]]"
+          mseHasTwoDots=1
+        fi
+        mseLine="$i:${mseChar}:${mseCDec}:${mseCHex}:${mseCOct}"
+      fi
+      mseRawTable+="${mseLine}\n"
+    done
+    printf "\n"
+    mseRawTable=$(printf "${mseRawTable}")
+    mseRawTable=$(column -e -t -s ":" <<< "${mseRawTable}")
+    if [ "${mseHasTwoDots}" == 1 ]; then
+      local oIFS=$IFS
+      local mseLineRaw
+      while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
+        if [[ "${mseLineRaw}" =~ "[[TWODOTS]]" ]]; then
+          mseLineRaw=$(mse_str_replacePlaceHolder "${mseLineRaw}" "TWODOTS" ":          ")
+        fi
+        printf "%s\n" "${mseLineRaw}"
+      done <<< "$mseRawTable"
+      IFS=$oIFS
+    else
+      printf "${mseRawTable}\n"
+    fi
+    printf "\n"
+  fi
+}
+MSE_GLOBAL_CMD["show characters"]="mse_font_showCharacters"
+mse_font_showCharacters_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="ReturnFormat :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="table, char, code"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="table, char, code"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="StartCharCode :: o :: int :: :: 33 :: 255"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="LastCharCode :: o :: int :: :: 33 :: 255"
+}
+# END :: mse_font_showCharacters.sh
+
+
 # INI :: mse_font_showColors.sh
 mse_font_showColors() {
+  local mseUseColorSystem
   local mseTableType
-  local mseColorSet
   local mseItensPerLine
   local mseItensPerLineIsSet
   local mseCheck
+  mseUseColorSystem="4"
+  if [ $# -ge 1 ]; then
+    if [ "$1" == "8" ] || [ "$1" == "32" ]; then
+      mseUseColorSystem="$1"
+    fi
+  fi
   mseTableType="fg"
-  if [ "$#" -ge 1 ]; then
-    if [ "$1" == "fg" ] || [ "$1" == "bg" ]; then
-      mseTableType="$1"
+  if [ $# -ge 2 ]; then
+    if [ "$2" == "bg" ]; then
+      mseTableType="bg"
     fi
   fi
-  mseColorSet="16"
-  if [ "$#" -ge 2 ]; then
-    mseCheck="$(mse_check_isInteger $2)"
-    if [ "${mseCheck}" == "0" ] || [ "$2" -le "16" ]; then
-      mseTableType="fg"
-    else
-      mseColorSet="$2"
-    fi
-  fi
-  mseItensPerLine="12"
+  mseItensPerLine=12
   mseItensPerLineIsSet="4"
-  if [ "$#" -ge 3 ]; then
+  if [ $# -ge 3 ]; then
     mseCheck="$(mse_check_isInteger $3)"
     if [ "${mseCheck}" == "1" ]; then
       if [ "$3" -le 4 ]; then
         mseItensPerLine="4"
       else
         mseItensPerLine="$3"
-        mseItensPerLineIsSet="0"
       fi
+      mseItensPerLineIsSet="0"
     fi
   fi
-  if [ "$mseColorSet" == "16" ]; then
-    local i
-    local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
-    local mseColorName
-    local mseColorRaw
-    local mseColorVar
-    local mseColorCod
-    local mseLine
-    local mseRawTable
-    mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
-    for (( i=0; i<mseLength; i++)); do
-      mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
-      mseColorRaw=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
-      mseColorVar="mse${mseColorRaw}"
-      mseColorCod="\\${!mseColorVar}"
-      mseLine="${mseColorName}:${mseColorRaw}:${mseColorCod}:${!mseColorVar}myShellEnv${mseNONE} \n"
-      mseRawTable+="${mseLine}"
-    done
-    printf "\n"
-    mseRawTable=$(printf "${mseRawTable}")
-    mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
-    column -e -t -s ":" <<< "${mseRawTable}"
-    printf "\n"
-  elif [ "$mseColorSet" -gt "16" ]; then
-    ((mseColorSet=mseColorSet-1))
-    if [ "$mseColorSet" -ge "256" ]; then
-      mseColorSet="255"
-    fi
-    local mseColorCodeMaxLength=($(eval echo {0..$mseColorSet}))
-    local mseColorIndex
-    local mseColorNumber
-    local mseColorMod=0
-    local mseStrColorNumber
-    local mseNewLine
-    printf "\n"
-    for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
-      mseNewLine=0
-      if [ "$mseColorIndex" -lt 10 ]; then
-        mseStrColorNumber="  ${mseColorIndex}"
-      elif [ "$mseColorIndex" -lt 100 ]; then
-        mseStrColorNumber=" ${mseColorIndex}"
-      else
-        mseStrColorNumber="${mseColorIndex}"
-      fi
-      if [ "$mseTableType" == "fg" ]; then
-        printf "\e[38;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
-      elif [ "$mseTableType" == "bg" ]; then
-        printf "\e[48;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
-      fi
-      ((mseColorNumber=mseColorIndex+1))
-      ((mseColorMod=mseColorNumber % mseItensPerLine))
-      if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
-        printf "\n"
-        mseNewLine=1
-      fi
-    done
-    if [ "${mseNewLine}" == 0 ]; then
+  case "${mseUseColorSystem}" in
+    4)
+      local i
+      local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+      local mseColorLabel
+      local mseColorName
+      local mseColorVarName
+      local mseColorCode
+      local mseLine
+      local mseRawTable
+      mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
+      for (( i=0; i<mseLength; i++)); do
+        mseColorLabel=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
+        mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
+        mseColorVarName="mse${mseColorName}"
+        mseColorCode="\\${!mseColorVarName}"
+        mseLine="${mseColorLabel}:${mseColorName}:${mseColorCode}:${!mseColorVarName}myShellEnv${mseNONE} \n"
+        mseRawTable+="${mseLine}"
+      done
       printf "\n"
-    fi
-    printf "\n${lbl_font_showTextColors_UseCodeExample}"
-    if [ "$mseTableType" == "fg" ]; then
-      printf "%s" "\\e[38;5;Xm"
-    elif [ "$mseTableType" == "bg" ]; then
-      printf "%s" "\\e[48;5;Xm"
-    fi
-    printf "\n\n"
-  fi
+      mseRawTable=$(printf "${mseRawTable}")
+      mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
+      column -e -t -s ":" <<< "${mseRawTable}"
+      printf "\n"
+    ;;
+    8)
+      local mseColorSet=255
+      local mseColorCodeMaxLength=($(eval echo {0..$mseColorSet}))
+      local mseColorIndex
+      local mseColorNumber=0
+      local mseColorMod=0
+      local mseStrColorNumber
+      local mseNewLine
+      printf "\n"
+      for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
+        mseNewLine=0
+        if [ "$mseColorIndex" -lt 10 ]; then
+          mseStrColorNumber="  ${mseColorIndex}"
+        elif [ "$mseColorIndex" -lt 100 ]; then
+          mseStrColorNumber=" ${mseColorIndex}"
+        else
+          mseStrColorNumber="${mseColorIndex}"
+        fi
+        if [ "$mseTableType" == "fg" ]; then
+          printf "\e[38;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+        elif [ "$mseTableType" == "bg" ]; then
+          printf "\e[48;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+        fi
+        ((mseColorNumber=mseColorIndex+1))
+        ((mseColorMod=mseColorNumber % mseItensPerLine))
+        if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
+          printf "\n"
+          mseNewLine=1
+        fi
+      done
+      if [ "${mseNewLine}" == 0 ]; then
+        printf "\n"
+      fi
+      printf "\n${lbl_font_showTextColors_UseCodeExample}"
+      if [ "$mseTableType" == "fg" ]; then
+        printf "%s" "\\e[38;5;Xm"
+      elif [ "$mseTableType" == "bg" ]; then
+        printf "%s" "\\e[48;5;Xm"
+      fi
+      printf "\n\n"
+    ;;
+  esac
 }
+MSE_GLOBAL_CMD["show colors"]="mse_font_showColors"
 mse_font_showColors_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="TableType :: o :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="fg, bg"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="fg, bg"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ColorSet :: o :: int :: 16 :: 16 :: 256"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 8"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="UseColorSystem :: r :: list :: 4"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="4, 8, 32"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TableType :: o :: list :: fg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="fg, bg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="fg, bg"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="ItensPerLine :: o :: int :: 12"
 }
 # END :: mse_font_showColors.sh
+
+
+# INI :: mse_font_showFonts.sh
+mse_font_showFonts() {
+  find / -name "*.psf*" | sort | uniq | less
+}
+MSE_GLOBAL_CMD["show fonts"]="mse_font_showFonts"
+# END :: mse_font_showFonts.sh
+
+
+# INI :: mse_font_utf8Mode.sh
+mse_font_setUTF8Mode() {
+  local mseReturn=""
+  local mseMode="check"
+  if [ $# -ge 1 ] && ([ "${1,,}" == "on" ] || [ "${1,,}" == "off" ]); then
+    mseMode="${1,,}"
+  fi
+  case "${mseMode}" in
+    on)
+      printf "\033%%G"
+    ;;
+    off)
+      printf "\033%%@"
+    ;;
+  esac
+  printf "UTF-8: ${mseMode} \u2658 \n"
+}
+MSE_GLOBAL_CMD["set UTF8Mode"]="mse_font_setUTF8Mode"
+# END :: mse_font_utf8Mode.sh
 
 
 # INI :: mse_inter_theme_default.sh
@@ -2749,31 +3058,31 @@ mse_inter_theme_default_setColorDefinition() {
     declare -gA MSE_GSPBCTC_B02_DATA
     declare -gA MSE_GSPBCTC_B02_DELIMITERS
     declare -A mseThemeColors
-    mseThemeColors["info"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
-    mseThemeColors["info_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "DGREY" "1")
-    mseThemeColors["attention"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["attention_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
-    mseThemeColors["warning"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["warning_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
-    mseThemeColors["error"]=$(mse_font_createStyle "0" "BOLD" "NONE" "RED" "1")
-    mseThemeColors["error_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "RED" "1")
-    mseThemeColors["fail"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["fail_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
-    mseThemeColors["success"]=$(mse_font_createStyle "0" "BOLD" "NONE" "GREEN" "1")
-    mseThemeColors["success_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "GREEN" "1")
-    mseThemeColors["friendly"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LGREEN" "1")
-    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LGREEN" "1")
-    mseThemeColors["ordinary"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LBLUE" "1")
-    mseThemeColors["caution"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["caution_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LYELLOW" "1")
-    mseThemeColors["important"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["important_a1"]=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LRED" "1")
-    mseThemeColors["body"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
-    mseThemeColors["b01_char"]=$(mse_font_createStyle "0" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "0" "DIM" "NONE" "WHITE" "1")
-    mseThemeColors["b01_data"]=$(mse_font_createStyle "0" "" "NONE" "WHITE" "1")
-    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "0" "BOLD" "NONE" "DGREY" "1")
+    mseThemeColors["info"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
+    mseThemeColors["info_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLACK" "1")
+    mseThemeColors["attention"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["attention_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
+    mseThemeColors["warning"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["warning_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
+    mseThemeColors["error"]=$(mse_font_createStyle "4" "BOLD" "NONE" "RED" "1")
+    mseThemeColors["error_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "RED" "1")
+    mseThemeColors["fail"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["fail_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
+    mseThemeColors["success"]=$(mse_font_createStyle "4" "BOLD" "NONE" "GREEN" "1")
+    mseThemeColors["success_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "GREEN" "1")
+    mseThemeColors["friendly"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LGREEN" "1")
+    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LGREEN" "1")
+    mseThemeColors["ordinary"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
+    mseThemeColors["caution"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
+    mseThemeColors["caution_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
+    mseThemeColors["important"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
+    mseThemeColors["important_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
+    mseThemeColors["body"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
+    mseThemeColors["b01_char"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
+    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
+    mseThemeColors["b01_data"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
     local mseMessageType
     for mseMessageType in "${!mseThemeColors[@]}"; do
       MSE_GSMCTC_B01_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
@@ -3736,12 +4045,12 @@ mse_mmod_cmd() {
     local i
     local mseOffSet=1
     local mseLength="$#"
-    local mseFunctionName="${MSE_GLOBAL_CMD[$1]}"
+    local mseFunctionName="${MSE_GLOBAL_CMD[${1^^}]}"
     if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
       local mseCmd="$1"
       for ((i=2; i<=mseLength; i++)); do
         mseCmd+=" ${!i}"
-        mseFunctionName="${MSE_GLOBAL_CMD[$mseCmd]}"
+        mseFunctionName="${MSE_GLOBAL_CMD[${mseCmd^^}]}"
         if [ "${mseFunctionName}" != "" ]; then
           mseOffSet="$i"
           break
@@ -3812,6 +4121,7 @@ mse_mmod_generateStandalone() {
     done
   fi
 }
+MSE_GLOBAL_CMD["generateStandalone"]="mse_mmod_generateStandalone"
 # END :: mse_mmod_generateStandalone.sh
 
 
@@ -3819,6 +4129,7 @@ mse_mmod_generateStandalone() {
 mse_mmod_help() {
   mse_mmod_man mse_mmod_help
 }
+MSE_GLOBAL_CMD["help"]="mse_mmod_help"
 # END :: mse_mmod_help.sh
 
 
@@ -3862,10 +4173,10 @@ mse_mmod_man() {
     local mseLength
     local mseLinePart
     local mseNewMarkup
-    local mseColorAt=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "BLUE" "1")
-    local mseColorTagName=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "BLUE" "1")
-    local mseColorTagCommom=$(mse_font_createStyle "0" "BOLD,DIM" "NONE" "LCYAN" "1")
-    local mseColorParam=$(mse_font_createStyle "1" "BOLD" "NONE" "250" "1")
+    local mseColorAt=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    local mseColorTagName=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    local mseColorTagCommom=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
+    local mseColorParam=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
     while read mseRawLine || [ -n "${mseRawLine}" ]; do
       if [ "$mseRawLine" == "# @desc" ]; then
         if [ "${mseInDescription}" == "1" ]; then
@@ -3927,6 +4238,7 @@ mse_mmod_man() {
     fi
   fi
 }
+MSE_GLOBAL_CMD["man"]="mse_mmod_man"
 # END :: mse_mmod_man.sh
 
 
@@ -3997,6 +4309,11 @@ mse_mmod_registerModule() {
     done <<< ${mseModFiles}
     MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
   fi
+  local mseKey
+  for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
+    MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
+    unset MSE_GLOBAL_CMD[$mseKey]
+  done
 }
 mse_mmod_splitAndOrderSubModules() {
   unset MSE_TMP_LIST_SUBMODULES
@@ -4077,6 +4394,7 @@ mse_mmod_searchFunction() {
     mse_mmod_showMetaData 1 1 "" "" "$1"
   fi
 }
+MSE_GLOBAL_CMD["search function"]="mse_mmod_searchFunction"
 # END :: mse_mmod_searchFunction.sh
 
 
@@ -4117,13 +4435,13 @@ mse_mmod_showMetaData() {
       msePFIndentModule="  "
       msePFIndentSubModule="     "
       msePFIndentFunction="       "
-      msePFColorModule=$(mse_font_createStyle "0" "BOLD" "NONE" "BLUE" "1")
-      msePFColorSubModule=$(mse_font_createStyle "0" "BOLD" "NONE" "BLUE" "1")
-      msePFColorFunctions=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
-      msePFColorSeparator=$(mse_font_createStyle "0" "" "NONE" "WHITE" "1")
-      msePFColorSeparatorBar=$(mse_font_createStyle "0" "DIM" "NONE" "WHITE" "1")
-      msePFColorSelectedElements=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
-      msePFColorTotalElements=$(mse_font_createStyle "0" "" "NONE" "DGREY" "1")
+      msePFColorModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+      msePFColorSubModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+      msePFColorFunctions=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      msePFColorSeparator=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+      msePFColorSeparatorBar=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
+      msePFColorSelectedElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      msePFColorTotalElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
       mseReturnData+=("")
     fi
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
@@ -4254,6 +4572,7 @@ mse_mmod_showMetaData() {
     printf "%s\n" "${mseReturnData[@]}"
   fi
 }
+MSE_GLOBAL_CMD["show metaData"]="mse_mmod_showMetaData"
 # END :: mse_mmod_showMetaData.sh
 
 
@@ -4267,6 +4586,7 @@ mse_mmod_showMetaSummary() {
   mse_inter_setCursorPosition top 1
   mse_inter_alertUser "i" "" "${lbl_showMetaSummary_moreDetails}"
 }
+MSE_GLOBAL_CMD["show metaSummary"]="mse_mmod_showMetaSummary"
 # END :: mse_mmod_showMetaSummary.sh
 
 
@@ -4381,6 +4701,7 @@ mse_mmod_showRawMetaData() {
   done
   printf "%s\n" "${mseReturn[@]}"
 }
+MSE_GLOBAL_CMD["show rawMetaData"]="mse_mmod_showRawMetaData"
 # END :: mse_mmod_showRawMetaData.sh
 
 
@@ -4413,6 +4734,7 @@ mse_mmod_uninstall() {
   fi
   return $mseCode
 }
+MSE_GLOBAL_CMD["uninstall"]="mse_mmod_uninstall"
 # END :: mse_mmod_uninstall.sh
 
 
@@ -4430,6 +4752,7 @@ mse_mmod_update() {
   fi
   return $mseCode
 }
+MSE_GLOBAL_CMD["update"]="mse_mmod_update"
 # END :: mse_mmod_update.sh
 
 
@@ -4446,11 +4769,12 @@ mse_misc_setHeader() {
   mseResult+="--------------------------------------------------------------------------------"
   echo -e "${mseResult}"
 }
+MSE_GLOBAL_CMD["set header"]="mse_misc_setHeader"
 # END :: mse_misc_setHeader.sh
 
 
-# INI :: mse_misc_sysData.sh
-mse_misc_sysData() {
+# INI :: mse_misc_showInfo.sh
+mse_misc_showInfo() {
   local mseDISTRO=`cat /etc/os-release | grep -oP -m1 '(?<=NAME=")[^"]*'`
   local mseKERNEL=`uname -r`
   local mseARCH=`uname -m`
@@ -4483,4 +4807,5 @@ mse_misc_sysData() {
   clear
   echo -e "${mseResult}"
 }
-# END :: mse_misc_sysData.sh
+MSE_GLOBAL_CMD["show info"]="mse_misc_showInfo"
+# END :: mse_misc_showInfo.sh
