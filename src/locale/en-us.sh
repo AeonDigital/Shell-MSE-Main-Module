@@ -124,6 +124,10 @@ lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this
 
 #
 # [ mmod ]
+lbl_generic_confirmActionToProceed="Confirm this action to proceed"
+lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
+lbl_generic_scriptInterruptedError=("Operation interrupted.")
+
 lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
 
 lbl_man_enterAFunction="Enter the name of a function."
@@ -143,7 +147,6 @@ lbl_update_updateSuccess="All modules has been updated"
 lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
 
 lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
-lbl_uninstall_uninstallPromptTitle="Confirm this action to proceed"
 
 lbl_uninstall_uninstallPromptMessage=()
 lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
@@ -152,9 +155,13 @@ lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
 lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
 
-lbl_uninstall_uninstallAborted="Action interrupted by the user."
 
-lbl_uninstall_uninstallError=("Operation aborted.")
 lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
 
 lbl_uninstall_uninstallSuccess="Uninstallation completed."
+
+lbl_submoduleInstall_addNew="Adding new module."
+lbl_submoduleInstall_addSuccess="The new module has been added successfully"
+lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
+lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
+lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."

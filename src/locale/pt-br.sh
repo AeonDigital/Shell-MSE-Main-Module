@@ -124,6 +124,10 @@ lbl_cf_cannotIdentifyTargetLine="Não foi possível identificar a linha alvo par
 
 #
 # [ mmod ]
+lbl_generic_confirmActionToProceed="Confirme esta ação para prosseguir"
+lbl_generic_actionAbortedByTheUser="Ação interrompida pelo usuário."
+lbl_generic_scriptInterruptedError=("Operação interrompida.")
+
 lbl_showMetaSummary_moreDetails="Para mais detalhes use a função \"mse_mmod_showMetaData\"."
 
 lbl_man_enterAFunction="Entre o nome de uma função."
@@ -143,7 +147,6 @@ lbl_update_updateSuccess="Todos os módulos foram atualizados"
 lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualizar todos os módulos [ [[ERRCODE]] ]"
 
 lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
-lbl_uninstall_uninstallPromptTitle="Confirme esta ação para prosseguir"
 
 lbl_uninstall_uninstallPromptMessage=()
 lbl_uninstall_uninstallPromptMessage+=("Esta ação não pode ser desfeita.")
@@ -152,9 +155,12 @@ lbl_uninstall_uninstallPromptMessage+=("serão perdidos permanentemente.")
 lbl_uninstall_uninstallPromptMessage+=("")
 lbl_uninstall_uninstallPromptMessage+=("Você tem certeza que deseja prosseguir?")
 
-lbl_uninstall_uninstallAborted="Ação interrompida pelo usuário."
-
-lbl_uninstall_uninstallError=("Operação abortada.")
 lbl_uninstall_uninstallErrorRemoveDir="Não foi possível remover o diretório \"myShellEnv\"."
 
-lbl_uninstall_uninstallSuccess="Desinstalação concluída."
+lbl_uninstall_uninstallSuccess="Uninstallation completed."
+
+lbl_submoduleInstall_addNew="Adicionando novo módulo."
+lbl_submoduleInstall_addSuccess="O novo módulo foi adicionado com sucesso"
+lbl_submoduleInstall_addFail="Houve uma falha inesperada ao tentar adicionar o novo módulo"
+lbl_submoduleInstall_confirmAction="Você tem certeza que deseja adicionar o submódulo [[SUBMODULE]] à sua instância do \"myShellEnv\"?"
+lbl_submoduleInstall_alreadExists="Este submódulo já está adicionado em seu \"myShellEnv\"."

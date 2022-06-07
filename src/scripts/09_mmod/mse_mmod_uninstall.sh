@@ -14,15 +14,15 @@ mse_mmod_uninstall() {
   local mseCode=0
   mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallStart}"
 
-  mse_inter_promptUser "" "" "${lbl_uninstall_uninstallPromptTitle}" "lbl_uninstall_uninstallPromptMessage" "bool"
+  mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "lbl_uninstall_uninstallPromptMessage" "bool"
 
   if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
-    mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallAborted}"
+    mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
   else
 
     rm -rf "${HOME}/.config/myShellEnv"
     if [ $? != 0 ]; then
-      mse_inter_alertUser "e" "MSE" "${lbl_uninstall_uninstallErrorRemoveDir}" "lbl_uninstall_uninstallError"
+      mse_inter_alertUser "e" "MSE" "${lbl_uninstall_uninstallErrorRemoveDir}" "lbl_generic_scriptInterruptedError"
       mseCode=1
     else
       local mseAtualShell="${SHELL##*/}"

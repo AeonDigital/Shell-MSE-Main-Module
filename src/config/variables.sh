@@ -14,6 +14,17 @@ MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc
 
 
 #
+# Array associativo que armazena os repositórios de submódulos que estão aptos
+# a serem adicionados à instância atualmente instalada.
+declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["Terminal"]="https://github.com/AeonDigital/Shell-MSE-Terminal.git"
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["UnitTest"]="https://github.com/AeonDigital/Shell-MSE-UnitTest.git"
+MSE_GLOBAL_SUBMODULES_REPOSITORIES["Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
+
+
+
+
+#
 # Registra cada módulo que está disponível dentro do ambiente atual.
 #
 # Cada novo módulo adicionado ficará armazenado no diretório "~/.config/myShellEnv"
