@@ -127,6 +127,12 @@ lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this
 lbl_generic_confirmActionToProceed="Confirm this action to proceed"
 lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
 lbl_generic_scriptInterruptedError=("Operation interrupted.")
+lbl_generic_cannotFoundConfigFile="Cannot found configuration file."
+lbl_generic_cannotSaveinFile="Cannot save."
+lbl_generic_fileNotFound="File not found in \"[[FILE]]\"."
+lbl_generic_checkConfigFile="Check if the configuration file exists."
+lbl_generic_checkPermissions="Check your permissions to proceed this operation."
+lbl_generic_save="Save."
 
 lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
 
