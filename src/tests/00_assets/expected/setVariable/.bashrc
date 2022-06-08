@@ -32,7 +32,7 @@ fi
 
 
 # [[INI-MSE_UTEST]]
-declare -A MSE_UTEST
-MSE_UTEST[first]="one"
-MSE_UTEST[second]="two"
+declare -gA MSE_UTEST
+MSE_UTEST["first"]="one"
+MSE_UTEST["second"]="two"
 # [[END-MSE_UTEST]]
