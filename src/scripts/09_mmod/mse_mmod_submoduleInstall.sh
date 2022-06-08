@@ -82,6 +82,11 @@ mse_mmod_submoduleInstall() {
 
 
             if [ "${mseExecResult}" == "1" ]; then
+              # remove qualquer alteração não comitada.
+              git -C "${mseInstallationPath}" reset –hard
+              git -C "${mseInstallationPath}" clean -fxd
+
+              # comita as alterações
               git -C "${mseInstallationPath}" add .
               git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
 

@@ -80,9 +80,16 @@ mse_mmod_submoduleUninstall() {
 
             #
             # 2. Remove totalmente o submódulo
+            # 2.1 remove qualquer alteração não comitada.
+            git -C "${mseInstallationPath}" reset –hard
+            git -C "${mseInstallationPath}" clean -fxd
+
+            # 2.2 desativa o submódulo e remove-o
             git -C "${mseInstallationPath}" submodule deinit -f -- "${mseSubmoduleName}"
             rm -rf "${mseInstallationPath}/.git/modules/${mseSubmoduleName}"
             git -C "${mseInstallationPath}" rm -f "${mseSubmoduleName}"
+
+            # 2.3 comita as alterações
             git -C "${mseInstallationPath}" add .
             git -C "${mseInstallationPath}" commit -m "Remove submodule : '${mseSubmoduleName}'"
 
