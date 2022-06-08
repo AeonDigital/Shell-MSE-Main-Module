@@ -18,7 +18,6 @@ MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc
 # a serem adicionados à instância atualmente instalada.
 declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Terminal"]="https://github.com/AeonDigital/Shell-MSE-Terminal.git"
-MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-UnitTest"]="https://github.com/AeonDigital/Shell-MSE-UnitTest.git"
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
 
 
