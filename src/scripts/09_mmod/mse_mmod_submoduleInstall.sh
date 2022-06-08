@@ -87,6 +87,8 @@ mse_mmod_submoduleInstall() {
 
               mseCode=0
               mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+
+              bash
             else
               mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
               mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
