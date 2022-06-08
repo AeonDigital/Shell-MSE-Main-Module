@@ -23,21 +23,6 @@ MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Notes"]="https://github.com/AeonDi
 
 
 #
-# Registra cada módulo que está disponível dentro do ambiente atual.
-#
-# Cada novo módulo adicionado ficará armazenado no diretório "~/.config/myShellEnv"
-# como um módulo Git.
-#
-# Cada entrada terá como chave o nome do seu próprio diretório principal ee,
-# associado a ele estará um valor booleano indicando se o mesmo deve ou não ser
-# carregado.
-# [[INI-MSE_AVAILABLE_MODULES]]
-declare -gA MSE_AVAILABLE_MODULES
-# [[END-MSE_AVAILABLE_MODULES]]
-
-
-
-#
 # Coleção de comandos que facilitam o acesso a funções do módulo
 # Neste array associativo, cada chave é uma versão abreviada da respectiva
 # função que fica armazenada na posição do valor.

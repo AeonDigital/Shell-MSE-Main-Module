@@ -1,7 +1,10 @@
+[ ] Controle de repositório local.
+    Alterar instalação para clonar sem manter vinculo com origem.
+    Criar uma função para ações 'git'
 [ ] Adicionar uma opção de Motd e instalar/atualizar o skel
 
 [ ] Diretórios XDG
 [ ] Documentação en-us?
 [ ] Notes + Auto-Forms
-[ ] TodoList
+[ ] Todo List
 [ ] Git Helper
