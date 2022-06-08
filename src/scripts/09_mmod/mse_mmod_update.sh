@@ -16,6 +16,8 @@ mse_mmod_update() {
   local mseInstallationPath="${HOME}/.config/myShellEnv"
   git -C "${mseInstallationPath}" pull
   git -C "${mseInstallationPath}" submodule update --remote
+  git -C "${mseInstallationPath}" add .
+  git -C "${mseInstallationPath}" commit -m "Updated modules and submodules"
 
   local mseCode=$#
   if [ "${mseCode}" == 0 ]; then
