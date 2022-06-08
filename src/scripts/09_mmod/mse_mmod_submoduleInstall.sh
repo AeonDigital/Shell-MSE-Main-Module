@@ -71,8 +71,6 @@ mse_mmod_submoduleInstall() {
           git -C "${mseInstallationPath}" submodule add "${mseTargetModuleURL}"
           git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleName}"
           git -C "${mseInstallationPath}" submodule update --remote
-          git -C "${mseInstallationPath}" add .
-          git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
 
           if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
             local mseExecResult
@@ -84,6 +82,9 @@ mse_mmod_submoduleInstall() {
 
 
             if [ "${mseExecResult}" == "1" ]; then
+              git -C "${mseInstallationPath}" add .
+              git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
+
               mseCode=0
               mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
             else
