@@ -149,7 +149,7 @@ lbl_cmd_commandNotFound="O comando \"[[CMD]]\" não foi encontrado."
 
 lbl_generateStandalone_moduleNotFound="Módulo não encontrado."
 lbl_update_updateStart="Atualizando todos os módulos \"myShellEnv\"."
-lbl_update_updateSuccess="Todos os módulos foram atualizados"
+lbl_update_updateSuccess="Todos os módulos e submódulos foram atualizados"
 lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualizar todos os módulos [ [[ERRCODE]] ]"
 
 lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
