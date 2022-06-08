@@ -94,6 +94,8 @@ mse_mmod_submoduleUninstall() {
             else
               mseCode=0
               mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+
+              bash
             fi
           fi
         fi
