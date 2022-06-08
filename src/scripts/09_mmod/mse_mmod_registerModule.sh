@@ -165,6 +165,13 @@ mse_mmod_registerModule() {
       unset MSE_GLOBAL_CMD["${mseKey}"]
     fi
   done
+
+
+  #
+  # Havendo um script de inicialização do módulo, executa-o
+  if [ -f "${2}/config/init.sh" ]; then
+    . "${2}/config/init.sh"
+  fi
 }
 
 
