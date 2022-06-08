@@ -15,12 +15,12 @@ mse_mmod_update() {
 
   local mseInstallationPath="${HOME}/.config/myShellEnv"
   # remove qualquer alteração não comitada.
-  git -C "${mseInstallationPath}" reset –hard
-  git -C "${mseInstallationPath}" clean -fxd
+  git -C "${mseInstallationPath}" reset –-hard
+  git -C "${mseInstallationPath}" clean -fdx
 
   # comita as alterações
   git -C "${mseInstallationPath}" pull
-  git -C "${mseInstallationPath}" submodule update
+  git -C "${mseInstallationPath}" submodule update --remote
   git -C "${mseInstallationPath}" add .
   git -C "${mseInstallationPath}" commit -m "Updated modules and submodules"
 
