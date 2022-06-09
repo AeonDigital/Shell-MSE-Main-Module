@@ -201,7 +201,7 @@ else
 
   mse_inter_alertUser "a" "MSE" "Installation success!" "mseTMPInstallMessage" ""
   rm install.sh tmp_mse_standalone.sh
-  cp "${mseTMPInstallationPath}/templates/config.sh" "${mseTMPInstallationPath}/config.sh"
+  cp "${mseTMPInstallationPath}/src/config/templates/config.sh" "${mseTMPInstallationPath}/config.sh"
 
 
 

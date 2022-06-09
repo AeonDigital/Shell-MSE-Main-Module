@@ -36,8 +36,8 @@ mse_mmod_registerModule() {
   # Havendo funções especiais para o registro, efetua
   # o load delas.
   mse_mmod_loadRegisterFunctions "$2"
-  if [ "$(type -t "mse_mod_beforeExecuteRegister")" == "function" ]; then
-    mse_mod_beforeExecuteRegister "$2"
+  if [ "$(type -t "mse_registerModule_execOnStart")" == "function" ]; then
+    mse_registerModule_execOnStart "$2"
   fi
 
 
@@ -46,8 +46,8 @@ mse_mmod_registerModule() {
 
   #
   # Carrega as legendas referentes ao locale configurado
-  if [ "$(type -t "mse_mod_beforeLoadLocale")" == "function" ]; then
-    mse_mod_beforeLoadLocale "$2"
+  if [ "$(type -t "mse_registerModule_execBeforeLoadLocale")" == "function" ]; then
+    mse_registerModule_execBeforeLoadLocale "$2"
   fi
 
   MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
@@ -56,8 +56,8 @@ mse_mmod_registerModule() {
   fi
   . "${MSE_TMP_PATH_TO_LOCALE}"
 
-  if [ "$(type -t "mse_mod_afterLoadLocale")" == "function" ]; then
-    mse_mod_afterLoadLocale "$2"
+  if [ "$(type -t "mse_registerModule_execAfterLoadLocale")" == "function" ]; then
+    mse_registerModule_execAfterLoadLocale "$2"
   fi
 
 
@@ -66,16 +66,16 @@ mse_mmod_registerModule() {
 
   #
   # Carrega as variáveis de ambiente do módulo caso um arquivo 'env.sh' esteja definido
-  if [ "$(type -t "mse_mod_beforeLoadEnv")" == "function" ]; then
-    mse_mod_beforeLoadEnv "$2"
+  if [ "$(type -t "mse_registerModule_execBeforeLoadEnv")" == "function" ]; then
+    mse_registerModule_execBeforeLoadEnv "$2"
   fi
 
   if [ -f "${2}/config/env.sh" ]; then
     . "${2}/config/env.sh"
   fi
 
-  if [ "$(type -t "mse_mod_afterLoadEnv")" == "function" ]; then
-    mse_mod_afterLoadEnv "$2"
+  if [ "$(type -t "mse_registerModule_execAfterLoadEnv")" == "function" ]; then
+    mse_registerModule_execAfterLoadEnv "$2"
   fi
 
 
@@ -84,16 +84,16 @@ mse_mmod_registerModule() {
 
   #
   # Carrega as variáveis locais do módulo caso um arquivo 'variables.sh' esteja definido
-  if [ "$(type -t "mse_mod_beforeLoadVariables")" == "function" ]; then
-    mse_mod_beforeLoadVariables "$2"
+  if [ "$(type -t "mse_registerModule_execBeforeLoadVariables")" == "function" ]; then
+    mse_registerModule_execBeforeLoadVariables "$2"
   fi
 
   if [ -f "${2}/config/variables.sh" ]; then
     . "${2}/config/variables.sh"
   fi
 
-  if [ "$(type -t "mse_mod_afterLoadVariables")" == "function" ]; then
-    mse_mod_afterLoadVariables "$2"
+  if [ "$(type -t "mse_registerModule_execAfterLoadVariables")" == "function" ]; then
+    mse_registerModule_execAfterLoadVariables "$2"
   fi
 
 
@@ -102,16 +102,16 @@ mse_mmod_registerModule() {
 
   #
   # Carrega os 'aliases' do módulo caso um arquivo 'aliases.sh' esteja definido
-  if [ "$(type -t "mse_mod_beforeLoadAliases")" == "function" ]; then
-    mse_mod_beforeLoadAliases "$2"
+  if [ "$(type -t "mse_registerModule_execBeforeLoadAliases")" == "function" ]; then
+    mse_registerModule_execBeforeLoadAliases "$2"
   fi
 
   if [ -f "${2}/config/aliases.sh" ]; then
     . "${2}/config/aliases.sh"
   fi
 
-  if [ "$(type -t "mse_mod_afterLoadAliases")" == "function" ]; then
-    mse_mod_afterLoadAliases "$2"
+  if [ "$(type -t "mse_registerModule_execAfterLoadAliases")" == "function" ]; then
+    mse_registerModule_execAfterLoadAliases "$2"
   fi
 
 
@@ -120,8 +120,8 @@ mse_mmod_registerModule() {
 
   #
   # Identifica os scripts do módulo
-  if [ "$(type -t "mse_mod_beforeLoadScripts")" == "function" ]; then
-    mse_mod_beforeLoadScripts "$2"
+  if [ "$(type -t "mse_registerModule_execBeforeLoadScripts")" == "function" ]; then
+    mse_registerModule_execBeforeLoadScripts "$2"
   fi
 
   mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
@@ -207,8 +207,8 @@ mse_mmod_registerModule() {
     MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
   fi
 
-  if [ "$(type -t "mse_mod_afterLoadScripts")" == "function" ]; then
-    mse_mod_afterLoadScripts "$2"
+  if [ "$(type -t "mse_registerModule_execAfterLoadScripts")" == "function" ]; then
+    mse_registerModule_execAfterLoadScripts "$2"
   fi
 
 
@@ -232,8 +232,8 @@ mse_mmod_registerModule() {
 
 
 
-  if [ "$(type -t "mse_mod_afterExecuteRegister")" == "function" ]; then
-    mse_mod_afterExecuteRegister "$2"
+  if [ "$(type -t "mse_registerModule_execOnEnd")" == "function" ]; then
+    mse_registerModule_execOnEnd "$2"
   fi
   mse_mmod_unloadRegisterFunctions
 }
@@ -251,8 +251,8 @@ mse_mmod_registerModule() {
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
 mse_mmod_loadRegisterFunctions() {
-  if [ -f "${1}/mod.sh" ]; then
-    . "${1}/mod.sh"
+  if [ -f "${1}/config/module/register.sh" ]; then
+    . "${1}/config/module/register.sh"
   fi
 }
 #
@@ -261,7 +261,7 @@ mse_mmod_loadRegisterFunctions() {
 # carregados.
 mse_mmod_unloadRegisterFunctions() {
   local mseFunctionName
-  for mseFunctionName in "${MSE_GLOBAL_REGISTER_FUNCTIONS[@]}"; do
+  for mseFunctionName in "${MSE_GLOBAL_MODULE_META_FUNCTIONS[@]}"; do
     unset "${mseFunctionName}"
   done
 }

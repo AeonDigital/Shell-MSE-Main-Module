@@ -13,7 +13,7 @@
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeExecuteRegister() {
+mse_registerModule_execOnStart() {
   local doNothing=""
 }
 
@@ -25,7 +25,7 @@ mse_mod_beforeExecuteRegister() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterExecuteRegister() {
+mse_registerModule_execOnEnd() {
   local doNothing=""
 }
 
@@ -39,7 +39,7 @@ mse_mod_afterExecuteRegister() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeLoadLocale() {
+mse_registerModule_execBeforeLoadLocale() {
   local doNothing=""
 }
 
@@ -51,7 +51,7 @@ mse_mod_beforeLoadLocale() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterLoadLocale() {
+mse_registerModule_execAfterLoadLocale() {
   local doNothing=""
 }
 
@@ -66,7 +66,7 @@ mse_mod_afterLoadLocale() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeLoadEnv() {
+mse_registerModule_execBeforeLoadEnv() {
   local doNothing=""
 }
 
@@ -79,7 +79,7 @@ mse_mod_beforeLoadEnv() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterLoadEnv() {
+mse_registerModule_execAfterLoadEnv() {
   local doNothing=""
 }
 
@@ -93,7 +93,7 @@ mse_mod_afterLoadEnv() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeLoadVariables() {
+mse_registerModule_execBeforeLoadVariables() {
   local doNothing=""
 }
 
@@ -105,12 +105,8 @@ mse_mod_beforeLoadVariables() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterLoadVariables() {
-  #
-  # Registra as variáveis relativas às cores disponíveis para uso
-  # Outras cores podem ser definidas. Use sempre o prefixo 'mse'
-  # para evitar conflitos com outras libs.
-  . "${1}/config/colors.sh"
+mse_registerModule_execAfterLoadVariables() {
+  local doNothing=""
 }
 
 
@@ -123,7 +119,7 @@ mse_mod_afterLoadVariables() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeLoadAliases() {
+mse_registerModule_execBeforeLoadAliases() {
   local doNothing=""
 }
 
@@ -135,7 +131,7 @@ mse_mod_beforeLoadAliases() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterLoadAliases() {
+mse_registerModule_execAfterLoadAliases() {
   local doNothing=""
 }
 
@@ -149,7 +145,7 @@ mse_mod_afterLoadAliases() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_beforeLoadScripts() {
+mse_registerModule_execBeforeLoadScripts() {
   local doNothing=""
 }
 
@@ -161,6 +157,6 @@ mse_mod_beforeLoadScripts() {
 # @param string $1
 # Caminho completo até o diretório 'src' do módulo que está
 # sendo registrado.
-mse_mod_afterLoadScripts() {
+mse_registerModule_execAfterLoadScripts() {
   local doNothing=""
 }

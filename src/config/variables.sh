@@ -32,22 +32,27 @@ declare -gA MSE_GLOBAL_CMD
 
 
 #
-# Coleção de funções que podem ser definidas em um arquivo 'mod.sh' no
-# diretório /src de um módulo contendo instruções do que deve ser feito
-# em cada etapa do seu registro.
-declare -a MSE_GLOBAL_REGISTER_FUNCTIONS=()
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeExecuteRegister")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterExecuteRegister")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadLocale")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadLocale")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadEnv")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadEnv")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadVariables")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadVariables")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadAliases")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadAliases")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadScripts")
-MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadScripts")
+# Coleção de funções que podem ser definidas em um arquivo "register.sh"
+# no diretório "/src/config/module".
+#
+# Estas funções tem o papel de auxiliar o registrador a executar sua função
+# ao carregar a iniciar cada módulo.
+#
+# Também podem estar definidas funções que auxiliam o gerador de um
+# script "standAlone" do mesmo.
+declare -a MSE_GLOBAL_MODULE_META_FUNCTIONS=()
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execOnStart")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execOnEnd")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadLocale")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadLocale")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadEnv")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadEnv")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadVariables")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadVariables")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadAliases")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadAliases")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadScripts")
+MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadScripts")
 
 
 

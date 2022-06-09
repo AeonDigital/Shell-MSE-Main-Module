@@ -85,12 +85,9 @@ mse_mmod_submoduleInstall() {
               #
               # Verifica se há um arquivo de instalação
               if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh" ]; then
-                if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
-                  unset mse_module_onInstall
-                fi
+                unset mse_module_onInstall
 
                 . "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh"
-
                 if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
                   mse_module_onInstall
                 fi
