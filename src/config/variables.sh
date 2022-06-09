@@ -31,6 +31,28 @@ declare -gA MSE_GLOBAL_CMD
 
 
 
+#
+# Coleção de funções que podem ser definidas em um arquivo 'mod.sh' no
+# diretório /src de um módulo contendo instruções do que deve ser feito
+# em cada etapa do seu registro.
+declare -a MSE_GLOBAL_REGISTER_FUNCTIONS=()
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeExecuteRegister")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterExecuteRegister")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadLocale")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadLocale")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadEnv")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadEnv")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadVariables")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadVariables")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadAliases")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadAliases")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_beforeLoadScripts")
+MSE_GLOBAL_REGISTER_FUNCTIONS+=("mse_mod_afterLoadScripts")
+
+
+
+
+
 
 #
 # Armazena todas as meta informações referentes a cada módulo, submódulo
@@ -357,19 +379,3 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
 # @return
 # Traz a string original transformada conforme indicado na descrição.
 # ---
-
-
-
-
-
-
-
-#
-# Registra as variáveis relativas às cores disponíveis para uso
-# Outras cores podem ser definidas. Use sempre o prefixo 'mse'
-# para evitar conflitos com outras libs.
-MSE_TMP_MAIN_MODULE_CONFIG_DIRECTORY=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-if [ -f "${MSE_TMP_MAIN_MODULE_CONFIG_DIRECTORY}/colors.sh" ]; then
-  . "${MSE_TMP_MAIN_MODULE_CONFIG_DIRECTORY}/colors.sh"
-fi
-unset MSE_TMP_MAIN_MODULE_CONFIG_DIRECTORY
