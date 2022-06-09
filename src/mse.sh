@@ -24,7 +24,7 @@
 #
 # Se a variável global de ativação não existe, define-a
 if [ -z ${MSE_GLOBAL_ACTIVE+x} ]; then
-  MSE_GLOBAL_ACTIVE="0"
+  MSE_GLOBAL_ACTIVE="1"
 fi
 
 
@@ -66,7 +66,7 @@ myShellEnvStart() {
       mseInstallationPath="${1}"
     fi
 
-    local msePathToConfigFile="${mseInstallationPath}/src/config.sh"
+    local msePathToConfigFile="${mseInstallationPath}/config.sh"
     local msePathToRegisterModuleFunction="${mseInstallationPath}/src/scripts/09_mmod/mse_mmod_registerModule.sh"
 
     if [ ! -f "${msePathToRegisterModuleFunction}" ]; then
