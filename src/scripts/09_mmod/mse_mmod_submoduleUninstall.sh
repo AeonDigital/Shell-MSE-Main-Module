@@ -70,26 +70,23 @@ mse_mmod_submoduleUninstall() {
           local mseExecResult
 
           unset MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]
-          mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+          mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/config.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
 
           if [ "${mseExecResult}" == "0" ]; then
-            mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+            mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
             mse_inter_alertUser "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
 
           elif [ "${mseExecResult}" == "1" ]; then
 
             #
             # 2. Remove totalmente o submódulo
-            # 2.1 remove qualquer alteração não comitada.
-            git -C "${mseInstallationPath}" reset –hard
-            git -C "${mseInstallationPath}" clean -fxd
 
-            # 2.2 desativa o submódulo e remove-o
+            # 2.1 desativa o submódulo e remove-o
             git -C "${mseInstallationPath}" submodule deinit -f -- "${mseSubmoduleName}"
             rm -rf "${mseInstallationPath}/.git/modules/${mseSubmoduleName}"
             git -C "${mseInstallationPath}" rm -f "${mseSubmoduleName}"
 
-            # 2.3 comita as alterações
+            # 2.2 comita as alterações
             git -C "${mseInstallationPath}" add .
             git -C "${mseInstallationPath}" commit -m "Remove submodule : '${mseSubmoduleName}'"
 

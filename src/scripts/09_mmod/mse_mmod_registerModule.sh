@@ -169,8 +169,8 @@ mse_mmod_registerModule() {
 
   #
   # Havendo um script de inicialização do módulo, executa-o
-  if [ -f "${2}/config/init.sh" ]; then
-    . "${2}/config/init.sh"
+  if [ -f "${2}/init.sh" ]; then
+    . "${2}/init.sh"
   fi
 }
 

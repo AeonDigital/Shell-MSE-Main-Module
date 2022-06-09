@@ -68,19 +68,6 @@ mse_mmod_generateStandalone() {
 
 
 
-    #
-    # Configura o leitor de arquivos para ignorar as linhas
-    # contendo comentários
-    mse_file_read_resetConfig
-
-    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isComment"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args"]=""
-    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]=""
-    MSE_GLOBAL_MODULE_READ_LINE["check_invert"]="1"
-
-    unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
-    declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("#" ";")
-
     local mseFileContent
     local mseFileStandalone="${mseModulePath}/standalone.sh"
     local mseFullFileName=$(basename -- "$rawLine")

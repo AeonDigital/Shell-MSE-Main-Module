@@ -78,14 +78,10 @@ mse_mmod_submoduleInstall() {
             # Registra o módulo como disponível e ativo
             # para que ele seja carregado junto no próximo reinicio.
             MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]=1
-            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/config.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
 
 
             if [ "${mseExecResult}" == "1" ]; then
-              # remove qualquer alteração não comitada.
-              git -C "${mseInstallationPath}" reset –hard
-              git -C "${mseInstallationPath}" clean -fxd
-
               # comita as alterações
               git -C "${mseInstallationPath}" add .
               git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
@@ -95,7 +91,7 @@ mse_mmod_submoduleInstall() {
 
               bash
             else
-              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
               mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
             fi
           else

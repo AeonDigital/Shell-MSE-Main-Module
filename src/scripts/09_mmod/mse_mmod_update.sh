@@ -14,13 +14,10 @@ mse_mmod_update() {
   mse_inter_alertUser "i" "MSE" "${lbl_update_updateStart}"
 
   local mseInstallationPath="${HOME}/.config/myShellEnv"
-  # remove qualquer alteração não comitada.
-  git -C "${mseInstallationPath}" reset –-hard
-  git -C "${mseInstallationPath}" clean -fdx
-
-  # comita as alterações
   git -C "${mseInstallationPath}" pull
   git -C "${mseInstallationPath}" submodule update --remote
+
+  # comita as alterações
   git -C "${mseInstallationPath}" add .
   git -C "${mseInstallationPath}" commit -m "Updated modules and submodules"
 
