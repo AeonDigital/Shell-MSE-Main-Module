@@ -84,10 +84,10 @@ mse_mmod_submoduleInstall() {
             if [ "${mseExecResult}" == "1" ]; then
               #
               # Verifica se há um arquivo de instalação
-              if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh" ]; then
+              if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh" ]; then
                 unset mse_module_onInstall
 
-                . "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh"
+                . "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh"
                 if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
                   mse_module_onInstall
                 fi

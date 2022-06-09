@@ -83,10 +83,10 @@ mse_mmod_submoduleUninstall() {
 
             #
             # 2.1 Verifica se há um arquivo de desinstalação
-            if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh" ]; then
+            if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh" ]; then
               unset mse_module_onUninstall
 
-              . "${mseInstallationPath}/${mseSubmoduleName}/src/install.sh"
+              . "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh"
               if [ "$(type -t "mse_module_onUninstall")" == "function" ]; then
                 mse_module_onUninstall
               fi
