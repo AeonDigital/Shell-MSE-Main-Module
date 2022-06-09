@@ -3,6 +3,26 @@
 
 
 #
+# Identifica se deve efetuar a inicialização do myShellEnv
+# [[INI-MSE_GLOBAL_ACTIVE]]
+MSE_GLOBAL_ACTIVE="1"
+# [[END-MSE_GLOBAL_ACTIVE]]
+
+
+
+
+
+#
+# Identifica o locale que deve ser usado para as mensagens do sistema.
+# [[INI-MSE_GLOBAL_MODULE_LOCALE]]
+MSE_GLOBAL_MODULE_LOCALE="en-us"
+# [[END-MSE_GLOBAL_MODULE_LOCALE]]
+
+
+
+
+
+#
 # Registra cada módulo que está disponível dentro do ambiente atual.
 #
 # Cada novo módulo adicionado ficará armazenado no diretório "~/.config/myShellEnv"

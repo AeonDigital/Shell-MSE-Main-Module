@@ -28,7 +28,7 @@ HISTFILESIZE=512
 PS1="\[\e[0;94;49m\]\$ \[\e[0;90;49m\]\u\[\e[0;94;49m\]@\[\e[0;90;49m\]\h\[\e[0;94;49m\] in \[\e[0;37;37m\]\[\e[0;90;49m\]\w \n\076\[\e[0;37;37m\]\040"
 
 # [[INI-MYSHELLENV]]
-if [ -f ~/.config/myShellEnv/src/init.sh ]; then
-  . ~/.config/myShellEnv/src/init.sh || true
+if [ -f ~/.config/myShellEnv/src/mse.sh ]; then
+  . ~/.config/myShellEnv/src/mse.sh || true
 fi
 # [[END-MYSHELLENV]]

@@ -25,8 +25,8 @@ HISTFILESIZE=512
 
 
 # [[INI-MYSHELLENV]]
-if [ -f ~/.config/myShellEnv/src/init.sh ]; then
-  . ~/.config/myShellEnv/src/init.sh || true
+if [ -f ~/.config/myShellEnv/src/mse.sh ]; then
+  . ~/.config/myShellEnv/src/mse.sh || true
 fi
 # [[END-MYSHELLENV]]
 
