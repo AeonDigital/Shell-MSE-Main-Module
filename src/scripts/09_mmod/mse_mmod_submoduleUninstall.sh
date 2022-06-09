@@ -81,12 +81,27 @@ mse_mmod_submoduleUninstall() {
             #
             # 2. Remove totalmente o submódulo
 
-            # 2.1 desativa o submódulo e remove-o
+            #
+            # 2.1 Verifica se há um arquivo de desinstalação
+            if [ -f "${mseInstallationPath}/${mseSubmoduleName}/install.sh" ]; then
+              if [ "$(type -t "mse_module_onUninstall")" == "function" ]; then
+                unset mse_module_onUninstall
+              fi
+
+              . "${mseInstallationPath}/${mseSubmoduleName}/install.sh"
+
+              if [ "$(type -t "mse_module_onUninstall")" == "function" ]; then
+                mse_module_onUninstall
+              fi
+            fi
+
+
+            # 2.2 desativa o submódulo e remove-o
             git -C "${mseInstallationPath}" submodule deinit -f -- "${mseSubmoduleName}"
             rm -rf "${mseInstallationPath}/.git/modules/${mseSubmoduleName}"
             git -C "${mseInstallationPath}" rm -f "${mseSubmoduleName}"
 
-            # 2.2 comita as alterações
+            # 2.3 comita as alterações
             git -C "${mseInstallationPath}" add .
             git -C "${mseInstallationPath}" commit -m "Remove submodule : '${mseSubmoduleName}'"
 

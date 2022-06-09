@@ -82,6 +82,21 @@ mse_mmod_submoduleInstall() {
 
 
             if [ "${mseExecResult}" == "1" ]; then
+              #
+              # Verifica se há um arquivo de instalação
+              if [ -f "${mseInstallationPath}/${mseSubmoduleName}/install.sh" ]; then
+                if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
+                  unset mse_module_onInstall
+                fi
+
+                . "${mseInstallationPath}/${mseSubmoduleName}/install.sh"
+
+                if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
+                  mse_module_onInstall
+                fi
+              fi
+
+
               # comita as alterações
               git -C "${mseInstallationPath}" add .
               git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
