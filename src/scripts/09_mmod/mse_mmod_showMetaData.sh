@@ -87,6 +87,7 @@ mse_mmod_showMetaData() {
     local mseTmpLine
     local mseAddLine
     local mseModStart=0
+    local mseModFirst=1
 
     declare -a mseReturnData=()
 
@@ -174,6 +175,12 @@ mse_mmod_showMetaData() {
             mseTmpLine+="${msePFColorTotalElements}${MSE_GLOBAL_MODULE_SPLIT_RESULT[2]}${mseNONE}"
             mseTmpLine+="${msePFColorSeparator})${mseNONE}"
 
+            if [ "${mseModFirst}" == "0" ]; then
+              mseReturnData+=("")
+              mseReturnData+=("")
+            else
+              mseModFirst=0
+            fi
 
             mseReturnData+=($(printf "${mseTmpLine}"))
 
