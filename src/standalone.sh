@@ -156,7 +156,6 @@ declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
 declare -g MSE_GLOBAL_LASTERR=""
 declare -g MSE_GLOBAL_RETURN=""
-MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
 MSE_GLOBAL_THEME_LOADED=""
 MSE_GLOBAL_PROMPT_RESULT=""
 trap mse_inter_stopSpinner EXIT
@@ -3048,6 +3047,21 @@ mse_inter_theme_default_setColorDefinition() {
       MSE_GSPBCTC_B02_DATA[$mseMessageType]=${mseThemeColors[$mseMessageType]}
       MSE_GSPBCTC_B02_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
     done
+    unset MSE_GCMCTC
+    declare -gA MSE_GCMCTC
+    MSE_GCMCTC["at"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    MSE_GCMCTC["tagName"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    MSE_GCMCTC["tagCommom"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
+    MSE_GCMCTC["param"]=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
+    unset MSE_GCSMDCTC
+    declare -gA MSE_GCSMDCTC
+    MSE_GCSMDCTC["Module"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+    MSE_GCSMDCTC["SubModule"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+    MSE_GCSMDCTC["Functions"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+    MSE_GCSMDCTC["Separator"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+    MSE_GCSMDCTC["SeparatorBar"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
+    MSE_GCSMDCTC["SelectedElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+    MSE_GCSMDCTC["TotalElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
     declare -g MSE_GLOBAL_THEME_LOADED="mse_inter_theme_default"
   fi
 }
@@ -4206,10 +4220,11 @@ mse_mmod_man() {
     local mseLength
     local mseLinePart
     local mseNewMarkup
-    local mseColorAt=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    local mseColorTagName=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    local mseColorTagCommom=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
-    local mseColorParam=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
+    "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
+    local mseColorAt=${MSE_GCMCTC[at]}
+    local mseColorTagName=${MSE_GCMCTC[tagName]}
+    local mseColorTagCommom=${MSE_GCMCTC[tagCommom]}
+    local mseColorParam=${MSE_GCMCTC[param]}
     while read mseRawLine || [ -n "${mseRawLine}" ]; do
       if [ "$mseRawLine" == "# @desc" ]; then
         if [ "${mseInDescription}" == "1" ]; then
@@ -4520,13 +4535,14 @@ mse_mmod_showMetaData() {
       msePFIndentModule="  "
       msePFIndentSubModule="     "
       msePFIndentFunction="       "
-      msePFColorModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-      msePFColorSubModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-      msePFColorFunctions=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-      msePFColorSeparator=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
-      msePFColorSeparatorBar=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
-      msePFColorSelectedElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-      msePFColorTotalElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
+      msePFColorModule=${MSE_GCSMDCTC[Module]}
+      msePFColorSubModule=${MSE_GCSMDCTC[SubModule]}
+      msePFColorFunctions=${MSE_GCSMDCTC[Functions]}
+      msePFColorSeparator=${MSE_GCSMDCTC[Separator]}
+      msePFColorSeparatorBar=${MSE_GCSMDCTC[SeparatorBar]}
+      msePFColorSelectedElements=${MSE_GCSMDCTC[SelectedElements]}
+      msePFColorTotalElements=${MSE_GCSMDCTC[TotalElements]}
       mseReturnData+=("")
     fi
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
