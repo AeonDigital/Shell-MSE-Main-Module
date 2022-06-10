@@ -261,7 +261,7 @@ mse_mmod_loadRegisterFunctions() {
 # carregados.
 mse_mmod_unloadRegisterFunctions() {
   local mseFunctionName
-  for mseFunctionName in "${MSE_GLOBAL_MODULE_META_FUNCTIONS[@]}"; do
+  for mseFunctionName in "${MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS[@]}"; do
     unset "${mseFunctionName}"
   done
 }

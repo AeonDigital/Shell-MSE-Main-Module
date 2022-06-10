@@ -20,72 +20,157 @@ mse_mmod_generateStandalone() {
   if [ -z "${MSE_GLOBAL_MODULES_PATH[$1]+x}" ]; then
     mse_inter_errorAlert "err" "${lbl_generateStandalone_moduleNotFound}"
   else
-    local rawLine
-    local mseCheck
+    local mseTargetFiles
+    local mseFilePath
 
     local mseModulePath="${MSE_GLOBAL_MODULES_PATH[$1]}"
-    declare -a mseTargetFiles=()
+    local mseFileStandalone="${mseModulePath}/standalone.sh"
+    local mseStandaloneContent=""
+    mseStandaloneContent+="#!/usr/bin/env bash\n"
+    mseStandaloneContent+="# myShellEnv v 1.0 [aeondigital.com.br]\n"
+
+
+
+    #
+    # Havendo funções especiais para a geração da versão standalone
+    mse_mmod_loadStandaloneFunctions "$mseModulePath"
+    if [ "$(type -t "mse_standalone_execOnStart")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execOnStart "$mseModulePath")
+    fi
+
+
+
+
 
     #
     # Adiciona o arquivo de locale atualmente configurado
-    mseTargetFiles+=("${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh")
+    if [ "$(type -t "mse_standalone_execBeforeLoadLocale")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execBeforeLoadLocale "$mseModulePath")
+    fi
+
+    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh")
+
+    if [ "$(type -t "mse_standalone_execAfterLoadLocale")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execAfterLoadLocale "$mseModulePath")
+    fi
+
+
+
+
 
     #
     # Adiciona o arquivo de variáveis de ambiente
-    mseTargetFiles+=("${mseModulePath}/config/env.sh")
+    if [ "$(type -t "mse_standalone_execBeforeLoadEnv")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execBeforeLoadEnv "$mseModulePath")
+    fi
+
+    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/env.sh")
+
+    if [ "$(type -t "mse_standalone_execAfterLoadEnv")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execAfterLoadEnv "$mseModulePath")
+    fi
+
+
+
+
 
     #
     # Adiciona o arquivo de variáveis locais
-    mseTargetFiles+=("${mseModulePath}/config/variables.sh")
+    if [ "$(type -t "mse_standalone_execBeforeLoadVariables")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execBeforeLoadVariables "$mseModulePath")
+    fi
+
+    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/variables.sh")
+
+    if [ "$(type -t "mse_standalone_execAfterLoadVariables")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execAfterLoadVariables "$mseModulePath")
+    fi
+
+
+
+
 
     #
     # Adiciona o arquivo de aliases
-    mseTargetFiles+=("${mseModulePath}/config/aliases.sh")
-
-    #
-    # Verifica outras configurações que possam estar disponíveis mas são
-    # particulares do módulo em questão
-    mseConfigFiles=$(find "${mseModulePath}/config" -name "*.sh" | sort -n)
-    if [ "$mseConfigFiles" != "" ]; then
-      while read rawLine; do
-        mseCheck=$(mse_check_hasValueInArray "${rawLine}" "mseTargetFiles")
-
-        if [ "${mseCheck}" == "0" ]; then
-          mseTargetFiles+=("${rawLine}")
-        fi
-      done <<< ${mseConfigFiles}
+    if [ "$(type -t "mse_standalone_execBeforeLoadAliases")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execBeforeLoadAliases "$mseModulePath")
     fi
 
+    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/aliases.sh")
+
+    if [ "$(type -t "mse_standalone_execAfterLoadAliases")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execAfterLoadAliases "$mseModulePath")
+    fi
+
+
+
+
+
+    if [ "$(type -t "mse_standalone_execBeforeLoadScripts")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execBeforeLoadScripts "$mseModulePath")
+    fi
 
     #
     # Coleta todos os scripts que o módulo dispõe
-    mseModFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
-    if [ "$mseModFiles" != "" ]; then
-      while read rawLine; do
-        mseTargetFiles+=("${rawLine}")
-      done <<< ${mseModFiles}
+    mseTargetFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
+    if [ "${mseTargetFiles}" != "" ]; then
+      while read mseFilePath; do
+        mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath})
+      done <<< ${mseTargetFiles}
+    fi
+
+    if [ "$(type -t "mse_standalone_execAfterLoadScripts")" == "function" ]; then
+      mseStandaloneContent+=$(mse_standalone_execAfterLoadScripts "$mseModulePath")
     fi
 
 
 
-    local mseFileContent
-    local mseFileStandalone="${mseModulePath}/standalone.sh"
-    local mseFullFileName=$(basename -- "$rawLine")
-
-    > "${mseFileStandalone}"
-    printf "%s\n" "#!/usr/bin/env bash" >> "${mseFileStandalone}"
-    printf "%s\n\n\n" "# myShellEnv v 1.0 [aeondigital.com.br]" >> "${mseFileStandalone}"
-
-
-    for mseFile in "${mseTargetFiles[@]}"; do
-      mseFullFileName=$(basename -- "$mseFile")
-
-      mseFileContent=$(grep -vE '^(\s*$|\s*#)' "${mseFile}")
-
-      echo -e "# INI :: ${mseFullFileName}" >> "${mseFileStandalone}"
-      printf "%s\n" "${mseFileContent}" >> "${mseFileStandalone}"
-      echo -e "# END :: ${mseFullFileName}\n\n" >> "${mseFileStandalone}"
-    done
+    printf "${mseStandaloneContent}" > "${mseFileStandalone}"
+    mse_mmod_unloadStandaloneFunctions
   fi
 }
 MSE_GLOBAL_CMD["generateStandalone"]="mse_mmod_generateStandalone"
+
+
+
+
+
+#
+# @desc
+# Verifica se, para o módulo alvo, existe um arquivo contendo as funções de
+# configurações especiais para a geração de uma versão "standalone".
+#
+# @param string $1
+# Caminho completo até o diretório 'src' do módulo alvo.
+mse_mmod_loadStandaloneFunctions() {
+  if [ -f "${1}/config/module/standalone.sh" ]; then
+    . "${1}/config/module/standalone.sh"
+  fi
+}
+#
+# @desc
+# Executa o "unset" de todas funções auxiliares.
+mse_mmod_unloadStandaloneFunctions() {
+  local mseFunctionName
+  for mseFunctionName in "${MSE_GLOBAL_STANDALONE_META_FUNCTIONS[@]}"; do
+    unset "${mseFunctionName}"
+  done
+}
+#
+# @desc
+# A partir da URL de um arquivo de script, retorna uma string contendo apenas
+# as linhas de código. Linhas comentadas e em branco serão removidas.
+# Serão adicionadas marcações especiais indicando o início e o final de cada
+# bloco de código.
+#
+# @param string $1
+# Caminho completo até o arquivo alvo.
+mse_mmod_retrieveOnlyCodeFromFile() {
+  local mseReturn=""
+  local mseFullFileName=$(basename -- "$1")
+  local mseFileContent=$(grep -vE '^(\s*$|\s*#)' "${1}")
+
+  printf "# INI :: ${mseFullFileName}\n"
+  printf "%s\n" "${mseFileContent}"
+  printf "# END :: ${mseFullFileName}\n\n"
+}

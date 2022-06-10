@@ -37,22 +37,38 @@ declare -gA MSE_GLOBAL_CMD
 #
 # Estas funções tem o papel de auxiliar o registrador a executar sua função
 # ao carregar a iniciar cada módulo.
+declare -a MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS=()
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnStart")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnEnd")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadLocale")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadLocale")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadEnv")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadEnv")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadVariables")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadVariables")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadAliases")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadAliases")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadScripts")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadScripts")
 #
-# Também podem estar definidas funções que auxiliam o gerador de um
-# script "standAlone" do mesmo.
-declare -a MSE_GLOBAL_MODULE_META_FUNCTIONS=()
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execOnStart")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execOnEnd")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadLocale")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadLocale")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadEnv")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadEnv")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadVariables")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadVariables")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadAliases")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadAliases")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadScripts")
-MSE_GLOBAL_MODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadScripts")
+# Coleção de funções que podem ser definidas em um arquivo "standalone.sh"
+# no diretório "/src/config/module".
+#
+# Estas funções tem o papel de auxiliar a gerar uma versão "standalone" do módulo
+# apontado.
+declare -a MSE_GLOBAL_STANDALONE_META_FUNCTIONS=()
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execOnStart")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execOnEnd")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadLocale")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadLocale")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadEnv")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadEnv")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadVariables")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadVariables")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadAliases")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadAliases")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadScripts")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadScripts")
 
 
 
