@@ -25,17 +25,24 @@ mse_mmod_generateStandalone() {
 
     local mseModulePath="${MSE_GLOBAL_MODULES_PATH[$1]}"
     local mseFileStandalone="${mseModulePath}/standalone.sh"
-    local mseStandaloneContent=""
-    mseStandaloneContent+="#!/usr/bin/env bash\n"
-    mseStandaloneContent+="# myShellEnv v 1.0 [aeondigital.com.br]\n"
+    declare -a mseStandaloneContent=()
+    mseStandaloneContent+=("#!/usr/bin/env bash")
+    mseStandaloneContent+=("# myShellEnv v 1.0 [aeondigital.com.br]")
 
+
+    declare -a mseTmpArr=()
+    local mseTmpLine=""
 
 
     #
     # Havendo funções especiais para a geração da versão standalone
     mse_mmod_loadStandaloneFunctions "$mseModulePath"
     if [ "$(type -t "mse_standalone_execOnStart")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execOnStart "$mseModulePath")
+      mse_standalone_execOnStart "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
@@ -45,13 +52,24 @@ mse_mmod_generateStandalone() {
     #
     # Adiciona o arquivo de locale atualmente configurado
     if [ "$(type -t "mse_standalone_execBeforeLoadLocale")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execBeforeLoadLocale "$mseModulePath")
+      mse_standalone_execBeforeLoadLocale "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
-    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh")
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
 
     if [ "$(type -t "mse_standalone_execAfterLoadLocale")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execAfterLoadLocale "$mseModulePath")
+      mse_standalone_execAfterLoadLocale "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
@@ -61,13 +79,24 @@ mse_mmod_generateStandalone() {
     #
     # Adiciona o arquivo de variáveis de ambiente
     if [ "$(type -t "mse_standalone_execBeforeLoadEnv")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execBeforeLoadEnv "$mseModulePath")
+      mse_standalone_execBeforeLoadEnv "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
-    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/env.sh")
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/env.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
 
     if [ "$(type -t "mse_standalone_execAfterLoadEnv")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execAfterLoadEnv "$mseModulePath")
+      mse_standalone_execAfterLoadEnv "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
@@ -77,13 +106,24 @@ mse_mmod_generateStandalone() {
     #
     # Adiciona o arquivo de variáveis locais
     if [ "$(type -t "mse_standalone_execBeforeLoadVariables")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execBeforeLoadVariables "$mseModulePath")
+      mse_standalone_execBeforeLoadVariables "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
-    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/variables.sh")
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/variables.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
 
     if [ "$(type -t "mse_standalone_execAfterLoadVariables")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execAfterLoadVariables "$mseModulePath")
+      mse_standalone_execAfterLoadVariables "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
@@ -93,13 +133,24 @@ mse_mmod_generateStandalone() {
     #
     # Adiciona o arquivo de aliases
     if [ "$(type -t "mse_standalone_execBeforeLoadAliases")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execBeforeLoadAliases "$mseModulePath")
+      mse_standalone_execBeforeLoadAliases "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
-    mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/aliases.sh")
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/aliases.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
 
     if [ "$(type -t "mse_standalone_execAfterLoadAliases")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execAfterLoadAliases "$mseModulePath")
+      mse_standalone_execAfterLoadAliases "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
@@ -107,7 +158,11 @@ mse_mmod_generateStandalone() {
 
 
     if [ "$(type -t "mse_standalone_execBeforeLoadScripts")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execBeforeLoadScripts "$mseModulePath")
+      mse_standalone_execBeforeLoadScripts "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
     #
@@ -115,17 +170,24 @@ mse_mmod_generateStandalone() {
     mseTargetFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
     if [ "${mseTargetFiles}" != "" ]; then
       while read mseFilePath; do
-        mseStandaloneContent+=$(mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath})
+        mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath} "mseTmpArr"
+        for mseTmpLine in "${mseTmpArr[@]}"; do
+          mseStandaloneContent+=("${mseTmpLine}")
+        done
       done <<< ${mseTargetFiles}
     fi
 
     if [ "$(type -t "mse_standalone_execAfterLoadScripts")" == "function" ]; then
-      mseStandaloneContent+=$(mse_standalone_execAfterLoadScripts "$mseModulePath")
+      mse_standalone_execAfterLoadScripts "$mseModulePath" "mseTmpArr"
+
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
     fi
 
 
 
-    printf "${mseStandaloneContent}" > "${mseFileStandalone}"
+    printf "%s\n" "${mseStandaloneContent[@]}" > "${mseFileStandalone}"
     mse_mmod_unloadStandaloneFunctions
   fi
 }
@@ -165,12 +227,27 @@ mse_mmod_unloadStandaloneFunctions() {
 #
 # @param string $1
 # Caminho completo até o arquivo alvo.
+#
+# @param string $2
+# Nome do array que será preenchido com as informações que devem ser
+# retornadas.
 mse_mmod_retrieveOnlyCodeFromFile() {
-  local mseReturn=""
   local mseFullFileName=$(basename -- "$1")
   local mseFileContent=$(grep -vE '^(\s*$|\s*#)' "${1}")
 
-  printf "# INI :: ${mseFullFileName}\n"
-  printf "%s\n" "${mseFileContent}"
-  printf "# END :: ${mseFullFileName}\n\n"
+  declare -a mseSplitArr=()
+  local mseLine
+
+  readarray -t mseSplitArr <<< "$mseFileContent"
+
+  declare -n mseTmpArrName="$2"
+  mseTmpArrName=()
+
+  mseTmpArrName+=("# INI :: ${mseFullFileName}")
+  for mseLine in "${mseSplitArr[@]}"; do
+    mseTmpArrName+=("${mseLine}")
+  done
+  mseTmpArrName+=("# END :: ${mseFullFileName}")
+  mseTmpArrName+=("")
+  mseTmpArrName+=("")
 }

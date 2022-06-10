@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # myShellEnv v 1.0 [aeondigital.com.br]
-
-
 # INI :: en-us.sh
 lbl_mmod_invalidModuleName="The module name indicated is invalid. Use the \"mse_mmod_showModules\" function to get a list of valid options. [ \"[[MODULE]]\" ]"
 lbl_inter_alert_header_info="Information"
@@ -90,7 +88,7 @@ lbl_searchFunction_enterAFunction="Enter the name of a function."
 lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
 lbl_generateStandalone_moduleNotFound="Module name not found."
 lbl_update_updateStart="Updating all \"myShellEnv\" modules."
-lbl_update_updateSuccess="All modules has been updated"
+lbl_update_updateSuccess="All modules and submodules has been updated"
 lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
 lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
 lbl_uninstall_uninstallPromptMessage=()
@@ -126,8 +124,33 @@ MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc
 declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Prompt"]="https://github.com/AeonDigital/Shell-MSE-Prompt.git"
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
-declare -gA MSE_AVAILABLE_MODULES
 declare -gA MSE_GLOBAL_CMD
+declare -a MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS=()
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnStart")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnEnd")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadLocale")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadLocale")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadEnv")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadEnv")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadVariables")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadVariables")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadAliases")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadAliases")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execBeforeLoadScripts")
+MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execAfterLoadScripts")
+declare -a MSE_GLOBAL_STANDALONE_META_FUNCTIONS=()
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execOnStart")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execOnEnd")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadLocale")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadLocale")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadEnv")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadEnv")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadVariables")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadVariables")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadAliases")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadAliases")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execBeforeLoadScripts")
+MSE_GLOBAL_STANDALONE_META_FUNCTIONS+=("mse_standalone_execAfterLoadScripts")
 declare -gA MSE_GLOBAL_MODULES_METADATA
 declare -ga MSE_GLOBAL_MODULES_METADATA_INDEXED
 declare -gA MSE_GLOBAL_MODULES_PATH
@@ -174,110 +197,12 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_args_sep"]=""
 unset MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
 declare -ga MSE_GLOBAL_MODULE_READ_TRANSFORM_ARGS_ARRAY
 MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
-if [ ! -z "${MSE_TMP_THIS_DIRECTORY+x}" ] && [ -f "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh" ]; then
-  . "${MSE_TMP_THIS_DIRECTORY}/config/colors.sh"
-fi
 # END :: variables.sh
 
 
 # INI :: aliases.sh
 alias mse="mse_mmod_cmd"
 # END :: aliases.sh
-
-
-# INI :: colors.sh
-mseNONE='\e[0m'
-mseBLACK='\e[20;47;30m'
-mseDBLACK='\e[2;47;30m'
-mseLBLACK='\e[20;47;90m'
-mseDLBLACK='\e[2;47;90m'
-mseRED='\e[20;49;31m'
-mseDRED='\e[2;49;31m'
-mseLRED='\e[20;49;91m'
-mseDLRED='\e[2;49;91m'
-mseGREEN='\e[20;49;32m'
-mseDGREEN='\e[2;49;32m'
-mseLGREEN='\e[20;49;92m'
-mseDLGREEN='\e[2;49;92m'
-mseYELLOW='\e[20;49;33m'
-mseDYELLOW='\e[2;49;33m'
-mseLYELLOW='\e[20;49;93m'
-mseDLYELLOW='\e[2;49;93m'
-mseBLUE='\e[20;49;34m'
-mseDBLUE='\e[2;49;34m'
-mseLBLUE='\e[20;49;94m'
-mseDLBLUE='\e[2;49;94m'
-msePURPLE='\e[20;49;35m'
-mseDPURPLE='\e[2;49;35m'
-mseLPURPLE='\e[20;49;95m'
-mseDLPURPLE='\e[2;49;95m'
-mseCYAN='\e[20;49;36m'
-mseDCYAN='\e[2;49;36m'
-mseLCYAN='\e[20;49;96m'
-mseDLCYAN='\e[2;49;96m'
-mseWHITE='\e[20;49;37m'
-mseDWHITE='\e[2;49;37m'
-mseLWHITE='\e[20;49;97m'
-mseDLWHITE='\e[2;49;97m'
-MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
-  'NONE'
-  'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
-  'RED'     'DRED'    'LRED'    'DLRED'
-  'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
-  'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
-  'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
-  'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
-  'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
-  'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
-)
-MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
-  'Normal'
-  'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
-  'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
-  'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
-  'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
-  'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
-  'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
-  'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
-  'White'   'White + Dark'  'White Light'   'White Light + Dark'
-)
-MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
-  '39'
-  '30' '230' '90' '290'
-  '31' '231' '91' '291'
-  '32' '232' '92' '292'
-  '33' '233' '93' '293'
-  '34' '234' '94' '294'
-  '35' '235' '95' '295'
-  '36' '236' '96' '296'
-  '37' '237' '97' '297'
-)
-MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
-  '49'
-  '40' '' '100' ''
-  '41' '' '101' ''
-  '42' '' '102' ''
-  '43' '' '103' ''
-  '44' '' '104' ''
-  '45' '' '105' ''
-  '46' '' '106' ''
-  '47' '' '107' ''
-)
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
-  'NONE'
-  'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
-  'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
-  'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
-  'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
-)
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
-  '20'
-  '1'   '2'   '3'   '4'
-  '5'   '6'   '7'   '8'   '9'
-  '21'  '22'  '23'  '24'
-  '25'  '16'  '27'  '28'  '29'
-)
-# END :: colors.sh
 
 
 # INI :: mse_check_hasKeyInAssocArray.sh
@@ -4097,52 +4022,139 @@ mse_mmod_generateStandalone() {
   if [ -z "${MSE_GLOBAL_MODULES_PATH[$1]+x}" ]; then
     mse_inter_errorAlert "err" "${lbl_generateStandalone_moduleNotFound}"
   else
-    local rawLine
-    local mseCheck
+    local mseTargetFiles
+    local mseFilePath
     local mseModulePath="${MSE_GLOBAL_MODULES_PATH[$1]}"
-    declare -a mseTargetFiles=()
-    mseTargetFiles+=("${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh")
-    mseTargetFiles+=("${mseModulePath}/config/env.sh")
-    mseTargetFiles+=("${mseModulePath}/config/variables.sh")
-    mseTargetFiles+=("${mseModulePath}/config/aliases.sh")
-    mseConfigFiles=$(find "${mseModulePath}/config" -name "*.sh" | sort -n)
-    if [ "$mseConfigFiles" != "" ]; then
-      while read rawLine; do
-        mseCheck=$(mse_check_hasValueInArray "${rawLine}" "mseTargetFiles")
-        if [ "${mseCheck}" == "0" ]; then
-          mseTargetFiles+=("${rawLine}")
-        fi
-      done <<< ${mseConfigFiles}
-    fi
-    mseModFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
-    if [ "$mseModFiles" != "" ]; then
-      while read rawLine; do
-        mseTargetFiles+=("${rawLine}")
-      done <<< ${mseModFiles}
-    fi
-    mse_file_read_resetConfig
-    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isComment"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args"]=""
-    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]=""
-    MSE_GLOBAL_MODULE_READ_LINE["check_invert"]="1"
-    unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
-    declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("#" ";")
-    local mseFileContent
     local mseFileStandalone="${mseModulePath}/standalone.sh"
-    local mseFullFileName=$(basename -- "$rawLine")
-    > "${mseFileStandalone}"
-    printf "%s\n" "#!/usr/bin/env bash" >> "${mseFileStandalone}"
-    printf "%s\n\n\n" "# myShellEnv v 1.0 [aeondigital.com.br]" >> "${mseFileStandalone}"
-    for mseFile in "${mseTargetFiles[@]}"; do
-      mseFullFileName=$(basename -- "$mseFile")
-      mseFileContent=$(grep -vE '^(\s*$|\s*#)' "${mseFile}")
-      echo -e "# INI :: ${mseFullFileName}" >> "${mseFileStandalone}"
-      printf "%s\n" "${mseFileContent}" >> "${mseFileStandalone}"
-      echo -e "# END :: ${mseFullFileName}\n\n" >> "${mseFileStandalone}"
+    declare -a mseStandaloneContent=()
+    mseStandaloneContent+=("#!/usr/bin/env bash")
+    mseStandaloneContent+=("# myShellEnv v 1.0 [aeondigital.com.br]")
+    declare -a mseTmpArr=()
+    local mseTmpLine=""
+    mse_mmod_loadStandaloneFunctions "$mseModulePath"
+    if [ "$(type -t "mse_standalone_execOnStart")" == "function" ]; then
+      mse_standalone_execOnStart "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    if [ "$(type -t "mse_standalone_execBeforeLoadLocale")" == "function" ]; then
+      mse_standalone_execBeforeLoadLocale "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
     done
+    if [ "$(type -t "mse_standalone_execAfterLoadLocale")" == "function" ]; then
+      mse_standalone_execAfterLoadLocale "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    if [ "$(type -t "mse_standalone_execBeforeLoadEnv")" == "function" ]; then
+      mse_standalone_execBeforeLoadEnv "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/env.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
+    if [ "$(type -t "mse_standalone_execAfterLoadEnv")" == "function" ]; then
+      mse_standalone_execAfterLoadEnv "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    if [ "$(type -t "mse_standalone_execBeforeLoadVariables")" == "function" ]; then
+      mse_standalone_execBeforeLoadVariables "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/variables.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
+    if [ "$(type -t "mse_standalone_execAfterLoadVariables")" == "function" ]; then
+      mse_standalone_execAfterLoadVariables "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    if [ "$(type -t "mse_standalone_execBeforeLoadAliases")" == "function" ]; then
+      mse_standalone_execBeforeLoadAliases "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    mse_mmod_retrieveOnlyCodeFromFile "${mseModulePath}/config/aliases.sh" "mseTmpArr"
+    for mseTmpLine in "${mseTmpArr[@]}"; do
+      mseStandaloneContent+=("${mseTmpLine}")
+    done
+    if [ "$(type -t "mse_standalone_execAfterLoadAliases")" == "function" ]; then
+      mse_standalone_execAfterLoadAliases "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    if [ "$(type -t "mse_standalone_execBeforeLoadScripts")" == "function" ]; then
+      mse_standalone_execBeforeLoadScripts "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    mseTargetFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
+    if [ "${mseTargetFiles}" != "" ]; then
+      while read mseFilePath; do
+        mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath} "mseTmpArr"
+        for mseTmpLine in "${mseTmpArr[@]}"; do
+          mseStandaloneContent+=("${mseTmpLine}")
+        done
+      done <<< ${mseTargetFiles}
+    fi
+    if [ "$(type -t "mse_standalone_execAfterLoadScripts")" == "function" ]; then
+      mse_standalone_execAfterLoadScripts "$mseModulePath" "mseTmpArr"
+      for mseTmpLine in "${mseTmpArr[@]}"; do
+        mseStandaloneContent+=("${mseTmpLine}")
+      done
+    fi
+    printf "%s\n" "${mseStandaloneContent[@]}" > "${mseFileStandalone}"
+    mse_mmod_unloadStandaloneFunctions
   fi
 }
 MSE_GLOBAL_CMD["generateStandalone"]="mse_mmod_generateStandalone"
+mse_mmod_loadStandaloneFunctions() {
+  if [ -f "${1}/config/module/standalone.sh" ]; then
+    . "${1}/config/module/standalone.sh"
+  fi
+}
+mse_mmod_unloadStandaloneFunctions() {
+  local mseFunctionName
+  for mseFunctionName in "${MSE_GLOBAL_STANDALONE_META_FUNCTIONS[@]}"; do
+    unset "${mseFunctionName}"
+  done
+}
+mse_mmod_retrieveOnlyCodeFromFile() {
+  local mseFullFileName=$(basename -- "$1")
+  local mseFileContent=$(grep -vE '^(\s*$|\s*#)' "${1}")
+  declare -a mseSplitArr=()
+  local mseLine
+  readarray -t mseSplitArr <<< "$mseFileContent"
+  declare -n mseTmpArrName="$2"
+  mseTmpArrName=()
+  mseTmpArrName+=("# INI :: ${mseFullFileName}")
+  for mseLine in "${mseSplitArr[@]}"; do
+    mseTmpArrName+=("${mseLine}")
+  done
+  mseTmpArrName+=("# END :: ${mseFullFileName}")
+  mseTmpArrName+=("")
+  mseTmpArrName+=("")
+}
 # END :: mse_mmod_generateStandalone.sh
 
 
@@ -4272,19 +4284,50 @@ mse_mmod_registerModule() {
   local mseSubModuleName
   local mseSubModuleMetaDataKey
   local mseSubModuleTotalFunctionCount
+  mse_mmod_loadRegisterFunctions "$2"
+  if [ "$(type -t "mse_registerModule_execOnStart")" == "function" ]; then
+    mse_registerModule_execOnStart "$2"
+  fi
+  if [ "$(type -t "mse_registerModule_execBeforeLoadLocale")" == "function" ]; then
+    mse_registerModule_execBeforeLoadLocale "$2"
+  fi
   MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
   if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
     MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
   fi
   . "${MSE_TMP_PATH_TO_LOCALE}"
+  if [ "$(type -t "mse_registerModule_execAfterLoadLocale")" == "function" ]; then
+    mse_registerModule_execAfterLoadLocale "$2"
+  fi
+  if [ "$(type -t "mse_registerModule_execBeforeLoadEnv")" == "function" ]; then
+    mse_registerModule_execBeforeLoadEnv "$2"
+  fi
   if [ -f "${2}/config/env.sh" ]; then
     . "${2}/config/env.sh"
+  fi
+  if [ "$(type -t "mse_registerModule_execAfterLoadEnv")" == "function" ]; then
+    mse_registerModule_execAfterLoadEnv "$2"
+  fi
+  if [ "$(type -t "mse_registerModule_execBeforeLoadVariables")" == "function" ]; then
+    mse_registerModule_execBeforeLoadVariables "$2"
   fi
   if [ -f "${2}/config/variables.sh" ]; then
     . "${2}/config/variables.sh"
   fi
+  if [ "$(type -t "mse_registerModule_execAfterLoadVariables")" == "function" ]; then
+    mse_registerModule_execAfterLoadVariables "$2"
+  fi
+  if [ "$(type -t "mse_registerModule_execBeforeLoadAliases")" == "function" ]; then
+    mse_registerModule_execBeforeLoadAliases "$2"
+  fi
   if [ -f "${2}/config/aliases.sh" ]; then
     . "${2}/config/aliases.sh"
+  fi
+  if [ "$(type -t "mse_registerModule_execAfterLoadAliases")" == "function" ]; then
+    mse_registerModule_execAfterLoadAliases "$2"
+  fi
+  if [ "$(type -t "mse_registerModule_execBeforeLoadScripts")" == "function" ]; then
+    mse_registerModule_execBeforeLoadScripts "$2"
   fi
   mseModFiles=$(find "$2/scripts" -name "*.sh" | sort -n)
   if [ "$mseModFiles" != "" ]; then
@@ -4330,12 +4373,30 @@ mse_mmod_registerModule() {
     done <<< ${mseModFiles}
     MSE_GLOBAL_MODULES_METADATA["${mseModuleMetaDataKey}"]="${mseModuleTotalFunctionCount}"
   fi
+  if [ "$(type -t "mse_registerModule_execAfterLoadScripts")" == "function" ]; then
+    mse_registerModule_execAfterLoadScripts "$2"
+  fi
   local mseKey
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
     if [ "${mseKey}" != "${mseKey^^}" ]; then
       MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
       unset MSE_GLOBAL_CMD["${mseKey}"]
     fi
+  done
+  if [ "$(type -t "mse_registerModule_execOnEnd")" == "function" ]; then
+    mse_registerModule_execOnEnd "$2"
+  fi
+  mse_mmod_unloadRegisterFunctions
+}
+mse_mmod_loadRegisterFunctions() {
+  if [ -f "${1}/config/module/register.sh" ]; then
+    . "${1}/config/module/register.sh"
+  fi
+}
+mse_mmod_unloadRegisterFunctions() {
+  local mseFunctionName
+  for mseFunctionName in "${MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS[@]}"; do
+    unset "${mseFunctionName}"
   done
 }
 mse_mmod_splitAndOrderSubModules() {
@@ -4442,6 +4503,7 @@ mse_mmod_showMetaData() {
     local mseTmpLine
     local mseAddLine
     local mseModStart=0
+    local mseModFirst=1
     declare -a mseReturnData=()
     local oIFS=$IFS
     IFS=$'\n'
@@ -4505,6 +4567,12 @@ mse_mmod_showMetaData() {
             mseTmpLine+="${msePFColorSeparatorBar}/${mseNONE}"
             mseTmpLine+="${msePFColorTotalElements}${MSE_GLOBAL_MODULE_SPLIT_RESULT[2]}${mseNONE}"
             mseTmpLine+="${msePFColorSeparator})${mseNONE}"
+            if [ "${mseModFirst}" == "0" ]; then
+              mseReturnData+=("")
+              mseReturnData+=("")
+            else
+              mseModFirst=0
+            fi
             mseReturnData+=($(printf "${mseTmpLine}"))
             mseRawSubModuleData=$(mse_mmod_showRawMetaData 0 1 0 "${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}" "${mseFilterSubModules}" "${mseFilterFunctions}")
             if [ "${mseRawSubModuleData}" != "" ]; then
@@ -4769,17 +4837,25 @@ mse_mmod_submoduleInstall() {
           git -C "${mseInstallationPath}" submodule add "${mseTargetModuleURL}"
           git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleName}"
           git -C "${mseInstallationPath}" submodule update --remote
-          git -C "${mseInstallationPath}" add .
-          git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
           if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
             local mseExecResult
             MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]=1
-            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+            mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/config.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
             if [ "${mseExecResult}" == "1" ]; then
+              if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh" ]; then
+                unset mse_module_onInstall
+                . "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh"
+                if [ "$(type -t "mse_module_onInstall")" == "function" ]; then
+                  mse_module_onInstall
+                fi
+              fi
+              git -C "${mseInstallationPath}" add .
+              git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
               mseCode=0
               mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+              bash
             else
-              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+              mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
               mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
             fi
           else
@@ -4859,11 +4935,18 @@ mse_mmod_submoduleUninstall() {
         else
           local mseExecResult
           unset MSE_AVAILABLE_MODULES["${mseSubmoduleName}"]
-          mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/src/config/variables.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
+          mseExecResult=$(mse_conf_setVariable "${mseInstallationPath}/config.sh" "#" "0" "" "a" "MSE_AVAILABLE_MODULES" "MSE_AVAILABLE_MODULES" "")
           if [ "${mseExecResult}" == "0" ]; then
-            mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/src/config/variables.sh")
+            mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
             mse_inter_alertUser "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
           elif [ "${mseExecResult}" == "1" ]; then
+            if [ -f "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh" ]; then
+              unset mse_module_onUninstall
+              . "${mseInstallationPath}/${mseSubmoduleName}/src/config/module/install.sh"
+              if [ "$(type -t "mse_module_onUninstall")" == "function" ]; then
+                mse_module_onUninstall
+              fi
+            fi
             git -C "${mseInstallationPath}" submodule deinit -f -- "${mseSubmoduleName}"
             rm -rf "${mseInstallationPath}/.git/modules/${mseSubmoduleName}"
             git -C "${mseInstallationPath}" rm -f "${mseSubmoduleName}"
@@ -4874,6 +4957,7 @@ mse_mmod_submoduleUninstall() {
             else
               mseCode=0
               mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+              bash
             fi
           fi
         fi
@@ -4928,6 +5012,9 @@ mse_mmod_update() {
   mse_inter_alertUser "i" "MSE" "${lbl_update_updateStart}"
   local mseInstallationPath="${HOME}/.config/myShellEnv"
   git -C "${mseInstallationPath}" pull
+  git -C "${mseInstallationPath}" submodule update --remote
+  git -C "${mseInstallationPath}" add .
+  git -C "${mseInstallationPath}" commit -m "Updated modules and submodules"
   local mseCode=$#
   if [ "${mseCode}" == 0 ]; then
     mse_inter_alertUser "s" "MSE" "${lbl_update_updateSuccess}"
