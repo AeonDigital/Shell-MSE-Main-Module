@@ -31,7 +31,6 @@ MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
 
 
 
-
 #
 # Registra cada módulo que está disponível dentro do ambiente atual.
 #
