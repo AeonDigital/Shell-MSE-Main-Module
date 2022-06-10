@@ -681,8 +681,11 @@ mse_inter_theme_default_createProgressBar() {
 
 #
 # Define as cores a serem usadas para este tema.
-# Para isto, preenche os arrays associativos 'MSE_GSMCTC' descritos
-# na documentação
+# Para isto, preenche os arrays associativos:
+#   - MSE_GSMCTC    : MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_COLOR
+#   - MSE_GSPBCTC   : MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG_THEME_COLOR
+#   - MSE_GCMCTC    : MSE_GLOBAL_COMMAND_MAN_CONFIG_THEME_COLOR
+#   - MSE_GCSMDCTC  : MSE_GLOBAL_COMMAND_SHOWMETADATA_CONFIG_THEME_COLOR
 mse_inter_theme_default_setColorDefinition() {
 
 
@@ -859,6 +862,35 @@ mse_inter_theme_default_setColorDefinition() {
       MSE_GSPBCTC_B02_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
     done
 
+
+
+
+
+    #
+    # Reseta e redefine as cores usadas para o comando "man"
+    unset MSE_GCMCTC
+    declare -gA MSE_GCMCTC
+
+    MSE_GCMCTC["at"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    MSE_GCMCTC["tagName"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
+    MSE_GCMCTC["tagCommom"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
+    MSE_GCMCTC["param"]=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
+
+
+
+    #
+    # Reseta e redefine as cores usadas para o comando "showMetaData"
+    unset MSE_GCSMDCTC
+    declare -gA MSE_GCSMDCTC
+
+    MSE_GCSMDCTC["Module"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+    MSE_GCSMDCTC["SubModule"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
+    MSE_GCSMDCTC["Functions"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+
+    MSE_GCSMDCTC["Separator"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
+    MSE_GCSMDCTC["SeparatorBar"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
+    MSE_GCSMDCTC["SelectedElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+    MSE_GCSMDCTC["TotalElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
 
 
     #

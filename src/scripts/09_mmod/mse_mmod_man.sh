@@ -94,10 +94,14 @@ mse_mmod_man() {
     local mseLinePart
     local mseNewMarkup
 
-    local mseColorAt=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    local mseColorTagName=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    local mseColorTagCommom=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
-    local mseColorParam=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
+
+    #
+    # Inicia a coloração dos elementos.
+    "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
+    local mseColorAt=${MSE_GCMCTC[at]}
+    local mseColorTagName=${MSE_GCMCTC[tagName]}
+    local mseColorTagCommom=${MSE_GCMCTC[tagCommom]}
+    local mseColorParam=${MSE_GCMCTC[param]}
 
 
     while read mseRawLine || [ -n "${mseRawLine}" ]; do

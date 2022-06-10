@@ -114,14 +114,17 @@ mse_mmod_showMetaData() {
       msePFIndentSubModule="     "
       msePFIndentFunction="       "
 
-      msePFColorModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-      msePFColorSubModule=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-      msePFColorFunctions=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      #
+      # Inicia a coloração dos elementos.
+      "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
+      msePFColorModule=${MSE_GCSMDCTC[Module]}
+      msePFColorSubModule=${MSE_GCSMDCTC[SubModule]}
+      msePFColorFunctions=${MSE_GCSMDCTC[Functions]}
 
-      msePFColorSeparator=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
-      msePFColorSeparatorBar=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
-      msePFColorSelectedElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-      msePFColorTotalElements=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
+      msePFColorSeparator=${MSE_GCSMDCTC[Separator]}
+      msePFColorSeparatorBar=${MSE_GCSMDCTC[SeparatorBar]}
+      msePFColorSelectedElements=${MSE_GCSMDCTC[SelectedElements]}
+      msePFColorTotalElements=${MSE_GCSMDCTC[TotalElements]}
 
       mseReturnData+=("")
     fi

@@ -21,6 +21,16 @@ MSE_GLOBAL_MODULE_LOCALE="en-us"
 
 
 
+#
+# Função do 'theme' usada para renderizar as mensagens de interface
+# [[INI-MSE_GLOBAL_THEME_NAME]]
+MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
+# [[END-MSE_GLOBAL_THEME_NAME]]
+
+
+
+
+
 
 #
 # Registra cada módulo que está disponível dentro do ambiente atual.
