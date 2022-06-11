@@ -49,10 +49,15 @@ mse_mmod_completion_bash() {
 
   local mseCompareCmd=""
   local mseOriginalCmd=""
+  local msePromptAtualCmd=""
 
+  declare -a mseSplitedOriginalCmd=()
+  declare -a mseSplitedPromptAtualCmd=()
 
+  local mseI=""
   local mseNextCmd=""
   local mseMatchCmd="0"
+
 
   for mseCompareCmd in "${!MSE_GLOBAL_CMD_COMPARE[@]}"; do
     mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCompareCmd}]}"
@@ -66,14 +71,22 @@ mse_mmod_completion_bash() {
         mseSelectedCmds["--"]=""
         break
       elif [[ "${mseCompareCmd}" =~ ^${mseSearchCmd} ]]; then
-        mseNextCmd="${mseOriginalCmd:0:${#mseSearchCmd}}"
-        mseNextCmd="${mseNextCmd% *}"
-        mseNextCmd="${mseOriginalCmd//${mseNextCmd}/}"
+        msePromptAtualCmd="${mseOriginalCmd:0:${#mseSearchCmd}}"
 
-        if [ "${mseNextCmd:0:1}" == " " ]; then
-          mseNextCmd="${mseNextCmd:1}"
-        fi
-        mseSelectedCmds["${mseNextCmd% *}"]=""
+        readarray -d ' ' -t mseSplitedOriginalCmd <<< "${mseOriginalCmd} "
+        readarray -d ' ' -t mseSplitedPromptAtualCmd <<< "${msePromptAtualCmd} "
+
+        #
+        # Identifica o primeiro item discordante entre o comando original
+        # e o que foi digitado pelo usuário.
+        for mseI in "${!mseSplitedOriginalCmd[@]}"; do
+          if [ "${mseSplitedOriginalCmd[$mseI]}" != "${mseSplitedPromptAtualCmd[$mseI]}" ]; then
+            mseNextCmd="${mseSplitedOriginalCmd[$mseI]}"
+            break;
+          fi
+        done
+
+        mseSelectedCmds["${mseNextCmd}"]=""
       fi
     fi
   done
@@ -84,7 +97,6 @@ mse_mmod_completion_bash() {
   # Conforme o tipo de output requerido...
   if [ "${mseMode}" == "F" ]; then
     COMPREPLY+=("${!mseSelectedCmds[@]}")
-
   elif [ "${mseMode}" == "C" ]; then
     printf "%s\n" "${!mseSelectedCmds[@]}"
   fi
