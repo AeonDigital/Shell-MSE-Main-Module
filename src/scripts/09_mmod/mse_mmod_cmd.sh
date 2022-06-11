@@ -85,6 +85,9 @@ mse_mmod_cmd() {
 
       if [ "${mseParans[0]}" == "--" ]; then
         mseParans=("${mseParans[@]:1}")
+      elif [ "${mseParans[0]}" == "--help" ]; then
+        mseParans=("${mseFunctionName}")
+        mseFunctionName="mse_mmod_man"
       fi
 
       "$mseFunctionName" "${mseParans[@]}"
