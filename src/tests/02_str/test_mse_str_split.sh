@@ -63,4 +63,24 @@ test_mse_str_split() {
   testExpected="== 22 =="
 
   mse_utest_assertEqual
+
+
+
+  #
+  # Teste uma separação que permite espaços em branco no array
+  # de resposta
+  mse_str_split " " " primeiro   segundo   terceiro "
+
+  testResult="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+  testExpected="8"
+
+  mse_utest_assertEqual
+
+
+  mse_str_split " " " primeiro   segundo   terceiro " "1"
+
+  testResult="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+  testExpected="3"
+
+  mse_utest_assertEqual
 }
