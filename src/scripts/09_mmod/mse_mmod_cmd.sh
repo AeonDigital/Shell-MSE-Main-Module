@@ -35,23 +35,44 @@ mse_mmod_cmd() {
     local i
     local mseOffSet=1
     local mseLength="$#"
-    local mseFunctionName="${MSE_GLOBAL_CMD[${1^^}]}"
+    local mseOriginalCmd=""
+    local mseFunctionName=""
+
+
+    if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${1^^}]+x}" ]; then
+      mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${1^^}]}"
+
+      if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+        mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+      fi
+    fi
+
+
 
     #
-    # Verifica o nome do comando de forma complexa
+    # Verifica se é um nome de comando extenso, ou seja,
+    # cujo nome está dividido em mais de uma string...
     if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
       local mseCmd="$1"
 
       for ((i=2; i<=mseLength; i++)); do
-        mseCmd+=" ${!i}"
+        mseCmd+="_${!i}"
 
-        mseFunctionName="${MSE_GLOBAL_CMD[${mseCmd^^}]}"
-        if [ "${mseFunctionName}" != "" ]; then
-          mseOffSet="$i"
-          break
+        if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]+x}" ]; then
+          mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]}"
+
+          if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+            mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+
+            if [ "${mseFunctionName}" != "" ]; then
+              mseOffSet="$i"
+              break
+            fi
+          fi
         fi
       done
     fi
+
 
 
     if [ "${mseFunctionName}" == "" ]; then
@@ -61,6 +82,10 @@ mse_mmod_cmd() {
     else
       local mseParans=("$@")
       mseParans=("${mseParans[@]:${mseOffSet}}")
+
+      if [ "${mseParans[0]}" == "--" ]; then
+        mseParans=("${mseParans[@]:1}")
+      fi
 
       "$mseFunctionName" "${mseParans[@]}"
     fi

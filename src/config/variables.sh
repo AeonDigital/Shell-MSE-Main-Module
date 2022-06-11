@@ -24,9 +24,12 @@ MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Notes"]="https://github.com/AeonDi
 
 #
 # Coleção de comandos que facilitam o acesso a funções do módulo
-# Neste array associativo, cada chave é uma versão abreviada da respectiva
-# função que fica armazenada na posição do valor.
+# e servem de opções para o autocomplete.
 declare -gA MSE_GLOBAL_CMD
+#
+# Coleção de chaves/valores que auxiliam a comparação dos comandos
+# que estão sendo digitados pelo usuário.
+declare -gA MSE_GLOBAL_CMD_COMPARE
 
 
 

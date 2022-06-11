@@ -47,31 +47,33 @@ mse_mmod_completion_bash() {
 
 
 
-  local mseCmd=""
   local mseCompareCmd=""
+  local mseOriginalCmd=""
 
 
   local mseNextCmd=""
   local mseMatchCmd="0"
 
-  for mseCmd in "${!MSE_GLOBAL_CMD[@]}"; do
+  for mseCompareCmd in "${!MSE_GLOBAL_CMD_COMPARE[@]}"; do
+    mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCompareCmd}]}"
+
     if [ "${mseSearchCmd}" == "" ]; then
-      mseNextCmd=$(mse_str_trim "${mseCmd%% *}")
+      mseNextCmd=$(mse_str_trim "${mseOriginalCmd%% *}")
       mseSelectedCmds["${mseNextCmd}"]=""
     else
-      mseCompareCmd=$(mse_str_trim "${mseCmd// /_}")
-
       if [ "${mseCompareCmd}" == "${mseSearchCmd}" ]; then
         mseMatchCmd="1"
         mseSelectedCmds["--"]=""
         break
       elif [[ "${mseCompareCmd}" =~ ^${mseSearchCmd} ]]; then
-        mseNextCmd="${mseSearchCmd%_*}"
-        mseNextCmd="${mseCompareCmd//${mseNextCmd}/}"
-        if [ "${mseNextCmd:0:1}" == "_" ]; then
+        mseNextCmd="${mseOriginalCmd:0:${#mseSearchCmd}}"
+        mseNextCmd="${mseNextCmd% *}"
+        mseNextCmd="${mseOriginalCmd//${mseNextCmd}/}"
+
+        if [ "${mseNextCmd:0:1}" == " " ]; then
           mseNextCmd="${mseNextCmd:1}"
         fi
-        mseSelectedCmds["${mseNextCmd%_*}"]=""
+        mseSelectedCmds["${mseNextCmd% *}"]=""
       fi
     fi
   done
@@ -85,7 +87,6 @@ mse_mmod_completion_bash() {
 
   elif [ "${mseMode}" == "C" ]; then
     printf "%s\n" "${!mseSelectedCmds[@]}"
-
   fi
 }
 

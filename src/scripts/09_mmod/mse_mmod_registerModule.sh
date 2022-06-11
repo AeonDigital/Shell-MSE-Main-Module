@@ -216,15 +216,20 @@ mse_mmod_registerModule() {
 
 
   #
-  # Normaliza os atalhos de comandos para que eles possam ser
-  # facilmente acessados de forma case insensitive.
-  # Para isto, converte todas as chaves definidas para suas versões em
-  # maiúsculas.
+  # Registra uma versão "comparável" de cada um dos comandos
+  # carregados até o momento.
+  # Este processamento auxiliará o autocomplete e a própria
+  # invocação dos comandos disponibilizados.
   local mseKey
+  local mseKeyCompare
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
-    if [ "${mseKey}" != "${mseKey^^}" ]; then
-      MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
-      unset MSE_GLOBAL_CMD["${mseKey}"]
+    mseKeyCompare="${mseKey^^}"
+    mseKeyCompare="${mseKeyCompare// /_}"
+
+    #
+    # Se a chave ainda não foi registrada no array comparável
+    if [ -z "${MSE_GLOBAL_CMD_COMPARE[$mseKeyCompare]+x}" ]; then
+      MSE_GLOBAL_CMD_COMPARE["${mseKeyCompare}"]="${mseKey}"
     fi
   done
 
