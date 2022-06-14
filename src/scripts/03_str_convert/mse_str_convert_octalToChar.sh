@@ -37,7 +37,7 @@ mse_str_convert_octalToChar() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str octalToChar"]="mse_str_convert_octalToChar"
+MSE_GLOBAL_CMD["str convert octalToChar"]="mse_str_convert_octalToChar"
 
 
 

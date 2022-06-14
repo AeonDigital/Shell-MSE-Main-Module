@@ -41,7 +41,7 @@ mse_str_convert_charToHex() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str charToHex"]="mse_str_convert_charToHex"
+MSE_GLOBAL_CMD["str convert charToHex"]="mse_str_convert_charToHex"
 
 
 

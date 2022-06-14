@@ -42,7 +42,7 @@ mse_str_convert_decimalToOctal() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str decimalToOctal"]="mse_str_convert_decimalToOctal"
+MSE_GLOBAL_CMD["str convert decimalToOctal"]="mse_str_convert_decimalToOctal"
 
 
 

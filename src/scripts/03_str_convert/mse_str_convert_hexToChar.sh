@@ -39,7 +39,7 @@ mse_str_convert_hexToChar() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str hexToChar"]="mse_str_convert_hexToChar"
+MSE_GLOBAL_CMD["str convert hexToChar"]="mse_str_convert_hexToChar"
 
 
 

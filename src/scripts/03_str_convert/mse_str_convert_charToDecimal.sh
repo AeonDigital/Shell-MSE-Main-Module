@@ -41,7 +41,7 @@ mse_str_convert_charToDecimal() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str charToDecimal"]="mse_str_convert_charToDecimal"
+MSE_GLOBAL_CMD["str convert charToDecimal"]="mse_str_convert_charToDecimal"
 
 
 

@@ -42,7 +42,7 @@ mse_str_convert_decimalToHex() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str decimalToHex"]="mse_str_convert_decimalToHex"
+MSE_GLOBAL_CMD["str convert decimalToHex"]="mse_str_convert_decimalToHex"
 
 
 

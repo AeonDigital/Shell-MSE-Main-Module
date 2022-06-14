@@ -43,7 +43,7 @@ mse_str_convert_octalToHex() {
 
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str octalToHex"]="mse_str_convert_octalToHex"
+MSE_GLOBAL_CMD["str convert octalToHex"]="mse_str_convert_octalToHex"
 
 
 
