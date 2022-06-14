@@ -28,7 +28,7 @@ mse_check_isChar() {
 
   printf "%s" "$mseReturn"
 }
-MSE_GLOBAL_CMD["isChar"]="mse_check_isChar"
+MSE_GLOBAL_CMD["is char"]="mse_check_isChar"
 
 
 

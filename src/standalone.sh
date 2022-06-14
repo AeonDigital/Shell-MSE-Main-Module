@@ -532,28 +532,28 @@ mse_str_split_vldtr() {
 # END :: mse_str_split.sh
 
 
-# INI :: mse_str_toLowerCase.sh
-mse_str_toLowerCase() {
+# INI :: mse_str_toLower.sh
+mse_str_toLower() {
   printf "%s" "${1,,}"
 }
-MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLowerCase"
-mse_str_toLowerCase_vldtr() {
+MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLower"
+mse_str_toLower_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
 }
-# END :: mse_str_toLowerCase.sh
+# END :: mse_str_toLower.sh
 
 
-# INI :: mse_str_toUpperCase.sh
-mse_str_toUpperCase() {
+# INI :: mse_str_toUpper.sh
+mse_str_toUpper() {
   printf "%s" "${1^^}"
 }
-MSE_GLOBAL_CMD["str toUpperCase"]="mse_str_toUpperCase"
-mse_str_toUpperCase_vldtr() {
+MSE_GLOBAL_CMD["str toUpperCase"]="mse_str_toUpper"
+mse_str_toUpper_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
 }
-# END :: mse_str_toUpperCase.sh
+# END :: mse_str_toUpper.sh
 
 
 # INI :: mse_str_trim.sh

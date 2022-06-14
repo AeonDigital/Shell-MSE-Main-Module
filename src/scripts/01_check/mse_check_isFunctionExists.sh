@@ -25,7 +25,7 @@ mse_check_isFunctionExists() {
 
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isFunctionExists"]="mse_check_isFunctionExists"
+MSE_GLOBAL_CMD["is functionExists"]="mse_check_isFunctionExists"
 
 
 

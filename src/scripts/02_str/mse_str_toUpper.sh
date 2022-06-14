@@ -9,20 +9,20 @@
 
 #
 # @desc
-# Converte o argumento passado para minúsculas.
+# Converte o argumento passado para maiúsculas.
 #
 # @param string $1
-# String que será convertida
+# String que será convertida.
 #
 # @return
-# Printa a string de entrada em lowercase.
+# Printa a string de entrada em uppercase.
 #
 # @example
-#   result=$(mse_str_toLowerCase "TEXT")
-mse_str_toLowerCase() {
-  printf "%s" "${1,,}"
+#   result=$(mse_str_toUpper "text")
+mse_str_toUpper() {
+  printf "%s" "${1^^}"
 }
-MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLowerCase"
+MSE_GLOBAL_CMD["str toUpper"]="mse_str_toUpper"
 
 
 
@@ -30,7 +30,7 @@ MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLowerCase"
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_str_toLowerCase_vldtr() {
+mse_str_toUpper_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
 }

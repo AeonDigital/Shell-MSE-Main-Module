@@ -90,7 +90,26 @@ mse_mmod_cmd() {
         mseFunctionName="mse_mmod_man"
       fi
 
-      "$mseFunctionName" "${mseParans[@]}"
+
+
+      #
+      # Se não existir uma função validadora, executa diretamente a função.
+      if [ "$(type -t "${mseFunctionName}_vldtr")" != "function" ]; then
+        "$mseFunctionName" "${mseParans[@]}"
+      else
+        #
+        # Efetua a validação dos parametros da função
+        mse_exec_validate "$mseFunctionName" "${mseParans[@]}" &> /dev/null
+
+        #
+        # Se bem sucedido, executa-a
+        # senão, mostra o erro.
+        if [ $? == 0 ]; then
+          "$mseFunctionName" "${mseParans[@]}"
+        else
+          printf "${MSE_GLOBAL_LASTERR}"
+        fi
+      fi
     fi
   fi
 }

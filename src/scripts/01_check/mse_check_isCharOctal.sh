@@ -40,7 +40,7 @@ mse_check_isCharOctal() {
 
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isCharOctal"]="mse_check_isCharOctal"
+MSE_GLOBAL_CMD["is charOctal"]="mse_check_isCharOctal"
 
 
 
