@@ -16,10 +16,7 @@
 # Nome da função alvo.
 #
 # @param bool ${2..}
-# Demais parametros que serão passados para a função alvo.
-#
-# @return
-# Informações de uso da função alvo.
+# Demais identificadores ou parametros que serão passados para a função alvo.
 #
 # @example
 # Considerando que existe um "alias" para esta função chamado "mse":
@@ -32,45 +29,14 @@
 mse_mmod_cmd() {
 
   if [ "$#" -ge 1 ] && [ "$1" != "" ]; then
-    local i
-    local mseOffSet=1
-    local mseLength="$#"
-    local mseOriginalCmd=""
+    local mseTgtFunction=$(mse_mmod_cmd_search "$@")
+
+    local mseOffSet=""
     local mseFunctionName=""
 
-
-    if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${1^^}]+x}" ]; then
-      mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${1^^}]}"
-
-      if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
-        mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
-      fi
-    fi
-
-
-
-    #
-    # Verifica se é um nome de comando extenso, ou seja,
-    # cujo nome está dividido em mais de uma string...
-    if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
-      local mseCmd="$1"
-
-      for ((i=2; i<=mseLength; i++)); do
-        mseCmd+="_${!i}"
-
-        if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]+x}" ]; then
-          mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]}"
-
-          if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
-            mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
-
-            if [ "${mseFunctionName}" != "" ]; then
-              mseOffSet="$i"
-              break
-            fi
-          fi
-        fi
-      done
+    if [ "${mseTgtFunction}" != "" ]; then
+      mseOffSet="${mseTgtFunction%#*}"
+      mseFunctionName="${mseTgtFunction#*#}"
     fi
 
 
@@ -111,5 +77,77 @@ mse_mmod_cmd() {
         fi
       fi
     fi
+  fi
+}
+
+
+
+
+
+#
+# @desc
+# A partir do comando digitado no prompt, identifica a função que deve ser
+# executada
+#
+# @param string $1
+# Nome da função alvo.
+#
+# @param bool ${2..}
+# Demais identificadores ou parametros que serão passados para a função alvo.
+#
+# @return
+# Não há retorno se, com os parametros passados não for possível identificar
+# uma função alvo.
+# Encontrando uma função alvo, retorna o nome da mesma em conjunto com o
+# "offset" que identifica quantos parametros passados foram usados apenas
+# como "alias" da respectiva função. Estas informações estarão separadas por
+# um caracter "#" conforme o modelo abaixo:
+#
+# 2#mse_str_replace
+mse_mmod_cmd_search() {
+  local i
+  local mseOffSet=1
+  local mseLength="$#"
+  local mseOriginalCmd=""
+  local mseFunctionName=""
+
+
+  if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${1^^}]+x}" ]; then
+    mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${1^^}]}"
+
+    if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+      mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+    fi
+  fi
+
+
+
+  #
+  # Verifica se é um nome de comando extenso, ou seja,
+  # cujo nome está dividido em mais de uma string...
+  if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
+    local mseCmd="$1"
+
+    for ((i=2; i<=mseLength; i++)); do
+      mseCmd+="_${!i}"
+
+      if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]+x}" ]; then
+        mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]}"
+
+        if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+          mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+
+          if [ "${mseFunctionName}" != "" ]; then
+            mseOffSet="$i"
+            break
+          fi
+        fi
+      fi
+    done
+  fi
+
+
+  if [ "${mseFunctionName}" != "" ]; then
+    printf "${mseOffSet}#${mseFunctionName}"
   fi
 }
