@@ -73,7 +73,7 @@ mse_mmod_cmd() {
         if [ $? == 0 ]; then
           "$mseFunctionName" "${mseParans[@]}"
         else
-          printf "${MSE_GLOBAL_LASTERR}"
+          printf "${MSE_GLOBAL_LASTERR}\n"
         fi
       fi
     fi

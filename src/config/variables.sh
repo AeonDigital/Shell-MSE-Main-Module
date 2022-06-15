@@ -32,6 +32,13 @@ declare -gA MSE_GLOBAL_CMD
 declare -gA MSE_GLOBAL_CMD_COMPARE
 
 
+#
+# Indica o tipo de 'intervenção' que deve ser feita ao executar o autocomplete.
+# Os modos esperados são "C" ou "F".
+# Se vazio ou inválido, desabilitará este recurso.
+MSE_GLOBAL_COMPLETION_MODE="F"
+
+
 
 
 #

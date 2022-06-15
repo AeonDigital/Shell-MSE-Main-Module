@@ -3,17 +3,17 @@
 Todas as regras de conferencia de parametros para funções devem ser
 adicionadas em um array associativo onde, cada chave deve ser nomeada
 como 'param_N' (onde N é o número do índice de cada argumento no array
-especial '$@'.
+especial '$@'.  
 
 Em cada chave as regras de validação devem ser dispostas na ordem indicada
 abaixo. Alguns campos de definição de parametros variam conforme o tipo
 de valor esperado para o mesmo.
 Em cada chave, cada grupo de informação deve ser separado por um par de
-dois pontos '::'
+dois pontos '::'  
 
 Campos que podem receber diferentes tipos de valores, e que, portanto,
 possuem diferentes formas de validação deverão ser 'desdobrados' conforme
-é indicado mais abaixo.
+é indicado mais abaixo.  
 
 &nbsp;
 &nbsp;
@@ -22,9 +22,9 @@ possuem diferentes formas de validação deverão ser 'desdobrados' conforme
 
 Esta chave é obrigatoria e sempre deve existir para que a validação dos
 campos funcione adequadamente.
-Indique nela a totalidade de argumentos que podem ser recebidos ao todo.
-Ex:
-declare -A checkParams
+Indique nela a totalidade de argumentos que podem ser recebidos ao todo.  
+Ex:  
+declare -A checkParams  
 checkParams["count"]="4"
 
 &nbsp;
@@ -127,13 +127,13 @@ Indica qual deve ser o valor padrão par este parametro se o mesmo for
 omitido, ou se o valor indicado for uma string vazia.
 Em alguns casos (mais abaixo) você vai querer 'pular' a especificação deste
 campo mas como não pode deixá-lo vazio, use um caracter de ponto final para
-simular que o mesmo está vazio.
+simular que o mesmo está vazio.  
 Se, para qualquer finalidade, precisar usar um ponto final como valor padrão
-(provavelmente de uma string), informe tal valor entre aspas simples.
+(provavelmente de uma string), informe tal valor entre aspas simples.  
 
 Quando o tipo do valor for 'validateFN' este campo será obrigatório e
 deverá trazer o nome de uma função que será usada para efetuar a validação
-do respectivo campo.
+do respectivo campo.  
 
 &nbsp;
 
@@ -153,7 +153,7 @@ checkParams["param_2"]="Pais  :: r :: string  :: Brasil"
 ## ESPECIFICAÇÕES CONFORME O TIPO
 
 Cada tipo de variável permite especificar outros atributos de validação
-próprio. Abaixo estão as descrições extra para cada um.
+próprio. Abaixo estão as descrições extra para cada um.  
 Todos os atributos especificados abaixo são opcionais exceto se expressado
 o contrário
 
@@ -239,7 +239,7 @@ especificado em 'param_5'.
 Especifique o nome de cada uma das chaves (separadas por vírgula) que podem
 estar presentes no array associativo.  
 Se você quiser, pode especificar regras de validação para cada uma destas
-chaves conforme o modelo abaixo:
+chaves conforme o modelo abaixo:  
 
 **VALIDAÇÃO DOS ELEMENTOS**  
 checkParams["param_6"]="Funcionários :: r :: assocName :: :: Nome,Idade"  
