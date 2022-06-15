@@ -50,5 +50,5 @@ MSE_GLOBAL_CMD["is charOctal"]="mse_check_isCharOctal"
 # com as regras de validação dos parametros aceitáveis.
 mse_check_isCharOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charOctal"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }

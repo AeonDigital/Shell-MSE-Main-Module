@@ -38,5 +38,5 @@ MSE_GLOBAL_CMD["is char"]="mse_check_isChar"
 # com as regras de validação dos parametros aceitáveis.
 mse_check_isChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: char"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }

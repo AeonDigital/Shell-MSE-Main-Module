@@ -50,5 +50,5 @@ MSE_GLOBAL_CMD["is charHex"]="mse_check_isCharHex"
 # com as regras de validação dos parametros aceitáveis.
 mse_check_isCharHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charHex"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }

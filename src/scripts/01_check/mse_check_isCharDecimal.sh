@@ -50,5 +50,5 @@ MSE_GLOBAL_CMD["is charDecimal"]="mse_check_isCharDecimal"
 # com as regras de validação dos parametros aceitáveis.
 mse_check_isCharDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charDecimal"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }
