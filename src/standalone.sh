@@ -125,6 +125,8 @@ declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Prompt"]="https://github.com/AeonDigital/Shell-MSE-Prompt.git"
 MSE_GLOBAL_SUBMODULES_REPOSITORIES["Shell-MSE-Notes"]="https://github.com/AeonDigital/Shell-MSE-Notes.git"
 declare -gA MSE_GLOBAL_CMD
+declare -gA MSE_GLOBAL_CMD_COMPARE
+MSE_GLOBAL_COMPLETION_MODE="F"
 declare -a MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS=()
 MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnStart")
 MSE_GLOBAL_REGISTERMODULE_META_FUNCTIONS+=("mse_registerModule_execOnEnd")
@@ -211,7 +213,7 @@ mse_check_hasKeyInAssocArray() {
   if [ ! -z "${assocName[$1]+x}" ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["hasKeyInAssocArray"]="mse_check_hasKeyInAssocArray"
+MSE_GLOBAL_CMD["has keyInAssocArray"]="mse_check_hasKeyInAssocArray"
 mse_check_hasKeyInAssocArray_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="KeyName :: r :: string"
@@ -261,7 +263,7 @@ mse_check_hasValueInArray() {
     printf "%s" "${mseResultBool}"
   fi
 }
-MSE_GLOBAL_CMD["hasValueInArray"]="mse_check_hasValueInArray"
+MSE_GLOBAL_CMD["has valueInArray"]="mse_check_hasValueInArray"
 mse_check_hasValueInArray_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -282,7 +284,7 @@ mse_check_isChar() {
   LC_CTYPE="${oLC_CTYPE}"
   printf "%s" "$mseReturn"
 }
-MSE_GLOBAL_CMD["isChar"]="mse_check_isChar"
+MSE_GLOBAL_CMD["is char"]="mse_check_isChar"
 mse_check_isChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: char"
@@ -309,7 +311,7 @@ mse_check_isCharDecimal() {
   done
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isCharDecimal"]="mse_check_isCharDecimal"
+MSE_GLOBAL_CMD["is charDecimal"]="mse_check_isCharDecimal"
 mse_check_isCharDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charDecimal"
@@ -336,7 +338,7 @@ mse_check_isCharHex() {
   done
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isCharHex"]="mse_check_isCharHex"
+MSE_GLOBAL_CMD["is charHex"]="mse_check_isCharHex"
 mse_check_isCharHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charHex"
@@ -363,7 +365,7 @@ mse_check_isCharOctal() {
   done
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isCharOctal"]="mse_check_isCharOctal"
+MSE_GLOBAL_CMD["is charOctal"]="mse_check_isCharOctal"
 mse_check_isCharOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charOctal"
@@ -378,7 +380,7 @@ mse_check_isCommandExists() {
   if [ $? == 0 ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isCommandExists"]="mse_check_isCommandExists"
+MSE_GLOBAL_CMD["is commandExists"]="mse_check_isCommandExists"
 mse_check_isCommandExists_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Command :: r :: string"
@@ -392,7 +394,7 @@ mse_check_isFunctionExists() {
   if [ "$(type -t $1)" == "function" ]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isFunctionExists"]="mse_check_isFunctionExists"
+MSE_GLOBAL_CMD["is functionExists"]="mse_check_isFunctionExists"
 mse_check_isFunctionExists_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -408,7 +410,7 @@ mse_check_isInteger() {
   if [[ "$1" =~ $regEx ]]; then mseReturn=1; else mseReturn=0; fi
   printf "%s" "${mseReturn}"
 }
-MSE_GLOBAL_CMD["isInteger"]="mse_check_isInteger"
+MSE_GLOBAL_CMD["is integer"]="mse_check_isInteger"
 mse_check_isInteger_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
@@ -507,27 +509,35 @@ mse_str_split() {
   local mseDelimiter
   local mseString
   local mseSubStr
+  local mseAllowEmpty
   unset MSE_GLOBAL_MODULE_SPLIT_RESULT
   declare -ga MSE_GLOBAL_MODULE_SPLIT_RESULT
   mseDelimiter="$1"
   mseString="$2"
   mseSubStr=""
+  mseAllowEmpty="0"
+  if [ $# -ge 3 ] && [ "$3" == "1" ]; then
+    mseAllowEmpty="1"
+  fi
   while [ "${mseString}" != "" ]; do
     if [[ "$mseString" != *"$mseDelimiter"* ]]; then
       MSE_GLOBAL_MODULE_SPLIT_RESULT+=("$mseString")
       break
     else
       mseSubStr="${mseString%%${mseDelimiter}*}"
-      MSE_GLOBAL_MODULE_SPLIT_RESULT+=("$mseSubStr")
+      if [ "${mseSubStr}" != "" ] || [ "${mseAllowEmpty}" == "0" ]; then
+        MSE_GLOBAL_MODULE_SPLIT_RESULT+=("$mseSubStr")
+      fi
       mseString="${mseString#*${mseDelimiter}}"
     fi
   done
 }
 MSE_GLOBAL_CMD["str split"]="mse_str_split"
 mse_str_split_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=2
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Delimiter :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="String :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="AllowEmpty :: o :: bool"
 }
 # END :: mse_str_split.sh
 
@@ -536,7 +546,7 @@ mse_str_split_vldtr() {
 mse_str_toLower() {
   printf "%s" "${1,,}"
 }
-MSE_GLOBAL_CMD["str toLowerCase"]="mse_str_toLower"
+MSE_GLOBAL_CMD["str toLower"]="mse_str_toLower"
 mse_str_toLower_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -548,7 +558,7 @@ mse_str_toLower_vldtr() {
 mse_str_toUpper() {
   printf "%s" "${1^^}"
 }
-MSE_GLOBAL_CMD["str toUpperCase"]="mse_str_toUpper"
+MSE_GLOBAL_CMD["str toUpper"]="mse_str_toUpper"
 mse_str_toUpper_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="String :: r :: string"
@@ -706,7 +716,7 @@ mse_str_convert_charToDecimal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str charToDecimal"]="mse_str_convert_charToDecimal"
+MSE_GLOBAL_CMD["str convert charToDecimal"]="mse_str_convert_charToDecimal"
 mse_str_convert_charToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -729,7 +739,7 @@ mse_str_convert_charToHex() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str charToHex"]="mse_str_convert_charToHex"
+MSE_GLOBAL_CMD["str convert charToHex"]="mse_str_convert_charToHex"
 mse_str_convert_charToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -752,7 +762,7 @@ mse_str_convert_charToOctal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str charToOctal"]="mse_str_convert_charToOctal"
+MSE_GLOBAL_CMD["str convert charToOctal"]="mse_str_convert_charToOctal"
 mse_str_convert_charToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Char :: r :: char"
@@ -774,7 +784,7 @@ mse_str_convert_decimalToChar() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str decimalToChar"]="mse_str_convert_decimalToChar"
+MSE_GLOBAL_CMD["str convert decimalToChar"]="mse_str_convert_decimalToChar"
 mse_str_convert_decimalToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -799,7 +809,7 @@ mse_str_convert_decimalToHex() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str decimalToHex"]="mse_str_convert_decimalToHex"
+MSE_GLOBAL_CMD["str convert decimalToHex"]="mse_str_convert_decimalToHex"
 mse_str_convert_decimalToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -824,7 +834,7 @@ mse_str_convert_decimalToOctal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str decimalToOctal"]="mse_str_convert_decimalToOctal"
+MSE_GLOBAL_CMD["str convert decimalToOctal"]="mse_str_convert_decimalToOctal"
 mse_str_convert_decimalToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Decimal :: r :: charDecimal"
@@ -847,7 +857,7 @@ mse_str_convert_hexToChar() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str hexToChar"]="mse_str_convert_hexToChar"
+MSE_GLOBAL_CMD["str convert hexToChar"]="mse_str_convert_hexToChar"
 mse_str_convert_hexToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -872,7 +882,7 @@ mse_str_convert_hexToDecimal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str hexToDecimal"]="mse_str_convert_hexToDecimal"
+MSE_GLOBAL_CMD["str convert hexToDecimal"]="mse_str_convert_hexToDecimal"
 mse_str_convert_hexToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -898,7 +908,7 @@ mse_str_convert_hexToOctal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str hexToOctal"]="mse_str_convert_hexToOctal"
+MSE_GLOBAL_CMD["str convert hexToOctal"]="mse_str_convert_hexToOctal"
 mse_str_convert_hexToOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Hex :: r :: charHex"
@@ -919,7 +929,7 @@ mse_str_convert_octalToChar() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str octalToChar"]="mse_str_convert_octalToChar"
+MSE_GLOBAL_CMD["str convert octalToChar"]="mse_str_convert_octalToChar"
 mse_str_convert_octalToChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -944,7 +954,7 @@ mse_str_convert_octalToDecimal() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str octalToDecimal"]="mse_str_convert_octalToDecimal"
+MSE_GLOBAL_CMD["str convert octalToDecimal"]="mse_str_convert_octalToDecimal"
 mse_str_convert_octalToDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -970,7 +980,7 @@ mse_str_convert_octalToHex() {
   done
   printf "${mseReturn}"
 }
-MSE_GLOBAL_CMD["str octalToHex"]="mse_str_convert_octalToHex"
+MSE_GLOBAL_CMD["str convert octalToHex"]="mse_str_convert_octalToHex"
 mse_str_convert_octalToHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Octal :: r :: charOctal"
@@ -4002,20 +4012,12 @@ mse_inter_waitUser_vldtr() {
 # INI :: mse_mmod_cmd.sh
 mse_mmod_cmd() {
   if [ "$#" -ge 1 ] && [ "$1" != "" ]; then
-    local i
-    local mseOffSet=1
-    local mseLength="$#"
-    local mseFunctionName="${MSE_GLOBAL_CMD[${1^^}]}"
-    if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
-      local mseCmd="$1"
-      for ((i=2; i<=mseLength; i++)); do
-        mseCmd+=" ${!i}"
-        mseFunctionName="${MSE_GLOBAL_CMD[${mseCmd^^}]}"
-        if [ "${mseFunctionName}" != "" ]; then
-          mseOffSet="$i"
-          break
-        fi
-      done
+    local mseTgtFunction=$(mse_mmod_cmd_search "$@")
+    local mseOffSet=""
+    local mseFunctionName=""
+    if [ "${mseTgtFunction}" != "" ]; then
+      mseOffSet="${mseTgtFunction%#*}"
+      mseFunctionName="${mseTgtFunction#*#}"
     fi
     if [ "${mseFunctionName}" == "" ]; then
       local mseMSG
@@ -4024,11 +4026,156 @@ mse_mmod_cmd() {
     else
       local mseParans=("$@")
       mseParans=("${mseParans[@]:${mseOffSet}}")
-      "$mseFunctionName" "${mseParans[@]}"
+      if [ "${mseParans[0]}" == "--" ]; then
+        mseParans=("${mseParans[@]:1}")
+      elif [ "${mseParans[0]}" == "--help" ]; then
+        mseParans=("${mseFunctionName}")
+        mseFunctionName="mse_mmod_man"
+      fi
+      if [ "$(type -t "${mseFunctionName}_vldtr")" != "function" ]; then
+        "$mseFunctionName" "${mseParans[@]}"
+      else
+        mse_exec_validate "$mseFunctionName" "${mseParans[@]}" &> /dev/null
+        if [ $? == 0 ]; then
+          "$mseFunctionName" "${mseParans[@]}"
+        else
+          printf "${MSE_GLOBAL_LASTERR}\n"
+        fi
+      fi
     fi
   fi
 }
+mse_mmod_cmd_search() {
+  local i
+  local mseOffSet=1
+  local mseLength="$#"
+  local mseOriginalCmd=""
+  local mseFunctionName=""
+  if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${1^^}]+x}" ]; then
+    mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${1^^}]}"
+    if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+      mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+    fi
+  fi
+  if [ "${mseFunctionName}" == "" ] && [ "${mseLength}" -ge 2 ]; then
+    local mseCmd="$1"
+    for ((i=2; i<=mseLength; i++)); do
+      mseCmd+="_${!i}"
+      if [ ! -z "${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]+x}" ]; then
+        mseOriginalCmd="${MSE_GLOBAL_CMD_COMPARE[${mseCmd^^}]}"
+        if [ ! -z "${MSE_GLOBAL_CMD[$mseOriginalCmd]+x}" ]; then
+          mseFunctionName="${MSE_GLOBAL_CMD[${mseOriginalCmd}]}"
+          if [ "${mseFunctionName}" != "" ]; then
+            mseOffSet="$i"
+            break
+          fi
+        fi
+      fi
+    done
+  fi
+  if [ "${mseFunctionName}" != "" ]; then
+    printf "${mseOffSet}#${mseFunctionName}"
+  fi
+}
 # END :: mse_mmod_cmd.sh
+
+
+# INI :: mse_mmod_completion_bash.sh
+mse_mmod_completion_bash() {
+  local mseCompletionMode="${MSE_GLOBAL_COMPLETION_MODE}"
+  COMPREPLY=()
+  declare -a mseArrTerminalParticles=()
+  local mseTotalTerminalParticles="0"
+  if [ "${mseCompletionMode}" == "F" ]; then
+    mseArrTerminalParticles=(${COMP_WORDS[*]})
+  elif [ "${mseCompletionMode}" == "C" ]; then
+    mseArrTerminalParticles=(${COMP_LINE})
+  fi
+  mseTotalTerminalParticles="${#mseArrTerminalParticles[@]}"
+  if [ "${mseTotalTerminalParticles}" -ge 1 ]; then
+    local mseCmdSearchBy=""
+    if [ "${mseTotalTerminalParticles}" -ge 2 ]; then
+      mseCmdSearchBy="${mseArrTerminalParticles[@]:1}"
+      mseCmdSearchBy="${mseCmdSearchBy^^}"
+      mseCmdSearchBy="${mseCmdSearchBy// /_}"
+      mseCmdSearchBy=$(mse_str_trim "${mseCmdSearchBy}")
+    fi
+    local mseCmdCompareVersion=""
+    local mseCmdOriginalVersion=""
+    local mseCmdNextParticle=""
+    unset mseArrCmdCompletionParticles
+    declare -A mseArrCmdCompletionParticles
+    local mseCompletionType="cmd"
+    local mseOffSetParticles=""
+    local mseCurrentParameterIndex="0"
+    local mseAtualPromptCmd=""
+    local mseIndex=""
+    declare -a mseCmdAtualParticles=()
+    declare -a mseCmdOriginalParticles=()
+    for mseCmdCompareVersion in "${!MSE_GLOBAL_CMD_COMPARE[@]}"; do
+      mseCmdOriginalVersion="${MSE_GLOBAL_CMD_COMPARE[${mseCmdCompareVersion}]}"
+      mseCmdNextParticle=""
+      if [ "${mseCmdSearchBy}" == "" ]; then
+        mseCmdNextParticle=${mseCmdOriginalVersion%% *}
+      else
+        if [ "${mseCmdSearchBy}" == "${mseCmdCompareVersion}" ]; then
+          mseArrCmdCompletionParticles["--"]=""
+          break
+        elif [[ "${mseCmdSearchBy}" =~ ^${mseCmdCompareVersion}_-- ]]; then
+          mseCompletionType="param"
+          readarray -d ' ' -t mseCmdOriginalParticles <<< "${mseCmdOriginalVersion}"
+          mseOffSetParticles="${#mseCmdOriginalParticles[@]}"
+          ((mseCurrentParameterIndex=mseTotalTerminalParticles-mseOffSetParticles-2))
+          break
+        elif [[ "${mseCmdCompareVersion}" =~ ^${mseCmdSearchBy} ]]; then
+          mseAtualPromptCmd="${mseCmdOriginalVersion:0:${#mseCmdSearchBy}}"
+          readarray -d ' ' -t mseCmdAtualParticles <<< "${mseAtualPromptCmd} "
+          readarray -d ' ' -t mseCmdOriginalParticles <<< "${mseCmdOriginalVersion} "
+          for mseIndex in "${!mseCmdOriginalParticles[@]}"; do
+            if [ "${mseCmdOriginalParticles[$mseIndex]}" != "${mseCmdAtualParticles[$mseIndex]}" ]; then
+              mseCmdNextParticle="${mseCmdOriginalParticles[$mseIndex]}"
+              break;
+            fi
+          done
+        fi
+      fi
+      if [ "${mseCmdNextParticle}" != "" ]; then
+        mseArrCmdCompletionParticles["${mseCmdNextParticle}"]=""
+      fi
+    done
+    if [ "${mseCompletionType}" == "cmd" ]; then
+      if [ "${mseCompletionMode}" == "F" ]; then
+        COMPREPLY+=("${!mseArrCmdCompletionParticles[@]}")
+      elif [ "${mseCompletionMode}" == "C" ]; then
+        printf "%s\n" "${!mseArrCmdCompletionParticles[@]}"
+      fi
+    elif [ "${mseCompletionType}" == "param" ]; then
+      local mseValidateFunctionName="${MSE_GLOBAL_CMD[${mseCmdOriginalVersion}]}_vldtr"
+      if [ "$(type -t "${mseValidateFunctionName}")" == "function" ]; then
+        unset MSE_GLOBAL_VALIDATE_PARAMETERS_RULES
+        declare -gA MSE_GLOBAL_VALIDATE_PARAMETERS_RULES
+        "${mseValidateFunctionName}"
+        if [ "${mseCurrentParameterIndex}" -lt "${MSE_GLOBAL_VALIDATE_PARAMETERS_RULES[count]}" ]; then
+          mse_str_split "::" "${MSE_GLOBAL_VALIDATE_PARAMETERS_RULES[param_${mseCurrentParameterIndex}]}"
+          local mseTipParam=""
+          local mseStrRequired=""
+          local mseParamName=$(mse_str_trim "${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}")
+          local mseParamRequired=$(mse_str_trim "${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}")
+          local mseParamType=$(mse_str_trim "${MSE_GLOBAL_MODULE_SPLIT_RESULT[2]}")
+          if [ "${mseParamRequired}" == "r" ]; then
+            mseStrRequired="*"
+          fi
+          mseTipParam="@ [${mseParamType}] ${mseParamName}${mseStrRequired}"
+          printf "\e7\n${mseTipParam}\e8"
+        fi
+      fi
+    fi
+  fi
+}
+if [ "${SHELL##*/}" == "bash" ] && ([ "${MSE_GLOBAL_COMPLETION_MODE}" == "C" ] || [ "${MSE_GLOBAL_COMPLETION_MODE}" == "F" ]); then
+  complete "-${MSE_GLOBAL_COMPLETION_MODE}" "mse_mmod_completion_bash" "mse"
+fi
+# END :: mse_mmod_completion_bash.sh
 
 
 # INI :: mse_mmod_generateStandalone.sh
@@ -4392,10 +4539,12 @@ mse_mmod_registerModule() {
     mse_registerModule_execAfterLoadScripts "$2"
   fi
   local mseKey
+  local mseKeyCompare
   for mseKey in "${!MSE_GLOBAL_CMD[@]}"; do
-    if [ "${mseKey}" != "${mseKey^^}" ]; then
-      MSE_GLOBAL_CMD["${mseKey^^}"]="${MSE_GLOBAL_CMD[$mseKey]}"
-      unset MSE_GLOBAL_CMD["${mseKey}"]
+    mseKeyCompare="${mseKey^^}"
+    mseKeyCompare="${mseKeyCompare// /_}"
+    if [ -z "${MSE_GLOBAL_CMD_COMPARE[$mseKeyCompare]+x}" ]; then
+      MSE_GLOBAL_CMD_COMPARE["${mseKeyCompare}"]="${mseKey}"
     fi
   done
   if [ "$(type -t "mse_registerModule_execOnEnd")" == "function" ]; then
