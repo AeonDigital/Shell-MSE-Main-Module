@@ -50,6 +50,8 @@ mse_exec_validateParams() {
   # Tendo recebido as informações mínimas necessárias para efetuar a validação
   # dos parametros indicados...
   if [ "$mseReturn" == 1 ]; then
+    mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
     local mseCurrentParam
     local mseCurrentParamIsSet
 
