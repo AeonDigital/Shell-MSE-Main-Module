@@ -17,6 +17,8 @@
 # uma coleção de itens pré-aprovados.
 #
 mse_mmod_submoduleInstall() {
+  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
   local mseCode=1
   local mseMsg
   local mseInstallationPath="${HOME}/.config/myShellEnv"

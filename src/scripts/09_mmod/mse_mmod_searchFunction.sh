@@ -19,6 +19,7 @@
 # Lista estilizada do resultado da consulta por funções.
 mse_mmod_searchFunction() {
   if [ "$#" == "0" ] || [ "$1" == "" ]; then
+    mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
     mse_inter_alertUser "i" "" "${lbl_searchFunction_enterAFunction}"
   else
     mse_mmod_showMetaData 1 1 "" "" "$1"

@@ -11,6 +11,8 @@
 # @desc
 # Atualiza os módulos instalados pareando-os com os respectivos repositórios.
 mse_mmod_update() {
+  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
   mse_inter_alertUser "i" "MSE" "${lbl_update_updateStart}"
 
   local mseInstallationPath="${HOME}/.config/myShellEnv"

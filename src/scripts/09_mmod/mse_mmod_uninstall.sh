@@ -11,6 +11,8 @@
 # @desc
 # Remove totalmente o myShellEnv e todos os módulos atualmente instalados.
 mse_mmod_uninstall() {
+  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
   local mseCode=0
   mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallStart}"
 
