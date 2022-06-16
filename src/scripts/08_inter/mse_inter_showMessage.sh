@@ -622,6 +622,8 @@ mse_inter_showMessage_createTitle() {
   #
   # Apenas se está configurado para mostrar o título...
   if [ "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TitleDisplay]}" == "1" ]; then
+    mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
     local mseMessageType="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageType]}"
 
     local mseTitleDisplay="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[TitleDisplay]}"

@@ -67,6 +67,7 @@ mse_inter_waitUser() {
   #
   # Verifica a mensagem a ser exposta para o usuário
   if [ "${3}" == "" ]; then
+    mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
     mseArgs["TitleText"]="${lbl_inter_wait_user_any_key}"
   fi
 

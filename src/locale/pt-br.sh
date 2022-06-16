@@ -8,41 +8,6 @@
 
 
 #
-# Main Module
-lbl_mmod_invalidModuleName="O nome do módulo indicado é inválido. Use a função \"mse_mmod_showModules\" para ver uma lista de opções válidas. [ \"[[MODULE]]\" ]"
-
-
-#
-# Interface
-lbl_inter_alert_header_info="Informação"
-lbl_inter_alert_header_attention="Atenção"
-lbl_inter_alert_header_warning="Alerta"
-lbl_inter_alert_header_error="Erro"
-lbl_inter_alert_header_fail="Falha"
-lbl_inter_alert_header_success="Sucesso"
-
-lbl_inter_wait_user_any_key="Precione qualquer tecla para prosseguir"
-
-lbl_inter_prompt_invalidValue="O valor \"[[VALUE]]\" é inválido."
-
-#
-# Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
-unset lbl_inter_prompt_boolLabels
-lbl_inter_prompt_boolLabels=(
-  "sim" "s" "não" "n"
-)
-
-#
-# Coleção de valores correspondentes às opções de 'labels' de um 'prompt'
-# do tipo 'bool'.
-unset lbl_inter_prompt_boolValues
-lbl_inter_prompt_boolValues=(
-  1 1 0 0
-)
-
-
-
-#
 # Fontes e Backgrounds
 lbl_font_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
 lbl_font_showTextColors_UseCodeExample="Use o número da cor desejada no lugar do 'X': "

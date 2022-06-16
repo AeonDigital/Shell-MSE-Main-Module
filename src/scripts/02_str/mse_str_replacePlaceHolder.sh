@@ -14,8 +14,8 @@
 # [[PHNAME]]
 #
 # @param string $1
-# String que contém o 'placeholder' e que será retornada com a
-# alteração feita.
+# String que contém os 'placeholders' e que será retornada com as devidas
+# substituições.
 #
 # @param string ${2.. 4.. 6 ..}
 # A partir daqui, cada parametro PAR será usado para indicar o nome de um

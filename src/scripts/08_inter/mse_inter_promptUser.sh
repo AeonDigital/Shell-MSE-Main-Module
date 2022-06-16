@@ -80,8 +80,10 @@
 #
 #   printf "${MSE_GLOBAL_PROMPT_RESULT}"
 mse_inter_promptUser() {
+  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
   MSE_GLOBAL_LASTERR=""
   MSE_GLOBAL_PROMPT_RESULT=""
+
 
   #
   # Apenas se todos os parametros foram passados
