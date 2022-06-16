@@ -263,7 +263,7 @@ mse_conf_setVariable()
     # Executa um split no valor obtido para ver se trata-se de 2 inteiros
     mse_str_split " " "${mseTargetSectionLines}"
     if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" != 2 ]; then
-      mseReturn="${lbl_cf_cannotIdentifyTargetLine}"
+      mseReturn="${lbl_err_cannotIdentifyTargetLine}"
     else
       mseTargetSectionFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
       mseTargetSectionLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"

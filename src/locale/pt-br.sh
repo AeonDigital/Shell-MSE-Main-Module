@@ -45,11 +45,10 @@ lbl_err_paramA_RequiredFor_A_Operation="Parametro \"[[PARAM_A]]\" é exigido par
 lbl_err_checkForValidOptionsUsingFunction="Verifique por opções válidas usando a função \"[[FUNCTION]]\""
 lbl_err_chooseOneOfThisOptions="Escolha uma destas opções: "
 
+lbl_err_cannotIdentifyTargetLine="Não foi possível identificar a linha alvo para executar esta operação."
 
 
-#
-# [ cf = conf ]
-lbl_cf_cannotIdentifyTargetLine="Não foi possível identificar a linha alvo para executar esta operação."
+
 
 
 #
