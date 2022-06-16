@@ -53,6 +53,9 @@ if [ ! -f "${mseTMPTargetOutputFile}" ] || [ "${mseTMPCURLResultCode}" != "200" 
 
   printf "%s\n" "${mseTMPInstallMessage}"
 else
+  MSE_GLOBAL_MODULE_LOCALE="en-us"
+  MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
+
   #
   # Carrega a versão standalone.
   . "${mseTMPTargetOutputFile}"
