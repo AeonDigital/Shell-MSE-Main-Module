@@ -8,13 +8,6 @@
 
 
 #
-# Fontes e Backgrounds
-lbl_font_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
-lbl_font_showTextColors_UseCodeExample="Use o número da cor desejada no lugar do 'X': "
-
-
-
-#
 # Falhas na passagem de argumentos, parametros ou variáveis
 lbl_err_lostParameters="Foram perdidos [[LOST]] parametros."
 lbl_err_variableAlreadExists="Variável \"[[VAR]]\" já existe"
