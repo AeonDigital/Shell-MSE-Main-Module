@@ -56,6 +56,7 @@
 # Printa a mensagem do erro ocorrido.
 mse_file_write() {
   mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
+
   local mseReturn
 
   local mseFilePath

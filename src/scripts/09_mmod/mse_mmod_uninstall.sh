@@ -15,7 +15,6 @@ mse_mmod_uninstall() {
 
   local mseCode=0
   mse_inter_alertUser "i" "MSE" "${lbl_uninstall_uninstallStart}"
-
   mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "lbl_uninstall_uninstallPromptMessage" "bool"
 
   if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
