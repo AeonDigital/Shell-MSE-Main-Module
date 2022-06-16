@@ -48,16 +48,6 @@ lbl_err_chooseOneOfThisOptions="Escolha uma destas opções: "
 
 
 #
-# [ fw_iv = file_write has an invalid value ]
-lbl_fw_iv_mainMessage="Parametro \"[[PARAM_A]]\" possui um valor inválido [ [[MSG]] ]"
-
-lbl_fw_iv_expectedFunctionNameOrInteger="É experado o nome de uma função ou um/dois inteiros; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
-lbl_fw_iv_firstLineMustBeLessThanTheLast="A primeira linha precisa ser um número menor do que a última: \"[[RESULT]]\""
-lbl_fw_iv_outsideTheFileLimits="Definição fora dos limites do arquivo; 1 - [[LASTLINE]]"
-lbl_fw_iv_errorOnSave="Erro ao salvar. Você tem permissão para alterar o arquivo alvo?"
-
-
-#
 # [ cf = conf ]
 lbl_cf_cannotIdentifyTargetLine="Não foi possível identificar a linha alvo para executar esta operação."
 
