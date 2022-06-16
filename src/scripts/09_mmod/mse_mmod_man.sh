@@ -72,7 +72,8 @@ mse_mmod_man() {
 
         #
         # Verifica se há uma versão deste manual para a lingua atualmente setada
-        local mseLocaleMan=$(mse_str_replace "/src/scripts/" "/src/locale/man/${MSE_GLOBAL_MODULE_LOCALE}/" "${msePathToFile}")
+        local msePathToDir=$(dirname "${msePathToFile}")
+        local mseLocaleMan="${msePathToDir}/assets/locale/${MSE_GLOBAL_MODULE_LOCALE}/man/${1}.sh"
         if [ -f "${mseLocaleMan}" ]; then
           msePathToFile="${mseLocaleMan}"
         fi
