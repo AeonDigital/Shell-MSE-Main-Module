@@ -59,7 +59,6 @@ mse_inter_errorAlert() {
     #
     # Verifica a mensagem básica do título a ser usado para este erro
     if [ "${2}" == "" ]; then
-      mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
       mseArgs["TitleText"]="${lbl_inter_alert_header_error}"
     fi
 

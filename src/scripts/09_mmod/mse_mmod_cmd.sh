@@ -29,7 +29,6 @@
 mse_mmod_cmd() {
 
   if [ "$#" -ge 1 ] && [ "$1" != "" ]; then
-    mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
 
     local mseTgtFunction=$(mse_mmod_cmd_search "$@")
 

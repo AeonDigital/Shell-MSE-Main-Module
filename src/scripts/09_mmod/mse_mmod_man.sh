@@ -34,7 +34,6 @@
 # @return
 # Informações de uso da função alvo.
 mse_mmod_man() {
-  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
 
   local mseMSG
   local mseMetaData

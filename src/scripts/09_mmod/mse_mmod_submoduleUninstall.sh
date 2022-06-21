@@ -14,7 +14,6 @@
 # @param string $1
 # Nome do submódulo a ser desinstalado
 mse_mmod_submoduleUninstall() {
-  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
 
   local mseCode=1
   local mseMsg

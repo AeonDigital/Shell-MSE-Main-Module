@@ -50,11 +50,7 @@ mse_mmod_registerModule() {
     mse_registerModule_execBeforeLoadLocale "$2"
   fi
 
-  MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
-  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
-    MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
-  fi
-  . "${MSE_TMP_PATH_TO_LOCALE}"
+  mse_mmod_loadLocaleLabels "$2" "${MSE_GLOBAL_MODULE_LOCALE}"
 
   if [ "$(type -t "mse_registerModule_execAfterLoadLocale")" == "function" ]; then
     mse_registerModule_execAfterLoadLocale "$2"

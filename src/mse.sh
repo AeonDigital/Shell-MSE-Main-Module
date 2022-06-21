@@ -68,8 +68,9 @@ myShellEnvStart() {
 
     local msePathToConfigFile="${mseInstallationPath}/config.sh"
     local msePathToRegisterModuleFunction="${mseInstallationPath}/src/scripts/09_mmod/mse_mmod_registerModule.sh"
+    local msePathToLoadLocaleLabelsFunction="${mseInstallationPath}/src/scripts/09_mmod/mse_mmod_loadLocaleLabels.sh"
 
-    if [ ! -f "${msePathToRegisterModuleFunction}" ]; then
+    if [ ! -f "${msePathToRegisterModuleFunction}" ] || [ ! -f "${msePathToLoadLocaleLabelsFunction}" ]; then
       local mseAlertMsg=""
       mseAlertMsg+="\n"
       mseAlertMsg+="    Attention\n"
@@ -91,6 +92,7 @@ myShellEnvStart() {
         #
         # Efetua o load do módulo principal usando o registrador
         . "${msePathToRegisterModuleFunction}"
+        . "${msePathToLoadLocaleLabelsFunction}"
         mse_mmod_registerModule "Shell-MSE-Main-Module" "${mseInstallationPath}/src"
 
         #

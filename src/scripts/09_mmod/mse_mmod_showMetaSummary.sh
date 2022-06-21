@@ -26,7 +26,6 @@
 # Uma lista contendo todas as informações requeridas formatadas conforme
 # indicado. A lista será sempre ordenada alfabeticamente.
 mse_mmod_showMetaSummary() {
-  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
 
   local msePrettyFormat=1
   if [ "$1" == "0" ] || [ "$1" == "1" ]; then

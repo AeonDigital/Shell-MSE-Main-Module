@@ -43,7 +43,6 @@
 # @return
 # Printa na tela uma tabela contendo o conjunto de cores selecionado.
 mse_font_showColors() {
-  mse_mmod_loadLocaleLabels $(dirname "${BASH_SOURCE[0]}")
 
   local mseUseColorSystem
   local mseTableType
