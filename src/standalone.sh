@@ -34,11 +34,6 @@ lbl_err_cannotIdentifyTargetLine="Cannot identify the target line to perform thi
 # END :: en-us.sh
 
 
-# INI :: env.sh
-
-# END :: env.sh
-
-
 # INI :: variables.sh
 MSE_TMP_SUBMODULES="check::str::str_convert::exec::file::conf::font::inter::misc"
 declare -gA MSE_GLOBAL_SUBMODULES_REPOSITORIES
@@ -121,15 +116,104 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
 # END :: variables.sh
 
 
-/home/rianna/.config/myShellEnv/src/config/colors.sh
+# INI :: colors.sh
+mseNONE='\e[0m'
+mseBLACK='\e[20;47;30m'
+mseDBLACK='\e[2;47;30m'
+mseLBLACK='\e[20;47;90m'
+mseDLBLACK='\e[2;47;90m'
+mseRED='\e[20;49;31m'
+mseDRED='\e[2;49;31m'
+mseLRED='\e[20;49;91m'
+mseDLRED='\e[2;49;91m'
+mseGREEN='\e[20;49;32m'
+mseDGREEN='\e[2;49;32m'
+mseLGREEN='\e[20;49;92m'
+mseDLGREEN='\e[2;49;92m'
+mseYELLOW='\e[20;49;33m'
+mseDYELLOW='\e[2;49;33m'
+mseLYELLOW='\e[20;49;93m'
+mseDLYELLOW='\e[2;49;93m'
+mseBLUE='\e[20;49;34m'
+mseDBLUE='\e[2;49;34m'
+mseLBLUE='\e[20;49;94m'
+mseDLBLUE='\e[2;49;94m'
+msePURPLE='\e[20;49;35m'
+mseDPURPLE='\e[2;49;35m'
+mseLPURPLE='\e[20;49;95m'
+mseDLPURPLE='\e[2;49;95m'
+mseCYAN='\e[20;49;36m'
+mseDCYAN='\e[2;49;36m'
+mseLCYAN='\e[20;49;96m'
+mseDLCYAN='\e[2;49;96m'
+mseWHITE='\e[20;49;37m'
+mseDWHITE='\e[2;49;37m'
+mseLWHITE='\e[20;49;97m'
+mseDLWHITE='\e[2;49;97m'
+MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
+  'NONE'
+  'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
+  'RED'     'DRED'    'LRED'    'DLRED'
+  'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
+  'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
+  'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
+  'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
+  'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
+  'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
+)
+MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
+  'Normal'
+  'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
+  'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
+  'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
+  'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
+  'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
+  'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
+  'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
+  'White'   'White + Dark'  'White Light'   'White Light + Dark'
+)
+MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
+  '39'
+  '30' '230' '90' '290'
+  '31' '231' '91' '291'
+  '32' '232' '92' '292'
+  '33' '233' '93' '293'
+  '34' '234' '94' '294'
+  '35' '235' '95' '295'
+  '36' '236' '96' '296'
+  '37' '237' '97' '297'
+)
+MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
+  '49'
+  '40' '' '100' ''
+  '41' '' '101' ''
+  '42' '' '102' ''
+  '43' '' '103' ''
+  '44' '' '104' ''
+  '45' '' '105' ''
+  '46' '' '106' ''
+  '47' '' '107' ''
+)
+MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
+  'NONE'
+  'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
+  'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
+  'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
+  'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
+)
+MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
+  '20'
+  '1'   '2'   '3'   '4'
+  '5'   '6'   '7'   '8'   '9'
+  '21'  '22'  '23'  '24'
+  '25'  '16'  '27'  '28'  '29'
+)
+# END :: colors.sh
+
+
 # INI :: aliases.sh
 alias mse="mse_mmod_cmd"
 # END :: aliases.sh
-
-
-# INI :: mse_check_isChar.sh
-
-# END :: mse_check_isChar.sh
 
 
 # INI :: mse_check_hasKeyInAssocArray.sh
@@ -4085,11 +4169,6 @@ lbl_submoduleUninstall_unableToEditConfigFile="Unable to edit configuration file
 # END :: general.sh
 
 
-# INI :: mse_check_isChar.sh
-
-# END :: mse_check_isChar.sh
-
-
 # INI :: general.sh
 lbl_generic_confirmActionToProceed="Confirme esta ação para prosseguir"
 lbl_generic_actionAbortedByTheUser="Ação interrompida pelo usuário."
@@ -4135,11 +4214,6 @@ lbl_submoduleUninstall_submoduleDoesNotExists="O submódulo indicado não está 
 lbl_submoduleUninstall_cannotRemove="Um erro ocorreu e não possível desinstalar o submódulo."
 lbl_submoduleUninstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração \"[[FILE]]\"."
 # END :: general.sh
-
-
-# INI :: mse_mmod_help.sh
-
-# END :: mse_mmod_help.sh
 
 
 # INI :: mse_mmod_cmd.sh
@@ -4441,13 +4515,15 @@ mse_mmod_retrieveOnlyCodeFromFile() {
   readarray -t mseSplitArr <<< "$mseFileContent"
   declare -n mseTmpArrName="$2"
   mseTmpArrName=()
-  mseTmpArrName+=("# INI :: ${mseFullFileName}")
-  for mseLine in "${mseSplitArr[@]}"; do
-    mseTmpArrName+=("${mseLine}")
-  done
-  mseTmpArrName+=("# END :: ${mseFullFileName}")
-  mseTmpArrName+=("")
-  mseTmpArrName+=("")
+  if [ "${mseFileContent}" != "" ] && [ "${#mseSplitArr[@]}" -gt 0 ]; then
+    mseTmpArrName+=("# INI :: ${mseFullFileName}")
+    for mseLine in "${mseSplitArr[@]}"; do
+      mseTmpArrName+=("${mseLine}")
+    done
+    mseTmpArrName+=("# END :: ${mseFullFileName}")
+    mseTmpArrName+=("")
+    mseTmpArrName+=("")
+  fi
 }
 # END :: mse_mmod_generateStandalone.sh
 
