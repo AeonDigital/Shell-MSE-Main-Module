@@ -162,37 +162,41 @@ mse_mmod_registerModule() {
     #
     # Carrega as funções referentes a cada arquivo carregado neste módulo
     while read rawLine; do
-      mseFullFileName=$(basename -- "$rawLine")
-      mseFunctionName="${mseFullFileName%.*}"
-
-      unset "${mseFunctionName}"
-      . "$rawLine" || true
-
       #
-      # Registra a função
-      # apenas se a mesma não está em uma pasta "assets"
-      if [[ ! ${rawLine} =~ "/assets/" ]]; then
-        mseSubModuleName="-"
-        ((mseModuleTotalFunctionCount=mseModuleTotalFunctionCount+1))
+      # Ignora todos scripts de locales
+      if [[ ! ${rawLine} =~ "/assets/locale/" ]]; then
+        mseFullFileName=$(basename -- "$rawLine")
+        mseFunctionName="${mseFullFileName%.*}"
+
+        unset "${mseFunctionName}"
+        . "$rawLine" || true
 
         #
-        # Verifica se a função carregada pertence a um submódulo, e qual
-        for  ((i=0; i<mseTmpTotalSubModules; i++)); do
-          if [[ "${mseFunctionName}" =~ "${MSE_TMP_LIST_SUBMODULES[$i]}_" ]]; then
-            mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
-            mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
+        # Registra a função
+        # apenas se a mesma não está em uma pasta "assets"
+        if [[ ! ${rawLine} =~ "/assets/" ]]; then
+          mseSubModuleName="-"
+          ((mseModuleTotalFunctionCount=mseModuleTotalFunctionCount+1))
 
-            #
-            # Atualiza o contador de funções do submodulo
-            c="${MSE_GLOBAL_MODULES_METADATA[${mseSubModuleMetaDataKey}]}"
-            ((c=c+1))
-            MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]="${c}"
+          #
+          # Verifica se a função carregada pertence a um submódulo, e qual
+          for  ((i=0; i<mseTmpTotalSubModules; i++)); do
+            if [[ "${mseFunctionName}" =~ "${MSE_TMP_LIST_SUBMODULES[$i]}_" ]]; then
+              mseSubModuleName="${MSE_TMP_LIST_SUBMODULES[$i]}"
+              mseSubModuleMetaDataKey="S::${mseModuleName}::${mseSubModuleName}"
 
-            break
-          fi
-        done
+              #
+              # Atualiza o contador de funções do submodulo
+              c="${MSE_GLOBAL_MODULES_METADATA[${mseSubModuleMetaDataKey}]}"
+              ((c=c+1))
+              MSE_GLOBAL_MODULES_METADATA["${mseSubModuleMetaDataKey}"]="${c}"
 
-        MSE_GLOBAL_MODULES_METADATA["F::${mseModuleName}::${mseSubModuleName}::${mseFunctionName}"]="${rawLine}"
+              break
+            fi
+          done
+
+          MSE_GLOBAL_MODULES_METADATA["F::${mseModuleName}::${mseSubModuleName}::${mseFunctionName}"]="${rawLine}"
+        fi
       fi
     done <<< ${mseModFiles}
 
