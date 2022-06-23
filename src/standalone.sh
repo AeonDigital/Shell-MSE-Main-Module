@@ -1,25 +1,6 @@
 #!/usr/bin/env bash
 # myShellEnv v 1.0 [aeondigital.com.br]
 # INI :: en-us.sh
-lbl_mmod_invalidModuleName="The module name indicated is invalid. Use the \"mse_mmod_showModules\" function to get a list of valid options. [ \"[[MODULE]]\" ]"
-lbl_inter_alert_header_info="Information"
-lbl_inter_alert_header_attention="Attention"
-lbl_inter_alert_header_warning="Warning"
-lbl_inter_alert_header_error="Error"
-lbl_inter_alert_header_fail="Fail"
-lbl_inter_alert_header_success="Success"
-lbl_inter_wait_user_any_key="Press any key to proceed"
-lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
-unset lbl_inter_prompt_boolLabels
-lbl_inter_prompt_boolLabels=(
-  "yes" "y" "no" "n"
-)
-unset lbl_inter_prompt_boolValues
-lbl_inter_prompt_boolValues=(
-  1 1 0 0
-)
-lbl_font_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
-lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in the place of 'X': "
 lbl_err_lostParameters="Lost [[LOST]] parameters."
 lbl_err_variableAlreadExists="Variable \"[[VAR]]\" already exists"
 lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
@@ -49,68 +30,7 @@ lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the requir
 lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
 lbl_err_checkForValidOptionsUsingFunction="Check for valid options using the \"[[FUNCTION]]\" function"
 lbl_err_chooseOneOfThisOptions="Choose for one of this options: "
-lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
-lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
-lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
-lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid option"
-lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="[[FIELDNAME_A]] field points to non existent function"
-lbl_exec_vp_ipd_fieldA_MustBeAnInteger="[[FIELDNAME_A]] field must be an integer"
-lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="[[FIELDNAME_A]] field must be greater than 0"
-lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]] field"
-lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 0"
-lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 1"
-lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]] collection"
-lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="[[FIELDNAME_A]] field has an empty [[A]] collection"
-lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]] field has an incorrect correlation between [[A]] and [[B]]"
-lbl_fw_iv_mainMessage="Parameter \"[[PARAM_A]]\" has an invalid value [ [[MSG]] ]"
-lbl_fw_iv_expectedFunctionNameOrInteger="Expected a function name or one/two integers; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
-lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last: \"[[RESULT]]\""
-lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
-lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
-lbl_cf_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
-lbl_generic_confirmActionToProceed="Confirm this action to proceed"
-lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
-lbl_generic_scriptInterruptedError=("Operation interrupted.")
-lbl_generic_cannotFoundConfigFile="Cannot found configuration file."
-lbl_generic_cannotSaveinFile="Cannot save."
-lbl_generic_fileNotFound="File not found in \"[[FILE]]\"."
-lbl_generic_checkConfigFile="Check if the configuration file exists."
-lbl_generic_checkPermissions="Check your permissions to proceed this operation."
-lbl_generic_save="Save."
-lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
-lbl_man_enterAFunction="Enter the name of a function."
-lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
-lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_showMetaData\"."
-lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
-lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
-lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
-lbl_searchFunction_enterAFunction="Enter the name of a function."
-lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
-lbl_generateStandalone_moduleNotFound="Module name not found."
-lbl_update_updateStart="Updating all \"myShellEnv\" modules."
-lbl_update_updateSuccess="All modules and submodules has been updated"
-lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
-lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
-lbl_uninstall_uninstallPromptMessage=()
-lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
-lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
-lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
-lbl_uninstall_uninstallPromptMessage+=("")
-lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
-lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
-lbl_uninstall_uninstallSuccess="Uninstallation completed."
-lbl_submoduleInstall_addNew="Adding new module."
-lbl_submoduleInstall_addSuccess="The new module has been added successfully"
-lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
-lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
-lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
-lbl_submoduleInstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
-lbl_submoduleInstall_unableToEditConfigFile_msg=()
-lbl_submoduleInstall_unableToEditConfigFile_msg+=("The module has been successfully installed but will not")
-lbl_submoduleInstall_unableToEditConfigFile_msg+=("be loaded until its entry in the global variable \"MSE_AVAILABLE_MODULES\" is set.")
-lbl_submoduleUninstall_submoduleDoesNotExists="The indicated submodule is not installed."
-lbl_submoduleUninstall_cannotRemove="An error occurred and the submodule could not be uninstalled."
-lbl_submoduleUninstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_err_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
 # END :: en-us.sh
 
 
@@ -201,104 +121,15 @@ MSE_GLOBAL_MODULE_READ_LINE["transform_has_linenumber"]=""
 # END :: variables.sh
 
 
-mseNONE='\e[0m'
-mseBLACK='\e[20;47;30m'
-mseDBLACK='\e[2;47;30m'
-mseLBLACK='\e[20;47;90m'
-mseDLBLACK='\e[2;47;90m'
-mseRED='\e[20;49;31m'
-mseDRED='\e[2;49;31m'
-mseLRED='\e[20;49;91m'
-mseDLRED='\e[2;49;91m'
-mseGREEN='\e[20;49;32m'
-mseDGREEN='\e[2;49;32m'
-mseLGREEN='\e[20;49;92m'
-mseDLGREEN='\e[2;49;92m'
-mseYELLOW='\e[20;49;33m'
-mseDYELLOW='\e[2;49;33m'
-mseLYELLOW='\e[20;49;93m'
-mseDLYELLOW='\e[2;49;93m'
-mseBLUE='\e[20;49;34m'
-mseDBLUE='\e[2;49;34m'
-mseLBLUE='\e[20;49;94m'
-mseDLBLUE='\e[2;49;94m'
-msePURPLE='\e[20;49;35m'
-mseDPURPLE='\e[2;49;35m'
-mseLPURPLE='\e[20;49;95m'
-mseDLPURPLE='\e[2;49;95m'
-mseCYAN='\e[20;49;36m'
-mseDCYAN='\e[2;49;36m'
-mseLCYAN='\e[20;49;96m'
-mseDLCYAN='\e[2;49;96m'
-mseWHITE='\e[20;49;37m'
-mseDWHITE='\e[2;49;37m'
-mseLWHITE='\e[20;49;97m'
-mseDLWHITE='\e[2;49;97m'
-MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
-  'NONE'
-  'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
-  'RED'     'DRED'    'LRED'    'DLRED'
-  'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
-  'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
-  'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
-  'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
-  'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
-  'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
-)
-MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
-  'Normal'
-  'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
-  'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
-  'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
-  'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
-  'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
-  'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
-  'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
-  'White'   'White + Dark'  'White Light'   'White Light + Dark'
-)
-MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
-  '39'
-  '30' '230' '90' '290'
-  '31' '231' '91' '291'
-  '32' '232' '92' '292'
-  '33' '233' '93' '293'
-  '34' '234' '94' '294'
-  '35' '235' '95' '295'
-  '36' '236' '96' '296'
-  '37' '237' '97' '297'
-)
-MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
-  '49'
-  '40' '' '100' ''
-  '41' '' '101' ''
-  '42' '' '102' ''
-  '43' '' '103' ''
-  '44' '' '104' ''
-  '45' '' '105' ''
-  '46' '' '106' ''
-  '47' '' '107' ''
-)
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
-  'NONE'
-  'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
-  'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
-  'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
-  'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
-)
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
-  '20'
-  '1'   '2'   '3'   '4'
-  '5'   '6'   '7'   '8'   '9'
-  '21'  '22'  '23'  '24'
-  '25'  '16'  '27'  '28'  '29'
-)
-
-
-
-
+/home/rianna/.config/myShellEnv/src/config/colors.sh
 # INI :: aliases.sh
 alias mse="mse_mmod_cmd"
 # END :: aliases.sh
+
+
+# INI :: mse_check_isChar.sh
+
+# END :: mse_check_isChar.sh
 
 
 # INI :: mse_check_hasKeyInAssocArray.sh
@@ -382,7 +213,7 @@ mse_check_isChar() {
 MSE_GLOBAL_CMD["is char"]="mse_check_isChar"
 mse_check_isChar_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: char"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }
 # END :: mse_check_isChar.sh
 
@@ -409,7 +240,7 @@ mse_check_isCharDecimal() {
 MSE_GLOBAL_CMD["is charDecimal"]="mse_check_isCharDecimal"
 mse_check_isCharDecimal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charDecimal"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }
 # END :: mse_check_isCharDecimal.sh
 
@@ -436,7 +267,7 @@ mse_check_isCharHex() {
 MSE_GLOBAL_CMD["is charHex"]="mse_check_isCharHex"
 mse_check_isCharHex_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charHex"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }
 # END :: mse_check_isCharHex.sh
 
@@ -463,7 +294,7 @@ mse_check_isCharOctal() {
 MSE_GLOBAL_CMD["is charOctal"]="mse_check_isCharOctal"
 mse_check_isCharOctal_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=1
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: charOctal"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="Value :: r :: string"
 }
 # END :: mse_check_isCharOctal.sh
 
@@ -1083,6 +914,40 @@ mse_str_convert_octalToHex_vldtr() {
 # END :: mse_str_convert_octalToHex.sh
 
 
+# INI :: general.sh
+lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
+lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid option"
+lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="[[FIELDNAME_A]] field points to non existent function"
+lbl_exec_vp_ipd_fieldA_MustBeAnInteger="[[FIELDNAME_A]] field must be an integer"
+lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="[[FIELDNAME_A]] field must be greater than 0"
+lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]] field"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 0"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 1"
+lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]] collection"
+lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="[[FIELDNAME_A]] field has an empty [[A]] collection"
+lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]] field has an incorrect correlation between [[A]] and [[B]]"
+# END :: general.sh
+
+
+# INI :: general.sh
+lbl_exec_vp_ipd_mainMessage="Definição de parametro inválida; [ [[MSG]] ]"
+lbl_exec_vp_ipd_fieldA_CannotBeEmpty="O Campo [[FIELDNAME_A]] não pode ser vazio"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="O Campo [[FIELDNAME_A]] possui um valor inválido"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="O Campo [[FIELDNAME_A]] possui uma opção inválida "
+lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="O Campo [[FIELDNAME_A]] aponta para uma função inexistente"
+lbl_exec_vp_ipd_fieldA_MustBeAnInteger="O Campo [[FIELDNAME_A]] deve ser um inteiro"
+lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="O Campo [[FIELDNAME_A]] deve ser maior que 0"
+lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="O Campo [[FIELDNAME_A]] é maior que o campo [[FIELDNAME_B]]"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="Para o tipo \"[[TYPE_A]]\", o campo [[FIELDNAME_A]] deve ser maior ou igual a 0"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="Para o tipo \"[[TYPE_A]]\", o campo [[FIELDNAME_A]] deve ser maior ou igual a 1"
+lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="O Campo [[FIELDNAME_A]] não possui a coleção do tipo [[A]]"
+lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="O Campo [[FIELDNAME_A]] possui uma coleção vazia do tipo [[A]]"
+lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="O Campo [[FIELDNAME_A]] possui uma correlação incorreta entre [[A]] e [[B]]"
+# END :: general.sh
+
+
 # INI :: mse_exec_clearVars.sh
 mse_exec_clearVars() {
   declare -g MSE_GLOBAL_LASTERR=""
@@ -1657,6 +1522,24 @@ mse_file_read_checkArbitratySection_end() {
 # END :: checkSection.sh
 
 
+# INI :: general.sh
+lbl_fw_iv_mainMessage="Parameter \"[[PARAM_A]]\" has an invalid value [ [[MSG]] ]"
+lbl_fw_iv_expectedFunctionNameOrInteger="Expected a function name or one/two integers; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
+lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last: \"[[RESULT]]\""
+lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
+lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
+# END :: general.sh
+
+
+# INI :: general.sh
+lbl_fw_iv_mainMessage="Parametro \"[[PARAM_A]]\" possui um valor inválido [ [[MSG]] ]"
+lbl_fw_iv_expectedFunctionNameOrInteger="É experado o nome de uma função ou um/dois inteiros; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
+lbl_fw_iv_firstLineMustBeLessThanTheLast="A primeira linha precisa ser um número menor do que a última: \"[[RESULT]]\""
+lbl_fw_iv_outsideTheFileLimits="Definição fora dos limites do arquivo; 1 - [[LASTLINE]]"
+lbl_fw_iv_errorOnSave="Erro ao salvar. Você tem permissão para alterar o arquivo alvo?"
+# END :: general.sh
+
+
 # INI :: resetConfig.sh
 mse_file_read_resetConfig() {
   unset MSE_GLOBAL_MODULE_READ_BLOCK
@@ -1975,8 +1858,7 @@ mse_file_read_vldtr() {
 
 
 # INI :: mse_file_write.sh
-mse_file_write()
-{
+mse_file_write() {
   local mseReturn
   local mseFilePath
   local mseFileContent
@@ -2238,7 +2120,7 @@ mse_conf_setVariable()
     mseTargetSectionLines=$(mse_file_boundaryLineNumbers "${msePathToFile}" "${mseCommentChar}" "${mseConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
     mse_str_split " " "${mseTargetSectionLines}"
     if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" != 2 ]; then
-      mseReturn="${lbl_cf_cannotIdentifyTargetLine}"
+      mseReturn="${lbl_err_cannotIdentifyTargetLine}"
     else
       mseTargetSectionFirstLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}"
       mseTargetSectionLastLine="${MSE_GLOBAL_MODULE_SPLIT_RESULT[1]}"
@@ -2452,6 +2334,18 @@ mse_conf_showVariables_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="ShowLineNumber :: o :: bool :: 0"
 }
 # END :: mse_conf_showVariables.sh
+
+
+# INI :: general.sh
+lbl_font_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
+lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in the place of 'X': "
+# END :: general.sh
+
+
+# INI :: general.sh
+lbl_font_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
+lbl_font_showTextColors_UseCodeExample="Use o número da cor desejada no lugar do 'X': "
+# END :: general.sh
 
 
 # INI :: mse_font_createStyle.sh
@@ -2964,6 +2858,46 @@ mse_font_setUTF8Mode() {
 }
 MSE_GLOBAL_CMD["set UTF8Mode"]="mse_font_setUTF8Mode"
 # END :: mse_font_utf8Mode.sh
+
+
+# INI :: general.sh
+lbl_inter_alert_header_info="Information"
+lbl_inter_alert_header_attention="Attention"
+lbl_inter_alert_header_warning="Warning"
+lbl_inter_alert_header_error="Error"
+lbl_inter_alert_header_fail="Fail"
+lbl_inter_alert_header_success="Success"
+lbl_inter_wait_user_any_key="Press any key to proceed"
+lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
+unset lbl_inter_prompt_boolLabels
+lbl_inter_prompt_boolLabels=(
+  "yes" "y" "no" "n"
+)
+unset lbl_inter_prompt_boolValues
+lbl_inter_prompt_boolValues=(
+  1 1 0 0
+)
+# END :: general.sh
+
+
+# INI :: general.sh
+lbl_inter_alert_header_info="Informação"
+lbl_inter_alert_header_attention="Atenção"
+lbl_inter_alert_header_warning="Alerta"
+lbl_inter_alert_header_error="Erro"
+lbl_inter_alert_header_fail="Falha"
+lbl_inter_alert_header_success="Sucesso"
+lbl_inter_wait_user_any_key="Precione qualquer tecla para prosseguir"
+lbl_inter_prompt_invalidValue="O valor \"[[VALUE]]\" é inválido."
+unset lbl_inter_prompt_boolLabels
+lbl_inter_prompt_boolLabels=(
+  "sim" "s" "não" "n"
+)
+unset lbl_inter_prompt_boolValues
+lbl_inter_prompt_boolValues=(
+  1 1 0 0
+)
+# END :: general.sh
 
 
 # INI :: mse_inter_theme_default.sh
@@ -4104,6 +4038,110 @@ mse_inter_waitUser_vldtr() {
 # END :: mse_inter_waitUser.sh
 
 
+# INI :: general.sh
+lbl_generic_confirmActionToProceed="Confirm this action to proceed"
+lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
+lbl_generic_scriptInterruptedError=("Operation interrupted.")
+lbl_generic_cannotFoundConfigFile="Cannot found configuration file."
+lbl_generic_cannotSaveinFile="Cannot save."
+lbl_generic_fileNotFound="File not found in \"[[FILE]]\"."
+lbl_generic_checkConfigFile="Check if the configuration file exists."
+lbl_generic_checkPermissions="Check your permissions to proceed this operation."
+lbl_generic_save="Save."
+lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_showMetaData\" function."
+lbl_man_enterAFunction="Enter the name of a function."
+lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
+lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_showMetaData\"."
+lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
+lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
+lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
+lbl_searchFunction_enterAFunction="Enter the name of a function."
+lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
+lbl_generateStandalone_moduleNotFound="Module name not found."
+lbl_update_updateStart="Updating all \"myShellEnv\" modules."
+lbl_update_updateSuccess="All modules and submodules has been updated"
+lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
+lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
+lbl_uninstall_uninstallPromptMessage=()
+lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
+lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
+lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
+lbl_uninstall_uninstallPromptMessage+=("")
+lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
+lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
+lbl_uninstall_uninstallSuccess="Uninstallation completed."
+lbl_submoduleInstall_addNew="Adding new module."
+lbl_submoduleInstall_addSuccess="The new module has been added successfully"
+lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
+lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
+lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg=()
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("The module has been successfully installed but will not")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("be loaded until its entry in the global variable \"MSE_AVAILABLE_MODULES\" is set.")
+lbl_submoduleUninstall_submoduleDoesNotExists="The indicated submodule is not installed."
+lbl_submoduleUninstall_cannotRemove="An error occurred and the submodule could not be uninstalled."
+lbl_submoduleUninstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+# END :: general.sh
+
+
+# INI :: mse_check_isChar.sh
+
+# END :: mse_check_isChar.sh
+
+
+# INI :: general.sh
+lbl_generic_confirmActionToProceed="Confirme esta ação para prosseguir"
+lbl_generic_actionAbortedByTheUser="Ação interrompida pelo usuário."
+lbl_generic_scriptInterruptedError=("Operação interrompida.")
+lbl_generic_cannotFoundConfigFile="Arquivo de configuração não foi encontrado."
+lbl_generic_cannotSaveinFile="Não foi possível salvar."
+lbl_generic_fileNotFound="O arquivo \"[[FILE]]\" não foi encontrado."
+lbl_generic_checkConfigFile="Verifique se o arquivo de configuração existe."
+lbl_generic_checkPermissions="Verifique suas permissões para efetuar esta operação."
+lbl_generic_save="Salvo."
+lbl_showMetaSummary_moreDetails="Para mais detalhes use a função \"mse_mmod_showMetaData\"."
+lbl_man_enterAFunction="Entre o nome de uma função."
+lbl_man_functionDoesNotExists="A função \"[[FUNCTION]]\" não existe."
+lbl_man_searchForAValidFunction="Para pesquisar por uma função válida use \"mse_mmod_showMetaData\"."
+lbl_man_couldNotFindHelpForFunction="Não foi possível encontrar uma ajuda para a função \"[[FUNCTION]]\""
+lbl_man_fileOfFunctionNotFound="O arquivo da função não foi encontrado em [[PATH]]"
+lbl_man_noUsageDescriptionFoundForFunction="Nenhuma descrição de uso foi encontrada para a função"
+lbl_searchFunction_enterAFunction="Entre o nome da função."
+lbl_cmd_commandNotFound="O comando \"[[CMD]]\" não foi encontrado."
+lbl_generateStandalone_moduleNotFound="Módulo não encontrado."
+lbl_update_updateStart="Atualizando todos os módulos \"myShellEnv\"."
+lbl_update_updateSuccess="Todos os módulos e submódulos foram atualizados"
+lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualizar todos os módulos [ [[ERRCODE]] ]"
+lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
+lbl_uninstall_uninstallPromptMessage=()
+lbl_uninstall_uninstallPromptMessage+=("Esta ação não pode ser desfeita.")
+lbl_uninstall_uninstallPromptMessage+=("Todos os dados e configurações de todos os módulos atualmente instalados")
+lbl_uninstall_uninstallPromptMessage+=("serão perdidos permanentemente.")
+lbl_uninstall_uninstallPromptMessage+=("")
+lbl_uninstall_uninstallPromptMessage+=("Você tem certeza que deseja prosseguir?")
+lbl_uninstall_uninstallErrorRemoveDir="Não foi possível remover o diretório \"myShellEnv\"."
+lbl_uninstall_uninstallSuccess="Uninstallation completed."
+lbl_submoduleInstall_addNew="Adicionando novo módulo."
+lbl_submoduleInstall_addSuccess="O novo módulo foi adicionado com sucesso"
+lbl_submoduleInstall_addFail="Houve uma falha inesperada ao tentar adicionar o novo módulo"
+lbl_submoduleInstall_confirmAction="Você tem certeza que deseja adicionar o submódulo [[SUBMODULE]] à sua instância do \"myShellEnv\"?"
+lbl_submoduleInstall_alreadExists="Este submódulo já está adicionado em seu \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração  \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg=()
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("O módulo foi instalado com sucesso mas não será")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("carregado até que sua entrada na variável global \"MSE_AVAILABLE_MODULES\" seja definida.")
+lbl_submoduleUninstall_submoduleDoesNotExists="O submódulo indicado não está instalado."
+lbl_submoduleUninstall_cannotRemove="Um erro ocorreu e não possível desinstalar o submódulo."
+lbl_submoduleUninstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração \"[[FILE]]\"."
+# END :: general.sh
+
+
+# INI :: mse_mmod_help.sh
+
+# END :: mse_mmod_help.sh
+
+
 # INI :: mse_mmod_cmd.sh
 mse_mmod_cmd() {
   if [ "$#" -ge 1 ] && [ "$1" != "" ]; then
@@ -4422,6 +4460,45 @@ MSE_GLOBAL_CMD["help"]="mse_mmod_help"
 # END :: mse_mmod_help.sh
 
 
+# INI :: mse_mmod_loadLocaleLabels.sh
+mse_mmod_loadLocaleLabels() {
+  declare -a mseLocaleDirectories=("${1}/locale")
+  local mseRootModuleAssetsDir
+  local mseRootModuleLocaleDir
+  if [ -d "${1}/locale" ]; then
+    mseLocaleDirectories+=("${1}/locale")
+  fi
+  for mseRootModuleAssetsDir in $(find "${1}/scripts" -type d -name "assets" | sort -n); do
+    for mseRootModuleLocaleDir in $(find "${mseRootModuleAssetsDir}" -type d -name "locale" | sort -n); do
+      mseLocaleDirectories+=("${mseRootModuleLocaleDir}")
+    done
+  done
+  local mseLocaleDir
+  for mseLocaleDir in "${mseLocaleDirectories[@]}"; do
+    if [ -f "${mseLocaleDir}/${2}.sh" ]; then
+      . "${mseLocaleDir}/${2}.sh"
+    elif [ -f "${mseLocaleDir}/${2}/label/general.sh" ]; then
+      . "${mseLocaleDir}/${2}/label/general.sh"
+    fi
+  done
+}
+mse_mmod_reloadAllLocaleLabels() {
+  local mseInstallationPath="${HOME}/.config/myShellEnv"
+  local mseUseLocale="${MSE_GLOBAL_MODULE_LOCALE}"
+  if [ "${1}" != "" ]; then
+    mseUseLocale="${1}"
+  fi
+  mse_mmod_loadLocaleLabels "${HOME}/.config" "${mseUseLocale}"
+  local mseModuleName
+  for mseModuleName in "${!MSE_AVAILABLE_MODULES[@]}"; do
+    if [ "${MSE_AVAILABLE_MODULES[${mseModuleName}]}" == "1" ]; then
+      mse_mmod_loadLocaleLabels "${mseInstallationPath}/${mseModuleName}/src" "${mseUseLocale}"
+    fi
+  done
+}
+# END :: mse_mmod_loadLocaleLabels.sh
+
+
 # INI :: mse_mmod_man.sh
 mse_mmod_man() {
   local mseMSG
@@ -4446,7 +4523,8 @@ mse_mmod_man() {
         mse_inter_errorAlert "err" "${mseMSG}"
       else
         msePathToFile="${MSE_GLOBAL_MODULE_SPLIT_RESULT[4]}"
-        local mseLocaleMan=$(mse_str_replace "/src/scripts/" "/src/locale/man/${MSE_GLOBAL_MODULE_LOCALE}/" "${msePathToFile}")
+        local msePathToDir=$(dirname "${msePathToFile}")
+        local mseLocaleMan="${msePathToDir}/assets/locale/${MSE_GLOBAL_MODULE_LOCALE}/man/${1}.sh"
         if [ -f "${mseLocaleMan}" ]; then
           msePathToFile="${mseLocaleMan}"
         fi
@@ -4548,11 +4626,7 @@ mse_mmod_registerModule() {
   if [ "$(type -t "mse_registerModule_execBeforeLoadLocale")" == "function" ]; then
     mse_registerModule_execBeforeLoadLocale "$2"
   fi
-  MSE_TMP_PATH_TO_LOCALE="${2}/locale/${MSE_GLOBAL_MODULE_LOCALE}.sh"
-  if [ ! -f "${MSE_TMP_PATH_TO_LOCALE}" ]; then
-    MSE_TMP_PATH_TO_LOCALE="${2}/locale/en-us.sh"
-  fi
-  . "${MSE_TMP_PATH_TO_LOCALE}"
+  mse_mmod_loadLocaleLabels "$2" "${MSE_GLOBAL_MODULE_LOCALE}"
   if [ "$(type -t "mse_registerModule_execAfterLoadLocale")" == "function" ]; then
     mse_registerModule_execAfterLoadLocale "$2"
   fi

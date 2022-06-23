@@ -140,7 +140,12 @@ mse_standalone_execBeforeLoadVariables() {
 # retornadas.
 mse_standalone_execAfterLoadVariables() {
   declare -n mseTmpArrName="$2"
-  mseTmpArrName=("${1}/config/colors.sh")
+  mseTmpArrName=()
+
+  declare -a mseSATmpArr=()
+
+  mse_mmod_retrieveOnlyCodeFromFile "${1}/config/colors.sh" "mseSATmpArr"
+  mseTmpArrName=("${mseSATmpArr[@]}")
 }
 
 

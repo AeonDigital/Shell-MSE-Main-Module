@@ -243,11 +243,13 @@ mse_mmod_retrieveOnlyCodeFromFile() {
   declare -n mseTmpArrName="$2"
   mseTmpArrName=()
 
-  mseTmpArrName+=("# INI :: ${mseFullFileName}")
-  for mseLine in "${mseSplitArr[@]}"; do
-    mseTmpArrName+=("${mseLine}")
-  done
-  mseTmpArrName+=("# END :: ${mseFullFileName}")
-  mseTmpArrName+=("")
-  mseTmpArrName+=("")
+  if [ "${mseFileContent}" != "" ] && [ "${#mseSplitArr[@]}" -gt 0 ]; then
+    mseTmpArrName+=("# INI :: ${mseFullFileName}")
+    for mseLine in "${mseSplitArr[@]}"; do
+      mseTmpArrName+=("${mseLine}")
+    done
+    mseTmpArrName+=("# END :: ${mseFullFileName}")
+    mseTmpArrName+=("")
+    mseTmpArrName+=("")
+  fi
 }
