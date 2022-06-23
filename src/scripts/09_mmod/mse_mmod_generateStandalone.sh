@@ -64,6 +64,24 @@ mse_mmod_generateStandalone() {
       mseStandaloneContent+=("${mseTmpLine}")
     done
 
+
+    local mseRootModuleAssetsDir
+    local mseRootModuleLocalesFiles
+
+    IFS=$'\n'
+    for mseRootModuleAssetsDir in $(find "${mseModulePath}/scripts" -type d -name "assets" | sort -n); do
+      if [ -d "${mseRootModuleAssetsDir}/locale/${MSE_GLOBAL_MODULE_LOCALE}/label" ]; then
+        for mseRootModuleLocalesFiles in $(find "${mseRootModuleAssetsDir}/locale/${MSE_GLOBAL_MODULE_LOCALE}/label" -type f -name "*.sh" | sort -n); do
+          mse_mmod_retrieveOnlyCodeFromFile "${mseRootModuleLocalesFiles}" "mseTmpArr"
+          for mseTmpLine in "${mseTmpArr[@]}"; do
+            mseStandaloneContent+=("${mseTmpLine}")
+          done
+        done
+      fi
+    done
+    IFS=$' \t\n'
+
+
     if [ "$(type -t "mse_standalone_execAfterLoadLocale")" == "function" ]; then
       mse_standalone_execAfterLoadLocale "$mseModulePath" "mseTmpArr"
 
@@ -170,10 +188,15 @@ mse_mmod_generateStandalone() {
     mseTargetFiles=$(find "${mseModulePath}/scripts" -name "*.sh" | sort -n)
     if [ "${mseTargetFiles}" != "" ]; then
       while read mseFilePath; do
-        mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath} "mseTmpArr"
-        for mseTmpLine in "${mseTmpArr[@]}"; do
-          mseStandaloneContent+=("${mseTmpLine}")
-        done
+        #
+        # Ignora todos scripts de locales
+        if [[ ! ${mseFilePath} =~ "/assets/locale/" ]]; then
+
+          mse_mmod_retrieveOnlyCodeFromFile ${mseFilePath} "mseTmpArr"
+          for mseTmpLine in "${mseTmpArr[@]}"; do
+            mseStandaloneContent+=("${mseTmpLine}")
+          done
+        fi
       done <<< ${mseTargetFiles}
     fi
 
