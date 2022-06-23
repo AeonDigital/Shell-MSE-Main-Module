@@ -190,7 +190,6 @@ mse_font_showCharacters() {
     mseRawTable=$(column -e -t -s ":" <<< "${mseRawTable}")
 
     if [ "${mseHasTwoDots}" == 1 ]; then
-      local oIFS=$IFS
       local mseLineRaw
 
       while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
@@ -200,7 +199,6 @@ mse_font_showCharacters() {
         printf "%s\n" "${mseLineRaw}"
       done <<< "$mseRawTable"
 
-      IFS=$oIFS
     else
       printf "${mseRawTable}\n"
     fi

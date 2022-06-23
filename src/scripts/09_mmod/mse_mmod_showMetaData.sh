@@ -91,7 +91,6 @@ mse_mmod_showMetaData() {
 
     declare -a mseReturnData=()
 
-    local oIFS=$IFS
     IFS=$'\n'
 
 
@@ -298,7 +297,7 @@ mse_mmod_showMetaData() {
     done <<< "$mseRawData"
 
 
-    IFS=$oIFS
+    IFS=$' \t\n'
     if [ "${msePrettyFormat}" == "1" ] && [ "${mseShowFunctions}" == "1" ]; then
       mseReturnData+=("")
     fi

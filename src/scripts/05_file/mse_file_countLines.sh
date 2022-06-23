@@ -24,7 +24,6 @@ mse_file_countLines() {
 
   local mseLineRaw
   local mseFileContent
-  local oIFS
 
   mseReturn=0
   mseFileContent="$1"
@@ -33,14 +32,11 @@ mse_file_countLines() {
   fi
 
   if [ "${mseFileContent}" != "" ]; then
-    oIFS=$IFS
     IFS=$'\n'
-
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseReturn=mseReturn+1))
     done <<< "$mseFileContent"
-
-    IFS=$oIFS
+    IFS=$' \t\n'
   fi
 
   printf "%s" "${mseReturn}"

@@ -35,7 +35,6 @@ mse_file_read()
 
   local mseLineRaw
   local mseFileContent
-  local oIFS
 
 
   mseReturn=0
@@ -68,7 +67,6 @@ mse_file_read()
     local mseTransformLineFunctionArgs
     local mseTransformLineFunctionNumberLine
 
-    local oIFS
     local mseLineRaw
     local mseLineCount
 
@@ -190,7 +188,6 @@ mse_file_read()
     fi
 
 
-    oIFS=$IFS
     IFS=$'\n'
 
 
@@ -286,7 +283,7 @@ mse_file_read()
       fi
     done <<< "$mseFileContent"
 
-    IFS=$oIFS
+    IFS=$' \t\n'
   fi
 
 

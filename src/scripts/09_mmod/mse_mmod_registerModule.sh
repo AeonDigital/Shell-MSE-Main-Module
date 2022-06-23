@@ -340,7 +340,7 @@ mse_mmod_reorderMetadataIndexes() {
   # Ordena todos os metadados de forma simplista
   IFS=$'\n'
   declare -a mseSortedMetaData=($(sort <<< "${!MSE_GLOBAL_MODULES_METADATA[*]}"))
-  unset IFS
+  IFS=$' \t\n'
 
   mse_mmod_processTargetObjectIndex "M" "M::"
 }

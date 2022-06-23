@@ -67,7 +67,6 @@ mse_file_write() {
   local mseTargetFirstLine
   local mseTargetLastLine
 
-  local oIFS
   local mseCountLine
   local mseNewFileContent
 
@@ -202,7 +201,6 @@ mse_file_write() {
   # Finalmente, não existindo nenhuma falha, começa a
   # operação de escrita.
   if [ "$mseReturn" == 1 ]; then
-    oIFS=$IFS
     IFS=$'\n'
 
     mseCountLine=0
@@ -234,7 +232,7 @@ mse_file_write() {
 
     done <<< "$mseFileContent"
 
-    IFS=$oIFS
+    IFS=$' \t\n'
 
     printf "${mseNewFileContent}" > "${mseFilePath}"
     if [ $? != 0 ]; then

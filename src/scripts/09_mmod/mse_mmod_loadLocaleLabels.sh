@@ -30,11 +30,14 @@ mse_mmod_loadLocaleLabels() {
     mseLocaleDirectories+=("${1}/locale")
   fi
 
+
+  IFS=$'\n'
   for mseRootModuleAssetsDir in $(find "${1}/scripts" -type d -name "assets" | sort -n); do
     for mseRootModuleLocaleDir in $(find "${mseRootModuleAssetsDir}" -type d -name "locale" | sort -n); do
       mseLocaleDirectories+=("${mseRootModuleLocaleDir}")
     done
   done
+  IFS=$' \t\n'
 
 
   local mseLocaleDir
