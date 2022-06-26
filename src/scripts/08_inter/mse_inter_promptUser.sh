@@ -20,8 +20,8 @@
 #
 #   Mensagens de Prompt
 #
-#   - friendly  | fr  : Amigável. Questão sem muita importância.
 #   - ordinary  | or  : Comum. Questão padrão.
+#   - friendly  | fr  : Amigável. Questão sem muita importância.
 #   - caution   | ca  : Cuidado. Questão que exige atenção do usuário ou que
 #                       tenha potencial de alguma alteração permanente.
 #   - important | im  : Importante. Questão com potencial de causar alteração
@@ -289,8 +289,8 @@ mse_inter_promptUser() {
 mse_inter_promptUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=8
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="friendly, ordinary, caution, important"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="fr, or, ca, im"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="ordinary, friendly, caution, important"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="or, fr, ca, im"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyMessageArrayName :: r :: arrayName"

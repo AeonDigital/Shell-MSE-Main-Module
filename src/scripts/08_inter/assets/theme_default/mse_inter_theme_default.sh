@@ -267,11 +267,6 @@ mse_inter_theme_default_createMessage() {
 
 
   #
-  # Inicia a configuração das cores deste tema
-  mse_inter_theme_default_setColorDefinition
-
-
-  #
   # Padrão para as configurações das mensagens de tipo previsto
   case "${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[MessageFormat]}" in
     FREEFORMAT)
@@ -337,7 +332,7 @@ mse_inter_theme_default_createMessage() {
 
       #
       # Bloco 04: Separador inferior da mensagem
-      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]=""
+      MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparator"]="\n"
       MSE_GLOBAL_SHOW_MESSAGE_CONFIG["MessageBottomSeparatorColor"]="0"
 
     ;;
@@ -595,11 +590,6 @@ mse_inter_theme_default_createMessage() {
 mse_inter_theme_default_createProgressBar() {
 
   #
-  # Inicia a configuração das cores deste tema
-  mse_inter_theme_default_setColorDefinition
-
-
-  #
   # Padrão para as configurações das barras de progresso de tipo previsto
   case "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[ProgressBarFormat]}" in
     FREEFORMAT)
@@ -684,214 +674,12 @@ mse_inter_theme_default_createProgressBar() {
 # Para isto, preenche os arrays associativos:
 #   - MSE_GSMCTC    : MSE_GLOBAL_SHOW_MESSAGE_CONFIG_THEME_COLOR
 #   - MSE_GSPBCTC   : MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG_THEME_COLOR
-#   - MSE_GCMCTC    : MSE_GLOBAL_COMMAND_MAN_CONFIG_THEME_COLOR
-#   - MSE_GCSMDCTC  : MSE_GLOBAL_COMMAND_SHOWMETADATA_CONFIG_THEME_COLOR
 mse_inter_theme_default_setColorDefinition() {
 
 
   #
   # Apenas se o tema não está carregado ...
   if [ -z ${MSE_GLOBAL_THEME_LOADED+x} ] || [ "${MSE_GLOBAL_THEME_LOADED}" == "" ] || [ "${MSE_GLOBAL_THEME_LOADED}" != "mse_inter_theme_default" ]; then
-
-    #
-    # Reseta todos os arrays associativos que estão correlacionados
-    # as cores usadas nas mensagens
-
-    #
-    # [Bloco 01: Separador superior da mensagem]
-    unset MSE_GSMCTC_B01_TOP_SEPARATOR
-    declare -gA MSE_GSMCTC_B01_TOP_SEPARATOR
-
-    #
-    # [Bloco 02: Título]
-    unset MSE_GSMCTC_B02_TOP_SEPARATOR
-    unset MSE_GSMCTC_B02_BULLET
-    unset MSE_GSMCTC_B02_TEXT
-    unset MSE_GSMCTC_B02_BOTTOM_SEPARATOR
-
-    declare -gA MSE_GSMCTC_B02_TOP_SEPARATOR
-    declare -gA MSE_GSMCTC_B02_BULLET
-    declare -gA MSE_GSMCTC_B02_TEXT
-    declare -gA MSE_GSMCTC_B02_BOTTOM_SEPARATOR
-
-    #
-    # [Bloco 03: Corpo da mensagem]
-    unset MSE_GSMCTC_B03_TOP_SEPARATOR
-    unset MSE_GSMCTC_B03_FIRST_LINE_BULLET
-    unset MSE_GSMCTC_B03_ANOTHER_LINES_BULLET
-    unset MSE_GSMCTC_B03_FIRST_LINE_TEXT
-    unset MSE_GSMCTC_B03_ANOTHER_LINES_TEXT
-    unset MSE_GSMCTC_B03_BOTTOM_SEPARATOR
-
-    declare -gA MSE_GSMCTC_B03_TOP_SEPARATOR
-    declare -gA MSE_GSMCTC_B03_FIRST_LINE_BULLET
-    declare -gA MSE_GSMCTC_B03_ANOTHER_LINES_BULLET
-    declare -gA MSE_GSMCTC_B03_FIRST_LINE_TEXT
-    declare -gA MSE_GSMCTC_B03_ANOTHER_LINES_TEXT
-    declare -gA MSE_GSMCTC_B03_BOTTOM_SEPARATOR
-
-    #
-    # [Bloco 04: Separador inferior da mensagem]
-    unset MSE_GSMCTC_B04_BOTTOM_SEPARATOR
-    declare -gA MSE_GSMCTC_B04_BOTTOM_SEPARATOR
-
-
-
-    #
-    # Reseta todos os arrays associativos que estão correlacionados
-    # as cores usadas nas barras de progresso
-
-    #
-    # [Bloco 01: Barra de progresso]
-    unset MSE_GSPBCTC_B01_CHAR
-    unset MSE_GSPBCTC_B01_DELIMITERS
-
-    declare -gA MSE_GSPBCTC_B01_CHAR
-    declare -gA MSE_GSPBCTC_B01_DELIMITERS
-
-    #
-    # [Bloco 02: Área informativa]
-    unset MSE_GSPBCTC_B02_DATA
-    unset MSE_GSPBCTC_B02_DELIMITERS
-
-    declare -gA MSE_GSPBCTC_B02_DATA
-    declare -gA MSE_GSPBCTC_B02_DELIMITERS
-
-
-
-
-
-    #
-    # Inicia um array associativo contendo a cor que cada tipo de mensagem deve usar.
-    #
-    # Note que toda cor definida para uso nos títulos possui uma variação "a1" que é
-    # usada dentro da construção padrão.
-    declare -A mseThemeColors
-
-    #
-    # Mensagens de Alerta
-    mseThemeColors["info"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
-    mseThemeColors["info_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLACK" "1")
-
-    mseThemeColors["attention"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["attention_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
-
-    mseThemeColors["warning"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["warning_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
-
-    mseThemeColors["error"]=$(mse_font_createStyle "4" "BOLD" "NONE" "RED" "1")
-    mseThemeColors["error_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "RED" "1")
-
-    mseThemeColors["fail"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["fail_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
-
-    mseThemeColors["success"]=$(mse_font_createStyle "4" "BOLD" "NONE" "GREEN" "1")
-    mseThemeColors["success_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "GREEN" "1")
-
-
-    #
-    # Mensagens de Prompt
-    mseThemeColors["friendly"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LGREEN" "1")
-    mseThemeColors["friendly_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LGREEN" "1")
-
-    mseThemeColors["ordinary"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["ordinary_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
-
-    mseThemeColors["caution"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
-    mseThemeColors["caution_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LYELLOW" "1")
-
-    mseThemeColors["important"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LRED" "1")
-    mseThemeColors["important_a1"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LRED" "1")
-
-
-    #
-    # Corpo de mensagems
-    mseThemeColors["body"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
-
-
-    #
-    # Barra de progresso
-    mseThemeColors["b01_char"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLUE" "1")
-    mseThemeColors["b01_delimiter"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
-
-    mseThemeColors["b01_data"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
-    mseThemeColors["b02_delimiter"]=$(mse_font_createStyle "4" "BOLD" "NONE" "LBLACK" "1")
-
-
-
-
-    #
-    # Carrega cada um dos arraya associativos com as informações
-    # das cores
-    local mseMessageType
-    for mseMessageType in "${!mseThemeColors[@]}"; do
-      #
-      # [Bloco 01: Separador superior da mensagem]
-      MSE_GSMCTC_B01_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-
-      #
-      # [Bloco 02: Título]
-      MSE_GSMCTC_B02_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B02_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B02_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B02_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-
-      #
-      # [Bloco 03: Corpo da mensagem]
-      MSE_GSMCTC_B03_TOP_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B03_FIRST_LINE_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B03_ANOTHER_LINES_BULLET[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B03_FIRST_LINE_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B03_ANOTHER_LINES_TEXT[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSMCTC_B03_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-
-      #
-      # [Bloco 04: Separador inferior da mensagem]
-      MSE_GSMCTC_B04_BOTTOM_SEPARATOR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-
-
-      #
-      # Barra de progresso
-      # [Bloco 01: Barra de progresso]
-      MSE_GSPBCTC_B01_CHAR[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSPBCTC_B01_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-
-      #
-      # [Bloco 02: Área informativa]
-      MSE_GSPBCTC_B02_DATA[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-      MSE_GSPBCTC_B02_DELIMITERS[$mseMessageType]=${mseThemeColors[$mseMessageType]}
-    done
-
-
-
-
-
-    #
-    # Reseta e redefine as cores usadas para o comando "man"
-    unset MSE_GCMCTC
-    declare -gA MSE_GCMCTC
-
-    MSE_GCMCTC["at"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    MSE_GCMCTC["tagName"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "BLUE" "1")
-    MSE_GCMCTC["tagCommom"]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LCYAN" "1")
-    MSE_GCMCTC["param"]=$(mse_font_createStyle "8" "BOLD" "NONE" "250" "1")
-
-
-
-    #
-    # Reseta e redefine as cores usadas para o comando "showMetaData"
-    unset MSE_GCSMDCTC
-    declare -gA MSE_GCSMDCTC
-
-    MSE_GCSMDCTC["Module"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-    MSE_GCSMDCTC["SubModule"]=$(mse_font_createStyle "4" "BOLD" "NONE" "BLUE" "1")
-    MSE_GCSMDCTC["Functions"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-
-    MSE_GCSMDCTC["Separator"]=$(mse_font_createStyle "4" "" "NONE" "WHITE" "1")
-    MSE_GCSMDCTC["SeparatorBar"]=$(mse_font_createStyle "4" "DARK" "NONE" "WHITE" "1")
-    MSE_GCSMDCTC["SelectedElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-    MSE_GCSMDCTC["TotalElements"]=$(mse_font_createStyle "4" "" "NONE" "LBLACK" "1")
-
 
     #
     # Registra que este tema foi carregado

@@ -100,10 +100,10 @@ mse_mmod_man() {
     #
     # Inicia a coloração dos elementos.
     "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
-    local mseColorAt=${MSE_GCMCTC[at]}
-    local mseColorTagName=${MSE_GCMCTC[tagName]}
-    local mseColorTagCommom=${MSE_GCMCTC[tagCommom]}
-    local mseColorParam=${MSE_GCMCTC[param]}
+    local mseColorAt=${MSE_GLOBAL_THEME_CMD_MAN_COLORS[at]}
+    local mseColorTagName=${MSE_GLOBAL_THEME_CMD_MAN_COLORS[tagName]}
+    local mseColorTagCommom=${MSE_GLOBAL_THEME_CMD_MAN_COLORS[tagCommom]}
+    local mseColorParam=${MSE_GLOBAL_THEME_CMD_MAN_COLORS[param]}
 
 
     while read mseRawLine || [ -n "${mseRawLine}" ]; do

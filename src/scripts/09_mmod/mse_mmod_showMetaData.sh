@@ -116,14 +116,14 @@ mse_mmod_showMetaData() {
       #
       # Inicia a coloração dos elementos.
       "${MSE_GLOBAL_THEME_NAME}_setColorDefinition"
-      msePFColorModule=${MSE_GCSMDCTC[Module]}
-      msePFColorSubModule=${MSE_GCSMDCTC[SubModule]}
-      msePFColorFunctions=${MSE_GCSMDCTC[Functions]}
+      msePFColorModule=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[Module]}
+      msePFColorSubModule=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[SubModule]}
+      msePFColorFunctions=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[Functions]}
 
-      msePFColorSeparator=${MSE_GCSMDCTC[Separator]}
-      msePFColorSeparatorBar=${MSE_GCSMDCTC[SeparatorBar]}
-      msePFColorSelectedElements=${MSE_GCSMDCTC[SelectedElements]}
-      msePFColorTotalElements=${MSE_GCSMDCTC[TotalElements]}
+      msePFColorSeparator=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[Separator]}
+      msePFColorSeparatorBar=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[SeparatorBar]}
+      msePFColorSelectedElements=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[SelectedElements]}
+      msePFColorTotalElements=${MSE_GLOBAL_THEME_CMD_SHOTMETADATA_COLORS[TotalElements]}
 
       mseReturnData+=("")
     fi

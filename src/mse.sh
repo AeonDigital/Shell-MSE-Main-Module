@@ -67,6 +67,7 @@ myShellEnvStart() {
     fi
 
     local msePathToConfigFile="${mseInstallationPath}/config.sh"
+    local msePathToConfigColorFile="${mseInstallationPath}/config-color.sh"
     local msePathToRegisterModuleFunction="${mseInstallationPath}/src/scripts/09_mmod/mse_mmod_registerModule.sh"
     local msePathToLoadLocaleLabelsFunction="${mseInstallationPath}/src/scripts/09_mmod/mse_mmod_loadLocaleLabels.sh"
 
@@ -105,6 +106,13 @@ myShellEnvStart() {
         done
 
         mse_mmod_reorderMetadataIndexes
+
+
+        #
+        # Carrega as configurações de cores do ambiente atual
+        if [ -f "${msePathToConfigColorFile}" ]; then
+          . "${msePathToConfigColorFile}"
+        fi
       fi
 
       mseReturn=0
