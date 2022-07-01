@@ -123,13 +123,8 @@ Indica o tipo de informação que é aceitável para este campo.
 
 ### 4. VALOR PADRÃO | NOME DA FUNÇÃO VALIDADORA
 
-Indica qual deve ser o valor padrão par este parametro se o mesmo for
+Indica qual deve ser o valor padrão para este parametro se o mesmo for
 omitido, ou se o valor indicado for uma string vazia.
-Em alguns casos (mais abaixo) você vai querer 'pular' a especificação deste
-campo mas como não pode deixá-lo vazio, use um caracter de ponto final para
-simular que o mesmo está vazio.  
-Se, para qualquer finalidade, precisar usar um ponto final como valor padrão
-(provavelmente de uma string), informe tal valor entre aspas simples.  
 
 Quando o tipo do valor for 'validateFN' este campo será obrigatório e
 deverá trazer o nome de uma função que será usada para efetuar a validação

@@ -27,8 +27,8 @@
 # entradas.
 #
 # @return
-# '1' se todos os parametros estiverem corretos.
-# Mensagem de erro encontrada (referente ao primeiro erro de validação).
+# '1' se todos os parametros estiverem corretos ou mensagem de erro encontrada
+# (referente ao primeiro erro de validação).
 mse_exec_validateParams() {
   local mseReturn
   mseReturn=1

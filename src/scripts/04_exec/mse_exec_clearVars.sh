@@ -9,8 +9,7 @@
 
 #
 # @desc
-# Limpa/reseta todas as variáveis globais que servem às diversas
-# funções do MSE.
+# Limpa/reseta todas as variáveis globais que servem às funções de validação.
 mse_exec_clearVars() {
   declare -g MSE_GLOBAL_LASTERR=""
   declare -g MSE_GLOBAL_RETURN=""

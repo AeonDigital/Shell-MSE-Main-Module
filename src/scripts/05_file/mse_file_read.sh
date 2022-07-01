@@ -31,13 +31,10 @@
 # indicados.
 mse_file_read()
 {
-  local mseReturn
-
   local mseLineRaw
   local mseFileContent
 
 
-  mseReturn=0
   mseFileContent="$1"
   if [ -f "$mseFileContent" ]; then
     mseFileContent=$(< "$mseFileContent")

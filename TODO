@@ -1,3 +1,7 @@
+[ ] Alterar interface de funções que utilizam arrays associativos globais para
+    que usem referencias a arrays associativos locais.
+[ ] Interface dos comandos 'mse'
+[ ] Resolver 'replace' de mensagens com esquemas de cores.
 [ ] Adicionar uma opção de Motd e instalar/atualizar o skel
 
 [ ] Diretórios XDG
