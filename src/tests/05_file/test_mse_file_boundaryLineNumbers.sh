@@ -23,6 +23,12 @@ test_mse_file_boundaryLineNumbers() {
 
 
   testResult=$(mse_file_boundaryLineNumbers "src/tests/00_assets/.config" "#" "1" "email" "")
+  testExpected="27 41"
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_file_boundaryLineNumbers "src/tests/00_assets/.config" "#" "1" "email" "" "1")
   testExpected="27 38"
 
   mse_utest_assertEqual

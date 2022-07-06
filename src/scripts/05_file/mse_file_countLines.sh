@@ -27,8 +27,8 @@ mse_file_countLines() {
 
   mseReturn=0
   mseFileContent="$1"
-  if [ -f "$mseFileContent" ]; then
-    mseFileContent=$(< "$mseFileContent")
+  if [ -f "${mseFileContent}" ]; then
+    mseFileContent=$(< "${mseFileContent}")
   fi
 
   if [ "${mseFileContent}" != "" ]; then

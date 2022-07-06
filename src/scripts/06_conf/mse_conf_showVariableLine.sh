@@ -51,8 +51,8 @@ mse_conf_showVariableLine()
     MSE_GLOBAL_MODULE_READ_LINE["check_args"]="$3"
     MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
 
-    unset MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
-    declare -ga MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY=("#" ";")
+    unset line_check_args_array
+    declare -ga line_check_args_array=("#" ";")
 
     mseReturn=$(mse_file_read "$mseRawSection")
   fi

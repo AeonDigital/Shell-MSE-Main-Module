@@ -23,7 +23,6 @@
 # de seu respectivo número dentro do arquivo alvo.
 #
 # @param external
-# global array MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
 # O referido array deve ser preenchido externamente.
 # Cada um de seus itens deve indicar um caracter que pode ser usado para
 # comentar uma linha de dados em um arquivo de configuração.
@@ -45,7 +44,7 @@ mse_file_read_checkLine_isComment() {
       mseLine="${mseLine#*#}"
     fi
 
-    for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
+    for mseComSig in "${line_check_args_array[@]}"; do
       if [ "${mseLine:0:1}" == "$mseComSig" ]; then
         mseR=1
         break
@@ -78,7 +77,6 @@ mse_file_read_checkLine_isComment() {
 # Indique o nome da variável procurada.
 #
 # @param external
-# global array MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY
 # O referido array deve ser preenchido externamente.
 # Cada um de seus itens deve indicar um caracter que pode ser usado para
 # comentar uma linha de dados em um arquivo de configuração.
@@ -102,7 +100,7 @@ mse_file_read_checkLine_isVariable() {
       mseLine="${mseLine#*#}"
     fi
 
-    mseCommentChars=$(printf '%s' "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}")
+    mseCommentChars=$(printf '%s' "${line_check_args_array[@]}")
     mseReg='^(['"${mseCommentChars}"']?)([a-zA-Z]+).*='
     if [[ "$mseLine" =~ $mseReg ]]; then
       mseR=1
@@ -153,7 +151,7 @@ mse_file_read_checkLine_hasVariable() {
     fi
 
 
-    for mseComSig in "${MSE_GLOBAL_MODULE_READ_LINE_ARGS_ARRAY[@]}"; do
+    for mseComSig in "${line_check_args_array[@]}"; do
       if [ "${mseLine:0:1}" == "${mseComSig}" ]; then
         mseLine="${mseLine#${mseComSig}}"
       fi
