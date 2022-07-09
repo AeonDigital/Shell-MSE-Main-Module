@@ -37,24 +37,26 @@ mse_conf_showVariableLine()
   local mseShowLineNumber
 
   mseShowLineNumber=0
-  if [ $# -ge 4 ] && [ $4 == 1 ]; then
+  if [ $# -ge 4 ] && [ "$4" == "1" ]; then
     mseShowLineNumber=1
   fi
 
-  mseRawSection=$(mse_conf_showVariables "$1" "$2" "$mseShowLineNumber")
   mseReturn=""
+  mseRawSection=$(mse_conf_showVariables "$1" "$2" "$mseShowLineNumber")
 
   if [ "$mseRawSection" != "" ]; then
-    mse_file_read_resetConfig
+    unset mseReadOptionsShowVarLine
+    declare -A mseReadOptionsShowVarLine
+    mse_file_prepareRead "mseReadOptionsShowVarLine"
 
-    MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_hasVariable"
-    MSE_GLOBAL_MODULE_READ_LINE["check_args"]="$3"
-    MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
 
-    unset line_check_args_array
-    declare -ga line_check_args_array=("#" ";")
+    mseReadOptionsShowVarLine["line_check"]="mse_file_read_checkLine_hasVariable"
+    mseReadOptionsShowVarLine["line_check_args"]="${3} # ;"
+    mseReadOptionsShowVarLine["line_check_args_sep"]=" "
+    mseReadOptionsShowVarLine["line_check_invert"]=""
+    mseReadOptionsShowVarLine["line_check_has_linenumber"]="${mseShowLineNumber}"
 
-    mseReturn=$(mse_file_read "$mseRawSection")
+    mseReturn=$(mse_file_read "$mseRawSection" "mseReadOptionsShowVarLine" "1" "0")
   fi
 
   printf "${mseReturn%%[[:cntrl:]]*}"

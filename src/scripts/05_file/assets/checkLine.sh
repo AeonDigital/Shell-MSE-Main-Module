@@ -8,25 +8,28 @@
 
 
 #
+# @desc
 # Identifica se a linha passada ESTÁ comentada.
 #
-# @param int $1
+# @param string $1
+# Nome do array associativo que traz as configurações para leitura sendo
+# usadas no momento.
+#
+# @param int $2
 # Número da linha sendo verificada.
 #
-# @param string $2
+# @param string $3
 # Conteúdo da linha sendo verificada.
 #
-# @param bool $3
-# Indique "0" para informar que as linhas sendo processadas estão em formato
-# 'raw' (tal qual no arquivo original).
-# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
-# de seu respectivo número dentro do arquivo alvo.
+# @param bool $4
+# Use "0" para informar que as linhas sendo processadas estão em formato "raw"
+# (tal qual no arquivo original).
+# Use "1" para informar que há, no conteúdo de cada linha, a informação de seu
+# respectivo número dentro do arquivo alvo.
 #
-# @param external
-# O referido array deve ser preenchido externamente.
-# Cada um de seus itens deve indicar um caracter que pode ser usado para
-# comentar uma linha de dados em um arquivo de configuração.
-# TODOS serão levados em consideração na análise da linha.
+# @param string $5
+# Argumento opcional para complementar a verificação.
+# Conforme a implementação pode ser obrigatorio.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -36,11 +39,11 @@ mse_file_read_checkLine_isComment() {
   local mseLine
 
   mseR=0
-  if [ $# -ge 3 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "${2}")
+  if [ $# -ge 4 ] && [ "$3" != "" ]; then
+    mseLine=$(mse_str_trim "${3}")
     #
     # Remove a informação de número da linha
-    if [ "$3" == "1" ]; then
+    if [ "$4" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 
@@ -58,29 +61,29 @@ mse_file_read_checkLine_isComment() {
 
 
 #
+# @desc
 # Identifica se a linha passada CONTÉM um valor compatível com a
 # definição de uma variável (CHAVE=VALOR).
 #
-# @param int $1
+# @param string $1
+# Nome do array associativo que traz as configurações para leitura sendo
+# usadas no momento.
+#
+# @param int $2
 # Número da linha sendo verificada.
 #
-# @param string $2
+# @param string $3
 # Conteúdo da linha sendo verificada.
 #
-# @param bool $3
-# Indique "0" para informar que as linhas sendo processadas estão em formato
-# 'raw' (tal qual no arquivo original).
-# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
-# de seu respectivo número dentro do arquivo alvo.
+# @param bool $4
+# Use "0" para informar que as linhas sendo processadas estão em formato "raw"
+# (tal qual no arquivo original).
+# Use "1" para informar que há, no conteúdo de cada linha, a informação de seu
+# respectivo número dentro do arquivo alvo.
 #
-# @param string $4
-# Indique o nome da variável procurada.
-#
-# @param external
-# O referido array deve ser preenchido externamente.
-# Cada um de seus itens deve indicar um caracter que pode ser usado para
-# comentar uma linha de dados em um arquivo de configuração.
-# TODOS serão levados em consideração na análise da linha.
+# @param string $5
+# Argumento opcional para complementar a verificação.
+# Conforme a implementação pode ser obrigatorio.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -92,11 +95,11 @@ mse_file_read_checkLine_isVariable() {
   local mseCommentChars
 
   mseR=0
-  if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "${2}")
+  if [ $# -ge 4 ] && [ "$3" != "" ]; then
+    mseLine=$(mse_str_trim "${3}")
     #
     # Remove a informação de número da linha
-    if [ $3 == 1 ]; then
+    if [ "$4" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 
@@ -114,23 +117,29 @@ mse_file_read_checkLine_isVariable() {
 
 
 #
+# @desc
 # Identifica se a linha passada CONTÉM uma variável de nome indicado
 # esteja ela comentada ou não.
 #
-# @param int $1
+# @param string $1
+# Nome do array associativo que traz as configurações para leitura sendo
+# usadas no momento.
+#
+# @param int $2
 # Número da linha sendo verificada.
 #
-# @param string $2
+# @param string $3
 # Conteúdo da linha sendo verificada.
 #
-# @param bool $3
-# Indique "0" para informar que as linhas sendo processadas estão em formato
-# 'raw' (tal qual no arquivo original).
-# Indique "1" para informar que há, no conteúdo de cada linha, há a informação
-# de seu respectivo número dentro do arquivo alvo.
+# @param bool $4
+# Use "0" para informar que as linhas sendo processadas estão em formato "raw"
+# (tal qual no arquivo original).
+# Use "1" para informar que há, no conteúdo de cada linha, a informação de seu
+# respectivo número dentro do arquivo alvo.
 #
-# @param string $4
-# Indique o nome da variável procurada.
+# @param string $5
+# Argumento opcional para complementar a verificação.
+# Conforme a implementação pode ser obrigatorio.
 #
 # @return
 # Printa '1' se o teste for positivo.
@@ -139,17 +148,20 @@ mse_file_read_checkLine_hasVariable() {
   local mseR
   local mseLine
   local mseComSig
+  local mseVarName
 
   mseR=0
-  if [ $# -ge 4 ] && [ "$2" != "" ]; then
-    mseLine=$(mse_str_trim "$2")
+  if [ $# -ge 5 ] && [ "$3" != "" ]; then
+    mseLine=$(mse_str_trim "$3")
     mseLine=$(mse_str_trimD "=" "$mseLine")
     #
     # Remove a informação de número da linha
-    if [ $3 == 1 ]; then
+    if [ "$4" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 
+    mseVarName="${line_check_args_array[0]}"
+    line_check_args_array=("${line_check_args_array[@]:1}")
 
     for mseComSig in "${line_check_args_array[@]}"; do
       if [ "${mseLine:0:1}" == "${mseComSig}" ]; then
@@ -157,7 +169,7 @@ mse_file_read_checkLine_hasVariable() {
       fi
     done
 
-    if [ "${mseLine%%=*}" == "$4" ]; then
+    if [ "${mseLine%%=*}" == "${mseVarName}" ]; then
       mseR=1
     fi
   fi

@@ -230,6 +230,7 @@ mse_file_read() {
       # OU
       # a configuração está definida para mostrar as linhas vazias
       if [ "${mseLineRaw}" != "" ] || [ "$line_hide_empty" == "0" ]; then
+
         #
         # Verifica se esta linha pode identificar o início de um
         # bloco de conteúdo válido
@@ -274,7 +275,7 @@ mse_file_read() {
           # Havendo alguma forma de verificação do conteúdo da linha
           # efetua-o
           if [ "$line_check" != "" ]; then
-            mseValidLine=$($line_check "${mseLineCount}" "${mseLineRaw}" "${line_check_has_linenumber}" "${line_check_args}")
+            mseValidLine=$($line_check "${2}" "${mseLineCount}" "${mseLineRaw}" "${line_check_has_linenumber}" "${line_check_args}")
 
             #
             # Sendo para inverter a lógica da verificação...

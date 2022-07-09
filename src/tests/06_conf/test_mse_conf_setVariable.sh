@@ -256,18 +256,29 @@ test_mse_conf_setVariable() {
 
   mse_utest_assertEqual
 
+
+
+
+
+
+
+
+
+
   #
   # Prepara o 'reader' para resgatar as linhas afetadas
-  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
+  # permitindo comparar assim o estado inicial do arquivo de configuração
+  unset mseReadOptionsUTest
+  declare -A mseReadOptionsUTest
+  mse_file_prepareRead "mseReadOptionsUTest"
 
-  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
+  mseReadOptionsUTest["block_start_check"]="mse_file_read_checkArbitratySection_start"
+  mseReadOptionsUTest["block_start_check_args"]="# [[INI-MSE_UTEST]]"
+  mseReadOptionsUTest["block_start_get_first_line"]="1"
 
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
+  mseReadOptionsUTest["block_end_check"]="mse_file_read_checkArbitratySection_end"
+  mseReadOptionsUTest["block_end_check_args"]="# [[END-MSE_UTEST]]"
+  mseReadOptionsUTest["block_end_get_last_line"]="1"
 
 
   declare -a tmpExpectedLines=()
@@ -276,7 +287,7 @@ test_mse_conf_setVariable() {
   tmpRawExpectedLines+=("MSE_UTEST=ntv_01")
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
-  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" "mseReadOptionsUTest" "1" "0")
   testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
 
   mse_utest_assertEqual
@@ -291,25 +302,16 @@ test_mse_conf_setVariable() {
   mseTmpIndexArr=()
   mseTmpIndexArr+=("first")
   mseTmpIndexArr+=("second")
+
   testResult=$(mse_conf_setVariable "src/tests/00_assets/expected/setVariable/.bashrc" "#" "0" "" "i" "MSE_UTEST" "mseTmpIndexArr" "" "")
   testExpected="1"
 
   mse_utest_assertEqual
 
+
+
   #
-  # Prepara o 'reader' para resgatar as linhas afetadas
-  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
-
-  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
-
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
-
-
+  # Verifica se a variável foi escrita conforme o esperado
   declare -a tmpExpectedLines=()
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
@@ -318,11 +320,18 @@ test_mse_conf_setVariable() {
   tmpRawExpectedLines+=("MSE_UTEST[1]=\"second\"")
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
-  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" "mseReadOptionsUTest" "1" "0")
   testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
 
   mse_utest_assertEqual
   unset tmpRawExpectedLines
+
+
+
+
+
+
+
 
 
 
@@ -337,20 +346,10 @@ test_mse_conf_setVariable() {
 
   mse_utest_assertEqual
 
+
+
   #
-  # Prepara o 'reader' para resgatar as linhas afetadas
-  MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkArbitratySection_start"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="# [[INI-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=""
-
-  MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkArbitratySection_end"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args"]="# [[END-MSE_UTEST]]"
-  MSE_GLOBAL_MODULE_READ_BLOCK["end_args_sep"]=""
-
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_start_line"]="1"
-  MSE_GLOBAL_MODULE_READ_BLOCK["print_end_line"]="1"
-
-
+  # Verifica se a variável foi escrita conforme o esperado
   declare -a tmpExpectedLines=()
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
@@ -359,7 +358,7 @@ test_mse_conf_setVariable() {
   tmpRawExpectedLines+=("MSE_UTEST[\"second\"]=\"two\"")
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
-  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" 0 0)
+  testResult=$(mse_file_read "src/tests/00_assets/expected/setVariable/.bashrc" "mseReadOptionsUTest" "1" "0")
   testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
 
   mse_utest_assertEqual

@@ -33,7 +33,7 @@ mse_conf_showVariableValue()
 {
   local mseReturn
 
-  mseReturn=$(mse_conf_showVariableLine "$1" "$2" "$3" 0)
+  mseReturn=$(mse_conf_showVariableLine "$1" "$2" "$3" "0")
   if [ "${mseReturn}" != "" ]; then
     mseReturn=$(mse_str_trimD "=" "${mseReturn}")
     printf "${mseReturn#${3}=}"

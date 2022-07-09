@@ -24,34 +24,40 @@
 # Indique "1" para trazer o número de cada uma das linhas retornadas.
 #
 # @return
-# Imprime todas as variáveis do arquivo.
+# Imprime todas as variáveis do arquivo conforme configuração indicada.
 mse_conf_showVariables()
 {
   local mseReturn
   local mseShowLineNumber
 
-  mse_file_read_resetConfig
+  unset mseReadOptionsShowVars
+  declare -A mseReadOptionsShowVars
+  mse_file_prepareRead "mseReadOptionsShowVars"
 
+
+  #
+  # Tendo a definição de uma seção alvo...
   if [ $# -ge 2 ] && [ "$2" != "" ]; then
-    MSE_GLOBAL_MODULE_READ_BLOCK["start"]="mse_file_read_checkSection_start"
-    MSE_GLOBAL_MODULE_READ_BLOCK["start_args"]="$2"
-    MSE_GLOBAL_MODULE_READ_BLOCK["start_args_sep"]=","
+    mseReadOptionsShowVars["block_start_check"]="mse_file_read_checkSection_start"
+    mseReadOptionsShowVars["block_start_check_args"]="${2}"
+    mseReadOptionsShowVars["block_start_check_args_sep"]=","
+    mseReadOptionsShowVars["block_start_get_first_line"]="0"
 
-    MSE_GLOBAL_MODULE_READ_BLOCK["end"]="mse_file_read_checkSection_end"
+    mseReadOptionsShowVars["block_end_check"]="mse_file_read_checkSection_end"
   fi
 
   mseShowLineNumber=0
-  if [ $# -ge 3 ] && [ $3 == 1 ]; then
+  if [ $# -ge 3 ] && [ "$3" == "1" ]; then
     mseShowLineNumber=1
   fi
 
-  MSE_GLOBAL_MODULE_READ_LINE["check"]="mse_file_read_checkLine_isVariable"
-  MSE_GLOBAL_MODULE_READ_LINE["check_args"]="# ;"
-  MSE_GLOBAL_MODULE_READ_LINE["check_args_sep"]=" "
-  MSE_GLOBAL_MODULE_READ_LINE["check_has_linenumber"]="$mseShowLineNumber"
-  MSE_GLOBAL_MODULE_READ_LINE["check_invert"]=""
+  mseReadOptionsShowVars["line_check"]="mse_file_read_checkLine_isVariable"
+  mseReadOptionsShowVars["line_check_args"]="# ;"
+  mseReadOptionsShowVars["line_check_args_sep"]=" "
+  mseReadOptionsShowVars["line_check_invert"]=""
+  mseReadOptionsShowVars["line_check_has_linenumber"]="${mseShowLineNumber}"
 
-  mse_file_read "$1" 0 "$mseShowLineNumber"
+  mse_file_read "${1}" "mseReadOptionsShowVars" "1" "${mseShowLineNumber}"
 }
 MSE_GLOBAL_CMD["show variables"]="mse_conf_showVariables"
 

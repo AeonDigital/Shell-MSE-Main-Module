@@ -28,8 +28,8 @@ test_mse_conf_showVariableLine() {
   mse_utest_assertEqual
 
 
-  testResult=$(mse_conf_showVariableLine "${mseTMPDIR}/tests/00_assets/.config" "" "COMMENT_TEST")
-  testExpected="#COMMENT_TEST                =   value"
+  testResult=$(mse_conf_showVariableLine "${mseTMPDIR}/tests/00_assets/.config" "" "COMMENT_TEST" "1")
+  testExpected="23##COMMENT_TEST                =   value"
 
   mse_utest_assertEqual
 
@@ -51,6 +51,12 @@ test_mse_conf_showVariableLine() {
 
   testResult=$(mse_conf_showVariableLine "${mseTMPDIR}/tests/00_assets/.config" "email" "EMAIL_HOST" "1")
   testExpected=$(printf "29#EMAIL_HOST                  =   192.168.1.206")
+
+  mse_utest_assertEqual
+
+
+  testResult=$(mse_conf_showVariableLine "${mseTMPDIR}/tests/00_assets/.config" "database" "COMMENT_TEST" "1")
+  testExpected="52##COMMENT_TEST                =   value"
 
   mse_utest_assertEqual
 }
