@@ -98,7 +98,7 @@ mse_inter_promptUser() {
 
     declare -A mseArgs
     mseArgs["MessageType"]="${1}"
-    mseArgs["MessageFormat"]="DEFAULTFORMAT"
+    mseArgs["MessageFormat"]="default"
     mseArgs["TitleType"]="3"
     mseArgs["TitleCode"]="${2}"
     mseArgs["TitleText"]="${3}"
@@ -129,7 +129,7 @@ mse_inter_promptUser() {
     #
     # Mostrará o corpo da mensagem caso existam informações no array indicado
     if [ "${4}" == "" ]; then
-      mseArgs["MessageFormat"]="TITLE"
+      mseArgs["MessageFormat"]="title"
     else
       #
       # Verifica se o nome do array passado é válido
@@ -156,7 +156,7 @@ mse_inter_promptUser() {
           msePromptLabelArrayName="lbl_inter_prompt_boolLabels"
           msePromptValueArrayName="lbl_inter_prompt_boolValues"
         elif [ "${5}" == "list" ]; then
-          mseArgs["MessageFormat"]="DEFAULTFORMAT"
+          mseArgs["MessageFormat"]="default"
 
           if [ "${4}" == "" ]; then
             mseArgs["BodyMessageArrayName"]="mseTmpLines"

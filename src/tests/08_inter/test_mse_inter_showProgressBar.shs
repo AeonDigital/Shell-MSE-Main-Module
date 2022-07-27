@@ -29,7 +29,7 @@ test_mse_inter_showProgressBar() {
 
   declare -A mseArgs
   mseArgs["ProgressBarIndent"]="     "
-  mseArgs["ProgressBarFormat"]="FREEFORMAT"
+  mseArgs["ProgressBarFormat"]="custom"
 
 
   #

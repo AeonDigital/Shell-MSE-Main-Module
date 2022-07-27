@@ -15,21 +15,22 @@
 # Se nenhum critério de configuração for passado, todo o documento será
 # considerado válido.
 #
-# A configuração do "mse_file_read" é feita em quatro conjuntos sendo:
-# - Controle em nível de bloco
-# permite identificar qual trecho do documento deve ser retornado ou a partir
-# de onde que ele deve passar a ser ignorado.
+# A configuração é feita em cinco blocos sendo:
 #
-# - Controle em nível de linha
-# permite passar regras que farão a validação linha a linha por aquelas que
-# devem ser retornadas.
+# - Bloco 01: Controle em nível de bloco
+#   permite identificar qual trecho do documento deve ser retornado ou a
+#   partir de onde que ele deve passar a ser ignorado.
 #
-# - Controles de transformação
-# Configura transformações a serem aplicadas nas linhas que serão retornadas.
+# - Bloco 02: Controle em nível de linha
+#   permite passar regras que farão a validação linha a linha por aquelas
+#   que devem ser retornadas.
 #
-# - Outras configurações
-# Uso geral para configurações que não se enquadram necessariamente em alguma
-# das citadas acima.
+# - Bloco 03: Controles de transformação
+#   Configura transformações a serem aplicadas nas linhas que serão retornadas.
+#
+# - Bloco 03: Outras configurações
+#   Uso geral para configurações que não se enquadram necessariamente em alguma
+#   das citadas acima.
 #
 #
 # @param string $1
@@ -37,7 +38,7 @@
 #
 #
 #
-# [[ Controle em nível de bloco ]]
+# [[ Bloco 01: Controle em nível de bloco ]]
 #
 # @param string $2
 # ["block_start_check"]
@@ -98,7 +99,7 @@
 #
 #
 #
-# [[ Controle em nível de linha ]]
+# [[ Bloco 02: Controle em nível de linha ]]
 #
 # @param bool $11
 # ["line_check"]
@@ -135,7 +136,7 @@
 #
 #
 #
-# [[ Controles de transformação ]]
+# [[ Bloco 03: Controles de transformação ]]
 #
 # @param string $16
 # ["line_transform"]
@@ -165,7 +166,7 @@
 #
 #
 #
-# [[ Outras configurações ]]
+# [[ Bloco 04: Outras configurações ]]
 #
 # @param bool $20
 # ["line_hide_empty"]
@@ -306,7 +307,7 @@ mse_file_prepareRead() {
 
 
   #
-  # Controle em nível de bloco
+  # Bloco 01: Controle em nível de bloco
   if [ "${2}" != "" ]; then
     mseArrAssoc["block_start_check"]="${2}"
     mseArrAssoc["block_start_check_args"]="${3}"
@@ -340,7 +341,7 @@ mse_file_prepareRead() {
 
 
   #
-  # Controle em nível de linha
+  # Bloco 02: Controle em nível de linha
   if [ "${11}" != "" ]; then
     mseArrAssoc["line_check"]="${11}"
     mseArrAssoc["line_check_args"]="${12}"
@@ -360,7 +361,7 @@ mse_file_prepareRead() {
 
 
   #
-  # Controles de transformação
+  # Bloco 03: Controles de transformação
   if [ "${16}" != "" ]; then
     mseArrAssoc["line_transform"]="${16}"
     mseArrAssoc["line_transform_args"]="${17}"
@@ -375,7 +376,7 @@ mse_file_prepareRead() {
 
 
   #
-  # Outras configurações
+  # Bloco 04: Outras configurações
   mseArrAssoc["line_hide_empty"]="${20}"
   if [ "${20}" != "0" ] && [ "${20}" != "1" ]; then
     mseArrAssoc["line_hide_empty"]="0"
@@ -386,7 +387,7 @@ mse_file_prepareRead() {
     mseArrAssoc["line_show_number"]="0"
   fi
 }
-MSE_GLOBAL_CMD["prepare file read"]="mse_file_prepareRead"
+MSE_GLOBAL_CMD["prepare read"]="mse_file_prepareRead"
 
 
 

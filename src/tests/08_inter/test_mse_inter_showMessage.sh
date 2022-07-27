@@ -10,159 +10,365 @@
 #
 # Teste
 test_mse_inter_showMessage() {
-  mse_inter_showMessage
-  testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 31 parameters."
+  unset MSE_GLOBAL_MAIN_THEME_COLORS
+  declare -gA MSE_GLOBAL_MAIN_THEME_COLORS
+
+
+
+  #
+  # Parte 1
+  # Testa a função "prepare"
+  unset mseTestArrShowMsg
+  declare -A mseTestArrShowMsg
+
+
+  #
+  # Inicia uma chave que deverá ser excluída pois não é para existir neste
+  # tipo de objeto
+  mseTestArrShowMsg["teste"]="deve ser excluída após o preparo"
+
+  testResult="${mseTestArrShowMsg[teste]}"
+  testExpected="deve ser excluída após o preparo"
+  mse_utest_assertEqual
+
+
+  mse_inter_prepareMessage "mseTestArrShowMsg"
+
+  #
+  # Atesta que chaves não identificadas serão excluídas
+  testResult="${mseTestArrShowMsg["teste"]}"
+  testExpected=""
+  mse_utest_assertEqual
+
+
+  unset mseTestExpectedKeys
+  declare -a mseTestExpectedKeys
+  mseTestExpectedKeys+=("meta_type")
+  mseTestExpectedKeys+=("meta_theme")
+  mseTestExpectedKeys+=("meta_format")
+
+  mseTestExpectedKeys+=("top_separator_string")
+  mseTestExpectedKeys+=("top_separator_color")
+  mseTestExpectedKeys+=("top_separator_color_alt")
+  mseTestExpectedKeys+=("top_separator_colorize")
+
+  mseTestExpectedKeys+=("title_show")
+  mseTestExpectedKeys+=("title_type")
+
+  mseTestExpectedKeys+=("title_top_separator_string")
+  mseTestExpectedKeys+=("title_top_separator_color")
+  mseTestExpectedKeys+=("title_top_separator_color_alt")
+  mseTestExpectedKeys+=("title_top_separator_colorize")
+
+  mseTestExpectedKeys+=("title_indent")
+
+  mseTestExpectedKeys+=("title_bullet")
+  mseTestExpectedKeys+=("title_bullet_color")
+  mseTestExpectedKeys+=("title_bullet_color_alt")
+  mseTestExpectedKeys+=("title_bullet_colorize")
+
+  mseTestExpectedKeys+=("title_string")
+  mseTestExpectedKeys+=("title_string_color")
+  mseTestExpectedKeys+=("title_string_color_alt")
+  mseTestExpectedKeys+=("title_string_colorize")
+  mseTestExpectedKeys+=("title_string_end")
+
+  mseTestExpectedKeys+=("title_bottom_separator_string")
+  mseTestExpectedKeys+=("title_bottom_separator_color")
+  mseTestExpectedKeys+=("title_bottom_separator_color_alt")
+  mseTestExpectedKeys+=("title_bottom_separator_colorize")
+
+  mseTestExpectedKeys+=("body_show")
+
+  mseTestExpectedKeys+=("body_top_separator_string")
+  mseTestExpectedKeys+=("body_top_separator_color")
+  mseTestExpectedKeys+=("body_top_separator_color_alt")
+  mseTestExpectedKeys+=("body_top_separator_colorize")
+
+  mseTestExpectedKeys+=("body_first_line_indent")
+
+  mseTestExpectedKeys+=("body_first_line_bullet")
+  mseTestExpectedKeys+=("body_first_line_bullet_color")
+  mseTestExpectedKeys+=("body_first_line_bullet_color_alt")
+  mseTestExpectedKeys+=("body_first_line_bullet_colorize")
+
+  mseTestExpectedKeys+=("body_lines_indent")
+
+  mseTestExpectedKeys+=("body_lines_bullet")
+  mseTestExpectedKeys+=("body_lines_bullet_color")
+  mseTestExpectedKeys+=("body_lines_bullet_color_alt")
+  mseTestExpectedKeys+=("body_lines_bullet_colorize")
+
+  mseTestExpectedKeys+=("body_lines")
+  mseTestExpectedKeys+=("body_lines_color")
+  mseTestExpectedKeys+=("body_lines_color_alt")
+  mseTestExpectedKeys+=("body_lines_colorize")
+
+  mseTestExpectedKeys+=("body_bottom_separator_string")
+  mseTestExpectedKeys+=("body_bottom_separator_color")
+  mseTestExpectedKeys+=("body_bottom_separator_color_alt")
+  mseTestExpectedKeys+=("body_bottom_separator_colorize")
+
+  mseTestExpectedKeys+=("bottom_separator_string")
+  mseTestExpectedKeys+=("bottom_separator_color")
+  mseTestExpectedKeys+=("bottom_separator_color_alt")
+  mseTestExpectedKeys+=("bottom_separator_colorize")
+
+
+  local mseTmpK
+  for mseTmpK in "${mseTestExpectedKeys[@]}"; do
+    testResult=$(mse_check_hasKeyInAssocArray "${mseTmpK}" "mseTestArrShowMsg")
+    testExpected="1"
+    mse_utest_assertEqual
+  done
+
+
+
+
+  #
+  # Parte 2
+  # Verifica que, apenas os valores definidos pela função "prepare" possuem valor definido
+
+  #
+  # Valores esperados, que devem ser definidos pela "prepare"
+  unset mseTestExpectedKeyValues
+  declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["meta_type"]="none"
+  mseTestExpectedKeyValues["title_type"]="1"
+  mseTestExpectedKeyValues["top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_show"]="0"
+  mseTestExpectedKeyValues["title_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["title_string_colorize"]="0"
+  mseTestExpectedKeyValues["title_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_show"]="0"
+  mseTestExpectedKeyValues["body_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_first_line_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["body_lines_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["body_lines_colorize"]="0"
+  mseTestExpectedKeyValues["body_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["bottom_separator_colorize"]="0"
+
+
+  local mseTmpHasKey
+  for mseTmpK in "${mseTestExpectedKeys[@]}"; do
+    testResult="${mseTestArrShowMsg[${mseTmpK}]}"
+    testExpected=""
+
+    mseTmpHasKey=$(mse_check_hasKeyInAssocArray "${mseTmpK}" "mseTestExpectedKeyValues")
+    if [ "${mseTmpHasKey}" == "1" ]; then
+      testExpected="${mseTestExpectedKeyValues[${mseTmpK}]}"
+    fi
+
+    mse_utest_assertEqual
+  done
+
+
+
+
+  #
+  # Parte 3
+  # Verifica as alterações de valores das chaves causadas pelo tema e formato escolhidos
+  # [valida apenas os campos string e bool... não os que recebem codigos de cores]
+  mse_inter_prepareMessage "mseTestArrShowMsg" "i" "mse_inter_theme_default" "default"
+
+
+  unset mseTestExpectedKeyValues
+  declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["top_separator_string"]="\n"
+  mseTestExpectedKeyValues["top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_show"]="1"
+  mseTestExpectedKeyValues["title_type"]="1"
+  mseTestExpectedKeyValues["title_top_separator_string"]=""
+  mseTestExpectedKeyValues["title_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_indent"]="  "
+  mseTestExpectedKeyValues["title_bullet"]=":: "
+  mseTestExpectedKeyValues["title_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["title_string_colorize"]="1"
+  mseTestExpectedKeyValues["title_string_end"]="\n"
+  mseTestExpectedKeyValues["title_bottom_separator_string"]="\n"
+  mseTestExpectedKeyValues["title_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_show"]="1"
+  mseTestExpectedKeyValues["body_top_separator_string"]=""
+  mseTestExpectedKeyValues["body_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_first_line_indent"]="     "
+  mseTestExpectedKeyValues["body_first_line_bullet"]=""
+  mseTestExpectedKeyValues["body_first_line_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["body_lines_indent"]="     "
+  mseTestExpectedKeyValues["body_lines_bullet"]=""
+  mseTestExpectedKeyValues["body_lines_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["body_lines_colorize"]="1"
+  mseTestExpectedKeyValues["body_bottom_separator_string"]=""
+  mseTestExpectedKeyValues["body_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["bottom_separator_string"]="\n"
+  mseTestExpectedKeyValues["bottom_separator_colorize"]="0"
+
+
+  local mseTmpHasKey
+  for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
+    testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
+    testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
+    mse_utest_assertEqual
+  done
+
+
+
+  #
+  # Verifica o formato "status"
+  mse_inter_prepareMessage "mseTestArrShowMsg" "i" "mse_inter_theme_default" "status"
+
+
+  unset mseTestExpectedKeyValues
+  declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["top_separator_string"]=""
+  mseTestExpectedKeyValues["top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_show"]="1"
+  mseTestExpectedKeyValues["title_type"]="3"
+  mseTestExpectedKeyValues["title_top_separator_string"]=""
+  mseTestExpectedKeyValues["title_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_indent"]="  "
+  mseTestExpectedKeyValues["title_bullet"]=":: "
+  mseTestExpectedKeyValues["title_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["title_string_colorize"]="1"
+  mseTestExpectedKeyValues["title_string_end"]=""
+  mseTestExpectedKeyValues["title_bottom_separator_string"]=""
+  mseTestExpectedKeyValues["title_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_show"]="0"
+  mseTestExpectedKeyValues["bottom_separator_string"]=""
+  mseTestExpectedKeyValues["bottom_separator_colorize"]="0"
+
+
+  local mseTmpHasKey
+  for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
+    testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
+    testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
+
+    mse_utest_assertEqual
+  done
+
+
+
+  #
+  # Verifica o formato "title"
+  mse_inter_prepareMessage "mseTestArrShowMsg" "i" "mse_inter_theme_default" "title"
+
+
+  unset mseTestExpectedKeyValues
+  declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["top_separator_string"]=""
+  mseTestExpectedKeyValues["top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_show"]="1"
+  mseTestExpectedKeyValues["title_top_separator_string"]="\n"
+  mseTestExpectedKeyValues["title_top_separator_colorize"]="0"
+  mseTestExpectedKeyValues["title_indent"]="  "
+  mseTestExpectedKeyValues["title_bullet"]=":: "
+  mseTestExpectedKeyValues["title_bullet_colorize"]="0"
+  mseTestExpectedKeyValues["title_string_colorize"]="1"
+  mseTestExpectedKeyValues["title_string_end"]="\n"
+  mseTestExpectedKeyValues["title_bottom_separator_string"]="\n"
+  mseTestExpectedKeyValues["title_bottom_separator_colorize"]="0"
+  mseTestExpectedKeyValues["body_show"]="0"
+  mseTestExpectedKeyValues["bottom_separator_string"]=""
+  mseTestExpectedKeyValues["bottom_separator_colorize"]="0"
+
+
+  local mseTmpHasKey
+  for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
+    testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
+    testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
+
+    mse_utest_assertEqual
+  done
+
+
+
+
+  #
+  # Parte 4
+  # Verifica as alterações de valores das chaves quando definidas diretamente na chamada
+  # da função "showMessage"
+  unset mseTestArrBody
+  declare -a mseTestArrBody
+  mseTestArrBody+=("Primeira linha de informação")
+  mseTestArrBody+=("Segunda linha")
+  mseTestArrBody+=("Terceira linha")
+
+  #
+  # Prepara novamente uma mensagem usando o formato "title"
+  mse_inter_prepareMessage "mseTestArrShowMsg" "" "mse_inter_theme_default" "status"
+
+  #
+  # Atesta as informações que serão posteriormente alteradas
+  testResult="${mseTestArrShowMsg[meta_type]}"
+  testExpected="none"
 
   mse_utest_assertEqual
 
 
-  mse_inter_showMessage "a1" "a2"
-  testResult="${MSE_GLOBAL_LASTERR}"
-  testExpected="Lost 29 parameters."
+  testResult="${mseTestArrShowMsg[meta_format]}"
+  testExpected="status"
 
   mse_utest_assertEqual
 
 
+  testResult="${mseTestArrShowMsg[title_string]}"
+  testExpected=""
+
+  mse_utest_assertEqual
 
 
-
-  declare -A mseArgs
-  mseArgs["MessageType"]="a"
-  mseArgs["MessageFormat"]="FREEFORMAT"
-
-  #
-  # Bloco 01: Separador superior da mensagem
-  mseArgs["MessageTopSeparator"]="\n#### #### MESSAGE TOP SEPARATOR #### #### #### #### #### #### #### #### \n"
-  mseArgs["MessageTopSeparatorColor"]="1"
-
-
-
-  #
-  # Bloco 02: Título
-  mseArgs["TitleDisplay"]="1"
-  mseArgs["TitleType"]="1"
-
-  mseArgs["TitleTopSeparator"]="\n==== ==== TITLE TOP SEPARATOR ==== ==== ==== ==== ==== ==== ==== ==== \n"
-  mseArgs["TitleTopSeparatorColor"]="1"
-
-  mseArgs["TitleIndent"]="  "
-  mseArgs["TitleBullet"]=":: "
-  mseArgs["TitleBulletColor"]="1"
-
-  mseArgs["TitleText"]="Test Message Title"
-  mseArgs["TitleTextColor"]="1"
-
-  mseArgs["TitleBottomSeparator"]="\n---- ---- TITLE BOTTOM SEPARATOR ---- ---- ---- ---- ---- ---- ---- ---- \n"
-  mseArgs["TitleBottomSeparatorColor"]="1"
-
-
-
-  #
-  # Bloco 03: Corpo da mensagem
-  mseArgs["BodyMessageDisplay"]="1"
-
-  mseArgs["BodyMessageTopSeparator"]="\n---- ---- BODY MESSAGE TOP SEPARATOR ---- ---- ---- ---- ---- ---- ---- ---- \n"
-  mseArgs["BodyMessageTopSeparatorColor"]="1"
-
-  mseArgs["BodyMessageFirstLineIndent"]="  "
-  mseArgs["BodyMessageFirstLineBullet"]="- "
-  mseArgs["BodyMessageFirstLineBulletColor"]="1"
-
-  mseArgs["BodyMessageAnotherLinesIndent"]="  "
-  mseArgs["BodyMessageAnotherLinesBullet"]=": "
-  mseArgs["BodyMessageAnotherLinesBulletColor"]="1"
-
-  mseArgs["BodyMessageArrayName"]="arrMsg"
-  mseArgs["BodyMessageArrayNameColor"]="1"
-
-  mseArgs["BodyMessageBottomSeparator"]="\n==== ==== BODY MESSAGE BOTTOM SEPARATOR ==== ==== ==== ==== ==== ==== ==== ==== \n"
-  mseArgs["BodyMessageBottomSeparatorColor"]="1"
-
-
-
-  #
-  # Bloco 04: Separador inferior da mensagem
-  mseArgs["MessageBottomSeparator"]="#### #### BOTTOM SEPARATOR #### #### #### #### #### #### #### #### "
-  mseArgs["MessageBottomSeparatorColor"]="1"
-
-
-
-  declare -a arrMsg=()
-  arrMsg+=("First Line")
-  arrMsg+=("Second Line")
-
-
-  #
-  # Valida os argumentos passados
-  mse_exec_validate mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default" &> /dev/null
-
-  testResult="${MSE_GLOBAL_LASTERR}"
+  testResult="${mseTestArrShowMsg[body_lines]}"
   testExpected=""
 
   mse_utest_assertEqual
 
 
   #
-  # Evoca a função
+  # Evoca a função principal e redefine os valores possíveis
+  mse_inter_showMessage "mseTestArrShowMsg" "i" "default" "Local do Título" "mseTestArrBody" &> /dev/null
+
+
   #
-  # Verifica os valores realmente definidos
-  # e que serão passados para a função do tema gerador da mensagem
-  mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default" &> /dev/null
+  # Atesta as informações passadas alteraram o array associativo que configura a mensagem
+  testResult="${mseTestArrShowMsg[meta_type]}"
+  testExpected="info"
 
-  mseArgs["MessageType"]="attention"
-  local mseKey
-  for mseKey in "${!mseArgs[@]}"; do
-    testResult="${MSE_GLOBAL_SHOW_MESSAGE_CONFIG[$mseKey]}"
-    testExpected="${mseArgs[$mseKey]}"
+  mse_utest_assertEqual
 
-    mse_utest_assertEqual
-  done
+
+  testResult="${mseTestArrShowMsg[meta_format]}"
+  testExpected="default"
+
+  mse_utest_assertEqual
+
+
+  testResult="${mseTestArrShowMsg[title_string]}"
+  testExpected="Local do Título"
+
+  mse_utest_assertEqual
+
+
+  testResult="${mseTestArrShowMsg[body_lines]}"
+  testExpected="mseTestArrBody"
+
+  mse_utest_assertEqual
+
+
 
 
   local mseTestInShell="0"
   if [ "${mseTestInShell}" == "1" ]; then
-    #
-    # Verifica se o output está configurado conforme se espera.
-    mseArgs["MessageType"]="a"
-    mseArgs["MessageFormat"]=""
-    mseArgs["TitleText"]=""
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
-
-    #
-    # Testa o tipo de título 2
-    mseArgs["TitleType"]="2"
-    mseArgs["TitleText"]="FN::Message Ttl 02"
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
-
-    #
-    # Testa o tipo de título 3
-    mseArgs["TitleType"]="3"
-    mseArgs["TitleText"]="FN::Message Ttl 03"
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
-
-
-    #
-    # Testa o tipo de título 3 e a sobrescrita de uma mensagem do tipo 'SHOWSTATUS'
-    mseArgs["MessageType"]="f"
-    mseArgs["TitleText"]="X::Tudo errado!"
-    mseArgs["MessageFormat"]="SHOWSTATUS"
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
-
+    echo "---"
+    mse_inter_showMessage "mseTestArrShowMsg"
+    echo "---"
+    mse_inter_showMessage "mseTestArrShowMsg" "a" "default" " " ""
+    echo "---"
+    mse_inter_showMessage "mseTestArrShowMsg" "s" "title" "Tudo certo... prossiga" ""
+    echo "---"
+    mse_inter_showMessage "mseTestArrShowMsg" "f" "status" "X::Tudo errado!" ""
     mse_inter_clearLine "" "1"
-
-    mseArgs["MessageType"]="s"
-    mseArgs["TitleText"]="V::Tudo certo!"
-    mseArgs["MessageFormat"]="SHOWSTATUS"
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
-
+    mse_inter_showMessage "mseTestArrShowMsg" "s" "status" "X::Tudo certo!" ""
     printf "\n"
-
-    #
-    # Testa o formato 'TITLE'
-    mseArgs["MessageType"]="s"
-    mseArgs["TitleText"]="Tudo certo... prossiga"
-    mseArgs["MessageFormat"]="TITLE"
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "${mseArgs[MessageTopSeparator]}" "${mseArgs[MessageTopSeparatorColor]}" "${mseArgs[TitleDisplay]}" "${mseArgs[TitleType]}" "${mseArgs[TitleTopSeparator]}" "${mseArgs[TitleTopSeparatorColor]}" "${mseArgs[TitleIndent]}" "${mseArgs[TitleBullet]}" "${mseArgs[TitleBulletColor]}" "${mseArgs[TitleText]}" "${mseArgs[TitleTextColor]}" "${mseArgs[TitleBottomSeparator]}" "${mseArgs[TitleBottomSeparatorColor]}" "${mseArgs[BodyMessageDisplay]}" "${mseArgs[BodyMessageTopSeparator]}" "${mseArgs[BodyMessageTopSeparatorColor]}" "${mseArgs[BodyMessageFirstLineIndent]}" "${mseArgs[BodyMessageFirstLineBullet]}" "${mseArgs[BodyMessageFirstLineBulletColor]}" "${mseArgs[BodyMessageAnotherLinesIndent]}" "${mseArgs[BodyMessageAnotherLinesBullet]}" "${mseArgs[BodyMessageAnotherLinesBulletColor]}" "${mseArgs[BodyMessageArrayName]}" "${mseArgs[BodyMessageArrayNameColor]}" "${mseArgs[BodyMessageBottomSeparator]}" "${mseArgs[BodyMessageBottomSeparatorColor]}" "${mseArgs[MessageBottomSeparator]}" "${mseArgs[MessageBottomSeparatorColor]}" "mse_inter_theme_default"
+    echo "---"
   fi
 }

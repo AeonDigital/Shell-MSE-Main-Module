@@ -30,7 +30,7 @@
 # Pode ser um tipo específico de formatação definido no tema a ser usado ou
 # o nome de uma função que possui uma formatação especial para a barra de
 # progresso.
-# Se não for definido, internamente usará o valor padrão 'DEFAULTFORMAT'.
+# Se não for definido, internamente usará o valor padrão 'default'.
 #
 #
 #
@@ -192,7 +192,7 @@ mse_inter_showProgressBar() {
         ProgressBarFormat)
 
           if [ "${mseValue}" == "" ]; then
-            MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarFormat"]="DEFAULTFORMAT"
+            MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarFormat"]="default"
           else
             MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarFormat"]="${mseValue^^}"
           fi

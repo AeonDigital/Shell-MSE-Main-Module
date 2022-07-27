@@ -43,7 +43,7 @@ mse_inter_errorAlert() {
   if [ "$#" -ge 2 ]; then
     declare -A mseArgs
     mseArgs["MessageType"]="e"
-    mseArgs["MessageFormat"]="DEFAULTFORMAT"
+    mseArgs["MessageFormat"]="default"
     mseArgs["TitleType"]="3"
     mseArgs["TitleCode"]="${1}"
     mseArgs["TitleText"]="${2}"

@@ -56,7 +56,7 @@ mse_inter_alertUser() {
   if [ $# -ge 3 ]; then
     declare -A mseArgs
     mseArgs["MessageType"]="${1}"
-    mseArgs["MessageFormat"]="DEFAULTFORMAT"
+    mseArgs["MessageFormat"]="default"
     mseArgs["TitleType"]="1"
     mseArgs["TitleCode"]="${2}"
     mseArgs["TitleText"]="${3}"
@@ -73,7 +73,7 @@ mse_inter_alertUser() {
     #
     # Mostrará o corpo da mensagem caso existam informações no array indicado
     if [ "${4}" == "" ]; then
-      mseArgs["MessageFormat"]="TITLE"
+      mseArgs["MessageFormat"]="title"
     fi
 
     #

@@ -45,7 +45,7 @@
 mse_inter_waitUser() {
   declare -A mseArgs
   mseArgs["MessageType"]="${1}"
-  mseArgs["MessageFormat"]="SHOWSTATUS"
+  mseArgs["MessageFormat"]="status"
   mseArgs["TitleType"]="3"
   mseArgs["TitleCode"]="${2}"
   mseArgs["TitleText"]="${3}"
