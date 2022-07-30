@@ -9,6 +9,31 @@
 
 #
 # @desc
+# Valida o valor "meta_format" indicado. Sendo válido, retorna ele próprio.
+# Sendo inválido, retorna o valor padrão.
+#
+# @param string $1
+# Valor que está sendo testado
+#
+# @return
+# Valor "meta_format" válido para este tema
+mse_inter_theme_default_checkMetaFormat() {
+  local mseAllowedMetaFormat=("free" "default" "status" "title")
+
+  local mseReturn="${1}"
+  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mesReturn}" ]]; then
+    mseReturn="default"
+  fi
+
+  printf "${mseReturn}"
+}
+
+
+
+
+
+#
+# @desc
 # Seta no array associativo global "MSE_GLOBAL_MAIN_THEME_COLORS" todas as
 # definições de cores usadas por este tema.
 #
@@ -188,7 +213,6 @@ mse_inter_theme_default_prepareMessage() {
       #
       # Bloco 03: Título
       mseTmpArrThemePrepareMessage["title_show"]="1"
-      mseTmpArrThemePrepareMessage["title_type"]="1"
 
       mseTmpArrThemePrepareMessage["title_top_separator_string"]=""
       mseTmpArrThemePrepareMessage["title_top_separator_color"]=""

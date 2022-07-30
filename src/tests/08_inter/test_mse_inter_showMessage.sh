@@ -13,6 +13,12 @@ test_mse_inter_showMessage() {
   unset MSE_GLOBAL_MAIN_THEME_COLORS
   declare -gA MSE_GLOBAL_MAIN_THEME_COLORS
 
+  unset MSE_GLOBAL_SHOW_MESSAGE_CONFIG
+  declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG
+
+  unset MSE_GLOBAL_THEME_NAME
+  MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
+
 
 
   #
@@ -20,6 +26,12 @@ test_mse_inter_showMessage() {
   # Testa a função "prepare"
   unset mseTestArrShowMsg
   declare -A mseTestArrShowMsg
+
+  unset mseTestArrBody
+  declare -a mseTestArrBody
+  mseTestArrBody+=("Primeira linha de informação")
+  mseTestArrBody+=("Segunda linha")
+  mseTestArrBody+=("Terceira linha")
 
 
   #
@@ -175,6 +187,10 @@ test_mse_inter_showMessage() {
 
   unset mseTestExpectedKeyValues
   declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["meta_type"]="info"
+  mseTestExpectedKeyValues["meta_theme"]="mse_inter_theme_default"
+  mseTestExpectedKeyValues["meta_format"]="default"
+
   mseTestExpectedKeyValues["top_separator_string"]="\n"
   mseTestExpectedKeyValues["top_separator_colorize"]="0"
   mseTestExpectedKeyValues["title_show"]="1"
@@ -215,11 +231,15 @@ test_mse_inter_showMessage() {
 
   #
   # Verifica o formato "status"
-  mse_inter_prepareMessage "mseTestArrShowMsg" "i" "mse_inter_theme_default" "status"
+  mse_inter_prepareMessage "mseTestArrShowMsg" "a" "mse_inter_theme_default" "status"
 
 
   unset mseTestExpectedKeyValues
   declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["meta_type"]="attention"
+  mseTestExpectedKeyValues["meta_theme"]="mse_inter_theme_default"
+  mseTestExpectedKeyValues["meta_format"]="status"
+
   mseTestExpectedKeyValues["top_separator_string"]=""
   mseTestExpectedKeyValues["top_separator_colorize"]="0"
   mseTestExpectedKeyValues["title_show"]="1"
@@ -250,11 +270,15 @@ test_mse_inter_showMessage() {
 
   #
   # Verifica o formato "title"
-  mse_inter_prepareMessage "mseTestArrShowMsg" "i" "mse_inter_theme_default" "title"
+  mse_inter_prepareMessage "mseTestArrShowMsg" "s" "mse_inter_theme_default" "title"
 
 
   unset mseTestExpectedKeyValues
   declare -A mseTestExpectedKeyValues
+  mseTestExpectedKeyValues["meta_type"]="success"
+  mseTestExpectedKeyValues["meta_theme"]="mse_inter_theme_default"
+  mseTestExpectedKeyValues["meta_format"]="title"
+
   mseTestExpectedKeyValues["top_separator_string"]=""
   mseTestExpectedKeyValues["top_separator_colorize"]="0"
   mseTestExpectedKeyValues["title_show"]="1"
@@ -287,11 +311,6 @@ test_mse_inter_showMessage() {
   # Parte 4
   # Verifica as alterações de valores das chaves quando definidas diretamente na chamada
   # da função "showMessage"
-  unset mseTestArrBody
-  declare -a mseTestArrBody
-  mseTestArrBody+=("Primeira linha de informação")
-  mseTestArrBody+=("Segunda linha")
-  mseTestArrBody+=("Terceira linha")
 
   #
   # Prepara novamente uma mensagem usando o formato "title"
@@ -356,8 +375,8 @@ test_mse_inter_showMessage() {
 
 
 
-  local mseTestInShell="0"
-  if [ "${mseTestInShell}" == "1" ]; then
+  local mseTestShowMessageInShell="0"
+  if [ "${mseTestShowMessageInShell}" == "1" ]; then
     echo "---"
     mse_inter_showMessage "mseTestArrShowMsg"
     echo "---"
@@ -368,6 +387,21 @@ test_mse_inter_showMessage() {
     mse_inter_showMessage "mseTestArrShowMsg" "f" "status" "X::Tudo errado!" ""
     mse_inter_clearLine "" "1"
     mse_inter_showMessage "mseTestArrShowMsg" "s" "status" "X::Tudo certo!" ""
+    printf "\n"
+    echo "---"
+  fi
+
+
+  local mseTestAlertUserInShell="0"
+  if [ "${mseTestAlertUserInShell}" == "1" ]; then
+    #mse_inter_prepareMessage "mseTestArrShowMsg" "" "mse_inter_theme_default"
+
+    echo "---"
+    mse_inter_alertUser "a" "default" "Informando o Usuário" "mseTestArrBody"
+    echo "---"
+    mse_inter_alertUser "a" "default" "S004::Informando o Usuário com código" "mseTestArrBody"
+    echo "---"
+    mse_inter_alertUser "w" "status" "Cuidado" " "
     printf "\n"
     echo "---"
   fi

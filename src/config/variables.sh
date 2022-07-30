@@ -128,12 +128,16 @@ declare -g MSE_GLOBAL_RETURN=""
 
 #
 # Função do 'theme' usada para renderizar as mensagens de interface
-# [Esta configuração fica no arquivo "config.sh"]
+# [Esta configuração fica efetiva no arquivo "config.sh"]
 # MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
 #
 # Indica o 'theme' que está carregado no momento.
-# Geralmente será o último a ter sido usado.
 MSE_GLOBAL_THEME_LOADED=""
+#
+# Armazena uma configuração "prepare" usando o tema padrão e que será usado
+# sempre que uma outra não for definida nas funções de mensagem.
+declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG
+
 
 #
 # Armazena a última resposta do usuário a um prompt.

@@ -9,12 +9,13 @@
 
 #
 # @desc
-# Mostra uma mensagem de alerta para o usuário.
+# Mostra uma mensagem de alerta para o usuário usando o tema que está
+# atualmente configurado na variável "MSE_GLOBAL_THEME_NAME".
 #
 # @param string $1
 # Tipo de mensagem.
 #
-#   Mensagens de Alerta
+# [[ Mensagens de Alerta ]]
 #
 #   - ""        | ""  : Não definido (valor padrão).
 #   - none      | n   : Não definido (mesmo que acima).
@@ -25,65 +26,49 @@
 #   - fail      | f   : Falha em uma operação.
 #   - success   | s   : Sucesso em uma operação.
 #
+#
 # @param string $2
-# Opcional. Código da mensagem.
-# Quando usado, alterna o tipo de título para o "3".
+# Formato da mensagem.
+# Cada tema pode fornecer vários formatos de mensagem, se for o caso, neste
+# parametro deve ser indicado qual deve ser usado. De outra forma o formato
+# padrão será utilizado.
+#
 #
 # @param string $3
-# Opcional. Título da mensagem.
-# Se não for usado, o título da mensagem será correspondente ao tipo da mesma.
+# Título a ser usado na mensagem.
+# Se não for indicado, buscará a mensagem correspondente ao tipo definido para
+# a mensagem.
+# Use "::" como separador entre um código identificador da mensagem e o título
+# propriamente dito. Internamente o tipo de título usado será alterado para o
+# formato "3".
+#
 #
 # @param string $4
-# Opcional. Nome de um array unidimensional em que estão as frases que devem
-# ser usadas para montar o corpo da mensagem.
-#
-# @param string $5
-# Opcional.
-# Nome do tema usado para renderizar a mensagem a ser mostrada na tela.
-# Se nenhuma for indicada, usará o tema padrão definido na variável global
-# 'MSE_GLOBAL_THEME_NAME'.
+# Nome de um array unidimensional em que estão as frases que devem ser
+# usadas para montar o corpo da mensagem.
+# Esta informação será mostrada caso o formato da mensagem esteja configurada
+# para tal. Da mesma forma, se não for indicado um valor válido e o formato
+# exija tal valor, um erro pode ser causado.
 #
 # @return
-# Printa na tela as informações desejadas conforme configuração passada.
-#
-# @example
-#   declare -a mseArrMSG=()
-#   mseArrMSG+=("Sucesso!")
-#   mseArrMSG+=("Todos os scripts foram atualizados")
-#
-#   mse_inter_alertUser "i" "" "" "mseArrMSG"
+# Printa na tela a mensagem indicada conforme configuração passada.
 mse_inter_alertUser() {
-  if [ $# -ge 3 ]; then
-    declare -A mseArgs
-    mseArgs["MessageType"]="${1}"
-    mseArgs["MessageFormat"]="default"
-    mseArgs["TitleType"]="1"
-    mseArgs["TitleCode"]="${2}"
-    mseArgs["TitleText"]="${3}"
-    mseArgs["BodyMessageArrayName"]="${4}"
-
+  if [ $# -ge 4 ]; then
+    #
+    # Melhorar este ponto... esta variável deve ser global e apenas ser redefinida
+    # quando um novo theme for carregado ?!
+    declare -A mseTmpMsgConfig
+    mse_inter_prepareMessage "mseTmpMsgConfig" "${1}" "${MSE_GLOBAL_THEME_NAME}" "${2}"
 
     #
-    # Verifica de que forma o título deve ser mostrado
-    if [ "${2}" != "" ] && [ "${3}" != "" ]; then
-      mseArgs["TitleType"]="3"
-      mseArgs["TitleText"]="${2}::${3}"
+    # Ajusta o tipo do título a partir da presença do separador "::"
+    if [[ "${3}" == *"::"* ]]; then
+      mseTmpMsgConfig["title_type"]="3"
     fi
 
-    #
-    # Mostrará o corpo da mensagem caso existam informações no array indicado
-    if [ "${4}" == "" ]; then
-      mseArgs["MessageFormat"]="title"
-    fi
+    mseTmpMsgConfig["body_lines"]="${4}"
 
-    #
-    # Identifica o tema a ser usado
-    local mseTheme="${MSE_GLOBAL_THEME_NAME}"
-    if [ "${5}" != "" ]; then
-      mseTheme="${5}"
-    fi
-
-    mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "" "" "" "${mseArgs[TitleType]}" "" "" "" "" "" "${mseArgs[TitleText]}" "" "" "" "" "" "" "" "" "" "" "" "" "${mseArgs[BodyMessageArrayName]}" "" "" "" "" "" "${mseTheme}"
+    mse_inter_showMessage "mseTmpMsgConfig"
   fi
 }
 
@@ -95,12 +80,11 @@ mse_inter_alertUser() {
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_alertUser_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MessageType :: r :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleCode :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleText :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyMessageArrayName :: r :: arrayName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="Theme :: o :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s, fr, or, ca, im"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaFormat :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleString :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyLines :: r :: arrayName"
 }

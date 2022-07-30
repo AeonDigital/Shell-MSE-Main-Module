@@ -16,13 +16,12 @@
 # @param string $1
 # Nome do array associativo que traz as configurações para a apresentação da
 # mensagem.
-#
-# Para configurar este array associativo use a função "mse_inter_prepareMessage".
-#
+# Se "" ou inválido, será iniciado o array associativo
+# "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" usando o tema padrão e este será usado para
+# a formatação da mensagem.
 #
 #
 # @param string $2
-# Opcional.
 # Tipo de mensagem.
 #
 # [[ Mensagens de Alerta ]]
@@ -47,114 +46,125 @@
 #                       permanente no processamento do script ou no próprio PC
 #
 # @param string $3
-# Opcional.
 # Formato da mensagem.
-# Cada tema pode fornecer vários formatos de mensagem, se for o caso, neste
-# parametro deve ser indicado qual deve ser usado. De outra forma o formato
-# padrão será utilizado.
+# Deve estar de acordo com um dos formatos fornecidos pelo tema que está sendo
+# usado no momento. Em caso de um valor inválido, será usado o formato padrão
+# indicado pelo próprio tema.
+#
 #
 # @param string $4
 # Título da mensagem.
-# Use "" para manter o título atualmente definido.
-# Use " " para remover totalmente o título. Neste caso usará o título padrão
-# conforme o tipo de mensagem, ou, deixará a linha do título vazia em caso de
-# tipo de mensagem "none".
+#
 #
 # @param string $5
-# Nome de um array unidimensional em que estão as frases que devem ser
-# usadas para montar o corpo da mensagem.
+# Nome de um array unidimensional em que estão as linhas da mensagem.
+#
 #
 # @return
 # Printa na tela a mensagem indicada conforme configuração passada.
 mse_inter_showMessage() {
-  declare -n mseTmpArrShowMessage="${1}"
+  local mseUseMetaAssoc="${1}"
   local mseRedefineTheme="0"
 
+  local mseCheckThemeMetaFormat=""
+
+
+  local mseUseMetaType=""
+  local mseUseMetaTheme=""
+  local mseUseMetaFormat=""
+
+
   #
-  # Redefine o tipo da mensagem
-  if [ $# -ge 2 ] && [ "${2}" != "" ]; then
-    local mseTmp="${mseTmpArrShowMessage[meta_type]}"
+  # Verifica se o nome do array associativo passado é válido
+  # Não sendo, seleciona o array global
+  if [ "${mseUseMetaAssoc}" == "" ] || [[ ! "$(declare -p ${mseUseMetaAssoc} 2> /dev/null)" =~ "declare -A" ]]; then
+    mseUseMetaAssoc="MSE_GLOBAL_SHOW_MESSAGE_CONFIG"
+  fi
+  declare -n mseTmpArrShowMessage="${mseUseMetaAssoc}"
 
-    #
-    # Garante que apenas tipos válidos serão definidos
-    case "${2}" in
-      none)
-        mseTmp="none"
-      ;;
-      info | i)
-        mseTmp="info"
-      ;;
-      attention | a)
-        mseTmp="attention"
-      ;;
-      warning | w)
-        mseTmp="warning"
-      ;;
-      error | e)
-        mseTmp="error"
-      ;;
-      fail | f)
-        mseTmp="fail"
-      ;;
-      success | s)
-        mseTmp="success"
-      ;;
 
-      friendly | fr)
-        mseTmp="friendly"
-      ;;
-      ordinary | or)
-        mseTmp="ordinary"
-      ;;
-      caution | ca)
-        mseTmp="caution"
-      ;;
-      important | im)
-        mseTmp="important"
-      ;;
-    esac
 
-    mseTmpArrShowMessage["meta_type"]="${mseTmp}"
+  #
+  # Verifica a definição das informações básicas para inicialização de uma mensagem
+  # - meta_type
+  # - meta_theme
+  # - meta_format
+  local mseIsMetaType=$(mse_check_hasKeyInAssocArray "meta_type" "${mseUseMetaAssoc}")
+  if [ "${mseIsMetaType}" == "0" ]; then
+    mseUseMetaType="none"
+    mseRedefineTheme="1"
+  else
+    mseUseMetaType="${mseTmpArrShowMessage[meta_type]}"
+  fi
+
+  if [ $# -ge 2 ] && [ "${2}" != "" ] && [ "${2}" != "${mseUseMetaType}" ]; then
+    mseUseMetaType="${2}"
     mseRedefineTheme="1"
   fi
 
-  #
-  # Redefine o formato da mensagem
-  if [ $# -ge 3 ] && [ "${3}" != "" ]; then
-    mseTmpArrShowMessage["meta_format"]="$3"
-    mseRedefineTheme="1"
+  declare -a mseAllowedMetaTypes=("none" "info" "i" "attention" "a" "warning" "w" "error" "e" "fail" "f" "success" "s" "friendly" "fr" "ordinary" "or" "caution" "ca" "important" "im")
+  if [[ ! "${mseAllowedMetaTypes[*]}" =~ "${mseUseMetaType}" ]]; then
+    mseUseMetaType="none"
   fi
 
-  #
-  # Redefine o título da mensagem
-  if [ $# -ge 4 ] && [ "${4}" != "" ]; then
-    mseTmpArrShowMessage["title_string"]="${4}"
-    if [ "${4}" == " " ]; then
-      mseTmpArrShowMessage["title_string"]=""
+
+
+  local mseIsMetaTheme=$(mse_check_hasKeyInAssocArray "meta_theme" "${mseUseMetaAssoc}")
+  if [ "${mseIsMetaTheme}" == "0" ]; then
+    mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
+    mseRedefineTheme="1"
+  else
+    mseUseMetaTheme="${mseTmpArrShowMessage[meta_theme]}"
+    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_prepareMessage")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_checkMetaFormat")" != "function" ]); then
+      mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
+      mseRedefineTheme="1"
     fi
   fi
 
-  #
-  # Redefine o corpo da mensagem
-  if [ $# -ge 5 ] && [ "${5}" != "" ]; then
-    mseTmpArrShowMessage["body_lines"]="${5}"
+
+  mseCheckThemeMetaFormat="${mseUseMetaTheme}_checkMetaFormat"
+
+
+
+  local mseIsMetaFormat=$(mse_check_hasKeyInAssocArray "meta_format" "${mseUseMetaAssoc}")
+  if [ "${mseIsMetaFormat}" == "0" ]; then
+    mseUseMetaFormat=$($mseCheckThemeMetaFormat "")
+    mseRedefineTheme="1"
+  else
+    mseUseMetaFormat="${mseTmpArrShowMessage[meta_format]}"
   fi
+
+  if [ $# -ge 3 ] && [ "${3}" != "" ] && [ "${3}" != "${mseUseMetaFormat}" ]; then
+    mseUseMetaFormat=$($mseCheckThemeMetaFormat "${3}")
+    mseRedefineTheme="1"
+  fi
+
 
 
   #
   # Redefine as configurações segundo o tema caso necessário
-  if [ "${mseRedefineTheme}" == "1" ] && [ "${mseTmpArrShowMessage[meta_theme]}" != "" ]; then
-    local mseThemePrepareMessage="${mseTmpArrShowMessage[meta_theme]}_prepareMessage"
-    $mseThemePrepareMessage "${1}"
+  if [ "${mseRedefineTheme}" == "1" ]; then
+    mse_inter_prepareMessage "${mseUseMetaAssoc}" "${mseUseMetaType}" "${mseUseMetaTheme}" "${mseUseMetaFormat}"
   fi
 
 
   #
+  # Redefine o título da mensagem
+  mseTmpArrShowMessage["title_string"]="${4}"
+
+  #
+  # Redefine o corpo da mensagem
+  mseTmpArrShowMessage["body_lines"]="${5}"
+
+
+# seguir daqui.... precisa migrar estas funções para o tema
+
+  #
   # Gera a mensagem conforme o tipo selecionado
-  mse_inter_showMessage_createSeparator "${mseTmpArrShowMessage[meta_type]}" "${mseTmpArrShowMessage[top_separator_string]}" "${mseTmpArrShowMessage[top_separator_color]}" "${mseTmpArrShowMessage[top_separator_color_alt]}" "${mseTmpArrShowMessage[top_separator_colorize]}"
-  mse_inter_showMessage_createTitle "${1}"
-  mse_inter_showMessage_createBody "${1}"
-  mse_inter_showMessage_createSeparator "${mseTmpArrShowMessage[meta_type]}" "${mseTmpArrShowMessage[bottom_separator_string]}" "${mseTmpArrShowMessage[bottom_separator_color]}" "${mseTmpArrShowMessage[bottom_separator_color_alt]}" "${mseTmpArrShowMessage[bottom_separator_colorize]}"
+  #mse_inter_showMessage_createSeparator "${mseTmpArrShowMessage[meta_type]}" "${mseTmpArrShowMessage[top_separator_string]}" "${mseTmpArrShowMessage[top_separator_color]}" "${mseTmpArrShowMessage[top_separator_color_alt]}" "${mseTmpArrShowMessage[top_separator_colorize]}"
+  #mse_inter_showMessage_createTitle "${1}"
+  #mse_inter_showMessage_createBody "${1}"
+  #mse_inter_showMessage_createSeparator "${mseTmpArrShowMessage[meta_type]}" "${mseTmpArrShowMessage[bottom_separator_string]}" "${mseTmpArrShowMessage[bottom_separator_color]}" "${mseTmpArrShowMessage[bottom_separator_color_alt]}" "${mseTmpArrShowMessage[bottom_separator_colorize]}"
 }
 
 
@@ -165,14 +175,14 @@ mse_inter_showMessage() {
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_showMessage_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="AssocArrayName :: r :: assocName"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaType :: o :: list"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="none, info, attention, warning, error, fail, success, friendly, ordinary, caution, important"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_values"]="n, i, a, w, e, f, s, fr, or, ca, im"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MetaFormat :: o :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="TitleString :: o :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="BodyLines :: o :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MetaFormat :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="TitleString :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="BodyLines :: r :: arrayName"
 }
 
 
