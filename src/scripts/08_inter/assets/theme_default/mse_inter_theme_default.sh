@@ -18,15 +18,20 @@
 # @return
 # Valor "meta_format" válido para este tema
 mse_inter_theme_default_checkMetaFormat() {
-  local mseAllowedMetaFormat=("free" "default" "status" "title")
+  declare -a mseAllowedMetaFormat=("free" "default" "status" "title")
 
   local mseReturn="${1}"
-  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mesReturn}" ]]; then
+  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mseReturn}" ]]; then
     mseReturn="default"
   fi
 
   printf "${mseReturn}"
 }
+
+
+
+
+
 
 
 
@@ -280,75 +285,6 @@ mse_inter_theme_default_prepareMessage() {
 
     ;;
 
-    status)
-
-      #
-      # Configuração geral para uma mensagem do tipo 'show status'
-      #
-      # Usa o tipo de título 3 para passar uma informação como resultado
-      # de um processamento qualquer que pode indicar o aguardo do término
-      # de um processo ou a realização com sucesso ou falha também.
-      #
-      # O cursor é interrompido imediatamente ao lado do final do título
-      # permitindo que possa ser usado '\r' para retornar ao início da linha
-      # e substituí-la se necessário, alterando assim o status printado na tela.
-      #
-      # Este tipo de mensagem NÃO conta com um corpo e nem utiliza espaços
-      # acima ou abaixo da mensagem deixando este tipo de estilização para
-      # o escopo do script que evocar a mensagem.
-
-      #
-      # Bloco 02: Separador superior da mensagem
-      mseTmpArrThemePrepareMessage["top_separator_string"]=""
-      mseTmpArrThemePrepareMessage["top_separator_color"]=""
-      mseTmpArrThemePrepareMessage["top_separator_color_alt"]=""
-      mseTmpArrThemePrepareMessage["top_separator_colorize"]="0"
-
-
-
-      #
-      # Bloco 03: Título
-      mseTmpArrThemePrepareMessage["title_show"]="1"
-      mseTmpArrThemePrepareMessage["title_type"]="3"
-
-      mseTmpArrThemePrepareMessage["title_top_separator_string"]=""
-      mseTmpArrThemePrepareMessage["title_top_separator_color"]=""
-      mseTmpArrThemePrepareMessage["title_top_separator_color_alt"]=""
-      mseTmpArrThemePrepareMessage["title_top_separator_colorize"]="0"
-
-      mseTmpArrThemePrepareMessage["title_indent"]="  "
-
-      mseTmpArrThemePrepareMessage["title_bullet"]=":: "
-      mseTmpArrThemePrepareMessage["title_bullet_color"]=""
-      mseTmpArrThemePrepareMessage["title_bullet_color_alt"]=""
-      mseTmpArrThemePrepareMessage["title_bullet_colorize"]="0"
-
-      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_message_title_string_${mseMessageType}]}"
-      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_message_title_string_${mseMessageType}_alt]}"
-      mseTmpArrThemePrepareMessage["title_string_colorize"]="1"
-      mseTmpArrThemePrepareMessage["title_string_end"]=""
-
-      mseTmpArrThemePrepareMessage["title_bottom_separator_string"]=""
-      mseTmpArrThemePrepareMessage["title_bottom_separator_color"]=""
-      mseTmpArrThemePrepareMessage["title_bottom_separator_color_alt"]=""
-      mseTmpArrThemePrepareMessage["title_bottom_separator_colorize"]="0"
-
-
-
-      #
-      # Bloco 04: Corpo da mensagem
-      mseTmpArrThemePrepareMessage["body_show"]="0"
-
-
-
-      #
-      # Bloco 05: Separador inferior da mensagem
-      mseTmpArrThemePrepareMessage["bottom_separator_string"]=""
-      mseTmpArrThemePrepareMessage["bottom_separator_color"]=""
-      mseTmpArrThemePrepareMessage["bottom_separator_color_alt"]=""
-      mseTmpArrThemePrepareMessage["bottom_separator_colorize"]="0"
-    ;;
-
     title)
 
       #
@@ -368,7 +304,6 @@ mse_inter_theme_default_prepareMessage() {
       #
       # Bloco 03: Título
       mseTmpArrThemePrepareMessage["title_show"]="1"
-      mseTmpArrThemePrepareMessage["title_type"]="3"
 
       mseTmpArrThemePrepareMessage["title_top_separator_string"]="\n"
       mseTmpArrThemePrepareMessage["title_top_separator_color"]=""
@@ -408,9 +343,466 @@ mse_inter_theme_default_prepareMessage() {
       mseTmpArrThemePrepareMessage["bottom_separator_colorize"]="0"
 
     ;;
+
+    status)
+
+      #
+      # Configuração geral para uma mensagem do tipo 'show status'
+      #
+      # Usa o tipo de título 3 para passar uma informação como resultado
+      # de um processamento qualquer que pode indicar o aguardo do término
+      # de um processo ou a realização com sucesso ou falha também.
+      #
+      # O cursor é interrompido imediatamente ao lado do final do título
+      # permitindo que possa ser usado '\r' para retornar ao início da linha
+      # e substituí-la se necessário, alterando assim o status printado na tela.
+      #
+      # Este tipo de mensagem NÃO conta com um corpo e nem utiliza espaços
+      # acima ou abaixo da mensagem deixando este tipo de estilização para
+      # o escopo do script que evocar a mensagem.
+
+      #
+      # Bloco 02: Separador superior da mensagem
+      mseTmpArrThemePrepareMessage["top_separator_string"]=""
+      mseTmpArrThemePrepareMessage["top_separator_color"]=""
+      mseTmpArrThemePrepareMessage["top_separator_color_alt"]=""
+      mseTmpArrThemePrepareMessage["top_separator_colorize"]="0"
+
+
+
+      #
+      # Bloco 03: Título
+      mseTmpArrThemePrepareMessage["title_show"]="1"
+
+      mseTmpArrThemePrepareMessage["title_top_separator_string"]=""
+      mseTmpArrThemePrepareMessage["title_top_separator_color"]=""
+      mseTmpArrThemePrepareMessage["title_top_separator_color_alt"]=""
+      mseTmpArrThemePrepareMessage["title_top_separator_colorize"]="0"
+
+      mseTmpArrThemePrepareMessage["title_indent"]="  "
+
+      mseTmpArrThemePrepareMessage["title_bullet"]=":: "
+      mseTmpArrThemePrepareMessage["title_bullet_color"]=""
+      mseTmpArrThemePrepareMessage["title_bullet_color_alt"]=""
+      mseTmpArrThemePrepareMessage["title_bullet_colorize"]="0"
+
+      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_message_title_string_${mseMessageType}]}"
+      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_message_title_string_${mseMessageType}_alt]}"
+      mseTmpArrThemePrepareMessage["title_string_colorize"]="1"
+      mseTmpArrThemePrepareMessage["title_string_end"]=""
+
+      mseTmpArrThemePrepareMessage["title_bottom_separator_string"]=""
+      mseTmpArrThemePrepareMessage["title_bottom_separator_color"]=""
+      mseTmpArrThemePrepareMessage["title_bottom_separator_color_alt"]=""
+      mseTmpArrThemePrepareMessage["title_bottom_separator_colorize"]="0"
+
+
+
+      #
+      # Bloco 04: Corpo da mensagem
+      mseTmpArrThemePrepareMessage["body_show"]="0"
+
+
+
+      #
+      # Bloco 05: Separador inferior da mensagem
+      mseTmpArrThemePrepareMessage["bottom_separator_string"]=""
+      mseTmpArrThemePrepareMessage["bottom_separator_color"]=""
+      mseTmpArrThemePrepareMessage["bottom_separator_color_alt"]=""
+      mseTmpArrThemePrepareMessage["bottom_separator_colorize"]="0"
+    ;;
   esac
 }
 
+
+
+
+
+
+
+
+
+
+#
+# @desc
+# Efetivamente monta e mostra a mensagem a partir das configurações indicadas.
+#
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# mensagem.
+mse_inter_theme_default_showMessage() {
+  declare -n mseTmpThemeArrShowMessage="${1}"
+
+
+  if [ "${mseTmpThemeArrShowMessage[meta_format]}" == "default" ]; then
+    local mseValidBody="1"
+
+    #
+    # Altera o tipo de mensagem de "default" para "title" quando não há um
+    # body definido ou quando o mesmo está vazio
+    if [ "${mseTmpThemeArrShowMessage[body_lines]}" == "" ]; then
+      mseValidBody="0"
+    else
+      #
+      # Verifica se o array de "body_lines" é válido e possui dados.
+      if [[ ! "$(declare -p ${mseTmpThemeArrShowMessage[body_lines]} 2> /dev/null)" =~ "declare -a" ]]; then
+        mseValidBody="0"
+      else
+        declare -n mseTmpThemeBodyArrayName="${mseTmpThemeArrShowMessage["body_lines"]}"
+        if [ "${#mseTmpThemeBodyArrayName[@]}" == "0" ]; then
+          mseValidBody="0"
+        fi
+      fi
+    fi
+
+
+    if [ "${mseValidBody}" == "0" ]; then
+      mseTmpThemeArrShowMessage[meta_format]="title"
+      mse_inter_theme_default_prepareMessage "${1}"
+    fi
+  fi
+
+
+  #
+  # Para este tema existem 2 formatos de títulos.
+  # - simple
+  #   Toda a string que forma a mensagem do título é mostrada conforme
+  #   for definida originalmente
+  #
+  # - code
+  #   Se identificar o separador "::" irá usar o formato "code" onde, a primeira parte
+  #   deve ser alguma meta informação de utilidade para o usuário identificar a natureza da
+  #   mensagem que está sendo mostrada.
+  #
+  mseTmpThemeArrShowMessage[title_type]="simple"
+  if [[ "${mseTmpThemeArrShowMessage[title_string]}" == *"::"* ]]; then
+    mseTmpThemeArrShowMessage[title_type]="code"
+  fi
+
+
+
+
+  mse_inter_theme_default_showMessage_createSeparator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[top_separator_string]}" "${mseTmpThemeArrShowMessage[top_separator_color]}" "${mseTmpThemeArrShowMessage[top_separator_color_alt]}" "${mseTmpThemeArrShowMessage[top_separator_colorize]}"
+  mse_inter_theme_default_showMessage_createTitle "${1}"
+  mse_inter_theme_default_showMessage_createBody "${1}"
+  mse_inter_theme_default_showMessage_createSeparator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[bottom_separator_string]}" "${mseTmpThemeArrShowMessage[bottom_separator_color]}" "${mseTmpThemeArrShowMessage[bottom_separator_color_alt]}" "${mseTmpThemeArrShowMessage[bottom_separator_colorize]}"
+}
+
+
+
+#
+# Monta um separador conforme as informações passadas.
+#
+# @param string $1
+# Tipo de mensagem.
+#
+# @param string $2
+# String a ser usada.
+#
+# @param string $3
+# Código da cor a ser usada.
+#
+# @param string $4
+# Código da cor alternativa a ser usada.
+#
+# @param bool $5
+# Indica se deve usar a colorização indicada.
+# Use "0" para não.
+# Use "1" para sim.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showMessage_createSeparator() {
+  #
+  # Apenas se o separador foi mesmo definido
+  if [ "${2}" != "" ]; then
+    local mseReturn=""
+
+    #
+    # Havendo necessidade de colorização...
+    if [ "${5}" == "1" ]; then
+      mseReturn+="${3}"
+    fi
+    mseReturn+="${2}"
+    if [ "${5}" == "1" ]; then
+      mseReturn+="${mseNONE}"
+    fi
+
+    printf "${mseReturn}"
+  fi
+}
+
+
+
+#
+# Monta um bullet conforme as informações passadas.
+#
+# @param string $1
+# Tipo de mensagem.
+#
+# @param string $2
+# String a ser usada.
+#
+# @param string $3
+# Código da cor a ser usada.
+#
+# @param string $4
+# Código da cor alternativa a ser usada.
+#
+# @param bool $5
+# Indica se deve usar a colorização indicada.
+# Use "0" para não.
+# Use "1" para sim.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showMessage_createBullet() {
+  mse_inter_theme_default_showMessage_createSeparator "${1}" "${2}" "${3}" "${4}" "${5}"
+}
+
+
+
+
+
+#
+# Monta toda a parte do título da mensagem conforme as configurações
+# definidas e o tema de cores utilizado.
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# mensagem.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showMessage_createTitle() {
+  declare -n mseTmpThemeArrCreateTitle="${1}"
+
+  if [ "${mseTmpThemeArrCreateTitle[title_show]}" == "1" ]; then
+    local mseMessageType="${mseTmpThemeArrCreateTitle[meta_type]}"
+
+    local mseTitleType="${mseTmpThemeArrCreateTitle[title_type]}"
+
+    local mseTitleTopSeparatorString="${mseTmpThemeArrCreateTitle[title_top_separator_string]}"
+    local mseTitleTopSeparatorColor="${mseTmpThemeArrCreateTitle[title_top_separator_color]}"
+    local mseTitleTopSeparatorColorAlt="${mseTmpThemeArrCreateTitle[title_top_separator_color_alt]}"
+    local mseTitleTopSeparatorColorize="${mseTmpThemeArrCreateTitle[title_top_separator_colorize]}"
+
+    local mseTitleIndent="${mseTmpThemeArrCreateTitle[title_indent]}"
+
+    local mseTitleBullet="${mseTmpThemeArrCreateTitle[title_bullet]}"
+    local mseTitleBulletColor="${mseTmpThemeArrCreateTitle[title_bullet_color]}"
+    local mseTitleBulletColorAlt="${mseTmpThemeArrCreateTitle[title_bullet_color_alt]}"
+    local mseTitleBulletColorize="${mseTmpThemeArrCreateTitle[title_bullet_colorize]}"
+
+    local mseTitleString="${mseTmpThemeArrCreateTitle[title_string]}"
+    local mseTitleStringColor="${mseTmpThemeArrCreateTitle[title_string_color]}"
+    local mseTitleStringColorAlt="${mseTmpThemeArrCreateTitle[title_string_color_alt]}"
+    local mseTitleStringColorize="${mseTmpThemeArrCreateTitle[title_string_colorize]}"
+    local mseTitleStringEnd="${mseTmpThemeArrCreateTitle[title_string_end]}"
+
+    local mseTitleBottomSeparatorString="${mseTmpThemeArrCreateTitle[title_bottom_separator_string]}"
+    local mseTitleBottomSeparatorColor="${mseTmpThemeArrCreateTitle[title_bottom_separator_color]}"
+    local mseTitleBottomSeparatorColorAlt="${mseTmpThemeArrCreateTitle[title_bottom_separator_color_alt]}"
+    local mseTitleBottomSeparatorColorize="${mseTmpThemeArrCreateTitle[title_bottom_separator_colorize]}"
+
+
+
+    #
+    # Sendo um título com um formato definido (diferente de "custom")
+    # E, sendo no momento vazio...
+    # Redefine o título da mensagem com a legenda correspondente ao tipo de mensagem.
+    if [ "${mseTitleString}" == "" ]; then
+      case "${mseMessageType}" in
+        info | i)
+          mseTitleString="${lbl_inter_alert_header_info}"
+        ;;
+        attention | a)
+          mseTitleString="${lbl_inter_alert_header_attention}"
+        ;;
+        warning | w)
+          mseTitleString="${lbl_inter_alert_header_warning}"
+        ;;
+        error | e)
+          mseTitleString="${lbl_inter_alert_header_error}"
+        ;;
+        fail | f)
+          mseTitleString="${lbl_inter_alert_header_fail}"
+        ;;
+        success | s)
+          mseTitleString="${lbl_inter_alert_header_success}"
+        ;;
+
+        friendly | fr | ordinary | or | caution | ca | important | im)
+          mseTitleString=""
+        ;;
+      esac
+
+    fi
+
+
+
+
+
+    #
+    # Monta o texto do título
+    local mseUseTitle=""
+    local mseUseTitleColor=""
+    local mseUseTitleColorAlt=""
+    declare -a mseTitleTextParts=()
+
+
+    #
+    # Resgata as cores a serem usadas
+    if [ "${mseTitleStringColorize}" == "1" ]; then
+      mseUseTitleColor="${mseTitleStringColor}"
+      mseUseTitleColorAlt="${mseTitleStringColorAlt}"
+    fi
+
+
+    #
+    # Conforme o tipo de título a ser usado...
+    case "${mseTitleType}" in
+      simple)
+
+        mseUseTitle="${mseUseTitleColor}${mseTitleString}${mseNONE}"
+
+      ;;
+
+      code)
+
+        mse_str_split "::" "${mseTitleString}"
+        mseTitleTextParts="${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"
+
+        if [ "${mseTitleTextParts}" -le "1" ]; then
+          mseUseTitle="[ ${mseUseTitleColorAlt}script${mseNONE} ] ${mseUseTitleColor}${mseTitleString}${mseNONE}"
+        else
+          mseUseTitle="[ ${mseUseTitleColorAlt}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] ${mseUseTitleColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
+        fi
+
+      ;;
+    esac
+
+
+
+    #
+    # Imprime os componente do título conforme configuração
+    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseTitleTopSeparatorString}" "${mseTitleTopSeparatorColor}" "${mseTitleTopSeparatorColorAlt}" "${mseTitleTopSeparatorColorize}"
+    printf "${mseTitleIndent}"
+    mse_inter_theme_default_showMessage_createBullet "${mseMessageType}" "${mseTitleBullet}" "${mseTitleBulletColor}" "${mseTitleBulletColorAlt}" "${mseTitleBulletColorize}"
+    printf "${mseUseTitle}${mseTitleStringEnd}"
+    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseTitleBottomSeparatorString}" "${mseTitleBottomSeparatorColor}" "${mseTitleBottomSeparatorColorAlt}" "${mseTitleBottomSeparatorColorize}"
+  fi
+}
+
+
+
+
+
+#
+# Monta toda a parte do título da mensagem conforme as configurações
+# definidas e o tema utilizado
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# mensagem.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showMessage_createBody() {
+  declare -n mseTmpThemeArrCreateBody="${1}"
+
+  if [ "${mseTmpThemeArrCreateBody[body_show]}" == "1" ]; then
+    local mseMessageType="${mseTmpThemeArrCreateBody[meta_type]}"
+
+    local mseBodyTopSeparatorString="${mseTmpThemeArrCreateBody[body_top_separator_string]}"
+    local mseBodyTopSeparatorColor="${mseTmpThemeArrCreateBody[body_top_separator_color]}"
+    local mseBodyTopSeparatorColorAlt="${mseTmpThemeArrCreateBody[body_top_separator_color_alt]}"
+    local mseBodyTopSeparatorColorize="${mseTmpThemeArrCreateBody[body_top_separator_colorize]}"
+
+    local mseBodyFirstLineIndent="${mseTmpThemeArrCreateBody[body_first_line_indent]}"
+
+    local mseBodyFirstLineBullet="${mseTmpThemeArrCreateBody[body_first_line_bullet]}"
+    local mseBodyFirstLineBulletColor="${mseTmpThemeArrCreateBody[body_first_line_bullet_color]}"
+    local mseBodyFirstLineBulletColorAlt="${mseTmpThemeArrCreateBody[body_first_line_bullet_color_alt]}"
+    local mseBodyFirstLineBulletColorize="${mseTmpThemeArrCreateBody[body_first_line_bullet_colorize]}"
+
+    local mseBodyLinesIndent="${mseTmpThemeArrCreateBody[body_lines_indent]}"
+
+    local mseBodyLinesBullet="${mseTmpThemeArrCreateBody[body_lines_bullet]}"
+    local mseBodyLinesBulletColor="${mseTmpThemeArrCreateBody[body_lines_bullet_color]}"
+    local mseBodyLinesBulletColorAlt="${mseTmpThemeArrCreateBody[body_lines_bullet_color_alt]}"
+    local mseBodyLinesBulletColorize="${mseTmpThemeArrCreateBody[body_lines_bullet_colorize]}"
+
+    declare -n mseBodyLines="${mseTmpThemeArrCreateBody[body_lines]}"
+    local mseBodyLinesColor="${mseTmpThemeArrCreateBody[body_lines_color]}"
+    local mseBodyLinesColorAlt="${mseTmpThemeArrCreateBody[body_lines_color_alt]}"
+    local mseBodyLinesColorize="${mseTmpThemeArrCreateBody[body_lines_colorize]}"
+
+    local mseBodyBottomSeparatorString="${mseTmpThemeArrCreateBody[body_bottom_separator_string]}"
+    local mseBodyBottomSeparatorColor="${mseTmpThemeArrCreateBody[body_bottom_separator_color]}"
+    local mseBodyBottomSeparatorColorAlt="${mseTmpThemeArrCreateBody[body_bottom_separator_color_alt]}"
+    local mseBodyBottomSeparatorColorize="${mseTmpThemeArrCreateBody[body_bottom_separator_colorize]}"
+
+
+
+
+
+    #
+    # Monta o corpo da mensagem
+    local mseLineText=""
+    local mseCountLines=0
+
+    local mseLineIndent
+    local mseLineBullet
+    local mseLineBulletColor
+    local mseLineBulletColorAlt
+    local mseLineBulletColorize
+
+    local mseUseBody
+
+    for mseLineText in "${mseBodyLines[@]}"; do
+      ((mseCountLines=mseCountLines+1))
+
+      if [ "${mseCountLines}" == "1" ]; then
+        #
+        # Configurações para a primeira linha
+        mseLineIndent="${mseBodyFirstLineIndent}"
+        mseLineBullet="${mseBodyFirstLineBullet}"
+        mseLineBulletColor="${mseBodyFirstLineBulletColor}"
+        mseLineBulletColorAlt="${mseBodyFirstLineBulletColorAlt}"
+        mseLineBulletColorize="${mseBodyFirstLineBulletColorize}"
+      else
+        #
+        # Configurações para as demais linhas
+        mseLineIndent="${mseBodyLinesIndent}"
+        mseLineBullet="${mseBodyLinesBullet}"
+        mseLineBulletColor="${mseBodyLinesBulletColor}"
+        mseLineBulletColorAlt="${mseBodyLinesBulletColorAlt}"
+        mseLineBulletColorize="${mseBodyLinesBulletColorize}"
+      fi
+
+
+      mseUseBody+="${mseLineIndent}"
+      mseUseBody+=$(mse_inter_theme_default_showMessage_createBullet "${mseMessageType}" "${mseLineBullet}" "${mseLineBulletColor}" "${mseLineBulletColorAlt}" "${mseLineBulletColorize}")
+
+      if [ "${mseBodyLinesColorize}" == "1" ]; then
+        mseUseBody+="${mseBodyLinesColor}"
+      fi
+      mseUseBody+="${mseLineText}"
+      if [ "${mseBodyLinesColorize}" == "1" ]; then
+        mseUseBody+="${mseNONE}"
+      fi
+
+      mseUseBody+="\n"
+    done
+
+
+    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseBodyTopSeparatorString}" "${mseBodyTopSeparatorColor}" "${mseBodyTopSeparatorColorAlt}" "${mseBodyTopSeparatorColorize}"
+    printf "${mseUseBody}"
+    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseBodyBottomSeparatorString}" "${mseBodyBottomSeparatorColor}" "${mseBodyBottomSeparatorColorAlt}" "${mseBodyBottomSeparatorColorize}"
+  fi
+}
 
 
 

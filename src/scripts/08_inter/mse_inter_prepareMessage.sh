@@ -109,33 +109,8 @@
 #
 # @param int $10
 # ["title_type"]
-# Tipo do título.
-#
-# Abaixo segue uma lista dos tipos disponíveis para seleção.
-# Na primeira linha está o código e uma breve descrição do tipo. Na linha
-# imediatamente abaixo há um exemplo ddo respectivo modelo.
-#
-#   O código {ic_x} indica o início de uma área colorida.
-#   No lugar do 'x' será usado um número que identifica uma cor.
-#   O código {ec} indica o final da área colorida.
-#
-#   - 1   : Título simples (padrão)
-#           {ic_1}Texto de título{ec}
-#
-#   - 2   : Título com 2 informações monocolor.
-#           {ic_1}[ info_1 ] info_2{ec}
-#           No texto do título cada uma das informações indicadas acima
-#           devem vir separadas por '::'
-#
-#   - 3   : Título com 2 informações bicolor.
-#           [ {ic_1}info_1{ec} ] {ic_2}info_2{ec}
-#           No texto do título cada uma das informações indicadas acima
-#           devem vir separadas por '::'
-#
-# A cor de cada área varia conforme o tema selecionado.
-# Se o valor indicado não for válido, ou, se durante a formatação do título
-# for identificada alguma inconsistência, reverterá o tipo do título para o
-# valor padrão "1".
+# Identificador do tipo do título.
+# Identificadores válidos são definidos e controlados por cada tema.
 #
 #
 #
@@ -563,14 +538,6 @@ mse_inter_prepareMessage() {
         fi
       ;;
 
-      title_type)
-        if [ "${mseValue}" != "1" ] && [ "${mseValue}" != "2" ] && [ "${mseValue}" != "3" ]; then
-          mseValue="1"
-        fi
-
-        mseTmpArrPrepareMessage["title_type"]="${mseValue}"
-      ;;
-
       #
       # Valores booleanos
       top_separator_colorize | title_show | title_top_separator_colorize | title_bullet_colorize | title_string_colorize | title_bottom_separator_colorize | body_show | body_top_separator_colorize | body_first_line_bullet_colorize | body_lines_bullet_colorize | body_lines_colorize | body_bottom_separator_colorize | bottom_separator_colorize)
@@ -626,9 +593,7 @@ mse_inter_prepareMessage_vldtr() {
   #
   # - Bloco 03: Título
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_8"]="TitleShow :: o :: bool"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9"]="TitleType :: o :: list"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9_labels"]="1, 2, 3"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9_values"]="1, 2, 3"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_9"]="TitleType :: o :: string"
 
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_10"]="TitleTopSeparatorString :: o :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_11"]="TitleTopSeparatorColor :: o :: string"
