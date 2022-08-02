@@ -29,47 +29,25 @@
 #
 # @param string $2
 # Formato da mensagem.
-# Cada tema pode fornecer vários formatos de mensagem, se for o caso, neste
-# parametro deve ser indicado qual deve ser usado. De outra forma o formato
-# padrão será utilizado.
+# Deve estar de acordo com um dos formatos fornecidos pelo tema que está sendo
+# usado no momento. Em caso de um valor inválido, será usado o formato padrão
+# indicado pelo próprio tema.
 #
 #
 # @param string $3
-# Título a ser usado na mensagem.
-# Se não for indicado, buscará a mensagem correspondente ao tipo definido para
-# a mensagem.
-# Use "::" como separador entre um código identificador da mensagem e o título
-# propriamente dito. Internamente o tipo de título usado será alterado para o
-# formato "3".
+# Opcional (para o tema padrão)
+# Título da mensagem.
 #
 #
 # @param string $4
-# Nome de um array unidimensional em que estão as frases que devem ser
-# usadas para montar o corpo da mensagem.
-# Esta informação será mostrada caso o formato da mensagem esteja configurada
-# para tal. Da mesma forma, se não for indicado um valor válido e o formato
-# exija tal valor, um erro pode ser causado.
+# Opcional (para o tema padrão)
+# Nome de um array unidimensional em que estão as linhas da mensagem.
+#
 #
 # @return
 # Printa na tela a mensagem indicada conforme configuração passada.
 mse_inter_alertUser() {
-  if [ $# -ge 4 ]; then
-    #
-    # Melhorar este ponto... esta variável deve ser global e apenas ser redefinida
-    # quando um novo theme for carregado ?!
-    declare -A mseTmpMsgConfig
-    mse_inter_prepareMessage "mseTmpMsgConfig" "${1}" "${MSE_GLOBAL_THEME_NAME}" "${2}"
-
-    #
-    # Ajusta o tipo do título a partir da presença do separador "::"
-    if [[ "${3}" == *"::"* ]]; then
-      mseTmpMsgConfig["title_type"]="3"
-    fi
-
-    mseTmpMsgConfig["body_lines"]="${4}"
-
-    mse_inter_showMessage "mseTmpMsgConfig"
-  fi
+  mse_inter_showMessage "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" "${1}" "${2}" "${3}" "${4}"
 }
 
 
@@ -83,8 +61,8 @@ mse_inter_alertUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s, fr, or, ca, im"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaFormat :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleString :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyLines :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyLines :: o :: arrayName"
 }
