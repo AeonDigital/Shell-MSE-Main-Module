@@ -28,26 +28,19 @@
 #
 #
 # @param string $2
-# Formato da mensagem.
-# Deve estar de acordo com um dos formatos fornecidos pelo tema que está sendo
-# usado no momento. Em caso de um valor inválido, será usado o formato padrão
-# indicado pelo próprio tema.
-#
-#
-# @param string $3
 # Opcional (para o tema padrão)
 # Título da mensagem.
 #
 #
-# @param string $4
+# @param string $3
 # Opcional (para o tema padrão)
 # Nome de um array unidimensional em que estão as linhas da mensagem.
 #
 #
 # @return
 # Printa na tela a mensagem indicada conforme configuração passada.
-mse_inter_alertUser() {
-  mse_inter_showMessage "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" "${1}" "${2}" "${3}" "${4}"
+mse_inter_showAlert() {
+  mse_inter_showMessage "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" "${1}" "default" "${2}" "${3}"
 }
 
 
@@ -57,12 +50,11 @@ mse_inter_alertUser() {
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_inter_alertUser_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=4
+mse_inter_showAlert_vldtr() {
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_values"]="n, i, a, w, e, f, s"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaFormat :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="TitleString :: r :: string"
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="BodyLines :: o :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="TitleString :: r :: string"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="BodyLines :: o :: arrayName"
 }

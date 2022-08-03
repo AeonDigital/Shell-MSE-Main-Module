@@ -35,6 +35,6 @@ mse_mmod_showMetaSummary() {
   mse_mmod_showMetaData "${msePrettyFormat}" 0
 
   mse_inter_setCursorPosition top 1
-  mse_inter_alertUser "i" "" "${lbl_showMetaSummary_moreDetails}"
+  mse_inter_showAlert "i" "" "${lbl_showMetaSummary_moreDetails}"
 }
 MSE_GLOBAL_CMD["show metaSummary"]="mse_mmod_showMetaSummary"

@@ -12,7 +12,7 @@
 # Atualiza os módulos instalados pareando-os com os respectivos repositórios.
 mse_mmod_update() {
 
-  mse_inter_alertUser "i" "MSE" "${lbl_update_updateStart}"
+  mse_inter_showAlert "i" "MSE" "${lbl_update_updateStart}"
 
   local mseInstallationPath="${HOME}/.config/myShellEnv"
   git -C "${mseInstallationPath}" pull
@@ -24,10 +24,10 @@ mse_mmod_update() {
 
   local mseCode=$#
   if [ "${mseCode}" == 0 ]; then
-    mse_inter_alertUser "s" "MSE" "${lbl_update_updateSuccess}"
+    mse_inter_showAlert "s" "MSE" "${lbl_update_updateSuccess}"
   else
     local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_update_updateFail}" "ERRCODE" "${mseCode}")
-    mse_inter_alertUser "f" "MSE" "${mseErrMsg}"
+    mse_inter_showAlert "f" "MSE" "${mseErrMsg}"
   fi
 
   return $mseCode

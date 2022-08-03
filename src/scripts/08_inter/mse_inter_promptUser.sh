@@ -246,7 +246,7 @@ mse_inter_promptUser() {
       # mostra uma mensagem de erro para o usuário
       if [ "${msePromptUserValue}" != "" ]; then
         local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
-        mse_inter_errorAlert "X" "${mseErrMsg}"
+        mse_inter_showError "X" "${mseErrMsg}"
       fi
 
       #

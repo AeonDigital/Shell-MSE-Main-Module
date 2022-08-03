@@ -23,7 +23,7 @@ mse_mmod_submoduleUninstall() {
 
   if [ $# == 0 ] || [ "$1" == "" ]; then
     mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "SubmoduleName")
-    mse_inter_alertUser "i" "MSE" "${mseMsg}"
+    mse_inter_showAlert "i" "MSE" "${mseMsg}"
   else
     local mseSubmoduleName=""
     local mseSubmoduleInstalled="0"
@@ -43,7 +43,7 @@ mse_mmod_submoduleUninstall() {
 
     if [ "${mseSubmoduleName}" == "" ]; then
       mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "SubmoduleName")
-      mse_inter_alertUser "i" "MSE" "${mseMsg}" "mseValidValues"
+      mse_inter_showAlert "i" "MSE" "${mseMsg}" "mseValidValues"
     else
 
       #
@@ -56,14 +56,14 @@ mse_mmod_submoduleUninstall() {
 
 
       if [ "${mseSubmoduleInstalled}" == "0" ]; then
-        mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_submoduleDoesNotExists}"
+        mse_inter_showAlert "e" "MSE" "${lbl_submoduleUninstall_submoduleDoesNotExists}"
       else
 
         declare -a mseArr=()
         mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
 
         if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
-          mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
+          mse_inter_showAlert "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
         else
 
           #
@@ -75,7 +75,7 @@ mse_mmod_submoduleUninstall() {
 
           if [ "${mseExecResult}" == "0" ]; then
             mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleUninstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
-            mse_inter_alertUser "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
+            mse_inter_showAlert "e" "MSE" "${mseMsg}" "lbl_generic_scriptInterruptedError"
 
           elif [ "${mseExecResult}" == "1" ]; then
 
@@ -107,10 +107,10 @@ mse_mmod_submoduleUninstall() {
             #
             # Se o diretório do submódulo não foi removido ...
             if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
-              mse_inter_alertUser "e" "MSE" "${lbl_submoduleUninstall_cannotRemove}" "lbl_generic_scriptInterruptedError"
+              mse_inter_showAlert "e" "MSE" "${lbl_submoduleUninstall_cannotRemove}" "lbl_generic_scriptInterruptedError"
             else
               mseCode=0
-              mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+              mse_inter_showAlert "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
 
               bash
             fi

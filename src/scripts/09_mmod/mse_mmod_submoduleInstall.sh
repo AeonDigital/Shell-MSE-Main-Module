@@ -27,7 +27,7 @@ mse_mmod_submoduleInstall() {
 
   if [ $# == 0 ] || [ "$1" == "" ]; then
     mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_IsRequired}" "PARAM_A" "Repositorie")
-    mse_inter_alertUser "i" "MSE" "${mseMsg}"
+    mse_inter_showAlert "i" "MSE" "${mseMsg}"
   else
     local mseTargetModuleURL=""
 
@@ -51,13 +51,13 @@ mse_mmod_submoduleInstall() {
 
     if [ "${mseTargetModuleURL}" == "" ]; then
       mseMsg=$(mse_str_replacePlaceHolder "${lbl_err_paramA_HasInvalidValue}" "PARAM_A" "Repositorie")
-      mse_inter_alertUser "i" "MSE" "${mseMsg}" "mseValidValues"
+      mse_inter_showAlert "i" "MSE" "${mseMsg}" "mseValidValues"
     else
       declare -a mseArr=()
       mse_inter_promptUser "" "" "${lbl_generic_confirmActionToProceed}" "mseArr" "bool"
 
       if [ "${MSE_GLOBAL_PROMPT_RESULT}" == "0" ]; then
-        mse_inter_alertUser "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
+        mse_inter_showAlert "i" "MSE" "${lbl_generic_actionAbortedByTheUser}"
       else
 
         #
@@ -65,9 +65,9 @@ mse_mmod_submoduleInstall() {
         mseSubmoduleName=$(basename -- "$mseTargetModuleURL")
         mseSubmoduleName="${mseSubmoduleName%.*}"
         if [ -d "${mseInstallationPath}/${mseSubmoduleName}" ]; then
-          mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_alreadExists}" "lbl_generic_scriptInterruptedError"
+          mse_inter_showAlert "e" "MSE" "${lbl_submoduleInstall_alreadExists}" "lbl_generic_scriptInterruptedError"
         else
-          mse_inter_alertUser "i" "MSE" "${lbl_submoduleInstall_addNew}"
+          mse_inter_showAlert "i" "MSE" "${lbl_submoduleInstall_addNew}"
 
           git -C "${mseInstallationPath}" submodule add "${mseTargetModuleURL}"
           git -C "${mseInstallationPath}" submodule set-branch --branch main -- "${mseInstallationPath}/${mseSubmoduleName}"
@@ -100,15 +100,15 @@ mse_mmod_submoduleInstall() {
               git -C "${mseInstallationPath}" commit -m "Add submodule : '${mseSubmoduleName}'"
 
               mseCode=0
-              mse_inter_alertUser "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
+              mse_inter_showAlert "s" "MSE" "${lbl_submoduleInstall_addSuccess}"
 
               bash
             else
               mseMsg=$(mse_str_replacePlaceHolder "${lbl_submoduleInstall_unableToEditConfigFile}" "FILE" "${mseInstallationPath}/config.sh")
-              mse_inter_alertUser "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
+              mse_inter_showAlert "w" "MSE" "${mseMsg}" "lbl_submoduleInstall_unableToEditConfigFile_msg"
             fi
           else
-            mse_inter_alertUser "e" "MSE" "${lbl_submoduleInstall_addFail}"
+            mse_inter_showAlert "e" "MSE" "${lbl_submoduleInstall_addFail}"
           fi
         fi
       fi

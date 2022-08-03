@@ -46,26 +46,26 @@ mse_mmod_man() {
   # Se ela consta nos metadados atualmente carregados.
   # Se o arquivo apontado nos metadados foi encontrado.
   if [ "$1" == "" ]; then
-    mse_inter_alertUser "i" "" "${lbl_man_enterAFunction}"
+    mse_inter_showAlert "i" "" "${lbl_man_enterAFunction}"
   elif [ "$(type -t $1)" != "function" ]; then
     mseMSG=$(mse_str_replacePlaceHolder "${lbl_man_functionDoesNotExists}" "FUNCTION" "$1")
-    mse_inter_alertUser "i" "" "${mseMSG}"
+    mse_inter_showAlert "i" "" "${mseMSG}"
 
     mse_inter_setCursorPosition top 2
-    mse_inter_alertUser "i" "" "${lbl_man_searchForAValidFunction}"
+    mse_inter_showAlert "i" "" "${lbl_man_searchForAValidFunction}"
   else
     mseMetaData=$(mse_mmod_showRawMetaData 0 0 1 "" "" "$1" "1")
 
     if [ "${mseMetaData}" == "" ]; then
       mseMSG=$(mse_str_replacePlaceHolder "${lbl_man_couldNotFindHelpForFunction}" "FUNCTION" "$1")
-      mse_inter_errorAlert "err" "${mseMSG}"
+      mse_inter_showError "err" "${mseMSG}"
     else
       mse_str_split "::" "${mseMetaData}"
 
 
       if [ ! -f "${MSE_GLOBAL_MODULE_SPLIT_RESULT[4]}" ]; then
         mseMSG=$(mse_str_replacePlaceHolder "${lbl_man_fileOfFunctionNotFound}" "PATH" "${MSE_GLOBAL_MODULE_SPLIT_RESULT[4]}")
-        mse_inter_errorAlert "err" "${mseMSG}"
+        mse_inter_showError "err" "${mseMSG}"
       else
         msePathToFile="${MSE_GLOBAL_MODULE_SPLIT_RESULT[4]}"
 
@@ -170,7 +170,7 @@ mse_mmod_man() {
 
 
     if [ "${#mseDescriptionLines[@]}" == "0" ]; then
-      mse_inter_errorAlert "err" "${lbl_man_noUsageDescriptionFoundForFunction}"
+      mse_inter_showError "err" "${lbl_man_noUsageDescriptionFoundForFunction}"
     else
       mseDescriptionLines+=("")
       local mseCod="MAN"
@@ -181,7 +181,7 @@ mse_mmod_man() {
         mseTtl="myShellEnv"
       fi
 
-      local mseReturn=$(mse_inter_alertUser "a" "${mseCod}" "${mseTtl}" "mseDescriptionLines")
+      local mseReturn=$(mse_inter_showAlert "a" "${mseCod}" "${mseTtl}" "mseDescriptionLines")
       if [ "$#" -ge 2 ] && [ "$2" == "0" ]; then
         printf "${mseReturn}\n"
       else

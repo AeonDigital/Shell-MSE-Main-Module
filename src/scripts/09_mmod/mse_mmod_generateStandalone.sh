@@ -18,7 +18,7 @@
 mse_mmod_generateStandalone() {
 
   if [ -z "${MSE_GLOBAL_MODULES_PATH[$1]+x}" ]; then
-    mse_inter_errorAlert "err" "${lbl_generateStandalone_moduleNotFound}"
+    mse_inter_showError "err" "${lbl_generateStandalone_moduleNotFound}"
   else
     local mseTargetFiles
     local mseFilePath

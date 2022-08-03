@@ -45,7 +45,7 @@ mse_mmod_cmd() {
     if [ "${mseFunctionName}" == "" ]; then
       local mseMSG
       mseMSG=$(mse_str_replacePlaceHolder "${lbl_cmd_commandNotFound}" "CMD" "$1")
-      mse_inter_alertUser "i" "" "${mseMSG}"
+      mse_inter_showAlert "i" "" "${mseMSG}"
     else
       local mseParans=("$@")
       mseParans=("${mseParans[@]:${mseOffSet}}")
