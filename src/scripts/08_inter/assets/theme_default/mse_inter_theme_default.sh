@@ -9,36 +9,6 @@
 
 #
 # @desc
-# Valida o valor "meta_format" indicado. Sendo válido, retorna ele próprio.
-# Sendo inválido, retorna o valor padrão.
-#
-# @param string $1
-# Valor que está sendo testado
-#
-# @return
-# Valor "meta_format" válido para este tema
-mse_inter_theme_default_checkMetaFormat() {
-  declare -a mseAllowedMetaFormat=("free" "default" "status" "title")
-
-  local mseReturn="${1}"
-  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mseReturn}" ]]; then
-    mseReturn="default"
-  fi
-
-  printf "${mseReturn}"
-}
-
-
-
-
-
-
-
-
-
-
-#
-# @desc
 # Seta no array associativo global "MSE_GLOBAL_MAIN_THEME_COLORS" todas as
 # definições de cores usadas por este tema.
 #
@@ -109,6 +79,16 @@ mse_inter_theme_default_setColors() {
 
 
     #
+    # Define as cores que podem ser usadas pelos componentes de
+    # uma barra de progresso
+    MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar]=$(mse_font_createStyle "4" "BOLD,DARK" "NONE" "LBLUE" "1")
+    MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar_alt]=$(mse_font_createStyle "4" "BOLD" "NONE" "LYELLOW" "1")
+    MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_info]=$(mse_font_createStyle "4" "BOLD" "NONE" "DLCYAN" "1")
+    MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_info_alt]=$(mse_font_createStyle "4" "BOLD" "NONE" "DWHITE" "1")
+
+
+
+    #
     # Use o array associativo abaixo da seguinte forma:
     # - em cada chave, identifique a função que está sendo configurada.
     # - no valor correspondente, indique os componentes que podem ser colorizados.
@@ -156,6 +136,7 @@ mse_inter_theme_default_setColors() {
     MSE_GLOBAL_MAIN_THEME_COLORS["itd_message_body"]="${mseToneArr[body]}"
     MSE_GLOBAL_MAIN_THEME_COLORS["itd_message_body_alt"]="${mseToneArr[body_alt]}"
 
+
     #
     # Registra o prefixo usado para identificar as configurações deste tema
     MSE_GLOBAL_MAIN_THEME_COLORS["mse_inter_theme_default"]="itd"
@@ -182,7 +163,7 @@ mse_inter_theme_default_setColors() {
 # mensagem.
 #
 # Para configurar este array associativo use a função "mse_inter_prepareMessage".
-mse_inter_theme_default_prepareMessage() {
+mse_inter_theme_default_prepareShowMessage() {
   mse_inter_theme_default_setColors
 
   declare -n mseTmpArrThemePrepareMessage="${1}"
@@ -192,11 +173,11 @@ mse_inter_theme_default_prepareMessage() {
   #
   # Padrão para as configurações das mensagens de tipo previsto
   case "${mseTmpArrThemePrepareMessage[meta_format]}" in
-    free)
+    custom)
 
       #
       # Permite uma configuração livre do componente
-      mseTmpArrThemePrepareMessage["meta_format"]="free"
+      mseTmpArrThemePrepareMessage["meta_format"]="custom"
 
     ;;
 
@@ -418,9 +399,27 @@ mse_inter_theme_default_prepareMessage() {
 
 
 
+#
+# @desc
+# Usado para mensagens.
+# Valida o valor "meta_format" indicado. Sendo válido, retorna ele próprio.
+# Sendo inválido, retorna o valor padrão.
+#
+# @param string $1
+# Valor que está sendo testado
+#
+# @return
+# Valor "meta_format" válido para este tema
+mse_inter_theme_default_showMessage_checkMetaFormat() {
+  declare -a mseAllowedMetaFormat=("custom" "default" "status" "title")
 
+  local mseReturn="${1}"
+  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mseReturn}" ]]; then
+    mseReturn="default"
+  fi
 
-
+  printf "${mseReturn}"
+}
 
 
 #
@@ -459,7 +458,7 @@ mse_inter_theme_default_showMessage() {
 
     if [ "${mseValidBody}" == "0" ]; then
       mseTmpThemeArrShowMessage[meta_format]="title"
-      mse_inter_theme_default_prepareMessage "${1}"
+      mse_inter_theme_default_prepareShowMessage "${1}"
     fi
   fi
 
@@ -488,7 +487,6 @@ mse_inter_theme_default_showMessage() {
   mse_inter_theme_default_showMessage_createBody "${1}"
   mse_inter_theme_default_showMessage_createSeparator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[bottom_separator_string]}" "${mseTmpThemeArrShowMessage[bottom_separator_color]}" "${mseTmpThemeArrShowMessage[bottom_separator_color_alt]}" "${mseTmpThemeArrShowMessage[bottom_separator_colorize]}"
 }
-
 
 
 #
@@ -534,7 +532,6 @@ mse_inter_theme_default_showMessage_createSeparator() {
 }
 
 
-
 #
 # Monta um bullet conforme as informações passadas.
 #
@@ -560,9 +557,6 @@ mse_inter_theme_default_showMessage_createSeparator() {
 mse_inter_theme_default_showMessage_createBullet() {
   mse_inter_theme_default_showMessage_createSeparator "${1}" "${2}" "${3}" "${4}" "${5}"
 }
-
-
-
 
 
 #
@@ -696,9 +690,6 @@ mse_inter_theme_default_showMessage_createTitle() {
 }
 
 
-
-
-
 #
 # Monta toda a parte do título da mensagem conforme as configurações
 # definidas e o tema utilizado
@@ -812,150 +803,32 @@ mse_inter_theme_default_showMessage_createBody() {
 
 
 
+
 #
 # @desc
-# Permite montar uma barra de progresso no terminal oferecendo uma série de
-# recursos para a estilização do mesmo em seus scripts.
-#
-# A barra de progresso é um componente de uma única linha mas que possui dois
-# blocos. Um é a própria barra de progresso e o outro é uma área
-# informativa que pode ou não ser usada e serve para adicionar alguma
-# extra na barra. Esta área informativa pode ser atualizada a cada nova
-# iteração.
+# Finaliza o preparo de um array associativo aplicando as configurações
+# próprias deste tema.
 #
 #
-#
-# São esperadas as seguintes chaves de configuração:
-#
-# [ProgressBarIndent]
-# Indentação para a barra.
-# Use apenas espaços em branco.
-# Deixe vazio para não usar.
-#
-# [ProgressBarFormat]
-# Formato.
-# Pode ser um tipo específico de formatação definido no tema a ser usado ou
-# o nome de uma função que possui uma formatação especial para a barra de
-# progresso.
-# Se não for definido, internamente usará o valor padrão 'default'.
-#
-#
-#
-# [ProgressBarColor]
-# Indica se deve permitir a colorização do bloco da barra de progresso.
-# Use "0" para não.
-# Use "1" para sim.
-#
-# [ProgressBarBlockStart]
-# Caracteres que demarcam o início da barra de progresso.
-# Deixe vazio para não usar.
-#
-# [ProgressBarBlockEnd]
-# Caracteres que demarcam o fim da barra de progresso.
-# Deixe vazio para não usar.
-#
-# [ProgressBarBlockChar]
-# Caracter que será usado para preencher a barra de progresso.
-# Se for deixado vazio, usará o caracter "#"
-#
-# [ProgressBarTotalCharLength]
-# Tamanho total da barra de progresso (em caracteres).
-# O valor mínimo aceitável é de 20 caracteres e o máximo de 100.
-# Esta é a medida apenas da própria barra de progresso.
-# Valores inválidos serão revertidos para "30".
-#
-# [ProgressBarAtualPercentProgress]
-# Percentual atual de andamento do progresso.
-# Use apenas valores entre 0 e 100.
-# Valores inválidos serão revertidos para "0".
-#
-# [ProgressBarAtualBarLength]
-# CONTROLADO INTERNAMENTE
-# Cálculo do tamanho total (em chars) que o componente da barra deve ter
-# para representar o percentual de progresso atual.
-#
-#
-#
-# [ProgressBarInfoDisplay]
-# Indica se deve mostrar a área informativa da barra contendo
-# informações extras sobre a mesma.
-# Use "0" para não mostrar (padrão).
-# Use "1" para mostrar.
-#
-# [ProgressBarInfoColor]
-# Indica se deve permitir a colorização do bloco da área informativa.
-# Use "0" para não.
-# Use "1" para sim.
-#
-# [ProgressBarInfoPosition]
-# Posicionamento da área informativa em relação à barra de progresso.
-#   - l   : à esquerda.
-#   - r   : à direita (padrão).
-#
-# [ProgressBarInfoBlockStart]
-# Caracteres que demarcam o início da área informativa.
-# Deixe vazio para não usar.
-#
-# [ProgressBarInfoBlockEnd]
-# Caracteres que demarcam o fim da área informativa.
-# Deixe vazio para não usar.
-#
-# [ProgressBarInfoUsePercent]
-# Indica se deve usar o percentual atual do progresso para preencher a
-# informação da área informativa.
-# Use "0" para não.
-# Use "1" para sim.
-#
-# [ProgressBarInfoData]
-# Informação que deve ser usada para preencher a área informativa.
-#
-#
-#
-# Observação 01:
-# A real aplicabilidade de cor em cada uma das partes depende do tema
-# selecionado. Então, indicar que se deseja aplicar cor a toda barra
-# implica em informar ao formatador do tema selecionado que ele pode aplicar
-# cores em todos os elementos que ele está apto a fazê-lo.
-#
-# Observação 02:
-# A cor de cada parte é definida conforme o "tema" selecionado para a
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
 # barra de progresso.
-# Se uma cor for definida diretamente na referida parte, estas, se sobreporão
-# ao que é indicado pelo "tema" selecionado.
 #
-# Observação 03:
-# Quando uma função de tema é acionada ela deve carregar uma série de
-# informações sobre cada cor que será usada em cada tipo de barra de progresso.
-# As cores devem ser registradas em arrays associativos que correspondem a
-# cada elemento capaz de receber colorização em cada um dos blocos que formam
-# a barra como um todo.
-# Abaixo segue uma lista contendo o nome de cada array associativo usado para
-# tal finalidade.
-#
-# MSE_GSPBCTC = MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG_THEME_COLOR
-#
-# [Bloco 01: Barra de progresso]
-# - MSE_GSPBCTC_B01_DELIMITERS
-# - MSE_GSPBCTC_B01_CHAR
-#
-# [Bloco 02: Título]
-# - MSE_GSPBCTC_B02_DELIMITERS
-# - MSE_GSPBCTC_B02_DATA
-#
-#
-#
-# @return
-# printa a barra de progresso conforme as indicações passadas.
-mse_inter_theme_default_createProgressBar() {
+# Para configurar este array associativo use a função "mse_inter_prepareProgressBar".
+mse_inter_theme_default_prepareProgressBar() {
+  mse_inter_theme_default_setColors
+
+  declare -n mseTmpArrThemePrepareProgressBar="${1}"
+
 
   #
-  # Padrão para as configurações das barras de progresso de tipo previsto
-  case "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[ProgressBarFormat]}" in
+  # Padrão para as configurações das mensagens de tipo previsto
+  case "${mseTmpArrThemePrepareProgressBar[meta_format]}" in
     custom)
 
       #
       # Permite uma configuração livre do componente
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarFormat"]="custom"
+      mseTmpArrThemePrepareProgressBar["meta_format"]="custom"
 
     ;;
 
@@ -963,63 +836,274 @@ mse_inter_theme_default_createProgressBar() {
 
       #
       # Configuração geral para uma barra de progresso padrão
-      # Imprime a barra e a área informativa.
+      # Imprime a barra e as informações.
 
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarIndent"]="  "
+      mseTmpArrThemePrepareProgressBar["meta_indent"]="  "
 
 
       #
-      # Bloco 01: Barra de progresso
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarColor"]="1"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockStart"]="[ "
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockEnd"]=" ] "
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockChar"]="#"
+      # Bloco 02: Barra de progresso
+      mseTmpArrThemePrepareProgressBar["bar_ini_string"]="[ "
+      mseTmpArrThemePrepareProgressBar["bar_end_string"]=" ] "
 
+      mseTmpArrThemePrepareProgressBar["bar_fill_char"]="#"
+      mseTmpArrThemePrepareProgressBar["bar_atual_progress"]="0"
       # Controlado internamente
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarAtualBarLength"]="0"
+      mseTmpArrThemePrepareProgressBar["bar_atual_bar_length"]="0"
+
+      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar]}"
+      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar_alt]}"
+      mseTmpArrThemePrepareProgressBar["bar_colorize"]="1"
 
 
       #
-      # Bloco 02: Área informativa
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoDisplay"]="1"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoColor"]="1"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoPosition"]="r"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoBlockStart"]="("
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoBlockEnd"]=")"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoData"]="  0%"
+      # Bloco 03: Informações
+      mseTmpArrThemePrepareProgressBar["info_show"]="1"
+
+      mseTmpArrThemePrepareProgressBar["info_ini_string"]="( "
+      mseTmpArrThemePrepareProgressBar["info_end_string"]=" )"
+
+      mseTmpArrThemePrepareProgressBar["info_use_percent"]="1"
+
+      mseTmpArrThemePrepareProgressBar["info_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_info]}"
+      mseTmpArrThemePrepareProgressBar["info_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_info_alt]}"
+      mseTmpArrThemePrepareProgressBar["info_colorize"]="1"
 
     ;;
 
-    ONLYBAR)
+    onlybar)
 
       #
       # Configuração para uma barra de progresso em que apenas a barra
       # é apresentada. A área informativa é omitida
 
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarIndent"]="  "
+      mseTmpArrThemePrepareProgressBar["meta_indent"]="  "
 
 
       #
-      # Bloco 01: Barra de progresso
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarColor"]="1"
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockStart"]="[ "
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockEnd"]=" ] "
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarBlockChar"]="#"
+      # Bloco 02: Barra de progresso
+      mseTmpArrThemePrepareProgressBar["bar_ini_string"]="[ "
+      mseTmpArrThemePrepareProgressBar["bar_end_string"]=" ] "
 
+      mseTmpArrThemePrepareProgressBar["bar_fill_char"]="#"
+      mseTmpArrThemePrepareProgressBar["bar_atual_progress"]="0"
       # Controlado internamente
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarAtualBarLength"]="0"
+      mseTmpArrThemePrepareProgressBar["bar_atual_bar_length"]="0"
+
+      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar]}"
+      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[itd_progressbar_bar_alt]}"
+      mseTmpArrThemePrepareProgressBar["bar_colorize"]="1"
 
 
       #
-      # Bloco 02: Área informativa
-      MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG["ProgressBarInfoDisplay"]="0"
+      # Bloco 03: Informações
+      mseTmpArrThemePrepareProgressBar["info_show"]="0"
+
 
     ;;
+
   esac
+}
+
+
+
+
+
+#
+# @desc
+# Usado para barras de progresso.
+# Valida o valor "meta_format" indicado. Sendo válido, retorna ele próprio.
+# Sendo inválido, retorna o valor padrão.
+#
+# @param string $1
+# Valor que está sendo testado
+#
+# @return
+# Valor "meta_format" válido para este tema
+mse_inter_theme_default_progressBar_checkMetaFormat() {
+  declare -a mseAllowedMetaFormat=("custom" "default" "onlybar")
+
+  local mseReturn="${1}"
+  if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mseReturn}" ]]; then
+    mseReturn="default"
+  fi
+
+  printf "${mseReturn}"
+}
+
+
+#
+# @desc
+# Efetivamente monta e mostra a barra de progresso a partir das configurações
+# indicadas.
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# barra de progresso.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showProgressBar() {
+  declare -n mseTmpThemeArrShowProgressBar="${1}"
+
+
+  local mseProgressBarComponent=$(mse_inter_theme_default_showProgressBar_createBar "${1}")
+  local mseInformationComponent=$(mse_inter_theme_default_showProgressBar_createInformation "${1}")
+
+  mse_inter_clearLine
+
+  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "left" ]; then
+    printf "%s" "${mseInformationComponent}"
+  fi
+
+  printf "%s" "${mseTmpThemeArrShowProgressBar[meta_indent]}"
+  printf "%s" "${mseProgressBarComponent}"
+
+  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "right" ]; then
+    printf "%s" "${mseInformationComponent}"
+  fi
+
+
+  if [ "${mseTmpThemeArrShowProgressBar[bar_atual_progress]}" == "100" ]; then
+    printf "\n"
+  else
+    printf "\r"
+  fi
+}
+
+
+#
+# Monta o componente "barra de progresso" conforme as configurações definidas.
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# barra de progresso.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showProgressBar_createBar() {
+  declare -n mseTmpThemeArrProgressBar="${1}"
+
+  local mseBarIniString="${mseTmpThemeArrProgressBar[bar_ini_string]}"
+  local mseBarEndString="${mseTmpThemeArrProgressBar[bar_end_string]}"
+
+  local mseBarFillChar="${mseTmpThemeArrProgressBar[bar_fill_char]}"
+  local mseBarMaxCharLength="${mseTmpThemeArrProgressBar[bar_max_char_length]}"
+  local mseBarAtualProgress="${mseTmpThemeArrProgressBar[bar_atual_progress]}"
+  local mseBarAtualBarLength="${mseTmpThemeArrProgressBar[bar_atual_bar_length]}"
+
+  local mseBarColor="${mseTmpThemeArrProgressBar[bar_color]}"
+  local mseBarColorAlt="${mseTmpThemeArrProgressBar[bar_color_alt]}"
+  local mseBarColorize="${mseTmpThemeArrProgressBar[bar_colorize]}"
+
+
+  #
+  # Calcula o tamanho total que a barra deve ter para representar o
+  # progresso atualmente definido...
+  local mseBarAtualBarLength=0
+  ((mseBarAtualBarLength = (mseBarMaxCharLength * mseBarAtualProgress) / 100))
+  mseTmpThemeArrProgressBar["bar_atual_bar_length"]="${mseBarAtualBarLength}"
+
+
+  local mseUseColor=""
+  if [ "${mseBarColorize}" == "1" ]; then
+    mseUseColor="${mseBarColor}"
+  fi
 
 
 
   #
-  # Efetivamente printa a barra de progresso
-  mse_inter_setProgressBar "${MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG[ProgressBarAtualPercentProgress]}"
+  # Printa o início do delimitador
+  printf "%s" "${mseBarIniString}";
+
+  for ((i=0; i<mseBarMaxCharLength; i++)); do
+    if [ "${i}" -le "${mseBarAtualBarLength}" ]; then
+      mseStrBar+="${mseBarFillChar}"
+    else
+      mseStrBar+=" "
+    fi
+  done
+
+  printf "${mseUseColor}"; printf "%s" "${mseStrBar}"; printf "${mseNONE}"
+
+  #
+  # Printa o fim do delimitador
+  printf "%s" "${mseBarEndString}";
+}
+
+
+
+
+
+#
+# Monta o componente "informações" conforme as configurações definidas.
+#
+# @param string $1
+# Nome do array associativo que traz as configurações para a apresentação da
+# barra de progresso.
+#
+# @return
+# Printa o resultado conforme as configurações passadas.
+mse_inter_theme_default_showProgressBar_createInformation() {
+  declare -n mseTmpThemeArrProgressBarInformation="${1}"
+
+  if [ "${mseTmpThemeArrProgressBarInformation[info_show]}" == "1" ]; then
+
+    local mseInfoIniString="${mseTmpThemeArrProgressBarInformation[info_ini_string]}"
+    local mseInfoEndString="${mseTmpThemeArrProgressBarInformation[info_end_string]}"
+
+    local mseInfoUsePercent="${mseTmpThemeArrProgressBarInformation[info_use_percent]}"
+    local mseInfoData="${mseTmpThemeArrProgressBarInformation[info_data]}"
+
+    local mseInfoColor="${mseTmpThemeArrProgressBarInformation[info_color]}"
+    local mseInfoColorAlt="${mseTmpThemeArrProgressBarInformation[info_color_alt]}"
+    local mseInfoColorize="${mseTmpThemeArrProgressBarInformation[info_colorize]}"
+
+
+    local mseUseColor=""
+    local mseUseColorAlt=""
+    if [ "${mseInfoColorize}" == "1" ]; then
+      mseUseColor="${mseInfoColor}"
+      mseUseColorAlt="${mseInfoColorAlt}"
+    fi
+
+
+
+    local mseStrPercent=""
+    if [ "${mseInfoUsePercent}" == "1" ]; then
+
+      local mseBarAtualProgress="${mseTmpThemeArrProgressBarInformation[bar_atual_progress]}"
+      if [ "${mseBarAtualProgress}" -lt "10" ]; then
+        mseStrPercent+="  "
+      elif [ "${mseBarAtualProgress}" -lt "100" ]; then
+        mseStrPercent+=" "
+      fi
+      mseStrPercent+="${mseBarAtualProgress}%"
+    fi
+
+
+
+    #
+    # Printa o início do delimitador
+    printf "%s" "${mseInfoIniString}"
+
+    #
+    # Inicia a informação em si
+    printf "${mseUseColor}"
+    printf "%s" "${mseStrPercent}"
+    printf "${mseNONE}"
+
+    if [ "${mseInfoData}" != "" ]; then
+      if [ "${mseStrPercent}" != "" ]; then
+        printf " "
+      fi
+      printf "${mseUseColorAlt}"
+      printf "%s" "${mseInfoData}"
+      printf "${mseNONE}"
+    fi
+
+    #
+    # Printa o fim do delimitador
+    printf "${mseInfoEndString}"
+  fi
 }

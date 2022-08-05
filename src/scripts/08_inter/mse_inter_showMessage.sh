@@ -9,8 +9,7 @@
 
 #
 # @desc
-# Permite mostrar uma mensagem no terminal oferecendo uma série de
-# recursos para a estilização da mesma em seus scripts.
+# Mostra uma mensagem para o usuário no terminal.
 #
 #
 # @param string $1
@@ -115,14 +114,14 @@ mse_inter_showMessage() {
     mseRedefineTheme="1"
   else
     mseUseMetaTheme="${mseTmpInterArrShowMessage[meta_theme]}"
-    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_prepareMessage")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_checkMetaFormat")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_showMessage")" != "function" ]); then
+    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_prepareShowMessage")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_showMessage_checkMetaFormat")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_showMessage")" != "function" ]); then
       mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
       mseRedefineTheme="1"
     fi
   fi
 
 
-  mseThemeCheckMetaFormat="${mseUseMetaTheme}_checkMetaFormat"
+  mseThemeCheckMetaFormat="${mseUseMetaTheme}_showMessage_checkMetaFormat"
   mseThemeShowMessage="${mseUseMetaTheme}_showMessage"
 
 

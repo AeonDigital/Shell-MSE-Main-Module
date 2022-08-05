@@ -134,9 +134,14 @@ declare -g MSE_GLOBAL_RETURN=""
 # Indica o 'theme' que está carregado no momento.
 MSE_GLOBAL_THEME_LOADED=""
 #
-# Armazena uma configuração "prepare" usando o tema padrão e que será usado
-# sempre que uma outra não for definida nas funções de mensagem.
+# Armazena uma configuração "prepareMessage" usando o tema padrão e que será
+# usado sempre que uma outra não for definida nas funções de mensagem.
 declare -gA MSE_GLOBAL_SHOW_MESSAGE_CONFIG
+#
+# Armazena uma configuração "prepareProgressBar" usando o tema padrão e que
+# será usado sempre que uma outra não for definida nas funções de barras
+# de progresso.
+declare -gA MSE_GLOBAL_SHOW_PROGRESSBAR_CONFIG
 
 
 #

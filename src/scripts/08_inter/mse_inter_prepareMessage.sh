@@ -81,11 +81,11 @@
 # ["top_separator_string"]
 # Separador superior da mensagem.
 #
-# @param bool $6
+# @param string $6
 # ["top_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $7
+# @param string $7
 # ["top_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -118,11 +118,11 @@
 # ["title_top_separator_string"]
 # Separador superior do título.
 #
-# @param bool $12
+# @param string $12
 # ["title_top_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $13
+# @param string $13
 # ["title_top_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -147,11 +147,11 @@
 # Bullet para o título.
 # Deixe vazio para não usar.
 #
-# @param bool $17
+# @param string $17
 # ["title_bullet_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $18
+# @param string $18
 # ["title_bullet_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -169,11 +169,11 @@
 # Se "", usará o título padrão conforme o tipo de mensagem, ou, deixará a
 # linha do título vazia em caso de tipo de mensagem "none".
 #
-# @param bool $21
+# @param string $21
 # ["title_string_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $22
+# @param string $22
 # ["title_string_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -195,11 +195,11 @@
 # ["title_bottom_separator_string"]
 # Separador inferior do título.
 #
-# @param bool $26
+# @param string $26
 # ["title_bottom_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $27
+# @param string $27
 # ["title_bottom_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -227,11 +227,11 @@
 # ["body_top_separator_string"]
 # Separador superior do corpo da mensagem.
 #
-# @param bool $31
+# @param string $31
 # ["body_top_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $32
+# @param string $32
 # ["body_top_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -257,11 +257,11 @@
 # Bullet para a primeira linha do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# @param bool $36
+# @param string $36
 # ["body_first_line_bullet_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $37
+# @param string $37
 # ["body_first_line_bullet_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -287,11 +287,11 @@
 # Bullet para a segunda linha em diante do corpo da mensagem.
 # Deixe vazio para não usar.
 #
-# @param bool $41
+# @param string $41
 # ["body_lines_bullet_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $42
+# @param string $42
 # ["body_lines_bullet_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -309,11 +309,11 @@
 # Nome de um array unidimensional em que estão as frases que devem ser
 # usadas para montar o corpo da mensagem.
 #
-# @param bool $45
+# @param string $45
 # ["body_lines_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $46
+# @param string $46
 # ["body_lines_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -329,11 +329,11 @@
 # ["body_bottom_separator_string"]
 # Separador inferior do corpo da mensagem.
 #
-# @param bool $49
+# @param string $49
 # ["body_bottom_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $50
+# @param string $50
 # ["body_bottom_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -354,11 +354,11 @@
 # ["bottom_separator_string"]
 # Separador inferior da mensagem.
 #
-# @param bool $53
+# @param string $53
 # ["bottom_separator_color"]
 # Código da cor a ser usada neste elemento.
 #
-# @param bool $54
+# @param string $54
 # ["bottom_separator_color_alt"]
 # Código da cor alternativa ser usada neste elemento.
 #
@@ -527,7 +527,7 @@ mse_inter_prepareMessage() {
       ;;
 
       meta_theme)
-        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_prepareMessage")" != "function" ]; then
+        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_prepareShowMessage")" != "function" ]; then
           mseTmpArrPrepareMessage["meta_theme"]=""
         fi
       ;;
@@ -557,7 +557,7 @@ mse_inter_prepareMessage() {
   # Finaliza o preparo da mensagem aplicando as configurações que vem do tema
   # selecionado.
   if [ "${mseTmpArrPrepareMessage[meta_theme]}" != "" ]; then
-    local mseThemePrepareMessage="${mseTmpArrPrepareMessage[meta_theme]}_prepareMessage"
+    local mseThemePrepareMessage="${mseTmpArrPrepareMessage[meta_theme]}_prepareShowMessage"
     $mseThemePrepareMessage "${1}"
   fi
 }
