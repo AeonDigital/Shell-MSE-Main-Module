@@ -22,4 +22,11 @@ test_mse_str_join() {
   testExpected="2022::12::22"
 
   mse_utest_assertEqual
+
+
+  myArray=("2022" "12" "22")
+  testResult="$(mse_str_join " : " "myArray")"
+  testExpected="2022 : 12 : 22"
+
+  mse_utest_assertEqual
 }

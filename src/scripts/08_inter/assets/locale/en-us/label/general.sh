@@ -22,15 +22,7 @@ lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
 
 #
 # Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
-unset lbl_inter_prompt_boolLabels
-lbl_inter_prompt_boolLabels=(
-  "yes" "y" "no" "n"
-)
-
-#
-# Coleção de valores correspondentes às opções de 'labels' de um 'prompt'
-# do tipo 'bool'.
-unset lbl_inter_prompt_boolValues
-lbl_inter_prompt_boolValues=(
-  1 1 0 0
-)
+unset lbl_inter_showPrompt_BoolValues
+declare -gA lbl_inter_showPrompt_BoolValues
+lbl_inter_showPrompt_BoolValues["1"]="yes::y"
+lbl_inter_showPrompt_BoolValues["0"]="no::n"

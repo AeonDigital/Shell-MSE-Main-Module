@@ -181,7 +181,7 @@ mse_inter_theme_default_prepareShowMessage() {
 
     ;;
 
-    default)
+    default | prompt)
 
       #
       # Configuração geral para uma mensagem padrão
@@ -263,6 +263,11 @@ mse_inter_theme_default_prepareShowMessage() {
       mseTmpArrThemePrepareMessage["bottom_separator_color"]=""
       mseTmpArrThemePrepareMessage["bottom_separator_color_alt"]=""
       mseTmpArrThemePrepareMessage["bottom_separator_colorize"]="0"
+
+
+      if [ "${mseTmpArrThemePrepareMessage[meta_format]}" == "prompt" ]; then
+        mseTmpArrThemePrepareMessage["title_bottom_separator_string"]=""
+      fi
 
     ;;
 
@@ -411,7 +416,7 @@ mse_inter_theme_default_prepareShowMessage() {
 # @return
 # Valor "meta_format" válido para este tema
 mse_inter_theme_default_showMessage_checkMetaFormat() {
-  declare -a mseAllowedMetaFormat=("custom" "default" "status" "title")
+  declare -a mseAllowedMetaFormat=("custom" "default" "prompt" "status" "title")
 
   local mseReturn="${1}"
   if [[ ! "${mseAllowedMetaFormat[*]}" =~ "${mseReturn}" ]]; then
