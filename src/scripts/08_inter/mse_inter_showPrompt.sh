@@ -66,9 +66,10 @@
 #
 #
 # @param bool $6
-# Indica se a comparação deve ser feita em case insensitive.
-# Use "0" para não (padrão, diferencia "a" de "A").
-# Use "1" para sim.
+# Por padrão a comparação é feita em case sensitive.
+# Indica "1" se a comparação deve ser feita em case insensitive
+# Use "0" para comparação case sensitive (padrão, diferencia "a" de "A").
+# Use "1" para comparação case insensitive.
 #
 #
 # @return
@@ -81,9 +82,9 @@ mse_inter_showPrompt() {
   local mseUsePromptTitleString="${3}"
   local mseUsePromptValueType="${4}"
   local mseUsePromptAssocValues="${5}"
+  local mseUsePromptCaseInsensitive="${6}"
 
-  unset mseUsePromptBodyLines
-  declare -a mseUsePromptBodyLines=()
+
 
   #
   # Verifica se o nome do array associativo passado é válido
@@ -126,118 +127,113 @@ mse_inter_showPrompt() {
     *)
       mseUsePromptValueType="value"
       mseUsePromptAssocValues=""
-
-      unset mseUsePromptBodyLines
-      mseUsePromptBodyLines=""
     ;;
   esac
 
 
-## PARECE QUE ISTO, AGORA, TEM QUE IR PARA O "THEME"
   #
-  # Monta as informações de opções válidas para o usuário
-  if [ "${mseUsePromptValueType}" == "bool" ] || [ "${mseUsePromptValueType}" == "list" ]; then
-    unset mseTmpPromptAssocValues
-    unset mseTmpPromptBodyLines
-
-    declare -n mseTmpPromptAssocValues="${mseUsePromptAssocValues}"
-    declare -a mseTmpPromptBodyLines=()
-
-    #
-    # Ordena as chaves alfabeticamente
-    IFS=$'\n'
-    unset mseTmpPromptSortedKeys
-    declare -a mseTmpPromptSortedKeys=($(sort <<< "${!mseTmpPromptAssocValues[*]}"))
-    IFS=$' \t\n'
+  # Ajusta o case de comparação
+  if [ "${mseUsePromptCaseInsensitive}" == "" ] || ([ "${mseUsePromptCaseInsensitive}" != "0" ] && [ "${mseUsePromptCaseInsensitive}" != "1" ]); then
+    mseUsePromptCaseInsensitive="0"
+  fi
 
 
-    #
-    # Identifica todos os valores válidos e monta as linhas
-    # de dados que devem ser apresentadas para o usuário como guias de valores
-    # válidos a serem escolhidos.
-    local mseIndex
-    local mseKey
-    local mseTmpKeyLabels
-    local mseTmpOptionLine
 
-    local mseTmpLineLength
-    local mseTmpMaxOptionLength=0
+  #
+  # Processa a coleção de valores e legendas válidas
+  local msePromptKey
+  local msePromptLabel
+  declare -A mseTmpAllowedUserAssocEntries
+  if [ "${mseUsePromptAssocValues}" != "" ]; then
+    declare -n mseTmpAllowedAssocEntries="${mseUsePromptAssocValues}"
 
-    for mseIndex in "${!mseTmpPromptSortedKeys[@]}"; do
-      mseKey="${mseTmpPromptSortedKeys[${mseIndex}]}"
-
-      mse_str_split "::" "${mseTmpPromptAssocValues[${mseKey}]}" "1"
-      if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" == "0" ]; then
-        MSE_GLOBAL_MODULE_SPLIT_RESULT+=("${mseKey}")
+    for msePromptKey in "${!mseTmpAllowedAssocEntries[@]}"; do
+      if [ "${mseUsePromptCaseInsensitive}" == "0" ]; then
+        mseTmpAllowedUserAssocEntries["${msePromptKey}"]="${msePromptKey}"
+      else
+        mseTmpAllowedUserAssocEntries["${msePromptKey^^}"]="${msePromptKey}"
       fi
-      mseTmpKeyLabels=$(mse_str_join " / " "MSE_GLOBAL_MODULE_SPLIT_RESULT")
 
-      mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
-      mseTmpPromptBodyLines+=("${mseTmpOptionLine}")
-
-      #
-      # Incrementa os contadores de linhas
-      mseTmpLineLength=$(wc -m <<< $mseTmpOptionLine)
-
-      if [ "${mseTmpLineLength}" -gt "${mseTmpMaxOptionLength}" ]; then
-        mseTmpMaxOptionLength="${mseTmpLineLength}"
+      mse_str_split "::" "${mseTmpAllowedAssocEntries[${msePromptKey}]}" "1"
+      if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" -gt "0" ]; then
+        for msePromptLabel in "${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}"; do
+          if [ "${mseUsePromptCaseInsensitive}" == "0" ]; then
+            mseTmpAllowedUserAssocEntries["${msePromptLabel}"]="${msePromptKey}"
+          else
+            mseTmpAllowedUserAssocEntries["${msePromptLabel^^}"]="${msePromptKey}"
+          fi
+        done
       fi
+
     done
-
-
-
-    local mseMaxOptionsPerLine
-    local mseTmpOptionPadLength=0
-    local mseTmpOptionPadString=""
-    ((mseMaxOptionsPerLine = 120 / mseTmpMaxOptionLength))
-
-    unset mseTmpBigLine
-    declare -a mseTmpBigLine=()
-
-    for mseTmpOptionLine in "${mseTmpPromptBodyLines[@]}"; do
-      mseTmpLineLength=$(wc -m <<< $mseTmpOptionLine)
-      ((mseTmpOptionPadLength = mseTmpMaxOptionLength - mseTmpLineLength))
-
-      mseTmpOptionPadString=$(printf "%-${mseTmpOptionPadLength}s" "")
-      mseTmpBigLine+=("${mseTmpOptionLine}${mseTmpOptionPadString}")
-
-      local mseMod=$(expr ${#mseTmpBigLine[@]} % ${mseMaxOptionsPerLine}) || true
-      if [ "${mseMod}" == "0" ]; then
-        mseUsePromptBodyLines+=("$(mse_str_join "  |  " "mseTmpBigLine")")
-
-        unset mseTmpBigLine
-        declare -a mseTmpBigLine=()
-      fi
-    done
-
-
-    if [ "${#mseTmpBigLine[@]}" -gt "0" ]; then
-      mseUsePromptBodyLines+=("$(mse_str_join "  |  " "mseTmpBigLine")")
-    fi
   fi
 
 
 
 
   #
-  # Monta o corpo da mensagem
-  mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines"
+  # Monta o array associativo contendo as configurações extras para o prompt
+  unset mseExtraConfigAssocArrayName
+  declare -A mseExtraConfigAssocArrayName
+  mseExtraConfigAssocArrayName["prompt_expected_value_type"]="${mseUsePromptValueType}"
+  mseExtraConfigAssocArrayName["prompt_allowed_assoc_values"]="${mseUsePromptAssocValues}"
+
+  unset mseUsePromptBodyLines
+  declare -a mseUsePromptBodyLines=()
+
+
+
+  #
+  # Processa o corpo da mensagem
+  local msePromptUserMessage
+  local msePromptUserValue
+  local msePromptUserValueCompare
+  #msePromptUserMessage=$(mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName")
+
+  mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName"
+
+  #
+  # Espera do usuário uma resposta válida
+  # while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
+  #   #
+  #   # Se está chegando aqui novamente significa que o valor digitado é inválido
+  #   # mostra uma mensagem de erro para o usuário
+  #   if [ "${msePromptUserValue}" != "" ]; then
+  #     local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
+  #     mse_inter_showError "X::${mseErrMsg}"
+  #   fi
+
+  #   #
+  #   # Mostra a mensagem e permite ao usuário digitar uma resposta
+  #   read -r -p "${msePromptUserMessage}" msePromptUserValue
+
+
+  #   #
+  #   # Ajusta o case conforme o tipo de comparação que deve ser feito
+  #   msePromptUserValueCompare="${msePromptUserValue}"
+  #   if [ "${mseUsePromptCaseInsensitive}" == "1" ]; then
+  #     msePromptUserValueCompare="${msePromptUserValue^^}"
+  #   fi
+
+
+  #   #
+  #   # Valida o valor digitado
+  #   if [ "${mseUsePromptValueType}" == "bool" ] || [ "${mseUsePromptValueType}" == "list" ]; then
+  #     for msePromptKey in "${!mseTmpAllowedUserAssocEntries[@]}"; do
+  #       echo "==${msePromptUserValueCompare} == ${msePromptKey}=="
+  #       if [ "${msePromptUserValueCompare}" == "${msePromptKey}" ]; then
+  #         MSE_GLOBAL_PROMPT_RESULT="${mseTmpAllowedUserAssocEntries[${msePromptKey}]}"
+  #       fi
+  #     done
+  #   else
+  #     MSE_GLOBAL_PROMPT_RESULT="${msePromptUserValue}"
+  #   fi
+  # done
 
 
 
 
 
-
-
-
-
-
-  # #
-  # # Identifica o tema a ser usado
-  # local mseTheme="${MSE_GLOBAL_THEME_NAME}"
-  # if [ "${8}" != "" ]; then
-  #   mseTheme="${8}"
-  # fi
 
 
 

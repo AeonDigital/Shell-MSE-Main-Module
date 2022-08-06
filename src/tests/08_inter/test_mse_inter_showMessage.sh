@@ -23,17 +23,17 @@ test_mse_inter_showMessage() {
   MSE_GLOBAL_THEME_NAME="mse_inter_theme_default"
 
 
-  # #
-  # # Parte 1
-  # # Testa a função "prepare"
-  # unset mseTestArrShowMsg
-  # declare -A mseTestArrShowMsg
+  #
+  # Parte 1
+  # Testa a função "prepare"
+  unset mseTestArrShowMsg
+  declare -A mseTestArrShowMsg
 
-  # unset mseTestArrBody
-  # declare -a mseTestArrBody
-  # mseTestArrBody+=("Primeira linha de informação")
-  # mseTestArrBody+=("Segunda linha")
-  # mseTestArrBody+=("Terceira linha")
+  unset mseTestArrBody
+  declare -a mseTestArrBody
+  mseTestArrBody+=("Primeira linha de informação")
+  mseTestArrBody+=("Segunda linha")
+  mseTestArrBody+=("Terceira linha")
 
 
   # #

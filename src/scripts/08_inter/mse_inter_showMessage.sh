@@ -59,6 +59,12 @@
 # Nome de um array unidimensional em que estão as linhas da mensagem.
 #
 #
+# @param string $6
+# Opcional.
+# Nome de um array associativo trazendo configurações não previstas
+# inicialmente. Usado para expandir temas.
+#
+#
 # @return
 # Printa na tela a mensagem indicada conforme configuração passada.
 mse_inter_showMessage() {
@@ -159,7 +165,7 @@ mse_inter_showMessage() {
 
   #
   # Efetivamente cria a mensagem usando o tema definido
-  ${mseThemeShowMessage} ${mseUseMetaAssoc}
+  ${mseThemeShowMessage} ${mseUseMetaAssoc} "${6}"
 }
 
 
@@ -170,7 +176,7 @@ mse_inter_showMessage() {
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
 mse_inter_showMessage_vldtr() {
-  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=5
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=6
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="AssocArrayName :: r :: assocName"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_1_labels"]="none, info, attention, warning, error, fail, success, friendly, ordinary, caution, important"
@@ -178,4 +184,5 @@ mse_inter_showMessage_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_2"]="MetaFormat :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_3"]="TitleString :: r :: string"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_4"]="BodyLines :: r :: arrayName"
+  MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_5"]="ExtraConfigAssocArrayName :: o :: assocName"
 }
