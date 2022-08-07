@@ -30,8 +30,7 @@
 #
 # @return
 # Printa a linha da variável indicada
-mse_conf_showVariableLine()
-{
+mse_conf_showVariableLine() {
   local mseReturn
   local mseRawSection
   local mseShowLineNumber

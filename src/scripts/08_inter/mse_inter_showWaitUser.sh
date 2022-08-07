@@ -33,7 +33,7 @@
 #
 # @return
 # Printa na tela as informações desejadas conforme configuração passada.
-mse_inter_waitUser() {
+mse_inter_showWaitUser() {
   local mseWaitingTitle="${2}"
   if [ "${mseWaitingTitle}" == "" ]; then
     mseWaitingTitle="${lbl_inter_wait_user_any_key}"
@@ -52,7 +52,7 @@ mse_inter_waitUser() {
 #
 # Preenche o array associativo 'MSE_GLOBAL_VALIDATE_PARAMETERS_RULES'
 # com as regras de validação dos parametros aceitáveis.
-mse_inter_waitUser_vldtr() {
+mse_inter_showWaitUser_vldtr() {
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["count"]=3
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0"]="MetaType :: r :: list"
   MSE_GLOBAL_VALIDATE_PARAMETERS_RULES["param_0_labels"]="none, info, attention, warning, error, fail, success"

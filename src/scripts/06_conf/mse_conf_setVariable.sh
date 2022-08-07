@@ -91,8 +91,7 @@
 # Printa '1' se conseguir efetuar a alteração exigida.
 # Ou
 # Printa a mensagem do erro ocorrido.
-mse_conf_setVariable()
-{
+mse_conf_setVariable() {
   local mseReturn
 
   local msePathToFile="${1}"

@@ -189,7 +189,7 @@ mse_inter_showPrompt() {
   local msePromptUserValueCompare
   msePromptUserMessage=$(mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName")
 
-  #mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName"
+
 
   #
   # Espera do usuário uma resposta válida

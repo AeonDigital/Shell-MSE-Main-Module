@@ -29,8 +29,7 @@
 # Atenção para casos em que o valor da variável é vazio ( "" ) pois o fato
 # de não obter uma saída pode ser interpretado da mesma forma que se ela
 # não existisse no arquivo de configuração ou seção indicada.
-mse_conf_showVariableValue()
-{
+mse_conf_showVariableValue() {
   local mseReturn
 
   mseReturn=$(mse_conf_showVariableLine "$1" "$2" "$3" "0")

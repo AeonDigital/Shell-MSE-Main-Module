@@ -25,8 +25,7 @@
 #
 # @return
 # Imprime todas as variáveis do arquivo conforme configuração indicada.
-mse_conf_showVariables()
-{
+mse_conf_showVariables() {
   local mseReturn
   local mseShowLineNumber
 
