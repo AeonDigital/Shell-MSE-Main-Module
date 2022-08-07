@@ -188,94 +188,46 @@ mse_inter_showPrompt() {
   local msePromptUserMessage
   local msePromptUserValue
   local msePromptUserValueCompare
-  #msePromptUserMessage=$(mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName")
+  msePromptUserMessage=$(mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName")
 
-  mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName"
+  #mse_inter_showMessage "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName"
 
   #
   # Espera do usuário uma resposta válida
-  # while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
-  #   #
-  #   # Se está chegando aqui novamente significa que o valor digitado é inválido
-  #   # mostra uma mensagem de erro para o usuário
-  #   if [ "${msePromptUserValue}" != "" ]; then
-  #     local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
-  #     mse_inter_showError "X::${mseErrMsg}"
-  #   fi
+  while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
+    #
+    # Se está chegando aqui novamente significa que o valor digitado é inválido
+    # mostra uma mensagem de erro para o usuário
+    if [ "${msePromptUserValue}" != "" ]; then
+      local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
+      mse_inter_showError "X::${mseErrMsg}"
+    fi
 
-  #   #
-  #   # Mostra a mensagem e permite ao usuário digitar uma resposta
-  #   read -r -p "${msePromptUserMessage}" msePromptUserValue
-
-
-  #   #
-  #   # Ajusta o case conforme o tipo de comparação que deve ser feito
-  #   msePromptUserValueCompare="${msePromptUserValue}"
-  #   if [ "${mseUsePromptCaseInsensitive}" == "1" ]; then
-  #     msePromptUserValueCompare="${msePromptUserValue^^}"
-  #   fi
+    #
+    # Mostra a mensagem e permite ao usuário digitar uma resposta
+    read -r -p "${msePromptUserMessage}" msePromptUserValue
 
 
-  #   #
-  #   # Valida o valor digitado
-  #   if [ "${mseUsePromptValueType}" == "bool" ] || [ "${mseUsePromptValueType}" == "list" ]; then
-  #     for msePromptKey in "${!mseTmpAllowedUserAssocEntries[@]}"; do
-  #       echo "==${msePromptUserValueCompare} == ${msePromptKey}=="
-  #       if [ "${msePromptUserValueCompare}" == "${msePromptKey}" ]; then
-  #         MSE_GLOBAL_PROMPT_RESULT="${mseTmpAllowedUserAssocEntries[${msePromptKey}]}"
-  #       fi
-  #     done
-  #   else
-  #     MSE_GLOBAL_PROMPT_RESULT="${msePromptUserValue}"
-  #   fi
-  # done
+    #
+    # Ajusta o case conforme o tipo de comparação que deve ser feito
+    msePromptUserValueCompare="${msePromptUserValue}"
+    if [ "${mseUsePromptCaseInsensitive}" == "1" ]; then
+      msePromptUserValueCompare="${msePromptUserValue^^}"
+    fi
 
 
-
-
-
-
-
-
-  # local msePromptUserMessage
-  # local msePromptUserValue
-  # msePromptUserMessage=$(mse_inter_showMessage "${mseArgs[MessageType]}" "${mseArgs[MessageFormat]}" "" "" "" "${mseArgs[TitleType]}" "" "" "" "" "" "${mseArgs[TitleCode]}::${mseArgs[TitleText]}" "" "" "" "" "" "" "" "" "" "" "" "" "${mseArgs[BodyMessageArrayName]}" "" "" "" "" "" "${mseTheme}" || echo "${MSE_GLOBAL_PROMPT_RESULT}")
-  # while [ "${MSE_GLOBAL_PROMPT_RESULT}" == "" ]; do
-  #   #
-  #   # Se está chegando aqui novamente significa que o valor digitado é inválido
-  #   # mostra uma mensagem de erro para o usuário
-  #   if [ "${msePromptUserValue}" != "" ]; then
-  #     local mseErrMsg=$(mse_str_replacePlaceHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
-  #     mse_inter_showError "X" "${mseErrMsg}"
-  #   fi
-
-  #   #
-  #   # Mostra a mensagem e permite ao usuário digitar uma resposta
-  #   read -r -p "${msePromptUserMessage}" msePromptUserValue
-
-  #   #
-  #   # Valida o valor digitado
-  #   if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
-  #     for mseIndex in "${!msePromptLabelArrayName[@]}"; do
-  #       mseLabel="${msePromptLabelArrayName[$mseIndex]}"
-  #       mseValue="${msePromptValueArrayName[$mseIndex]}"
-
-  #       if [ "${msePromptUserValue^^}" == "${mseLabel^^}" ] || [ "${msePromptUserValue^^}" == "${mseValue^^}" ]; then
-  #         MSE_GLOBAL_PROMPT_RESULT="${mseValue}"
-  #       fi
-  #     done
-  #   else
-  #     MSE_GLOBAL_PROMPT_RESULT="${msePromptUserValue}"
-  #   fi
-  # done
-
-  # #
-  # # Remove a linha de opções do array alvo
-  # if [ "${msePromptValueType}" == "bool" ] || [ "${msePromptValueType}" == "list" ]; then
-  #   unset 'mseBodyMessageArrayName[-1]'
-  # fi
-
-  # printf "\n"
+    #
+    # Valida o valor digitado
+    if [ "${mseUsePromptValueType}" == "bool" ] || [ "${mseUsePromptValueType}" == "list" ]; then
+      for msePromptKey in "${!mseTmpAllowedUserAssocEntries[@]}"; do
+        if [ "${msePromptUserValueCompare}" == "${msePromptKey}" ]; then
+          MSE_GLOBAL_PROMPT_RESULT="${mseTmpAllowedUserAssocEntries[${msePromptKey}]}"
+        fi
+      done
+    else
+      MSE_GLOBAL_PROMPT_RESULT="${msePromptUserValue}"
+    fi
+  done
 }
 
 

@@ -920,6 +920,9 @@ mse_inter_theme_default_showMessage_createPromptBody() {
     fi
 
 
+    #
+    # Inicia a leitura na próxima linha
+    mseTmpPromptBodyLinesArray+=("")
   else
     mseTmpThemeArrCreatePrompt[body_lines]=""
   fi
