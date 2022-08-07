@@ -91,17 +91,17 @@ else
         mseTMPInstallMessage+=("Please check permissions and try again")
       else
         mseTMPRemoveInstallationDir=1
-        mse_inter_alertUser "i" "MSE" "Cloning main module repository" "" ""
+        mse_inter_showAlert "i" "MSE" "Cloning main module repository" "" ""
 
         git clone --depth=1 "${mseTMPMainModuleRepo}" "${mseTMPInstallationPath}"
         if [ $? != 0 ] || [ ! -d "${mseTMPInstallationPath}/src" ]; then
           mseIsOK=0
-          mse_inter_alertUser "f" "MSE" "Could not clone repository" "mseTMPInstallMessage" ""
+          mse_inter_showAlert "f" "MSE" "Could not clone repository" "mseTMPInstallMessage" ""
         else
           git -C "${mseTMPInstallationPath}" config --local user.email "mse@myenvshell.com.br"
           git -C "${mseTMPInstallationPath}" config --local user.name "myEnvShell"
 
-          mse_inter_alertUser "s" "MSE" "Clone success" "" ""
+          mse_inter_showAlert "s" "MSE" "Clone success" "" ""
         fi
       fi
     fi
@@ -114,7 +114,7 @@ fi
 
 
 if [ "${mseIsOK}" == "0" ]; then
-  mse_inter_errorAlert "MSE" "Installation Aborted" "mseTMPInstallMessage" ""
+  mse_inter_showError "MSE" "Installation Aborted" "mseTMPInstallMessage" ""
 
   #
   # Remove o diretório de instalação caso necessário
@@ -126,7 +126,7 @@ if [ "${mseIsOK}" == "0" ]; then
       mseTMPInstallMessage+=("${mseTMPInstallationPath}")
       mseTMPInstallMessage+=("Before trying a new installation you need to manually remove it.")
 
-      mse_inter_alertUser "e" "MSE" "Attention" "mseTMPInstallMessage"
+      mse_inter_showAlert "e" "MSE" "Attention" "mseTMPInstallMessage"
     fi
   fi
 else
@@ -202,7 +202,7 @@ else
     mseTMPInstallMessage+=("changes will be activated when opening a new shell")
   fi
 
-  mse_inter_alertUser "a" "MSE" "Installation success!" "mseTMPInstallMessage" ""
+  mse_inter_showAlert "a" "MSE" "Installation success!" "mseTMPInstallMessage" ""
   rm install.sh tmp_mse_standalone.sh
   cp "${mseTMPInstallationPath}/src/config/templates/config.sh" "${mseTMPInstallationPath}/config.sh"
   cp "${mseTMPInstallationPath}/src/config/templates/config-color.sh" "${mseTMPInstallationPath}/config-color.sh"
