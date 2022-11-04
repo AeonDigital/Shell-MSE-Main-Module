@@ -1,0 +1,4 @@
+[submodule "Shell-MSE-UnitTest"]
+	path = Shell-MSE-UnitTest
+	url = https://github.com/AeonDigital/Shell-MSE-UnitTest.git
+	branch = main
