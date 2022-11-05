@@ -1,136 +1,136 @@
 #!/usr/bin/env bash
 # myShellEnv v 1.0 [aeondigital.com.br]
-# INI :: en-us.sh
-declare -ga MSE_GLOBAL_LABEL_MONTH=("" "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December")
-declare -ga MSE_GLOBAL_LABEL_WEEKDAY=("" "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday" "Sunday")
-declare -ga MSE_GLOBAL_LABEL_DAYPERIOD=("" "Dawn" "Morning" "Afternoon" "Night")
-lbl_err_lostParameters="Lost [[LOST]] parameters."
-lbl_err_variableAlreadExists="Variable \"[[VAR]]\" already exists"
-lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
-lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[SECTION]]\" section"
-lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
-lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"
-lbl_err_paramA_IsOutOfRange="Parameter \"[[PARAM_A]]\" is out of range"
-lbl_err_paramA_IsRequired="Parameter \"[[PARAM_A]]\" is required"
-lbl_err_paramA_IsNot_A="Parameter \"[[PARAM_A]]\" is not a [[A]]"
-lbl_err_paramA_IsNotAn_A="Parameter \"[[PARAM_A]]\" is not an [[A]]"
-lbl_err_paramA_IsGreaterThanMaxLength="Parameter \"[[PARAM_A]]\" is greater than the defined max length ( [[MAXLENGTH]] )"
-lbl_err_paramA_IsNotValid_A_RepresentationOf_B="Parameter \"[[PARAM_A]]\" is not a valid [[A]] representation of [[B]]"
-lbl_err_paramA_MustBeGreaterOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be greater or equals than [[A]]"
-lbl_err_paramA_MustBeLessOrEqualsThan_A="Parameter \"[[PARAM_A]]\" must be less or equals than [[A]]"
-lbl_err_paramA_MustBeNameOfExistentFunction="Parameter \"[[PARAM_A]]\" must be a name of a existent function"
-lbl_err_cannotCreateNewFileIn="Cannot create a new file in [[LOCAL]]"
-lbl_err_paramA_PointsToNonExistentFile="Parameter \"[[PARAM_A]]\" points to a non existent file"
-lbl_err_cannotCreateNewDirectoryIn="Cannot create a new directory in [[LOCAL]]"
-lbl_err_paramA_PointsToNonExistentDirectory="Parameter \"[[PARAM_A]]\" points to a non existent directory"
-lbl_err_paramA_MustBeAnArray="Parameter \"[[PARAM_A]]\" must be an array"
-lbl_err_paramA_MustBeAnAssocArray="Parameter \"[[PARAM_A]]\" must be an associative array"
-lbl_err_paramA_IsAnEmptyArray="Parameter \"[[PARAM_A]]\" is an empty array"
-lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parameters \"[[PARAM_A]]\" and \"[[PARAM_B]]\" must have the same number of elements"
-lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parameter \"[[PARAM_A]]\" must be an array with at least [[MIN]] elements"
-lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parameter \"[[PARAM_A]]\" must be an array with at most [[MAX]] elements"
-lbl_err_paramA_LostTheRequiredKey_Key="Parameter \"[[PARAM_A]]\" lost the required key \"[[KEY]]\""
-lbl_err_paramA_RequiredFor_A_Operation="Parameter \"[[PARAM_A]]\" is required for \"[[A]]\" operation"
-lbl_err_checkForValidOptionsUsingFunction="Check for valid options using the \"[[FUNCTION]]\" function"
-lbl_err_chooseOneOfThisOptions="Choose for one of this options: "
-lbl_err_cannotIdentifyTargetLine="Cannot identify the target line to perform this operation."
-# END :: en-us.sh
+# INI :: pt-br.sh
+declare -ga MSE_GLOBAL_LABEL_MONTH=("" "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro")
+declare -ga MSE_GLOBAL_LABEL_WEEKDAY=("" "Segunda" "Terça" "Quarta" "Quinta" "Sexta" "Sábado" "Domingo")
+declare -ga MSE_GLOBAL_LABEL_DAYPERIOD=("" "Madrugada" "Manhã" "Tarde" "Noite")
+lbl_err_lostParameters="Foram perdidos [[LOST]] parametros."
+lbl_err_variableAlreadExists="Variável \"[[VAR]]\" já existe"
+lbl_err_variableDoNotExists="Variável \"[[VAR]]\" não existe"
+lbl_err_variableDoNotExistsInSection="Variável \"[[VAR]]\" não existe na seção \"[[SECTION]]\""
+lbl_err_paramA_HasInvalidValue="Parametro \"[[PARAM_A]]\" foi definido com um valor inválido"
+lbl_err_paramA_HasInvalidOption="Parametro \"[[PARAM_A]]\" foi definido com uma opção inválida"
+lbl_err_paramA_IsOutOfRange="Parametro \"[[PARAM_A]]\" está fora dos limites"
+lbl_err_paramA_IsRequired="Parametro \"[[PARAM_A]]\" é obrigatório"
+lbl_err_paramA_IsNot_A="Parametro \"[[PARAM_A]]\" não é um [[A]]"
+lbl_err_paramA_IsNotAn_A="Parametro \"[[PARAM_A]]\" não é um [[A]]"
+lbl_err_paramA_IsGreaterThanMaxLength="Parametro \"[[PARAM_A]]\" é maior do que o tamanho máximo permitido ( [[MAXLENGTH]] )"
+lbl_err_paramA_IsNotValid_A_RepresentationOf_B="Parametro \"[[PARAM_A]]\" não é um representante [[A]] de um [[B]]"
+lbl_err_paramA_MustBeGreaterOrEqualsThan_A="Parametro \"[[PARAM_A]]\" deve ser maior ou igual a [[A]]"
+lbl_err_paramA_MustBeLessOrEqualsThan_A="Parametro \"[[PARAM_A]]\" deve ser menor ou igual a [[A]]"
+lbl_err_paramA_MustBeNameOfExistentFunction="Parametro \"[[PARAM_A]]\" deve ser o nome de uma função existente"
+lbl_err_cannotCreateNewFileIn="Não foi possível criar um novo arquivo em [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentFile="Parametro \"[[PARAM_A]]\" aponta para um arquivo inexistente"
+lbl_err_cannotCreateNewDirectoryIn="Não foi possível criar um novo diretório em [[LOCAL]]"
+lbl_err_paramA_PointsToNonExistentDirectory="Parametro \"[[PARAM_A]]\" aponta para um diretório inexistente"
+lbl_err_paramA_MustBeAnArray="Parametro \"[[PARAM_A]]\" deve ser um array"
+lbl_err_paramA_MustBeAnAssocArray="Parametro \"[[PARAM_A]]\" deve ser um array associativo"
+lbl_err_paramA_IsAnEmptyArray="Parametro \"[[PARAM_A]]\" é um array vazio"
+lbl_err_paramA_BothArraysMustHaveSameNumberOfElements="Parametros \"[[PARAM_A]]\" e \"[[PARAM_B]]\" devem ter o mesmo número de elementos"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Min="Parametro \"[[PARAM_A]]\" deve ser um array com ao menos [[MIN]] elementos"
+lbl_err_paramA_MustBeAnArrayWithAtLast_Max="Parametro \"[[PARAM_A]]\" deve ser um array com no máximo [[MAX]] elementos"
+lbl_err_paramA_LostTheRequiredKey_Key="Parametro \"[[PARAM_A]]\" não possui a chave \"[[KEY]]\" exigida"
+lbl_err_paramA_RequiredFor_A_Operation="Parametro \"[[PARAM_A]]\" é exigido para a operação do tipo \"[[A]]\""
+lbl_err_checkForValidOptionsUsingFunction="Verifique por opções válidas usando a função \"[[FUNCTION]]\""
+lbl_err_chooseOneOfThisOptions="Escolha uma destas opções: "
+lbl_err_cannotIdentifyTargetLine="Não foi possível identificar a linha alvo para executar esta operação."
+# END :: pt-br.sh
 
 
 # INI :: general.sh
-lbl_exec_vp_ipd_mainMessage="Invalid parameter definition; [ [[MSG]] ]"
-lbl_exec_vp_ipd_fieldA_CannotBeEmpty="[[FIELDNAME_A]] field cannot be empty"
-lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="[[FIELDNAME_A]] field has an invalid value"
-lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="[[FIELDNAME_A]] field has an invalid option"
-lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="[[FIELDNAME_A]] field points to non existent function"
-lbl_exec_vp_ipd_fieldA_MustBeAnInteger="[[FIELDNAME_A]] field must be an integer"
-lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="[[FIELDNAME_A]] field must be greater than 0"
-lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="[[FIELDNAME_A]] field is greater than [[FIELDNAME_B]] field"
-lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 0"
-lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="For \"[[TYPE_A]]\" type, [[FIELDNAME_A]] field must be greater or equals to 1"
-lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="[[FIELDNAME_A]] field lost the [[A]] collection"
-lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="[[FIELDNAME_A]] field has an empty [[A]] collection"
-lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="[[FIELDNAME_A]] field has an incorrect correlation between [[A]] and [[B]]"
+lbl_exec_vp_ipd_mainMessage="Definição de parametro inválida; [ [[MSG]] ]"
+lbl_exec_vp_ipd_fieldA_CannotBeEmpty="O Campo [[FIELDNAME_A]] não pode ser vazio"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidValue="O Campo [[FIELDNAME_A]] possui um valor inválido"
+lbl_exec_vp_ipd_fieldA_HasAnInvalidOption="O Campo [[FIELDNAME_A]] possui uma opção inválida "
+lbl_exec_vp_ipd_fieldA_PointsToNonExistentFunction="O Campo [[FIELDNAME_A]] aponta para uma função inexistente"
+lbl_exec_vp_ipd_fieldA_MustBeAnInteger="O Campo [[FIELDNAME_A]] deve ser um inteiro"
+lbl_exec_vp_ipd_fieldA_MustBeGreaterThanZero="O Campo [[FIELDNAME_A]] deve ser maior que 0"
+lbl_exec_vp_ipd_fieldA_IsGreaterThan_FieldB="O Campo [[FIELDNAME_A]] é maior que o campo [[FIELDNAME_B]]"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToZero="Para o tipo \"[[TYPE_A]]\", o campo [[FIELDNAME_A]] deve ser maior ou igual a 0"
+lbl_exec_vp_ipd_forTypeA_FieldA_MustBeGreaterOrEqualsToOne="Para o tipo \"[[TYPE_A]]\", o campo [[FIELDNAME_A]] deve ser maior ou igual a 1"
+lbl_exec_vp_ipd_fieldA_LostThe_A_Collection="O Campo [[FIELDNAME_A]] não possui a coleção do tipo [[A]]"
+lbl_exec_vp_ipd_fieldA_HasAnEmpty_A_Collection="O Campo [[FIELDNAME_A]] possui uma coleção vazia do tipo [[A]]"
+lbl_exec_vp_ipd_fieldA_HasAnIncorrectCorrelationBetween_A_and_B="O Campo [[FIELDNAME_A]] possui uma correlação incorreta entre [[A]] e [[B]]"
 # END :: general.sh
 
 
 # INI :: general.sh
-lbl_fw_iv_mainMessage="Parameter \"[[PARAM_A]]\" has an invalid value [ [[MSG]] ]"
-lbl_fw_iv_expectedFunctionNameOrInteger="Expected a function name or one/two integers; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
-lbl_fw_iv_firstLineMustBeLessThanTheLast="First line must be less than the last: \"[[RESULT]]\""
-lbl_fw_iv_outsideTheFileLimits="Outside the file limits; 1 - [[LASTLINE]]"
-lbl_fw_iv_errorOnSave="Error on save. Do you have permissions to change the target file?"
+lbl_fw_iv_mainMessage="Parametro \"[[PARAM_A]]\" possui um valor inválido [ [[MSG]] ]"
+lbl_fw_iv_expectedFunctionNameOrInteger="É experado o nome de uma função ou um/dois inteiros; \"[[FUNCTION]]\": \"[[RESULT]]\"  :: [[ERR]]"
+lbl_fw_iv_firstLineMustBeLessThanTheLast="A primeira linha precisa ser um número menor do que a última: \"[[RESULT]]\""
+lbl_fw_iv_outsideTheFileLimits="Definição fora dos limites do arquivo; 1 - [[LASTLINE]]"
+lbl_fw_iv_errorOnSave="Erro ao salvar. Você tem permissão para alterar o arquivo alvo?"
 # END :: general.sh
 
 
 # INI :: general.sh
-lbl_font_showTextColors_TableHeaders="Color:Raw:Variable:Appearance"
-lbl_font_showTextColors_UseCodeExample="Use the number of the selected color in the place of 'X': "
+lbl_font_showTextColors_TableHeaders="Cor:Raw:Variavel:Aparencia"
+lbl_font_showTextColors_UseCodeExample="Use o número da cor desejada no lugar do 'X': "
 # END :: general.sh
 
 
 # INI :: general.sh
-lbl_inter_alert_header_info="Information"
-lbl_inter_alert_header_attention="Attention"
-lbl_inter_alert_header_warning="Warning"
-lbl_inter_alert_header_error="Error"
-lbl_inter_alert_header_fail="Fail"
-lbl_inter_alert_header_success="Success"
-lbl_inter_wait_user_any_key="Press any key to proceed"
-lbl_inter_prompt_invalidValue="Invalid value \"[[VALUE]]\"."
+lbl_inter_alert_header_info="Informação"
+lbl_inter_alert_header_attention="Atenção"
+lbl_inter_alert_header_warning="Alerta"
+lbl_inter_alert_header_error="Erro"
+lbl_inter_alert_header_fail="Falha"
+lbl_inter_alert_header_success="Sucesso"
+lbl_inter_wait_user_any_key="Precione qualquer tecla para prosseguir"
+lbl_inter_prompt_invalidValue="O valor \"[[VALUE]]\" é inválido."
 unset lbl_inter_showPrompt_BoolValues
 declare -gA lbl_inter_showPrompt_BoolValues
-lbl_inter_showPrompt_BoolValues["1"]="yes::y"
-lbl_inter_showPrompt_BoolValues["0"]="no::n"
+lbl_inter_showPrompt_BoolValues["1"]="sim::s"
+lbl_inter_showPrompt_BoolValues["0"]="nao::n"
 # END :: general.sh
 
 
 # INI :: general.sh
-lbl_generic_confirmActionToProceed="Confirm this action to proceed"
-lbl_generic_actionAbortedByTheUser="Action interrupted by the user."
-lbl_generic_scriptInterruptedError=("Operation interrupted.")
-lbl_generic_cannotFoundConfigFile="Cannot found configuration file."
-lbl_generic_cannotSaveinFile="Cannot save."
-lbl_generic_fileNotFound="File not found in \"[[FILE]]\"."
-lbl_generic_checkConfigFile="Check if the configuration file exists."
-lbl_generic_checkPermissions="Check your permissions to proceed this operation."
-lbl_generic_save="Save."
-lbl_showMetaSummary_moreDetails="For more details use the \"mse_mmod_mng_showMetaData\" function."
-lbl_man_enterAFunction="Enter the name of a function."
-lbl_man_functionDoesNotExists="Function \"[[FUNCTION]]\" does not exists."
-lbl_man_searchForAValidFunction="To search for a valid function use \"mse_mmod_mng_showMetaData\"."
-lbl_man_couldNotFindHelpForFunction="Could not find help information for \"[[FUNCTION]]\" function"
-lbl_man_fileOfFunctionNotFound="File of function not found in [[PATH]]"
-lbl_man_noUsageDescriptionFoundForFunction="No usage description found for target function"
-lbl_searchFunction_enterAFunction="Enter the name of a function."
-lbl_cmd_commandNotFound="Command \"[[CMD]]\" not found."
-lbl_cmd_completion_param_pickBool="Use \"1\" to yes or \"0\" to no."
-lbl_cmd_completion_param_pickOption="Select an option from the list below:"
-lbl_generateStandalone_moduleNotFound="Module name not found."
-lbl_update_updateStart="Updating all \"myShellEnv\" modules."
-lbl_update_updateSuccess="All modules and submodules has been updated"
-lbl_update_updateFail="An unexpected failure occurred and the modules could not be updated [ [[ERRCODE]] ]"
-lbl_uninstall_uninstallStart="Starting uninstall of \"myShellEnv\""
+lbl_generic_confirmActionToProceed="Confirme esta ação para prosseguir"
+lbl_generic_actionAbortedByTheUser="Ação interrompida pelo usuário."
+lbl_generic_scriptInterruptedError=("Operação interrompida.")
+lbl_generic_cannotFoundConfigFile="Arquivo de configuração não foi encontrado."
+lbl_generic_cannotSaveinFile="Não foi possível salvar."
+lbl_generic_fileNotFound="O arquivo \"[[FILE]]\" não foi encontrado."
+lbl_generic_checkConfigFile="Verifique se o arquivo de configuração existe."
+lbl_generic_checkPermissions="Verifique suas permissões para efetuar esta operação."
+lbl_generic_save="Salvo."
+lbl_showMetaSummary_moreDetails="Para mais detalhes use a função \"mse_mmod_mng_showMetaData\"."
+lbl_man_enterAFunction="Entre o nome de uma função."
+lbl_man_functionDoesNotExists="A função \"[[FUNCTION]]\" não existe."
+lbl_man_searchForAValidFunction="Para pesquisar por uma função válida use \"mse_mmod_mng_showMetaData\"."
+lbl_man_couldNotFindHelpForFunction="Não foi possível encontrar uma ajuda para a função \"[[FUNCTION]]\""
+lbl_man_fileOfFunctionNotFound="O arquivo da função não foi encontrado em [[PATH]]"
+lbl_man_noUsageDescriptionFoundForFunction="Nenhuma descrição de uso foi encontrada para a função"
+lbl_searchFunction_enterAFunction="Entre o nome da função."
+lbl_cmd_commandNotFound="O comando \"[[CMD]]\" não foi encontrado."
+lbl_cmd_completion_param_pickBool="Use \"1\" para sim ou \"0\" para não."
+lbl_cmd_completion_param_pickOption="Selecione uma opção da lista a seguir:"
+lbl_generateStandalone_moduleNotFound="Módulo não encontrado."
+lbl_update_updateStart="Atualizando todos os módulos \"myShellEnv\"."
+lbl_update_updateSuccess="Todos os módulos e submódulos foram atualizados"
+lbl_update_updateFail="Uma falha inesperada ocorreu e não foi possível atualizar todos os módulos [ [[ERRCODE]] ]"
+lbl_uninstall_uninstallStart="Iniciando desinstalação do \"myShellEnv\""
 lbl_uninstall_uninstallPromptMessage=()
-lbl_uninstall_uninstallPromptMessage+=("This action cannot be undone.")
-lbl_uninstall_uninstallPromptMessage+=("All data and settings of all currently installed modules")
-lbl_uninstall_uninstallPromptMessage+=("will be permanently lost.")
+lbl_uninstall_uninstallPromptMessage+=("Esta ação não pode ser desfeita.")
+lbl_uninstall_uninstallPromptMessage+=("Todos os dados e configurações de todos os módulos atualmente instalados")
+lbl_uninstall_uninstallPromptMessage+=("serão perdidos permanentemente.")
 lbl_uninstall_uninstallPromptMessage+=("")
-lbl_uninstall_uninstallPromptMessage+=("Are you sure you want to proceed?")
-lbl_uninstall_uninstallErrorRemoveDir="Cannot remove the \"myShellEnv\" directory."
+lbl_uninstall_uninstallPromptMessage+=("Você tem certeza que deseja prosseguir?")
+lbl_uninstall_uninstallErrorRemoveDir="Não foi possível remover o diretório \"myShellEnv\"."
 lbl_uninstall_uninstallSuccess="Uninstallation completed."
-lbl_submoduleInstall_addNew="Adding new module."
-lbl_submoduleInstall_addSuccess="The new module has been added successfully"
-lbl_submoduleInstall_addFail="There was an unexpected failure trying to add the new module"
-lbl_submoduleInstall_confirmAction="Are you sure you want to add the \"[[SUBMODULE]]\" submodule to your \"myShellEnv\" instance?"
-lbl_submoduleInstall_alreadExists="This submodule is already added in your \"myShellEnv\"."
-lbl_submoduleInstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_submoduleInstall_addNew="Adicionando novo módulo."
+lbl_submoduleInstall_addSuccess="O novo módulo foi adicionado com sucesso"
+lbl_submoduleInstall_addFail="Houve uma falha inesperada ao tentar adicionar o novo módulo"
+lbl_submoduleInstall_confirmAction="Você tem certeza que deseja adicionar o submódulo [[SUBMODULE]] à sua instância do \"myShellEnv\"?"
+lbl_submoduleInstall_alreadExists="Este submódulo já está adicionado em seu \"myShellEnv\"."
+lbl_submoduleInstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração  \"[[FILE]]\"."
 lbl_submoduleInstall_unableToEditConfigFile_msg=()
-lbl_submoduleInstall_unableToEditConfigFile_msg+=("The module has been successfully installed but will not")
-lbl_submoduleInstall_unableToEditConfigFile_msg+=("be loaded until its entry in the global variable \"MSE_AVAILABLE_MODULES\" is set.")
-lbl_submoduleUninstall_submoduleDoesNotExists="The indicated submodule is not installed."
-lbl_submoduleUninstall_cannotRemove="An error occurred and the submodule could not be uninstalled."
-lbl_submoduleUninstall_unableToEditConfigFile="Unable to edit configuration file \"[[FILE]]\"."
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("O módulo foi instalado com sucesso mas não será")
+lbl_submoduleInstall_unableToEditConfigFile_msg+=("carregado até que sua entrada na variável global \"MSE_AVAILABLE_MODULES\" seja definida.")
+lbl_submoduleUninstall_submoduleDoesNotExists="O submódulo indicado não está instalado."
+lbl_submoduleUninstall_cannotRemove="Um erro ocorreu e não possível desinstalar o submódulo."
+lbl_submoduleUninstall_unableToEditConfigFile="Não foi possível editar o arquivo de configuração \"[[FILE]]\"."
 # END :: general.sh
 
 

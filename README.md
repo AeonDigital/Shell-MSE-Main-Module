@@ -16,6 +16,8 @@ e módulos em ambientes de ``shell`` como o ``Bash``.
 &nbsp;
 
 
+________________________________________________________________________________________________________________________
+
 ## Instalação
 
 Abra o seu ``shell`` e use os seguintes comandos:  
@@ -30,6 +32,8 @@ chmod +x install.sh
 &nbsp;
 &nbsp;
 
+
+________________________________________________________________________________________________________________________
 
 ## Outros módulos
 
@@ -53,6 +57,8 @@ mse mng submodule install -- "ModuleName"
 &nbsp;
 
 
+________________________________________________________________________________________________________________________
+
 ## Atualizando sua instalação
 
 Com alguma frequencia o módulo principal e submódulos são atualizados.  
@@ -62,9 +68,12 @@ Para atualizá-los use:
 mse mng submodule updateAll --
 ```
 
+
 &nbsp;
 &nbsp;
 
+
+________________________________________________________________________________________________________________________
 
 ## Importante
 
@@ -85,12 +94,12 @@ mse <TAB><TAB>
 
 Tendo isto em mente, use e aprimore a vontade.  
 
+
 &nbsp;
 &nbsp;
+
 
 ________________________________________________________________________________________________________________________
-
-
 
 ## Licença
 
