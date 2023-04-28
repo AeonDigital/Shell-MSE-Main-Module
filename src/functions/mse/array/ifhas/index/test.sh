@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# myShellEnv v 1.0 [aeondigital.com.br]
+
+
+test_mse_array_ifhas_index() {
+  unset testArray
+  declare -a testArray
+  testArray+=("one")
+  testArray+=("two")
+
+
+  testResult=$(mse_array_ifhas_index "2" "testArray")
+  testExpected="0"
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_array_ifhas_index "3" "testArray")
+  testExpected="0"
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_array_ifhas_index "0" "testArray")
+  testExpected="1"
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_array_ifhas_index "1" "testArray")
+  testExpected="1"
+  mse_md_utest_assertEqual
+}

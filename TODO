@@ -1,0 +1,14 @@
+#
+# Novas funções
+# - conversão de arquivo para UTF-8
+# - verificação de existência de um padrão regex em uma string.
+# - verificação do maior número inteiro aceito no sistema. [https://superuser.com/questions/1030122/what-is-the-maximum-value-of-a-numeric-bash-shell-variable]
+
+
+
+
+
+
+Comandos usados que não são built-in do bash
+- find
+- printf
