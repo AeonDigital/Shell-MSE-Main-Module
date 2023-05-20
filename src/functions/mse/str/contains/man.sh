@@ -8,7 +8,7 @@ MSE_FUNCTION_MAN["description"]="Indicates when a string contains a substring."
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="substring"
+MSE_FUNCTION_MAN["param.1.name"]="Substring"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
@@ -18,7 +18,7 @@ MSE_FUNCTION_MAN["param.1.description"]="Substring being searched for."
 
 
 MSE_FUNCTION_MAN["param.2.type"]="string"
-MSE_FUNCTION_MAN["param.2.name"]="string"
+MSE_FUNCTION_MAN["param.2.name"]="String"
 MSE_FUNCTION_MAN["param.2.required"]="1"
 MSE_FUNCTION_MAN["param.2.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.2.min"]="${MSE_NULL}"

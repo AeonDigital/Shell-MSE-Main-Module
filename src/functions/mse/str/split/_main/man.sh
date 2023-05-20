@@ -8,7 +8,7 @@ MSE_FUNCTION_MAN["description"]="Splits the passed string into an array using th
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="separator"
+MSE_FUNCTION_MAN["param.1.name"]="Separator"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
@@ -18,7 +18,7 @@ MSE_FUNCTION_MAN["param.1.description"]="Separator."
 
 
 MSE_FUNCTION_MAN["param.2.type"]="string"
-MSE_FUNCTION_MAN["param.2.name"]="string"
+MSE_FUNCTION_MAN["param.2.name"]="String"
 MSE_FUNCTION_MAN["param.2.required"]="1"
 MSE_FUNCTION_MAN["param.2.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.2.min"]="${MSE_NULL}"
@@ -28,7 +28,7 @@ MSE_FUNCTION_MAN["param.2.description"]="Original string (which will be \"splite
 
 
 MSE_FUNCTION_MAN["param.3.type"]="bool"
-MSE_FUNCTION_MAN["param.3.name"]="removeEmpty"
+MSE_FUNCTION_MAN["param.3.name"]="RemoveEmpty"
 MSE_FUNCTION_MAN["param.3.required"]="1"
 MSE_FUNCTION_MAN["param.3.default"]="0"
 MSE_FUNCTION_MAN["param.3.min"]="${MSE_NULL}"
@@ -38,7 +38,7 @@ MSE_FUNCTION_MAN["param.3.description"]="Indicates when empty values should be k
 
 
 MSE_FUNCTION_MAN["param.4.type"]="bool"
-MSE_FUNCTION_MAN["param.4.name"]="trim"
+MSE_FUNCTION_MAN["param.4.name"]="Trim"
 MSE_FUNCTION_MAN["param.4.required"]="1"
 MSE_FUNCTION_MAN["param.4.default"]="0"
 MSE_FUNCTION_MAN["param.4.min"]="${MSE_NULL}"

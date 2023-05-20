@@ -11,7 +11,7 @@ MSE_FUNCTION_MAN["description"]+="used in place of a new placeholder within the 
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="string"
+MSE_FUNCTION_MAN["param.1.name"]="String"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
@@ -23,7 +23,7 @@ MSE_FUNCTION_MAN["param.1.description"]="with the appropriate substitutions."
 
 
 MSE_FUNCTION_MAN["param.2.type"]="string"
-MSE_FUNCTION_MAN["param.2.name"]="placeHolderName"
+MSE_FUNCTION_MAN["param.2.name"]="PlaceHolderName"
 MSE_FUNCTION_MAN["param.2.required"]="1"
 MSE_FUNCTION_MAN["param.2.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.2.min"]="${MSE_NULL}"
@@ -33,7 +33,7 @@ MSE_FUNCTION_MAN["param.2.description"]="Name of a placeholder to be replaced (e
 
 
 MSE_FUNCTION_MAN["param.3.type"]="string"
-MSE_FUNCTION_MAN["param.3.name"]="placeHolderValue"
+MSE_FUNCTION_MAN["param.3.name"]="PlaceHolderValue"
 MSE_FUNCTION_MAN["param.3.required"]="1"
 MSE_FUNCTION_MAN["param.3.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.3.min"]="${MSE_NULL}"

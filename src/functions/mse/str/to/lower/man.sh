@@ -8,7 +8,7 @@ MSE_FUNCTION_MAN["description"]="Converts the passed string to its lowercase ver
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="string"
+MSE_FUNCTION_MAN["param.1.name"]="String"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"

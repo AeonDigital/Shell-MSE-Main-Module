@@ -10,7 +10,7 @@ MSE_FUNCTION_MAN["description"]+="The identified words will be kept without bein
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="string"
+MSE_FUNCTION_MAN["param.1.name"]="String"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
@@ -20,7 +20,7 @@ MSE_FUNCTION_MAN["param.1.description"]="Original string."
 
 
 MSE_FUNCTION_MAN["param.2.type"]="int"
-MSE_FUNCTION_MAN["param.2.name"]="maxLineLength"
+MSE_FUNCTION_MAN["param.2.name"]="MaxLineLength"
 MSE_FUNCTION_MAN["param.2.required"]="1"
 MSE_FUNCTION_MAN["param.2.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.2.min"]="${MSE_NULL}"

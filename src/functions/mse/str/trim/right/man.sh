@@ -8,7 +8,7 @@ MSE_FUNCTION_MAN["description"]="Eliminates any white space at the end of the in
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
-MSE_FUNCTION_MAN["param.1.name"]="string"
+MSE_FUNCTION_MAN["param.1.name"]="String"
 MSE_FUNCTION_MAN["param.1.required"]="1"
 MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
