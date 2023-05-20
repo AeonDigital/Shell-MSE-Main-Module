@@ -70,6 +70,10 @@ else
         mseFunctionFilePath="${mseFunctionFilePath/${msePathToFunctionsDir}/}"
         mseFunctionName="${mseFunctionFilePath//\//_}"
 
+        if [[ "${mseFunctionName}" == *__main ]]; then
+          mseFunctionName="${mseFunctionName/__main/}"
+        fi
+
         MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseFunctionFileFullPath}"
       done
     fi
@@ -91,6 +95,10 @@ else
         mseFunctionFilePath="${mseFunctionFilePath/${msePathToFunctionsDir}/}"
         mseFunctionName="${mseFunctionFilePath//\//_}"
 
+        if [[ "${mseFunctionName}" == *__main ]]; then
+          mseFunctionName="${mseFunctionName/__main/}"
+        fi
+
         MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseFunctionFileFullPath}"
       done
     fi
@@ -101,5 +109,5 @@ else
   utestRegisterFunctionScripts
   utestRegisterTestsScripts
 
-  mse_md_utest_execute
+  mse_md_utest_execute "${1}"
 fi

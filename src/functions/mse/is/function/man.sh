@@ -19,5 +19,5 @@ MSE_FUNCTION_MAN["param.1.description"]="Value that will be tested."
 
 MSE_FUNCTION_MAN["return.type"]="bool"
 MSE_FUNCTION_MAN["return.description"]=""
-MSE_FUNCTION_MAN["return.description"]+="'1' if 'true'\n"
-MSE_FUNCTION_MAN["return.description"]+="'0' if 'false'"
+MSE_FUNCTION_MAN["return.description"]+="\"1\" if \"true\"\n"
+MSE_FUNCTION_MAN["return.description"]+="\"0\" if \"false\""

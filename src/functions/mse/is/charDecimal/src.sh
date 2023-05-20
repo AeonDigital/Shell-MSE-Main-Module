@@ -25,4 +25,5 @@ mse_is_charDecimal() {
 
   mseLastFunctionVariablesSet "${mseReturn}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
+  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }

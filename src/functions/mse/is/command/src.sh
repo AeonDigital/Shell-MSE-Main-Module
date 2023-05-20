@@ -11,4 +11,5 @@ mse_is_command() {
 
   mseLastFunctionVariablesSet "${mseReturn}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
+  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }

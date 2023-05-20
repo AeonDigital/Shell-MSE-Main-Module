@@ -14,7 +14,7 @@ MSE_FUNCTION_MAN["param.1.default"]="${MSE_UNDEF}"
 MSE_FUNCTION_MAN["param.1.min"]="${MSE_NULL}"
 MSE_FUNCTION_MAN["param.1.max"]="${MSE_NULL}"
 MSE_FUNCTION_MAN["param.1.options"]="${MSE_NULL}"
-MSE_FUNCTION_MAN["param.1.description"]="String that will be used as 'glue' for the join."
+MSE_FUNCTION_MAN["param.1.description"]="String that will be used as \"glue\" for the join."
 
 
 MSE_FUNCTION_MAN["param.2.type"]="array"
@@ -33,6 +33,6 @@ MSE_FUNCTION_MAN["return.description"]+="Prints the array values separated by th
 
 
 MSE_FUNCTION_MAN["example.0"]=""
-MSE_FUNCTION_MAN["example.0"]+="myArray=("2022" "12" "22")\n"
-MSE_FUNCTION_MAN["example.0"]+="mse_str_join '-' "myArray"\n"
-MSE_FUNCTION_MAN["example.0"]+="2022-12-22"
+MSE_FUNCTION_MAN["example.0"]+="myArray=(\"2022\" \"12\" \"22\")\n"
+MSE_FUNCTION_MAN["example.0"]+="mse_str_join \"-\" \"myArray\"\n"
+MSE_FUNCTION_MAN["example.0"]+="\"2022-12-22\""

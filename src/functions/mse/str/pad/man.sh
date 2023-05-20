@@ -4,7 +4,9 @@
 
 unset MSE_FUNCTION_MAN
 declare -gA MSE_FUNCTION_MAN
-MSE_FUNCTION_MAN["description"]="Fills a string with the indicated character."
+MSE_FUNCTION_MAN["description"]="Fills a string with the indicated character.\n"
+MSE_FUNCTION_MAN["description"]+="Adds to the original string a total of \$2 characters to the left\n"
+MSE_FUNCTION_MAN["description"]+="or right (as per \$4) until it has the total characters indicated at \$3."
 
 
 MSE_FUNCTION_MAN["param.1.type"]="string"
@@ -47,16 +49,14 @@ MSE_FUNCTION_MAN["param.4.options"]=""
 MSE_FUNCTION_MAN["param.4.options"]+="l: left\n"
 MSE_FUNCTION_MAN["param.4.options"]+="r: right"
 MSE_FUNCTION_MAN["param.4.description"]=""
-MSE_FUNCTION_MAN["param.4.description"]+="Position in which the filling should be done."
-MSE_FUNCTION_MAN["param.4.description"]+="Use "l" to fill on the left or "r" to fill on the right."
+MSE_FUNCTION_MAN["param.4.description"]+="Position in which the filling should be done.\n"
+MSE_FUNCTION_MAN["param.4.description"]+="Use \"l\" to fill on the left or \"r\" to fill on the right."
 
 
 MSE_FUNCTION_MAN["return.type"]="string"
-MSE_FUNCTION_MAN["return.description"]=""
-MSE_FUNCTION_MAN["return.description"]+="Adds to the original string a total of \$2 characters to the left\n"
-MSE_FUNCTION_MAN["return.description"]+="or right (as per \$4) until it has the total characters indicated at \$3.\n"
-MSE_FUNCTION_MAN["return.description"]+="An empty string will be returned in case of any failure."
+MSE_FUNCTION_MAN["return.description"]="Returns the changed string."
+
 
 MSE_FUNCTION_MAN["example.0"]=""
-MSE_FUNCTION_MAN["example.0"]+="mse_str_pad "32" "0" "5" "l"\n"
+MSE_FUNCTION_MAN["example.0"]+="mse_str_pad \"32\" \"0\" \"5\" \"l\"\n"
 MSE_FUNCTION_MAN["example.0"]+="\"00032\""

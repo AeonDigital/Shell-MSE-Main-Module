@@ -34,9 +34,10 @@ MSE_FUNCTION_MAN["param.3.default"]="0"
 MSE_FUNCTION_MAN["param.3.min"]="${MSE_NULL}"
 MSE_FUNCTION_MAN["param.3.max"]="${MSE_NULL}"
 MSE_FUNCTION_MAN["param.3.options"]="${MSE_NULL}"
-MSE_FUNCTION_MAN["param.3.description"]="Indicates whether the check should be done in \"insensitive case\".\n"
-MSE_FUNCTION_MAN["param.3.description"]+="- Omit or indicate "0" for \"case sensitive\" (default)\n"
-MSE_FUNCTION_MAN["param.3.description"]+="- Indicate "1" for \"insensitive case\""
+MSE_FUNCTION_MAN["param.3.description"]=""
+MSE_FUNCTION_MAN["param.3.description"]+="Indicates whether the check should be done in \"insensitive case\".\n"
+MSE_FUNCTION_MAN["param.3.description"]+="- Omit or indicate \"0\" for \"case sensitive\" (default)\n"
+MSE_FUNCTION_MAN["param.3.description"]+="- Indicate \"1\" for \"insensitive case\""
 
 
 MSE_FUNCTION_MAN["return.type"]="string"

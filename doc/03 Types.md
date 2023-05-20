@@ -17,6 +17,9 @@ Check for "Union Types" section.
 `bool`  
 Accepts only values ​​"0" or "1".
 
+`char`  
+Accepts only one char (UTF-8).
+
 `string`  
 Accepts any sequence of chars.
 

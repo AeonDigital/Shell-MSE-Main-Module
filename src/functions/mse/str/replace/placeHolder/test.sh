@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# myShellEnv v 1.0 [aeondigital.com.br]
+
+
+test_mse_str_replace_placeHolder() {
+  testResult=$(mse_str_replace_placeHolder)
+  testExpected="${MSE_UNDEF}"
+
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_str_replace_placeHolder "this is a [[PH]]")
+  testExpected="${MSE_UNDEF}"
+
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_str_replace_placeHolder "this is a [[PH]]" "PH" "test" "wrong")
+  testExpected="${MSE_UNDEF}"
+
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_str_replace_placeHolder "this is a [[PH]]" "PH" "test")
+  testExpected=$(printf "this is a test")
+
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_str_replace_placeHolder "this is a [[PH]] and another [[APH]]" "PH" "test" "APH" "placeholder")
+  testExpected=$(printf "this is a test and another placeholder")
+
+  mse_md_utest_assertEqual
+}

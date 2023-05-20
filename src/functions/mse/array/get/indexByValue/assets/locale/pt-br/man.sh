@@ -9,9 +9,10 @@ MSE_FUNCTION_MAN["param.1.description"]="Valor que está sendo pesquisado."
 
 MSE_FUNCTION_MAN["param.2.description"]="Nome do array onde a pesquisa deve ser feita."
 
-MSE_FUNCTION_MAN["param.3.description"]="Indica se a verificação deve ser feita em \"insensitive case\".\n"
-MSE_FUNCTION_MAN["param.3.description"]+="- Omitir ou indicar "0" para \"case sensitive\" (padrão)\n"
-MSE_FUNCTION_MAN["param.3.description"]+="- Indique "1" para \"insensitive case\""
+MSE_FUNCTION_MAN["param.3.description"]=""
+MSE_FUNCTION_MAN["param.3.description"]+="Indica se a verificação deve ser feita em \"insensitive case\".\n"
+MSE_FUNCTION_MAN["param.3.description"]+="- Omitir ou indicar \"0\" para \"case sensitive\" (padrão)\n"
+MSE_FUNCTION_MAN["param.3.description"]+="- Indique \"1\" para \"insensitive case\""
 
 
 MSE_FUNCTION_MAN["return.description"]=""

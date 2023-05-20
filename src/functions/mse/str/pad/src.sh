@@ -45,4 +45,5 @@ mse_str_pad() {
 
   mseLastFunctionVariablesSet "${mseNStr}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
+  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }
