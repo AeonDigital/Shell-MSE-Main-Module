@@ -20,6 +20,15 @@ Accepts only values ​​"0" or "1".
 `char`  
 Accepts only one char (UTF-8).
 
+`charDecimal`
+Accepts only one char in decimal format (including multibyte values).
+
+`charHex`
+Accepts only one char in hexadecimal format (including multibyte values).
+
+`charOctal`
+Accepts only one char in octal format (including multibyte values).
+
 `string`  
 Accepts any sequence of chars.
 

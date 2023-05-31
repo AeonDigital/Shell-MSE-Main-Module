@@ -20,6 +20,13 @@ mse_str_pad() {
   fi
 
 
+  #
+  # Changing the "LC_CTYPE" variable below changes how character counts are done in a string.
+  # - Use "" to count the number of chars in a string (multibyte safe)
+  # - Use "C" to consider each byte in the string as an independent char.
+  local oLC_CTYPE="${LC_CTYPE}"
+  LC_CTYPE=""
+
   if [ "${#msePadChar}" == "1" ] && [ "${mseTotalLength}" -gt 0 ] && [ "${msePadPosition}" != "" ]; then
     mseNStr="${mseOStr}"
 
@@ -42,6 +49,8 @@ mse_str_pad() {
       fi
     fi
   fi
+
+  LC_CTYPE="${oLC_CTYPE}"
 
   mseLastFunctionVariablesSet "${mseNStr}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
