@@ -17,6 +17,10 @@ Check for "Union Types" section.
 `bool`  
 Accepts only values ​​"0" or "1".
 
+`int`  
+Any integer value.  
+The maxvalue accepts depends on your CPU architecture.
+
 `char`  
 Accepts only one char (UTF-8).
 
@@ -31,10 +35,6 @@ Accepts only one char in octal format (including multibyte values).
 
 `string`  
 Accepts any sequence of chars.
-
-`int`  
-Any integer value.  
-The maxvalue accepts depends on your CPU architecture.
 
 `array`  
 The name of a declared array in the current scope.

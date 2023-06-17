@@ -24,7 +24,7 @@ test_mse_array_get_indexByValue() {
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_array_get_indexByValue "TREE" "testArray" "1")
+  testResult=$(mse_array_get_indexByValue "TREE" "testArray" "0")
   testExpected="2"
 
   mse_md_utest_assertEqual

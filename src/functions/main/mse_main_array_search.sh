@@ -7,16 +7,14 @@ mse_main_array_search() {
   declare -n arrayName="${2}"
   local mseArrayLength="${#arrayName[@]}"
 
-  local mseCaseInsensitive
-  local mseReturnIndex
+  local mseCaseSensitive=1
+  local mseReturnIndex=0
 
 
-  mseCaseInsensitive=0
-  if [ "$#" -ge "3" ] && [ "$3" == "1" ]; then
-    mseCaseInsensitive=1
+  if [ "$#" -ge "3" ] && [ "$3" == "0" ]; then
+    mseCaseSensitive=0
   fi
 
-  mseReturnIndex=0
   if [ "$#" -ge "4" ] && [ "$4" == "1" ]; then
     mseReturnIndex=1
   fi
@@ -30,7 +28,7 @@ mse_main_array_search() {
   local mseResultBool=0
 
   if [ "${isAssoc}" == "0" ]; then
-    if [ "${mseCaseInsensitive}" == "0" ]; then
+    if [ "${mseCaseSensitive}" == "1" ]; then
       for ((i=0; i<mseArrayLength; i++)); do
         if [ "${arrayName[$i]}" == "${mseSearchValue}" ]; then
           mseResultIndex="$i"
@@ -38,7 +36,7 @@ mse_main_array_search() {
           break
         fi
       done
-    elif [ "${mseCaseInsensitive}" == "1" ]; then
+    elif [ "${mseCaseSensitive}" == "0" ]; then
       for ((i=0; i<mseArrayLength; i++)); do
         if [ "${arrayName[$i]^^}" == "${mseSearchValue^^}" ]; then
           mseResultIndex="$i"
@@ -48,7 +46,7 @@ mse_main_array_search() {
       done
     fi
   else
-    if [ "${mseCaseInsensitive}" == "0" ]; then
+    if [ "${mseCaseSensitive}" == "1" ]; then
       for key in "${!arrayName[@]}"; do
         if [ "${arrayName[$key]}" == "${mseSearchValue}" ]; then
           mseResultIndex="$key"
@@ -56,7 +54,7 @@ mse_main_array_search() {
           break
         fi
       done
-    elif [ "${mseCaseInsensitive}" == "1" ]; then
+    elif [ "${mseCaseSensitive}" == "0" ]; then
       for key in "${!arrayName[@]}"; do
         if [ "${arrayName[$key]^^}" == "${mseSearchValue^^}" ]; then
           mseResultIndex="$key"

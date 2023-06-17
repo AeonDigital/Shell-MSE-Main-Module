@@ -9,9 +9,9 @@ follows the guidelines mentioned below.
 
 &nbsp;
 
-## The Synopsys Section
+## The Synopsis Section
 
-In the first line of the document you MUST declare the _Synopsys_ header.
+In the first line of the document you MUST declare the _Synopsis_ header.
 This section is used to provide a brief introduction to the function. This
 text should not be much longer than one or two lines.
 
