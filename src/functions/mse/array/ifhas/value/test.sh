@@ -24,7 +24,7 @@ test_mse_array_ifhas_value() {
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_array_ifhas_value "TREE" "testArray" "1")
+  testResult=$(mse_array_ifhas_value "TREE" "testArray" "0")
   testExpected="1"
 
   mse_md_utest_assertEqual
