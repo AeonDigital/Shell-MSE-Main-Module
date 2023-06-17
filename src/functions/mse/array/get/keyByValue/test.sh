@@ -26,7 +26,7 @@ test_mse_array_get_keyByValue() {
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_array_get_keyByValue "CCC" "testAssocArray" "1")
+  testResult=$(mse_array_get_keyByValue "CCC" "testAssocArray" "0")
   testExpected="tree"
 
   mse_md_utest_assertEqual
