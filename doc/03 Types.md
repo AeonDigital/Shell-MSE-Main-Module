@@ -20,13 +20,13 @@ Accepts only values ​​"0" or "1".
 `char`  
 Accepts only one char (UTF-8).
 
-`charDecimal`
+`charDecimal`  
 Accepts only one char in decimal format (including multibyte values).
 
-`charHex`
+`charHex`  
 Accepts only one char in hexadecimal format (including multibyte values).
 
-`charOctal`
+`charOctal`  
 Accepts only one char in octal format (including multibyte values).
 
 `string`  
@@ -36,14 +36,14 @@ Accepts any sequence of chars.
 Any integer value.  
 The maxvalue accepts depends on your CPU architecture.
 
-`regex`  
-Any regex pattern valid to use with the "test" steatment.
-
 `array`  
 The name of a declared array in the current scope.
 
 `assoc`  
 The name of a declared associative array in the current scope.
+
+`regex`  
+Any regex pattern valid to use with the "test" steatment.
 
 `function`  
 The name of a declared function in the current scope.
@@ -53,4 +53,4 @@ Any type described above.
 
 `void`  
 Use only for "return" declaration.  
-Indicates that the function does not returns any results.
+Indicates that the function does not returns any printable results.
