@@ -32,7 +32,7 @@ indicado.
 - aka       : -cs --caseSensitive
 - default   : 1
 - hint      :  
-  Should the research be done in a `case-sensitive`?
+  A pesquisa deve ser feita em `case sensitive`?
 
 
 
