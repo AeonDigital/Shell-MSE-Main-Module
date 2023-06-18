@@ -8,7 +8,7 @@
 
 
 . src/unittests.sh
-
+. src/unittests.sh "mse_file_read"
 
 
 Comandos usados que não são built-in do bash
