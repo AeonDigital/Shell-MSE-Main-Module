@@ -77,12 +77,23 @@ myShellEnvRegisterModuleComponents() {
       else
         . "${moduleSH}"
 
+        local mseFunctionFileFullDir
+        local mseAssetFunctionsDir
+        local mseSubFunctionFileFullPath
 
         local mseTargetFunctions=$(find "${1}/src/functions" -type f -name "src.sh")
         for fileFunction in "${mseTargetFunctions}"; do
           . "${fileFunction}"
-        done
 
+          mseFunctionFileFullDir=$(dirname "${fileFunction}")
+          mseAssetFunctionsDir="${mseFunctionFileFullDir}/assets/functions/"
+          if [ -d "${mseAssetFunctionsDir}" ]; then
+            readarray -d '' mseSelectedAssetFunctionsScriptFiles < <(find "${mseAssetFunctionsDir}" -type f -name "*.sh" -print0)
+            for mseSubFunctionFileFullPath in "${mseSelectedAssetFunctionsScriptFiles[@]}"; do
+              . "${mseSubFunctionFileFullPath}"
+            done
+          fi
+        done
       fi
     fi
   fi

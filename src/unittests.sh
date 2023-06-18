@@ -59,15 +59,19 @@ else
   # Register functions scripts
   utestRegisterFunctionScripts() {
     local mseFunctionName
+    local mseFunctionFileFullDir
     local mseFunctionFilePath
     local mseFunctionFileFullPath
+    local mseAssetFunctionsDir
+    local mseSubFunctionFileFullPath
+
     local msePathToFunctionsDir="${MSE_GLOBAL_MAIN_PATH}/src/functions/"
     readarray -d '' mseSelectedFunctionsScriptFiles < <(find "${msePathToFunctionsDir}" -type f -name "src.sh" -print0)
 
     if [ "${mseSelectedFunctionsScriptFiles}" != "" ] && [ "${#mseSelectedFunctionsScriptFiles[@]}" != "0" ]; then
       for mseFunctionFileFullPath in "${mseSelectedFunctionsScriptFiles[@]}"; do
-        mseFunctionFilePath=$(dirname "${mseFunctionFileFullPath}")
-        mseFunctionFilePath="${mseFunctionFilePath/${msePathToFunctionsDir}/}"
+        mseFunctionFileFullDir=$(dirname "${mseFunctionFileFullPath}")
+        mseFunctionFilePath="${mseFunctionFileFullDir/${msePathToFunctionsDir}/}"
         mseFunctionName="${mseFunctionFilePath//\//_}"
 
         if [[ "${mseFunctionName}" == *__main ]]; then
@@ -75,6 +79,15 @@ else
         fi
 
         MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseFunctionFileFullPath}"
+
+
+        mseAssetFunctionsDir="${mseFunctionFileFullDir}/assets/functions/"
+        if [ -d "${mseAssetFunctionsDir}" ]; then
+          readarray -d '' mseSelectedAssetFunctionsScriptFiles < <(find "${mseAssetFunctionsDir}" -type f -name "*.sh" -print0)
+          for mseSubFunctionFileFullPath in "${mseSelectedAssetFunctionsScriptFiles[@]}"; do
+            MSE_MD_UTEST_PATH_TO_ASSETS+=("${mseSubFunctionFileFullPath}")
+          done
+        fi
       done
     fi
   }
