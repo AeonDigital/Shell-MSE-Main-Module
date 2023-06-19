@@ -54,6 +54,7 @@ else
   #
   # Register dependencies
   MSE_MD_UTEST_PATH_TO_DEPENDENCIES+=("${MSE_GLOBAL_MAIN_PATH}/src/module.sh")
+  MSE_MD_UTEST_PATH_TO_DEPENDENCIES+=("${MSE_GLOBAL_MAIN_PATH}/src/labels/${MSE_GLOBAL_MODULES_USE_LOCALE}.sh")
   utestRegisterDependenciesScripts() {
     local msePathTo_SRC_Directory="${MSE_GLOBAL_MAIN_PATH}/src/"
     declare -a mseArgTo_Find_Dependencies=()

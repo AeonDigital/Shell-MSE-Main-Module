@@ -5,31 +5,31 @@
 test_mse_file_getBoundaryLineNumbers() {
   local dir=$(dirname "${BASH_SOURCE}")
 
-  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/assets/test/sample/.config" "#" "" "" "")
+  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/attachments/test/sample/.config" "#" "" "" "")
   testExpected="1 58"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/assets/test/sample/.config" "#" "1" "email" "")
+  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/attachments/test/sample/.config" "#" "1" "email" "")
   testExpected="27 41"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/assets/test/sample/.config" "#" "1" "email" "" "1")
+  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/attachments/test/sample/.config" "#" "1" "email" "" "1")
   testExpected="27 38"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/assets/test/sample/.config" "#" "1" "teste" "")
+  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/attachments/test/sample/.config" "#" "1" "teste" "")
   testExpected="55 58"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/assets/test/sample/.bashrc" "#" "0" "# [[INI-MYSHELLENV]]" "# [[END-MYSHELLENV]]")
+  testResult=$(mse_file_getBoundaryLineNumbers "${dir}/attachments/test/sample/.bashrc" "#" "0" "# [[INI-MYSHELLENV]]" "# [[END-MYSHELLENV]]")
   testExpected="27 32"
 
   mse_md_utest_assertEqual

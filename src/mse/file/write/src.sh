@@ -113,7 +113,7 @@ mse_file_write() {
 
 
     if [ "${mseReturnCod}" != "0" ]; then
-      mseReturnMsg=$(mse_str_replace_placeHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "TargetLine" "MSG" "${mseTmpReturnMsg}")
+      mseReturnMsg=$(mse_str_replace_placeHolder "${lbl_fw_iv_mainMessage}" "PARAM_A" "targetLine" "MSG" "${mseTmpReturnMsg}")
     fi
   fi
 
@@ -165,7 +165,8 @@ mse_file_write() {
     mseReturn=0
   fi
 
-  mseLastFunctionVariablesSet "${mseReturn}" ${mseReturnCod} "${mseReturnMsg}"
+
+  mseLastFunctionVariablesSet "${mseReturn}" "${mseReturnCod}" "${mseReturnMsg}"
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
   return ${MSE_LAST_FUNCTION_ERR_CODE}
 }
