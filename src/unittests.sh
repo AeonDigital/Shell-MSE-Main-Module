@@ -49,45 +49,57 @@ else
 
 
 
+
+
   #
-  # Assets
-  MSE_MD_UTEST_PATH_TO_ASSETS+=("${MSE_GLOBAL_MAIN_PATH}/src/module.sh")
-  MSE_MD_UTEST_PATH_TO_ASSETS+=("${MSE_GLOBAL_MAIN_PATH}/src/functions/main/mse_main_array_search.sh")
+  # Register dependencies
+  MSE_MD_UTEST_PATH_TO_DEPENDENCIES+=("${MSE_GLOBAL_MAIN_PATH}/src/module.sh")
+  utestRegisterDependenciesScripts() {
+    local msePathTo_SRC_Directory="${MSE_GLOBAL_MAIN_PATH}/src/"
+    declare -a mseArgTo_Find_Dependencies=()
+    mseArgTo_Find_Dependencies+=("*/attachments/functions/*.sh")
+    mseArgTo_Find_Dependencies+=("*/attachments/labels/${MSE_GLOBAL_MODULES_USE_LOCALE}.sh")
+
+    local mseArgTo_Find_Path
+    local mseFullPathTo_SelectedDependenciesFiles
+    local mseFullPathTo_DependenceFile
+    for mseArgTo_Find_Path in "${mseArgTo_Find_Dependencies[@]}"; do
+      readarray -d '' mseFullPathTo_SelectedDependenciesFiles < <(find "${msePathTo_SRC_Directory}" -type f -path "${mseArgTo_Find_Path}" -print0)
+
+      if [ "${mseFullPathTo_SelectedDependenciesFiles}" != "" ] && [ "${#mseFullPathTo_SelectedDependenciesFiles[@]}" != "0" ]; then
+        for mseFullPathTo_DependenceFile in "${mseFullPathTo_SelectedDependenciesFiles[@]}"; do
+          MSE_MD_UTEST_PATH_TO_DEPENDENCIES+=("${mseFullPathTo_DependenceFile}")
+        done
+      fi
+    done
+  }
 
 
   #
   # Register functions scripts
   utestRegisterFunctionScripts() {
+    local msePathTo_SRC_Directory="${MSE_GLOBAL_MAIN_PATH}/src/"
+    local msePathTo_MSE_Directory="${msePathTo_SRC_Directory}mse/"
+    local mseFullPathTo_MSE_SelectedFunctionScriptFiles
+    local mseFullPathTo_MSE_FunctionScriptFile
+    local mseFullPathTo_MSE_FunctionScriptDirectory
+
+    local msePartialPath
     local mseFunctionName
-    local mseFunctionFileFullDir
-    local mseFunctionFilePath
-    local mseFunctionFileFullPath
-    local mseAssetFunctionsDir
-    local mseSubFunctionFileFullPath
 
-    local msePathToFunctionsDir="${MSE_GLOBAL_MAIN_PATH}/src/functions/"
-    readarray -d '' mseSelectedFunctionsScriptFiles < <(find "${msePathToFunctionsDir}" -type f -name "src.sh" -print0)
+    readarray -d '' mseFullPathTo_MSE_SelectedFunctionScriptFiles < <(find "${msePathTo_MSE_Directory}" -type f -name "src.sh" -print0)
+    if [ "${mseFullPathTo_MSE_SelectedFunctionScriptFiles}" != "" ] && [ "${#mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}" != "0" ]; then
+      for mseFullPathTo_MSE_FunctionScriptFile in "${mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}"; do
+        mseFullPathTo_MSE_FunctionScriptDirectory=$(dirname "${mseFullPathTo_MSE_FunctionScriptFile}")
 
-    if [ "${mseSelectedFunctionsScriptFiles}" != "" ] && [ "${#mseSelectedFunctionsScriptFiles[@]}" != "0" ]; then
-      for mseFunctionFileFullPath in "${mseSelectedFunctionsScriptFiles[@]}"; do
-        mseFunctionFileFullDir=$(dirname "${mseFunctionFileFullPath}")
-        mseFunctionFilePath="${mseFunctionFileFullDir/${msePathToFunctionsDir}/}"
-        mseFunctionName="${mseFunctionFilePath//\//_}"
+        msePartialPath="${mseFullPathTo_MSE_FunctionScriptDirectory/${msePathTo_SRC_Directory}/}"
+        mseFunctionName="${msePartialPath//\//_}"
 
         if [[ "${mseFunctionName}" == *__main ]]; then
           mseFunctionName="${mseFunctionName/__main/}"
         fi
 
-        MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseFunctionFileFullPath}"
-
-
-        mseAssetFunctionsDir="${mseFunctionFileFullDir}/assets/functions/"
-        if [ -d "${mseAssetFunctionsDir}" ]; then
-          readarray -d '' mseSelectedAssetFunctionsScriptFiles < <(find "${mseAssetFunctionsDir}" -type f -name "*.sh" -print0)
-          for mseSubFunctionFileFullPath in "${mseSelectedAssetFunctionsScriptFiles[@]}"; do
-            MSE_MD_UTEST_PATH_TO_ASSETS+=("${mseSubFunctionFileFullPath}")
-          done
-        fi
+        MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseFullPathTo_MSE_FunctionScriptFile}"
       done
     fi
   }
@@ -96,29 +108,35 @@ else
   #
   # Register tests scripts
   utestRegisterTestsScripts() {
-    local mseFunctionName
-    local mseFunctionFilePath
-    local mseFunctionFileFullPath
-    local msePathToFunctionsDir="${MSE_GLOBAL_MAIN_PATH}/src/functions/"
-    readarray -d '' mseSelectedFunctionsScriptFiles < <(find "${msePathToFunctionsDir}" -type f -name "test.sh" -print0)
+    local msePathTo_SRC_Directory="${MSE_GLOBAL_MAIN_PATH}/src/"
+    local msePathTo_MSE_Directory="${msePathTo_SRC_Directory}mse/"
+    local mseFullPathTo_MSE_SelectedFunctionScriptFiles
+    local mseFullPathTo_MSE_FunctionScriptFile
+    local mseFullPathTo_MSE_FunctionScriptDirectory
 
-    if [ "${mseSelectedFunctionsScriptFiles}" != "" ] && [ "${#mseSelectedFunctionsScriptFiles[@]}" != "0" ]; then
-      for mseFunctionFileFullPath in "${mseSelectedFunctionsScriptFiles[@]}"; do
-        mseFunctionFilePath=$(dirname "${mseFunctionFileFullPath}")
-        mseFunctionFilePath="${mseFunctionFilePath/${msePathToFunctionsDir}/}"
-        mseFunctionName="${mseFunctionFilePath//\//_}"
+    local msePartialPath
+    local mseFunctionName
+
+    readarray -d '' mseFullPathTo_MSE_SelectedFunctionScriptFiles < <(find "${msePathTo_MSE_Directory}" -type f -name "test.sh" -print0)
+    if [ "${mseFullPathTo_MSE_SelectedFunctionScriptFiles}" != "" ] && [ "${#mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}" != "0" ]; then
+      for mseFullPathTo_MSE_FunctionScriptFile in "${mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}"; do
+        mseFullPathTo_MSE_FunctionScriptDirectory=$(dirname "${mseFullPathTo_MSE_FunctionScriptFile}")
+
+        msePartialPath="${mseFullPathTo_MSE_FunctionScriptDirectory/${msePathTo_SRC_Directory}/}"
+        mseFunctionName="${msePartialPath//\//_}"
 
         if [[ "${mseFunctionName}" == *__main ]]; then
           mseFunctionName="${mseFunctionName/__main/}"
         fi
 
-        MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseFunctionFileFullPath}"
+        MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseFullPathTo_MSE_FunctionScriptFile}"
       done
     fi
   }
 
 
 
+  utestRegisterDependenciesScripts
   utestRegisterFunctionScripts
   utestRegisterTestsScripts
 
