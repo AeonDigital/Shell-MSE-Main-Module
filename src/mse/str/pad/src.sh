@@ -11,11 +11,7 @@ mse_str_pad() {
   local mseTotalLength="${3}"
   local msePadPosition="${4}"
 
-  if [ "${msePadPosition}" == "left" ] || [ "${msePadPosition}" == "l" ]; then
-    msePadPosition="l"
-  elif [ "${msePadPosition}" == "right" ] || [ "${msePadPosition}" == "r" ]; then
-    msePadPosition="r"
-  else
+  if [ "${msePadPosition}" != "l" ] && [ "${msePadPosition}" != "r" ]; then
     msePadPosition=""
   fi
 

@@ -27,7 +27,7 @@ substring.
 &nbsp;
 
 
-## string position
+## char position
 
 - aka       : -pos --position
 - default   : b

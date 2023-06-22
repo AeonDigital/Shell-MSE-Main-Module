@@ -1,6 +1,6 @@
 # Synopsis
 
-Counts the lines of the file or string and prints the result
+Counts the lines of the file or string and prints the result.
 
 
 

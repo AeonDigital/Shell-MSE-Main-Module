@@ -20,27 +20,23 @@ mse_str_trim_substring() {
     local elem
     local mseArrElemOne
     local mseArrElemLas
-    local mseTrimType
+    local mseTrimType="${3}"
+
+    if [ "${3}" == "" ] || ([ "${3}" != "r" ] && [ "${3}" != "l" ]); then
+      mseTrimType="b"
+    fi
+
 
     i=0
     ((li = mseArrLen - 1))
     mseArrElemOne="${mseArrTmp[$ii]}"
     mseArrElemLas="${mseArrTmp[$li]}"
 
-    mseTrimType="both"
-    if [ "$#" -ge "3" ]; then
-      if [ "${3,,}" == "r" ]; then
-        mseTrimType="right"
-      elif [ "${3,,}" == "l" ]; then
-        mseTrimType="left"
-      fi
-    fi
-
-    if [ "${mseTrimType}" == "both" ] || [ "${mseTrimType}" == "left" ]; then
+    if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "l" ]; then
       # Efetua um 'trimR' no primeiro ítem
       mseArrTmp[$ii]="${mseArrElemOne%"${mseArrElemOne##*[![:space:]]}"}" # trim R
     fi
-    if [ "${mseTrimType}" == "both" ] || [ "${mseTrimType}" == "right" ]; then
+    if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "r" ]; then
       # Efetua um 'trimL' no último ítem
       mseArrTmp[$li]="${mseArrElemLas#"${mseArrElemLas%%[![:space:]]*}"}" # trim L
     fi
@@ -52,10 +48,10 @@ mse_str_trim_substring() {
       for (( i=1; i<li; i++ )); do
         elem="${mseArrTmp[$i]}"
 
-        if [ "${mseTrimType}" == "both" ] || [ "${mseTrimType}" == "left" ]; then
+        if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "l" ]; then
           elem="${elem%"${elem##*[![:space:]]}"}" # trim R
         fi
-        if [ "${mseTrimType}" == "both" ] || [ "${mseTrimType}" == "right" ]; then
+        if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "r" ]; then
           elem="${elem#"${elem%%[![:space:]]*}"}" # trim L
         fi
 

@@ -141,5 +141,5 @@ else
   utestRegisterFunctionScripts
   utestRegisterTestsScripts
 
-  mse_md_utest_execute "${1}"
+  mse_md_utest_execute "${1}" "${2}"
 fi

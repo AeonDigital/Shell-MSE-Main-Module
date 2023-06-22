@@ -26,7 +26,7 @@ Escreve uma ou mais linhas de dados no arquivo alvo na posição indicada.
 
 &nbsp;
 
-## string mode
+## char mode
 
 - aka       : -m --mode
 - default   : a

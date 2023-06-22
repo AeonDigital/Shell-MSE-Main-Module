@@ -45,7 +45,7 @@ Adiciona na string original um total de caracteres "pad" à esquerda ou direita
 &nbsp;
 
 
-## string position
+## char position
 
 - aka       : -pos --position
 - options   :

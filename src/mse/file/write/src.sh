@@ -24,24 +24,24 @@ mse_file_write() {
 
   if [ $# -ge 3 ]; then
     case "${3}" in
-      prepend | p)
+      p)
         mseAction="p"
         mseTargetFirstLine=1
         mseTargetLastLine=0
       ;;
-      append | a)
+      a)
         mseAction="a"
         mseTargetFirstLine=${mseFileLastLine}
         mseTargetLastLine=0
       ;;
-      replace | r)
+      r)
         mseAction="r"
         if [ $# -lt 4 ]; then
           mseReturnCod=11
           mseReturnMsg=$(mse_str_replace_placeHolder "${lbl_err_paramA_RequiredFor_A_Operation}" "PARAM_A" "targetLine" "A" "replace")
         fi
       ;;
-      delete | d)
+      d)
         mseAction="d"
         if [ $# -lt 4 ]; then
           mseReturnCod=12

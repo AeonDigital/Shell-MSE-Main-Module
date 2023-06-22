@@ -44,7 +44,7 @@ Adds to the original string a total of "pad" characters to the left or right
 &nbsp;
 
 
-## string position
+## char position
 
 - aka       : -pos --position
 - options   :

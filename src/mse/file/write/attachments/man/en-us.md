@@ -26,7 +26,7 @@ Writes one or more lines of data to the target file at the indicated position.
 
 &nbsp;
 
-## string mode
+## char mode
 
 - aka       : -m --mode
 - default   : a
