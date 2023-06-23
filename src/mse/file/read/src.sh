@@ -6,17 +6,17 @@ mse_file_read() {
   mseLastFunctionVariablesReset
 
   local mseLineRaw
-  local mseFileContent="${1}"
+  local mseTarget="${1}"
 
 
-  if [ -f "${mseFileContent}" ]; then
-    mseFileContent=$(< "${mseFileContent}")
+  if [ -f "${mseTarget}" ]; then
+    mseTarget=$(< "${mseTarget}")
   fi
 
 
 
-  if [ "${mseFileContent}" != "" ]; then
-    declare -n mseReadOptions="${2}"
+  if [ "${mseTarget}" != "" ]; then
+    declare -n mseArrayName="${2}"
 
 
 
@@ -26,10 +26,10 @@ mse_file_read() {
     declare -a block_start_check_args_array=()
     local block_start_get_first_line
 
-    if [ "${mseReadOptions[block_start_check]}" != "" ]; then
-      block_start_check="${mseReadOptions[block_start_check]}"
-      block_start_check_args="${mseReadOptions[block_start_check_args]}"
-      block_start_check_args_sep="${mseReadOptions[block_start_check_args_sep]}"
+    if [ "${mseArrayName[block_start_check]}" != "" ]; then
+      block_start_check="${mseArrayName[block_start_check]}"
+      block_start_check_args="${mseArrayName[block_start_check_args]}"
+      block_start_check_args_sep="${mseArrayName[block_start_check_args_sep]}"
       block_start_get_first_line="0"
 
       if [ "${block_start_check_args_sep}" != "" ]; then
@@ -37,7 +37,7 @@ mse_file_read() {
         block_start_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
       fi
 
-      if [ "${mseReadOptions[block_start_get_first_line]}" == "1" ]; then
+      if [ "${mseArrayName[block_start_get_first_line]}" == "1" ]; then
         block_start_get_first_line="1"
       fi
     fi
@@ -50,10 +50,10 @@ mse_file_read() {
     declare -a block_end_check_args_array=()
     local block_end_get_last_line
 
-    if [ "${mseReadOptions[block_end_check]}" != "" ]; then
-      block_end_check="${mseReadOptions[block_end_check]}"
-      block_end_check_args="${mseReadOptions[block_end_check_args]}"
-      block_end_check_args_sep="${mseReadOptions[block_end_check_args_sep]}"
+    if [ "${mseArrayName[block_end_check]}" != "" ]; then
+      block_end_check="${mseArrayName[block_end_check]}"
+      block_end_check_args="${mseArrayName[block_end_check_args]}"
+      block_end_check_args_sep="${mseArrayName[block_end_check_args_sep]}"
       block_end_get_last_line="0"
 
       if [ "${block_end_check_args_sep}" != "" ]; then
@@ -61,7 +61,7 @@ mse_file_read() {
         block_end_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
       fi
 
-      if [ "${mseReadOptions[block_end_get_last_line]}" == "1" ]; then
+      if [ "${mseArrayName[block_end_get_last_line]}" == "1" ]; then
         block_end_get_last_line="1"
       fi
     fi
@@ -69,7 +69,7 @@ mse_file_read() {
 
 
     local block_check_invert="0"
-    if [ "${mseReadOptions[block_check_invert]}" == "1" ]; then
+    if [ "${mseArrayName[block_check_invert]}" == "1" ]; then
       block_check_invert="1"
     fi
 
@@ -82,10 +82,10 @@ mse_file_read() {
     local line_check_invert
     local line_check_has_linenumber
 
-    if [ "${mseReadOptions[line_check]}" != "" ]; then
-      line_check="${mseReadOptions[line_check]}"
-      line_check_args="${mseReadOptions[line_check_args]}"
-      line_check_args_sep="${mseReadOptions[line_check_args_sep]}"
+    if [ "${mseArrayName[line_check]}" != "" ]; then
+      line_check="${mseArrayName[line_check]}"
+      line_check_args="${mseArrayName[line_check_args]}"
+      line_check_args_sep="${mseArrayName[line_check_args_sep]}"
       line_check_invert="0"
       line_check_has_linenumber="0"
 
@@ -94,11 +94,11 @@ mse_file_read() {
         line_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
       fi
 
-      if [ "${mseReadOptions[line_check_invert]}" == "1" ]; then
+      if [ "${mseArrayName[line_check_invert]}" == "1" ]; then
         line_check_invert="1"
       fi
 
-      if [ "${mseReadOptions[line_check_has_linenumber]}" == "1" ]; then
+      if [ "${mseArrayName[line_check_has_linenumber]}" == "1" ]; then
         line_check_has_linenumber="1"
       fi
     fi
@@ -111,17 +111,17 @@ mse_file_read() {
     declare -a line_transform_args_array=()
     local line_transform_has_linenumber
 
-    if [ "${mseReadOptions[line_transform]}" != "" ]; then
-      line_transform="${mseReadOptions[line_transform]}"
-      line_transform_args="${mseReadOptions[line_transform_args]}"
-      line_transform_args_sep="${mseReadOptions[line_transform_args_sep]}"
+    if [ "${mseArrayName[line_transform]}" != "" ]; then
+      line_transform="${mseArrayName[line_transform]}"
+      line_transform_args="${mseArrayName[line_transform_args]}"
+      line_transform_args_sep="${mseArrayName[line_transform_args_sep]}"
 
       if [ "${line_transform_args_sep}" != "" ]; then
         mse_str_split "${line_transform_args_sep}" "${line_transform_args}"
         line_transform_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
       fi
 
-      if [ "${mseReadOptions[line_transform_has_linenumber]}" == "1" ]; then
+      if [ "${mseArrayName[line_transform_has_linenumber]}" == "1" ]; then
         line_transform_has_linenumber=1
       fi
     fi
@@ -129,13 +129,13 @@ mse_file_read() {
 
 
     local line_hide_empty="0"
-    if [ "${mseReadOptions[line_hide_empty]}" == "1" ] || ([ $# -ge 3 ] && [ "$3" == "1" ]); then
+    if [ "${mseArrayName[line_hide_empty]}" == "1" ] || ([ $# -ge 3 ] && [ "${3}" == "1" ]); then
       line_hide_empty="1"
     fi
 
 
     local line_show_number="0"
-    if [ "${mseReadOptions[line_show_number]}" == "1" ] || ([ $# -ge 4 ] && [ "$4" == "1" ]); then
+    if [ "${mseArrayName[line_show_number]}" == "1" ] || ([ $# -ge 4 ] && [ "${4}" == "1" ]); then
       line_show_number="1"
     fi
 
@@ -222,7 +222,7 @@ mse_file_read() {
           fi
         fi
       fi
-    done <<< "${mseFileContent}"
+    done <<< "${mseTarget}"
 
     IFS=$' \t\n'
   fi

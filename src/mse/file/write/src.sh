@@ -10,12 +10,12 @@ mse_file_write() {
   local mseReturnMsg=""
 
 
-  local mseFilePath="$1"
-  local mseFileContent=$(< "${mseFilePath}")
-  local mseFileLastLine=$(mse_file_countLines "${mseFilePath}")
+  local mseFile="${1}"
+  local mseFileContent=$(< "${mseFile}")
+  local mseFileLastLine=$(mse_file_countLines "${mseFile}")
 
-  declare -n mseContentArrayName
-  mseContentArrayName="${2}"
+  declare -n mseNewLines
+  mseNewLines="${2}"
 
   local mseAction="a"
   local mseTargetFirstLine
@@ -135,7 +135,7 @@ mse_file_write() {
 
         if [ "${mseAction}" != "d" ]; then
           local mseNL
-          for mseNL in "${mseContentArrayName[@]}"; do
+          for mseNL in "${mseNewLines[@]}"; do
             mseNewFileContent+="${mseNL//\\/\\\\}\n"
           done
         fi
@@ -153,7 +153,7 @@ mse_file_write() {
 
     IFS=$' \t\n'
 
-    printf "${mseNewFileContent}" > "${mseFilePath}"
+    printf "${mseNewFileContent}" > "${mseFile}"
     if [ $? != 0 ]; then
       mseReturnCod=1
       mseReturnMsg="${lbl_fw_iv_errorOnSave}"

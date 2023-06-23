@@ -8,12 +8,12 @@ mse_file_getBoundaryLineNumbers() {
 
 
   if [ $# -ge 5 ] && [ -f "${1}" ]; then
-    local msePathToFile="${1}"
+    local mseTarget="${1}"
     local mseCommentChar="${2}"
-    local mseConfigFile="${3}"
-    local mseSectionStart="${4}"
-    local mseSectionEnd="${5}"
-    local mseRemoveLastEmptyLines="${6}"
+    local mseIsConfigFile="${3}"
+    local mseStartSection="${4}"
+    local mseEndSection="${5}"
+    local mseIgnoreTrailingEmptyLines="${6}"
 
     local mseFirstLine
     local mseFirstLineNumber=""
@@ -24,9 +24,9 @@ mse_file_getBoundaryLineNumbers() {
     local mseRawLines
 
 
-    if [ "${mseSectionStart}" == "" ]; then
+    if [ "${mseStartSection}" == "" ]; then
       mseFirstLineNumber="1"
-      mseLastLineNumber=$(mse_file_countLines "${msePathToFile}")
+      mseLastLineNumber=$(mse_file_countLines "${mseTarget}")
     else
       unset mseReadOptionsBLN
       declare -A mseReadOptionsBLN
@@ -34,32 +34,32 @@ mse_file_getBoundaryLineNumbers() {
 
 
 
-      if [ "${mseConfigFile}" == "1" ]; then
+      if [ "${mseIsConfigFile}" == "1" ]; then
         mseReadOptionsBLN["block_start_check"]="mse_file_read_checkSection_start"
-        mseReadOptionsBLN["block_start_check_args"]="${mseSectionStart}"
+        mseReadOptionsBLN["block_start_check_args"]="${mseStartSection}"
         mseReadOptionsBLN["block_start_check_args_sep"]=","
         mseReadOptionsBLN["block_start_get_first_line"]="1"
 
         mseReadOptionsBLN["block_end_check"]="mse_file_read_checkSection_end"
       else
         mseReadOptionsBLN["block_start_check"]="mse_file_read_checkArbitratySection_start"
-        mseReadOptionsBLN["block_start_check_args"]="${mseSectionStart}"
+        mseReadOptionsBLN["block_start_check_args"]="${mseStartSection}"
         mseReadOptionsBLN["block_start_check_args_sep"]=""
         mseReadOptionsBLN["block_start_get_first_line"]="1"
 
         mseReadOptionsBLN["block_end_check"]="mse_file_read_checkArbitratySection_end"
-        mseReadOptionsBLN["block_end_check_args"]="${mseSectionEnd}"
+        mseReadOptionsBLN["block_end_check_args"]="${mseEndSection}"
         mseReadOptionsBLN["block_end_check_args_sep"]=""
         mseReadOptionsBLN["block_end_get_last_line"]="1"
       fi
 
 
 
-      mseRawLines=$(mse_file_read "${msePathToFile}" "mseReadOptionsBLN" 0 1)
+      mseRawLines=$(mse_file_read "${mseTarget}" "mseReadOptionsBLN" 0 1)
 
 
 
-      if [ "${mseRemoveLastEmptyLines}" == "1" ]; then
+      if [ "${mseIgnoreTrailingEmptyLines}" == "1" ]; then
         declare -a mseNewRawLines=()
         local mseLineRaw=""
 
