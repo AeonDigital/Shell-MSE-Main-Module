@@ -10,6 +10,11 @@
 . src/unittests.sh
 . src/unittests.sh "mse_file_read"
 
+Seguir com:
+- Font
+- Interface
+- Exec
+
 
 Comandos usados que não são built-in do bash
 - find

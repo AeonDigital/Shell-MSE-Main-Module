@@ -58,6 +58,7 @@ else
   utestRegisterDependenciesScripts() {
     local msePathTo_SRC_Directory="${MSE_GLOBAL_MAIN_PATH}/src/"
     declare -a mseArgTo_Find_Dependencies=()
+    mseArgTo_Find_Dependencies+=("*/vars.sh")
     mseArgTo_Find_Dependencies+=("*/attachments/functions/*.sh")
     mseArgTo_Find_Dependencies+=("*/attachments/labels/${MSE_GLOBAL_MODULES_USE_LOCALE}.sh")
 
