@@ -8,7 +8,7 @@ mse_file_config_variable_showAll() {
 
   unset mseReadOptionsShowVars
   declare -A mseReadOptionsShowVars
-  mse_file_prepareRead "mseReadOptionsShowVars"
+  mse_prepare_file_read "mseReadOptionsShowVars"
 
   if [ $# -ge 2 ] && [ "${2}" != "" ]; then
     mseReadOptionsShowVars["block_start_check"]="mse_file_read_checkSection_start"

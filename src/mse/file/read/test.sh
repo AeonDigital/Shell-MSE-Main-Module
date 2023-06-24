@@ -9,7 +9,7 @@ test_mse_file_read() {
   declare -A mseTestArrRead
 
 
-  mse_file_prepareRead "mseTestArrRead"
+  mse_prepare_file_read "mseTestArrRead"
 
   testResult=$(mse_file_read "${dir}/attachments/test/sample/test_mse_file_read_raw" "mseTestArrRead")
   testExpected="$(< "${dir}/attachments/test/expected/test_mse_file_read_raw_0_0")"

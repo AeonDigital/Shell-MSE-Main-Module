@@ -33,7 +33,7 @@ configurações de leitura.
   Nome do array associativo que traz as configurações para leitura do arquivo.
 
 Para configurar este array associativo você pode usar a função 
-**mse_file_prepareRead**.
+**mse_prepare_file_read**.
 
 
 &nbsp;

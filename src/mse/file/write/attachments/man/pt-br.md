@@ -71,7 +71,7 @@ A escrita se dará na linha de número indicado.
 
 [string]
 Neste caso, o conteúdo da string deve ser de 2 numerais inteiros separados por 
-um espaço (tal qual o resultado de mse_file_getBoundaryLineNumbers).
+um espaço (tal qual o resultado de mse_file_get_boundaryLineNumbers).
 
 **exemplo**  
 Recebendo os valores "10 15" substituirá totalmente o conteúdo das linhas 10, 

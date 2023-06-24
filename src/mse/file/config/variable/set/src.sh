@@ -107,7 +107,7 @@ mse_file_config_variable_set() {
       fi
 
 
-      local mseTargetSectionLines=$(mse_file_getBoundaryLineNumbers "${mseFile}" "${mseCommentChar}" "${mseConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
+      local mseTargetSectionLines=$(mse_file_get_boundaryLineNumbers "${mseFile}" "${mseCommentChar}" "${mseConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
 
 
       mse_str_split " " "${mseTargetSectionLines}"

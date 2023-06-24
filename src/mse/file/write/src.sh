@@ -12,7 +12,7 @@ mse_file_write() {
 
   local mseFile="${1}"
   local mseFileContent=$(< "${mseFile}")
-  local mseFileLastLine=$(mse_file_countLines "${mseFile}")
+  local mseFileLastLine=$(mse_file_count_lines "${mseFile}")
 
   declare -n mseNewLines
   mseNewLines="${2}"

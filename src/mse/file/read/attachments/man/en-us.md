@@ -31,7 +31,7 @@ Returns all lines that match the definitions indicated in the read settings.
 - hint      :  
   Name of the associative array that brings the settings for reading the file.
 
-To configure this associative array, you can use the **mse_file_prepareRead** 
+To configure this associative array, you can use the **mse_prepare_file_read** 
 function.
 
 

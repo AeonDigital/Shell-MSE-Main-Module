@@ -259,7 +259,7 @@ test_mse_file_config_variable_set() {
   # Prepares the reader to rescue the affected lines
   unset mseReadOptionsUTest
   declare -A mseReadOptionsUTest
-  mse_file_prepareRead "mseReadOptionsUTest"
+  mse_prepare_file_read "mseReadOptionsUTest"
 
   mseReadOptionsUTest["block_start_check"]="mse_file_read_checkArbitratySection_start"
   mseReadOptionsUTest["block_start_check_args"]="# [[INI-MSE_UTEST]]"

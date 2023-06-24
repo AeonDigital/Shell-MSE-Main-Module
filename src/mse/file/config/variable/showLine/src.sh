@@ -15,7 +15,7 @@ mse_file_config_variable_showLine() {
   if [ "${mseRawSection}" != "" ]; then
     unset mseReadOptionsShowVarLine
     declare -A mseReadOptionsShowVarLine
-    mse_file_prepareRead "mseReadOptionsShowVarLine"
+    mse_prepare_file_read "mseReadOptionsShowVarLine"
 
 
     mseReadOptionsShowVarLine["line_check"]="mse_file_read_checkLine_hasVariable"
