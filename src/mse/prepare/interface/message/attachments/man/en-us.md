@@ -1,7 +1,7 @@
 # Synopsis
 
-Prepares an associative array by filling in the keys required to execute a 
-`mse_file_read` command.
+Prepares an associative array by filling in the keys required for execution of 
+a command **mse_inter_showMessage**.
 
 
 
@@ -9,130 +9,128 @@ Prepares an associative array by filling in the keys required to execute a
 
 # Description
 
-Reading a file allows you to filter and transform the desired parts according 
-to the settings you set.
+If no configuration criteria are passed, every message is defined 
+by the current theme.
 
-There are four configuration sets that can be used, below is the description of 
-each one and which configurations are part of it.
-The description of each configuration can be seen in the information about the 
-parameters used for this function.
+The configuration is done in five parts, each of which is responsible for the 
+settings of an area of the message.
+
+The anatomy of the components of the messages can be described as follows:
+
+[[top_separator]]
+
+  [[title_top_separator]]
+    [[title_indent]] [[title_bullet]] [[title_string]] [[title_string_end]]
+  [[title_bottom_separator]]
+
+  [[body_top_separator]]
+    [[body_first_line_indent]] [[body_first_line_bullet]] [[body_first_line]]
+    [[body_lines_indent]] [[body_lines_bullet]] [[body_lines]]
+  [[body_bottom_separator]]
+
+[[ bottom_separator]]
 
 
 &nbsp;
 
-## Part 01: Text block-level control
+## Part 01: Meta formatting
 
-Allows you to identify which parts of the document should be returned or
-from where it should be ignored.  
+Here are defined properties that affect all other parts of the body of the 
+message.
 Keys defined in this part:
 
-- block_start_check
-- block_start_check_args
-- block_start_check_args_sep
-- block_start_get_first_line
-- block_end_check
-- block_end_check_args
-- block_end_check_args_sep
-- block_end_get_last_line
-- block_check_invert
+- meta_type
+- meta_theme
+- meta_format
 
 
 &nbsp;
 
-## Part 02: Line-Level Control
+## Part 02: Message top tab
 
-Allows you to pass rules that will do line-by-line validation to identify those
-that should be returned.  
+Allows you to define a separator at the top of the message that will be shown 
+to the user.
 Keys defined in this part:
 
-- line_check
-- line_check_args
-- line_check_args_sep
-- line_check_invert
-- line_check_has_linenumber
+- top_separator_string
+- top_separator_color
+- top_separator_color_alt
+- top_separator_colorize
 
 
 &nbsp;
 
-## Part 03: Transformation Controls
+## Part 03: Tittle
 
-Configures transformations to be applied to the lines that will be returned.  
+Configures how the message title will be shown.
 Keys defined in this part:
 
-- line_transform
-- line_transform_args
-- line_transform_args_sep
-- line_transform_has_linenumber
+- title_show
+- title_type
+- title_top_separator_string
+- title_top_separator_color
+- title_top_separator_color_alt
+- title_top_separator_colorize
+- title_indent
+- title_bullet
+- title_bullet_color
+- title_bullet_color_alt
+- title_bullet_colorize
+- title_string
+- title_string_color
+- title_string_color_alt
+- title_string_colorize
+- title_string_end
+- title_bottom_separator_string
+- title_bottom_separator_color
+- title_bottom_separator_color_alt
+- title_bottom_separator_colorize
 
 
 &nbsp;
 
-## Part 04: Other settings
+## Part 04: Message body
   
-General use for settings that do not necessarily fall under any of the above.  
+Configures sampling of the message body.
 Keys defined in this part:
 
-- line_hide_empty
-- line_show_number
-
+- body_show
+- body_top_separator_string
+- body_top_separator_color
+- body_top_separator_color_alt
+- body_top_separator_colorize
+- body_first_line_indent
+- body_first_line_bullet
+- body_first_line_bullet_color
+- body_first_line_bullet_color_alt
+- body_first_line_bullet_colorize
+- body_lines_indent
+- body_lines_bullet
+- body_lines_bullet_color
+- body_lines_bullet_color_alt
+- body_lines_bullet_colorize
+- body_lines
+- body_lines_color
+- body_lines_color_alt
+- body_lines_colorize
+- body_bottom_separator_string
+- body_bottom_separator_color
+- body_bottom_separator_color_alt
+- body_bottom_separator_colorize
 
 
 &nbsp;
 
-## VALIDATING and TRANSFORMATION FUNCTIONS
+## Part 05: Bottom tab of the message
 
-When reading a file you can identify the areas of it that should be returned 
-and also if any transformation should be made in the lines that will be 
-presented. For each of these tasks you must write a function that tells the 
-algorithm what to do.
+Allows you to define a separator below the message that will be shown to the 
+user.
+Keys defined in this part:
 
-To identify the blocks to be returned, it is necessary to write a validator 
-function.
-This function aims to analyze the contents of one of the lines of the file and 
-test whether or not it should be treated as the beginning of a valid block of 
-text.
-
-To identify the blocks to be returned, it is necessary to write a validator 
-function.
-This function aims to analyze the contents of one of the lines of the file and 
-test whether or not it should be treated as the beginning of a valid block of 
-text.
-
-Both types of functions have the same parameter signature but differ in 
-expected return. The validator functions return a boolean and the transformers 
-a string.
-
-
-### INTERFACE
-
-```
-  # Parameters
-  ## assoc arrayName
-  Name of the associative array that brings the read settings currently in use.
-
-  ## int lineNumber
-  Line number.
-
-  ## string lineContent
-  Line Contents.
-
-  ## bool isRaw
-  Use `0` to inform you that the lines being processed are in "raw" format 
-  (just like in the original file).
-  Use `1` to inform that there is, in the content of each line, the information 
-  of its respective number within the target file.
-
-  ## string args
-  Optional argument.
-
-
-  # Returns bool|string
-  `bool` for **validating functions**
-  `1` if the test is positive and `0` if it is negative.
-
-  `string` for **transformation functions**
-  Returns the transformed line.
-```
+- bottom_separator_string
+- bottom_separator_color
+- bottom_separator_color_alt
+- bottom_separator_colorize
 
 
 
@@ -140,7 +138,7 @@ a string.
 
 # Parameters
 
-## assoc arrayName
+## string arrayName
 
 - aka       : -a --arrayName
 - hint      :  
@@ -149,132 +147,79 @@ a string.
 
 &nbsp;
 
-## function blockStartCheck
+## string type
 
-- aka       : --blockStartCheck
+- aka       : --type
+- default   : n
+- options   : 
+  - n   : none
+  - i   : info
+  - a   : attention
+  - w   : warning
+  - e   : error
+  - f   : fail
+  - s   : success
+
+  - fr  : friendly
+  - or  : ordinary
+  - ca  : caution
+  - im  : important
 - hint      :  
-  Name of a validator function to identify the beginning of the valid part of 
-  the file.
+  Message type.
 
-["block_start_check"]
-Indicates the name of a validator function that can identify the beginning of a 
-**valid** part of a file that you want to return.
+["meta_type"]
+Configure the type of message to show to the user.
+Each theme has the responsibility to make the necessary adjustments as it 
+follows parameter.
 
-Keeping this value empty will cause the entire contents of the file to be 
-considered **returnable**.
-On the contrary, by indicating a validator function will cause all lines to be
-considered **non-returnable** until reaching one whose test returns positive.
+Below is a brief description of the meaning of each type and for which 
+purpose it should be used.
 
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
+**Alert Messages**
+
+- none      | n   : Not defined; none
+- info      | i   : Generic information.
+- attention | a   : Attention.
+- warning   | w   : Warning.
+- error     | e   : Error in an operation.
+- fail      | f   : An operation failed.
+- success   | s   : Success in an operation.
+
+
+**Prompt Messages**
+
+- friendly  | fr  : Friendly. Unimportant question.
+- ordinary  | or  : Ordinary. Standard question.
+- caution   | ca  : Caution. Issue that requires user attention or has the 
+                    potential for some permanent change.
+- important | im  : Important. Issue with the potential to cause permanent 
+                    change in script processing or on the PC itself.
 
 
 &nbsp;
 
-## string blockStartCheckArgs
+## string theme
 
-- aka       : --blockStartCheckArgs
+- aka       : --theme
 - hint      :  
-  Sets extra arguments for the function defined in **blockStartCheck**.
+  Name of the theme to use to generate the message.
 
-["block_start_check_args"]
-Allows you to pass some information that will be used in the validator function
-as an extra argument.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
+["meta_theme"]
+Theme settings will override any other settings defined in this function.
 
 
 &nbsp;
 
-## string blockStartCheckArgsSep
+## string format
 
-- aka       : --blockStartCheckArgsSep
+- aka       : --format
 - hint      :  
-  Value separator for the arguments of the **blockStartCheck** function.
+  Style of the message display format (as available by theme).
 
-["block_start_check_args_sep"]
-Indicates the string that should be used to **split** the collection of 
-arguments passed in **blockStartCheckArgs**.
-
-
-&nbsp;
-
-## bool blockStartGetFirstLine
-
-- aka       : --blockStartGetFirstLine
-- default   : 0
-- hint      :  
-  Indicates whether the first valid row of the block should be returned.
-
-["block_start_get_first_line"]
-By default, the key line that indicates the beginning of a valid block is not 
-returned. Use this parameter to change this behavior.
-
-
-
-
-
-&nbsp;
-
-## function blockEndCheck
-
-- aka       : --blockEndCheck
-- hint      :  
-  Name of a validator function to identify the end of the valid part of the 
-  file.
-
-["block_end_check"]
-Indicates the name of a validator function that can identify the ending of a 
-**valid** part of a file.
-
-By keeping this value empty, the file will be returned from the first valid 
-line to its last line.
-On the other hand, defining a validator function will cause the return of the 
-content to stop when it reaches the first line that satisfies the defined 
-criterion.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
-
-
-&nbsp;
-
-## string blockEndCheckArgs
-
-- aka       : --blockEndCheckArgs
-- hint      :  
-  Sets extra arguments for the function defined in **blockEndCheck**.
-
-["block_end_check_args"]
-Allows you to pass some information that will be used in the validator function
-as an extra argument.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
-
-
-&nbsp;
-
-## string blockEndCheckArgsSep
-
-- aka       : --blockEndCheckArgsSep
-- hint      :  
-  Value separator for the arguments of the **blockEndCheck** function.
-
-["block_end_check_args_sep"]
-Indicates the string that should be used to **split** the collection of 
-arguments passed in **blockEndCheckArgs**.
-
-
-&nbsp;
-
-## bool blockEndGetLastLine
-
-- aka       : --blockEndGetLastLine
-- default   : 0
-- hint      :  
-  Indicates whether the last valid row of the block should be returned.
-
-["block_end_get_last_line"]
-By default, the key line that indicates the ending of a valid block is not 
-returned. Use this parameter to change this behavior.
+["meta_format"]
+Each theme can provide multiple message formats, if any, in this parameter 
+should be indicated which should be used. Otherwise the format default will be 
+used.
 
 
 
@@ -282,18 +227,59 @@ returned. Use this parameter to change this behavior.
 
 &nbsp;
 
+## string topSeparatorString
 
-## bool blockCheckInvert
-
-- aka       : --blockCheckInvert
-- default   : 0
+- aka       : --topSeparatorString
 - hint      :  
-  Reverses the result of the **blockStartCheck** and **blockEndCheck** 
-  functions.
+  String used for this separator.
 
-["block_check_invert"]
-Indicate whether the result of the functions defined in **blockStartCheck** and 
-**blockEndCheck** should be reversed.
+["top_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
+
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string topSeparatorColor
+
+- aka       : --topSeparatorColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["top_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
+
+
+&nbsp;
+
+## string topSeparatorColorAlt
+
+- aka       : --topSeparatorColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["top_separator_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool topSeparatorColorize
+
+- aka       : --topSeparatorColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["top_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
 
 
 
@@ -301,82 +287,30 @@ Indicate whether the result of the functions defined in **blockStartCheck** and
 
 &nbsp;
 
+## bool titleShow
 
-## function lineCheck
-
-- aka       : --lineCheck
+- aka       : --titleShow
+- default   : 1
 - hint      :  
-  Name of a validator function that identifies valid lines.
+  Indicates whether this component should be shown or omitted.
 
-["line_check"]
-Indicates the name of a validator function that allows you to identify whether 
-the line currently being processed should be returned.
-
-Keeping this value empty will cause all lines within a valid block to be 
-returnable.
-On the contrary, by indicating a validator function will cause all lines to be 
-considered **non-returnable** except those that pass the proposed test.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
+["title_show"]
 
 
 &nbsp;
 
-## string lineCheckArgs
+## bool titleType
 
-- aka       : --lineCheckArgs
+- aka       : --titleType
 - hint      :  
-  Sets extra arguments for the function defined in **lineCheck**.
+  Indicates the type of title that should be shown (varies by theme).
 
-["line_check_args"]
-Allows you to pass some information that will be used in the validator function
-as an extra argument.
+["title_type"]
+Themes can provide different types of titles and can change the way they are 
+presented.
 
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
-
-
-&nbsp;
-
-## string lineCheckArgsSep
-
-- aka       : --lineCheckArgsSep
-- hint      :  
-  Value separator for the arguments of the **lineCheck** function.
-
-["line_check_args_sep"]
-Indicates the string that should be used to **split** the collection of 
-arguments passed in **lineCheck**.
-
-
-
-&nbsp;
-
-
-## bool lineCheckInvert
-
-- aka       : --lineCheckInvert
-- default   : 0
-- hint      :  
-  Reverses the result of the **lineCheck** function.
-
-["line_check_invert"]
-Indicate whether the result of the function defined in **lineCheck** should be 
-reversed.
-
-
-
-&nbsp;
-
-
-## bool lineCheckHasLineNumber
-
-- aka       : --lineCheckHasLineNumber
-- default   : 0
-- hint      :  
-  Indicates when line number information is present in line content.
-
-["line_check_has_linenumber"]
-Indicates when line number information is present in line content.
+If nothing is specified for this property, the default value defined by the 
+theme being used is used.
 
 
 
@@ -384,63 +318,59 @@ Indicates when line number information is present in line content.
 
 &nbsp;
 
-## function lineTransform
+## bool titleTopSeparatorString
 
-- aka       : --lineTransform
+- aka       : --titleTopSeparatorString
 - hint      :  
-  Name of the transformer function that will be used on valid lines.
+  String used for this separator.
 
-["line_transform"]
-Indicates the name of a function that will promote a transformation on the 
-target line, allowing it to be seen differently from what is currently 
-registered in the file.
+["title_top_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
 
-No changes will be made to the file itself.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
+If no characters are defined, this component is omitted entirely.
 
 
 &nbsp;
 
-## string lineTransformArgs
+## string titleTopSeparatorColor
 
-- aka       : --lineTransformArgs
+- aka       : --titleTopSeparatorColor
 - hint      :  
-  Sets extra arguments for the function defined in **lineTransform**.
+  Code of the color that should be used in this component.
 
-["line_transform_args"]
-Allows you to pass some information that will be used in the transformation
-function as an extra argument.
-
-See the **VALIDATING and TRANSFORMATION FUNCTIONS** section.
+["title_top_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
 
 
 &nbsp;
 
-## string lineTransformArgsSep
+## string titleTopSeparatorColorAlt
 
-- aka       : --lineTransformArgsSep
+- aka       : --titleTopSeparatorColorAlt
 - hint      :  
-  Value separator for the arguments of the **lineTransform** function.
+  Alternate color code for this component.
 
-["line_transform_args_sep"]
-Indicates the string that should be used to **split** the collection of 
-arguments passed in **lineTransform**.
+["title_top_separator_color_alt"]
+Setting an alternate color to the main color.
 
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
 
 
 &nbsp;
 
+## bool titleTopSeparatorColorize
 
-## bool lineTransformHasLineNumber
-
-- aka       : --lineTransformHasLineNumber
-- default   : 0
+- aka       : --titleTopSeparatorColorize
+- default   : 1
 - hint      :  
-  Indicates when line number information is present in line content.
+  Indicates whether colors should be applied to this component.
 
-["line_transform_has_linenumber"]
-Indicates when line number information is present in line content.
+["title_top_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
 
 
 
@@ -448,29 +378,603 @@ Indicates when line number information is present in line content.
 
 &nbsp;
 
-## bool lineHideEmpty
+## string titleIndent
 
-- aka       : --lineHideEmpty
-- default   : 0
+- aka       : --titleIndent
 - hint      :  
-  Indicate whether empty lines should be removed.
+  Indentation for the title.
 
-["line_hide_empty"]
-Indicate whether empty lines should be removed.
+["title_indent"]
+Use only whitespace.
+If no characters are defined, this component is omitted entirely.
+
+
 
 
 
 &nbsp;
 
-## bool lineShowNumber
+## bool titleBullet
 
-- aka       : --lineShowNumber
-- default   : 0
+- aka       : --titleBullet
 - hint      :  
-  Indicate whether to display the number of each line.
+  String used for bullet.
 
-["line_show_number"]
-Indicate whether to display the number of each line.
+["title_bullet"]
+String used for bullet.
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string titleBulletColor
+
+- aka       : --titleBulletColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["title_bullet_color"]
+Code of the color that should be used in this component.
+
+
+&nbsp;
+
+## string titleBulletColorAlt
+
+- aka       : --titleBulletColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["title_bullet_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool titleBulletColorize
+
+- aka       : --titleBulletColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["title_bullet_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## string titleString
+
+- aka       : --titleString
+- hint      :  
+  Message title.
+
+["title_string"]
+If "", use the default title as per the message `type`, or, leave the title 
+line empty in case of message type `none`.
+
+
+&nbsp;
+
+## string titleStringColor
+
+- aka       : --titleStringColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["title_string_color"]
+Code of the color that should be used in this component.
+
+
+&nbsp;
+
+## string titleStringColorAlt
+
+- aka       : --titleStringColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["title_string_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool titleStringColorize
+
+- aka       : --titleStringColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["title_string_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## string titleStringEnd
+
+- aka       : --titleStringEnd
+- hint      :  
+  String usada ao final da linha de texto do título.
+
+["title_string_end"]
+Typically, if used, it will be set to a `\n` character to force the break line 
+before starting the next component.
+
+
+
+
+
+&nbsp;
+
+## bool titleBottomSeparatorString
+
+- aka       : --titleBottomSeparatorString
+- hint      :  
+  String used for this separator.
+
+["title_bottom_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
+
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string titleBottomSeparatorColor
+
+- aka       : --titleBottomSeparatorColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["title_bottom_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
+
+
+&nbsp;
+
+## string titleBottomSeparatorColorAlt
+
+- aka       : --titleBottomSeparatorColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["title_bottom_separator_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool titleBottomSeparatorColorize
+
+- aka       : --titleBottomSeparatorColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["title_bottom_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## bool bodyShow
+
+- aka       : --bodyShow
+- default   : 1
+- hint      :  
+  Indicates whether this component should be shown or omitted.
+
+["body_show"]
+
+
+
+
+
+&nbsp;
+
+## bool bodyTopSeparatorString
+
+- aka       : --bodyTopSeparatorString
+- hint      :  
+  String used for this separator.
+
+["body_top_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
+
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string bodyTopSeparatorColor
+
+- aka       : --bodyTopSeparatorColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["body_top_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
+
+
+&nbsp;
+
+## string bodyTopSeparatorColorAlt
+
+- aka       : --bodyTopSeparatorColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["body_top_separator_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bodyTopSeparatorColorize
+
+- aka       : --bodyTopSeparatorColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["body_top_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## string bodyFirstLineIndent
+
+- aka       : --bodyFirstLineIndent
+- hint      :  
+  Indentation for the title.
+
+["body_first_line_indent"]
+Use only whitespace.
+If no characters are defined, this component is omitted entirely.
+
+
+
+
+
+&nbsp;
+
+## bool bodyFirstLineBullet
+
+- aka       : --bodyFirstLineBullet
+- hint      :  
+  String used for bullet.
+
+["body_first_line_bullet"]
+String used for bullet.
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string bodyFirstLineBulletColor
+
+- aka       : --bodyFirstLineBulletColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["body_first_line_bullet_color"]
+Code of the color that should be used in this component.
+
+
+&nbsp;
+
+## string bodyFirstLineBulletColorAlt
+
+- aka       : --bodyFirstLineBulletColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["body_first_line_bullet_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bodyFirstLineBulletColorize
+
+- aka       : --bodyFirstLineBulletColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["body_first_line_bullet_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## string bodyLinesIndent
+
+- aka       : --bodyLinesIndent
+- hint      :  
+  Indentation for message lines.
+
+["body_lines_indent"]
+Use only whitespace.
+If no characters are defined, this component is omitted entirely.
+
+
+
+
+
+&nbsp;
+
+## bool bodyLinesBullet
+
+- aka       : --bodyLinesBullet
+- hint      :  
+  String used for bullet.
+
+["body_lines_bullet"]
+String used for bullet.
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string bodyLinesBulletColor
+
+- aka       : --bodyLinesBulletColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["body_lines_bullet_color"]
+Code of the color that should be used in this component.
+
+
+&nbsp;
+
+## string bodyLinesBulletColorAlt
+
+- aka       : --bodyLinesBulletColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["body_lines_bullet_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bodyLinesBulletColorize
+
+- aka       : --bodyLinesBulletColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["body_lines_bullet_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## array bodyLines
+
+- aka       : --bodyLines
+- hint      :  
+  Name of the array that brings the rows of data to be presented.
+
+["body_lines"]
+
+
+&nbsp;
+
+## string bodyLinesColor
+
+- aka       : --bodyLinesColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["body_lines_color"]
+Code of the color that should be used in this component.
+
+
+&nbsp;
+
+## string bodyLinesColorAlt
+
+- aka       : --bodyLinesColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["body_lines_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bodyLinesColorize
+
+- aka       : --bodyLinesColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["body_lines_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## bool bodyBottomSeparatorString
+
+- aka       : --bodyBottomSeparatorString
+- hint      :  
+  String used for this separator.
+
+["body_bottom_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
+
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string bodyBottomSeparatorColor
+
+- aka       : --bodyBottomSeparatorColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["body_bottom_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
+
+
+&nbsp;
+
+## string bodyBottomSeparatorColorAlt
+
+- aka       : --bodyBottomSeparatorColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["body_bottom_separator_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bodyBottomSeparatorColorize
+
+- aka       : --bodyBottomSeparatorColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["body_bottom_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
+
+
+
+&nbsp;
+
+## string bottomSeparatorString
+
+- aka       : --bottomSeparatorString
+- hint      :  
+  String used for this separator.
+
+["bottom_separator_string"]
+It can be just a newline character (\n) or any other that will be displayed as 
+a separator.
+
+If no characters are defined, this component is omitted entirely.
+
+
+&nbsp;
+
+## string bottomSeparatorColor
+
+- aka       : --bottomSeparatorColor
+- hint      :  
+  Code of the color that should be used in this component.
+
+["bottom_separator_color"]
+This setting only makes sense if a separator character is defined and if it is 
+visible.
+
+
+&nbsp;
+
+## string bottomSeparatorColorAlt
+
+- aka       : --bottomSeparatorColorAlt
+- hint      :  
+  Alternate color code for this component.
+
+["bottom_separator_color_alt"]
+Setting an alternate color to the main color.
+
+Depending on the meta settings, the theme can use a color set as an alternative 
+to the message.
+
+
+&nbsp;
+
+## bool bottomSeparatorColorize
+
+- aka       : --bottomSeparatorColorize
+- default   : 1
+- hint      :  
+  Indicates whether colors should be applied to this component.
+
+["bottom_separator_colorize"]
+Allows you to switch between a version with or without colors for this 
+component.
+
+
 
 
 
