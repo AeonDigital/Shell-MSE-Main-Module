@@ -175,22 +175,22 @@ finalidade ele deve ser usado.
 
 **Mensagens de Alerta**
 
-- none      | n   : Não definido; nenhum
-- info      | i   : Informação genérica.
-- attention | a   : Atenção.
-- warning   | w   : Alerta.
-- error     | e   : Erro em uma operação.
-- fail      | f   : Falha em uma operação.
-- success   | s   : Sucesso em uma operação.
+- n | none      : Não definido; nenhum
+- i | info      : Informação genérica.
+- a | attention : Atenção.
+- w | warning   : Alerta.
+- e | error     : Erro em uma operação.
+- f | fail      : Falha em uma operação.
+- s | success   : Sucesso em uma operação.
 
 
 **Mensagens de Prompt**
 
-- friendly  | fr  : Amigável. Questão sem muita importância.
-- ordinary  | or  : Comum. Questão padrão.
-- caution   | ca  : Cuidado. Questão que exige atenção do usuário ou 
+- fr | friendly   : Amigável. Questão sem muita importância.
+- or | ordinary   : Comum. Questão padrão.
+- ca | caution    : Cuidado. Questão que exige atenção do usuário ou 
                     que tenha potencial de alguma alteração permanente.
-- important | im  : Importante. Questão com potencial de causar alteração
+- im | important  : Importante. Questão com potencial de causar alteração
                     permanente no processamento do script ou no próprio PC.
 
 

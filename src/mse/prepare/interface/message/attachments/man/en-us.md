@@ -177,22 +177,22 @@ purpose it should be used.
 
 **Alert Messages**
 
-- none      | n   : Not defined; none
-- info      | i   : Generic information.
-- attention | a   : Attention.
-- warning   | w   : Warning.
-- error     | e   : Error in an operation.
-- fail      | f   : An operation failed.
-- success   | s   : Success in an operation.
+- n | none      : Not defined; none
+- i | info      : Generic information.
+- a | attention : Attention.
+- w | warning   : Warning.
+- e | error     : Error in an operation.
+- f | fail      : An operation failed.
+- s | success   : Success in an operation.
 
 
 **Prompt Messages**
 
-- friendly  | fr  : Friendly. Unimportant question.
-- ordinary  | or  : Ordinary. Standard question.
-- caution   | ca  : Caution. Issue that requires user attention or has the 
+- fr | friendly   : Friendly. Unimportant question.
+- or | ordinary   : Ordinary. Standard question.
+- ca | caution    : Caution. Issue that requires user attention or has the 
                     potential for some permanent change.
-- important | im  : Important. Issue with the potential to cause permanent 
+- im | important  : Important. Issue with the potential to cause permanent 
                     change in script processing or on the PC itself.
 
 
