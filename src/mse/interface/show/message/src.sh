@@ -55,21 +55,21 @@ mse_interface_show_message() {
   fi
 
 
-  local mseThemeCheckMetaFormat="${mseUseMetaTheme}_message_check_format"
-  local mseThemeShowMessage="${mseUseMetaTheme}_message_show"
+  local mseThemeCheckFormat="${mseUseMetaTheme}_message_check_format"
+  local mseThemeMessageShow="${mseUseMetaTheme}_message_show"
 
 
 
   local mseIsMetaFormat=$(mse_array_has_key "meta_format" "${mseUseMetaAssoc}")
   if [ "${mseIsMetaFormat}" == "0" ]; then
-    mseUseMetaFormat=$(${mseThemeCheckMetaFormat} "-")
+    mseUseMetaFormat=$(${mseThemeCheckFormat} "-")
     mseRedefineTheme="1"
   else
     mseUseMetaFormat="${mseTmpInterArrShowMessage[meta_format]}"
   fi
 
   if [ $# -ge 3 ] && [ "${3}" != "" ] && [ "${3}" != "${mseUseMetaFormat}" ]; then
-    mseUseMetaFormat=$($mseThemeCheckMetaFormat "${3}")
+    mseUseMetaFormat=$($mseThemeCheckFormat "${3}")
     mseRedefineTheme="1"
   fi
 
@@ -82,5 +82,5 @@ mse_interface_show_message() {
 
   mseTmpInterArrShowMessage["title_string"]="${4}"
   mseTmpInterArrShowMessage["body_lines"]="${5}"
-  ${mseThemeShowMessage} ${mseUseMetaAssoc} "${6}"
+  ${mseThemeMessageShow} ${mseUseMetaAssoc} "${6}"
 }
