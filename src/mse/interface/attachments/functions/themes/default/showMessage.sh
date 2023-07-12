@@ -37,7 +37,7 @@ mse_inter_theme_default_showMessage() {
 
     if [ "${mseValidBody}" == "0" ]; then
       mseTmpThemeArrShowMessage[meta_format]="title"
-      mse_inter_theme_default_prepareShowMessage "${1}"
+      mse_inter_theme_default_message_prepare "${1}"
     fi
   fi
 

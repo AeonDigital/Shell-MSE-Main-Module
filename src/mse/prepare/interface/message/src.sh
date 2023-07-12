@@ -118,7 +118,7 @@ mse_interface_prepare_message() {
         mseTmpArrPrepareMessage["meta_type"]="${mseTmp}"
       ;;
       meta_theme)
-        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_prepareShowMessage")" != "function" ]; then
+        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_message_prepare")" != "function" ]; then
           mseTmpArrPrepareMessage["meta_theme"]=""
         fi
       ;;
@@ -139,7 +139,7 @@ mse_interface_prepare_message() {
 
 
   if [ "${mseTmpArrPrepareMessage[meta_theme]}" != "" ]; then
-    local mseThemePrepareMessage="${mseTmpArrPrepareMessage[meta_theme]}_prepareShowMessage"
+    local mseThemePrepareMessage="${mseTmpArrPrepareMessage[meta_theme]}_message_prepare"
     $mseThemePrepareMessage "${1}"
   fi
 }
