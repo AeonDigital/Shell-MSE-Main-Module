@@ -18,7 +18,7 @@
 #
 # @return
 # Valor "meta_format" válido para este tema
-mse_inter_theme_default_showMessage_checkMetaFormat() {
+mse_inter_theme_default_message_check_format() {
   declare -a mseAllowedMetaFormat=("custom" "default" "prompt" "status" "title")
 
   local mseReturn="${1}"
