@@ -10,13 +10,13 @@
 # Name of the associative array that brings the settings for the presentation
 # of the message.
 # To initialize this associative array you can use the
-# "mse_interface_prepare_message" function.
+# "mse_prepare_interface_message" function.
 mse_interface_theme_default_message_prepare() {
   mse_interface_theme_default_set_colors
 
   declare -n mseTmpArrThemePrepareMessage="${1}"
   local mseMessageType="${mseTmpArrThemePrepareMessage[meta_type]}"
-  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
+  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_MESSAGE_THEME_NAME}]}"
 
 
   case "${mseTmpArrThemePrepareMessage[meta_format]}" in

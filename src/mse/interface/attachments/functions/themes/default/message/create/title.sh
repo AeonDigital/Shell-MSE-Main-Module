@@ -101,7 +101,7 @@ mse_interface_theme_default_message_create_title() {
         if [ "${mseTitleTextParts}" -le "1" ]; then
           mseUseTitle="[ ${mseUseTitleColorAlt}script${mseNONE} ] ${mseUseTitleColor}${mseTitleString}${mseNONE}"
         else
-          mseUseTitle="[ ${mseUseTitleColorAlt}${MSE_GLOBAL_MODULE_SPLIT_RESULT[0]}${mseNONE} ] ${mseUseTitleColor}${MSE_GLOBAL_MODULE_SPLIT_RESULT[@]:1}${mseNONE}"
+          mseUseTitle="[ ${mseUseTitleColorAlt}${MSE_LAST_FUNCTION_RETURN[0]}${mseNONE} ] ${mseUseTitleColor}${MSE_LAST_FUNCTION_RETURN[@]:1}${mseNONE}"
         fi
       ;;
     esac

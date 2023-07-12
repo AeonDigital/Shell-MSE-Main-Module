@@ -21,7 +21,7 @@ mse_interface_theme_default_prepareProgressBar() {
   mse_interface_theme_default_set_colors
 
   declare -n mseTmpArrThemePrepareProgressBar="${1}"
-  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
+  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_MESSAGE_THEME_NAME}]}"
 
 
   #

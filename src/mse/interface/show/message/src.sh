@@ -44,12 +44,12 @@ mse_interface_show_message() {
 
   local mseIsMetaTheme=$(mse_array_has_key "meta_theme" "${mseUseMetaAssoc}")
   if [ "${mseIsMetaTheme}" == "0" ]; then
-    mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
+    mseUseMetaTheme="${MSE_MESSAGE_THEME_NAME}"
     mseRedefineTheme="1"
   else
     mseUseMetaTheme="${mseTmpInterArrShowMessage[meta_theme]}"
-    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_message_prepare")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_check_format")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_show")" != "function" ]); then
-      mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
+    if [ "${mseUseMetaTheme}" != "${MSE_MESSAGE_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_message_prepare")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_check_format")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_show")" != "function" ]); then
+      mseUseMetaTheme="${MSE_MESSAGE_THEME_NAME}"
       mseRedefineTheme="1"
     fi
   fi
@@ -76,7 +76,7 @@ mse_interface_show_message() {
 
 
   if [ "${mseRedefineTheme}" == "1" ]; then
-    mse_interface_prepare_message "${mseUseMetaAssoc}" "${mseUseMetaType}" "${mseUseMetaTheme}" "${mseUseMetaFormat}"
+    mse_prepare_interface_message "${mseUseMetaAssoc}" "${mseUseMetaType}" "${mseUseMetaTheme}" "${mseUseMetaFormat}"
   fi
 
 

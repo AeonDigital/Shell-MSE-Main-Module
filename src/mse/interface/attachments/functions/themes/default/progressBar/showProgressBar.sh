@@ -24,7 +24,7 @@ mse_interface_theme_default_showProgressBar() {
   local mseProgressBarComponent=$(mse_interface_theme_default_showProgressBar_createBar "${1}")
   local mseInformationComponent=$(mse_interface_theme_default_showProgressBar_createInformation "${1}")
 
-  mse_inter_clearLine
+  mse_interface_clear_line
 
   if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "left" ]; then
     printf "%s" "${mseInformationComponent}"

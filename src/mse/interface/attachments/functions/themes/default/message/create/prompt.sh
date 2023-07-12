@@ -62,10 +62,10 @@ mse_interface_theme_default_message_create_prompt() {
       mseKey="${mseTmpPromptSortedKeys[${mseIndex}]}"
 
       mse_str_split "::" "${mseTmpPromptAssocValues[${mseKey}]}" "1"
-      if [ "${#MSE_GLOBAL_MODULE_SPLIT_RESULT[@]}" == "0" ]; then
-        MSE_GLOBAL_MODULE_SPLIT_RESULT+=("${mseKey}")
+      if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "0" ]; then
+        MSE_LAST_FUNCTION_RETURN+=("${mseKey}")
       fi
-      mseTmpKeyLabels=$(mse_str_join " / " "MSE_GLOBAL_MODULE_SPLIT_RESULT")
+      mseTmpKeyLabels=$(mse_str_join " / " "MSE_LAST_FUNCTION_RETURN")
 
       mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
       mseTmpPromptBodyLines+=("${mseTmpOptionLine}")

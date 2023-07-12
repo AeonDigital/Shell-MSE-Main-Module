@@ -2,7 +2,7 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-mse_interface_prepare_message() {
+mse_prepare_interface_message() {
   declare -n mseTmpArrPrepareMessage="${1}"
 
 

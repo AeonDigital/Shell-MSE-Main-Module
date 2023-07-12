@@ -1,7 +1,7 @@
 # Synopsis
 
 Shows an alert message to the user using the theme they are currently in 
-configured in the variable "MSE_GLOBAL_THEME_NAME".
+configured in the variable "MSE_MESSAGE_THEME_NAME".
 
 
 
