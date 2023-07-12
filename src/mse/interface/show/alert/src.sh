@@ -3,5 +3,5 @@
 
 
 mse_interface_show_alert() {
-  mse_interface_show_message "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" "${1}" "default" "${2}" "${3}"
+  mse_interface_show_message "MSE_MESSAGE_THEME_CONFIG" "${1}" "default" "${2}" "${3}"
 }

@@ -22,7 +22,7 @@ mse_interface_theme_default_prepareProgressBar() {
   mse_interface_theme_default_set_colors
 
   declare -n mseTmpArrThemePrepareProgressBar="${1}"
-  local msePrefix="${MSE_GLOBAL_MAIN_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
+  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
 
 
   #
@@ -55,8 +55,8 @@ mse_interface_theme_default_prepareProgressBar() {
       # Controlado internamente
       mseTmpArrThemePrepareProgressBar["bar_atual_bar_length"]="0"
 
-      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar]}"
-      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar_alt]}"
+      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar]}"
+      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar_alt]}"
       mseTmpArrThemePrepareProgressBar["bar_colorize"]="1"
 
 
@@ -69,8 +69,8 @@ mse_interface_theme_default_prepareProgressBar() {
 
       mseTmpArrThemePrepareProgressBar["info_use_percent"]="1"
 
-      mseTmpArrThemePrepareProgressBar["info_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_info]}"
-      mseTmpArrThemePrepareProgressBar["info_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_info_alt]}"
+      mseTmpArrThemePrepareProgressBar["info_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_info]}"
+      mseTmpArrThemePrepareProgressBar["info_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_info_alt]}"
       mseTmpArrThemePrepareProgressBar["info_colorize"]="1"
 
     ;;
@@ -94,8 +94,8 @@ mse_interface_theme_default_prepareProgressBar() {
       # Controlado internamente
       mseTmpArrThemePrepareProgressBar["bar_atual_bar_length"]="0"
 
-      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar]}"
-      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar_alt]}"
+      mseTmpArrThemePrepareProgressBar["bar_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar]}"
+      mseTmpArrThemePrepareProgressBar["bar_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar_alt]}"
       mseTmpArrThemePrepareProgressBar["bar_colorize"]="1"
 
 

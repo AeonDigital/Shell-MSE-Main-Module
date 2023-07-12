@@ -4,7 +4,7 @@
 
 #
 # @desc
-# Arrow in the global associative array "MSE_GLOBAL_MAIN_THEME_COLORS" all
+# Arrow in the global associative array "MSE_MESSAGE_THEME_COLORS" all
 # color definitions used by this theme.
 #
 #
@@ -34,7 +34,7 @@
 #       Every color can offer one or more alternative versions, each of which
 #       is identified by the suffix "alt".
 mse_interface_theme_default_set_colors() {
-  if [ -z "${MSE_GLOBAL_MAIN_THEME_COLORS[mse_interface_theme_default]+x}" ]; then
+  if [ -z "${MSE_MESSAGE_THEME_COLORS[mse_interface_theme_default]+x}" ]; then
     local msePrefix="itd"
 
     declare -A mseToneArr
@@ -71,32 +71,32 @@ mse_interface_theme_default_set_colors() {
 
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "LBLUE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_bar_alt]=$(mse_font_create_style "4" "BOLD" "NONE" "LYELLOW" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_info]=$(mse_font_create_style "4" "BOLD" "NONE" "DLCYAN" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_progressbar_info_alt]=$(mse_font_create_style "4" "BOLD" "NONE" "DWHITE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "LBLUE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_bar_alt]=$(mse_font_create_style "4" "BOLD" "NONE" "LYELLOW" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_info]=$(mse_font_create_style "4" "BOLD" "NONE" "DLCYAN" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_progressbar_info_alt]=$(mse_font_create_style "4" "BOLD" "NONE" "DWHITE" "0")
 
 
 
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_at]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "BLUE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_tagName]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "BLUE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_tagCommom]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "LCYAN" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_param]=$(mse_font_create_style "8" "BOLD" "NONE" "250" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_at]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "BLUE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_tagName]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "BLUE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_tagCommom]=$(mse_font_create_style "4" "BOLD,DARK" "NONE" "LCYAN" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_param]=$(mse_font_create_style "8" "BOLD" "NONE" "250" "0")
 
 
 
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_module]=$(mse_font_create_style "4" "BOLD" "NONE" "BLUE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_subModule]=$(mse_font_create_style "4" "BOLD" "NONE" "BLUE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_functions]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_module]=$(mse_font_create_style "4" "BOLD" "NONE" "BLUE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_subModule]=$(mse_font_create_style "4" "BOLD" "NONE" "BLUE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_functions]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
 
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_separator]=$(mse_font_create_style "4" "" "NONE" "WHITE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_separatorBar]=$(mse_font_create_style "4" "DARK" "NONE" "WHITE" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_selectedElements]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
-    MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_man_totalElements]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_separator]=$(mse_font_create_style "4" "" "NONE" "WHITE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_separatorBar]=$(mse_font_create_style "4" "DARK" "NONE" "WHITE" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_selectedElements]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
+    MSE_MESSAGE_THEME_COLORS[${msePrefix}_man_totalElements]=$(mse_font_create_style "4" "" "NONE" "LBLACK" "0")
 
 
 
@@ -139,18 +139,18 @@ mse_interface_theme_default_set_colors() {
         for mseTmpTone in "${mseTmpToneArr[@]}"; do
           mseTmpColorId="${msePrefix}_${mseFunctionId}_${mseTmpComponent}_${mseTmpTone}"
 
-          MSE_GLOBAL_MAIN_THEME_COLORS["${mseTmpColorId}"]="${mseToneArr[${mseTmpTone}]}"
-          MSE_GLOBAL_MAIN_THEME_COLORS["${mseTmpColorId}_alt"]="${mseToneArr[${mseTmpTone}_alt]}"
+          MSE_MESSAGE_THEME_COLORS["${mseTmpColorId}"]="${mseToneArr[${mseTmpTone}]}"
+          MSE_MESSAGE_THEME_COLORS["${mseTmpColorId}_alt"]="${mseToneArr[${mseTmpTone}_alt]}"
         done
       done
     done
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS["${msePrefix}_message_body"]="${mseToneArr[body]}"
-    MSE_GLOBAL_MAIN_THEME_COLORS["${msePrefix}_message_body_alt"]="${mseToneArr[body_alt]}"
+    MSE_MESSAGE_THEME_COLORS["${msePrefix}_message_body"]="${mseToneArr[body]}"
+    MSE_MESSAGE_THEME_COLORS["${msePrefix}_message_body_alt"]="${mseToneArr[body_alt]}"
 
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS["mse_interface_theme_default"]="${msePrefix}"
+    MSE_MESSAGE_THEME_COLORS["mse_interface_theme_default"]="${msePrefix}"
   fi
 }

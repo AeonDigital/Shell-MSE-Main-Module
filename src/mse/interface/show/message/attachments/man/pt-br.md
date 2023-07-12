@@ -15,7 +15,7 @@ Mostra uma mensagem para o usuário no terminal.
   Nome do array associativo contendo as configurações da mensagem.
 
 Se omitido ou inválido, será iniciado o array associativo 
-"MSE_GLOBAL_SHOW_MESSAGE_CONFIG" usando o tema padrão e este será usado para a 
+"MSE_MESSAGE_THEME_CONFIG" usando o tema padrão e este será usado para a 
 formatação da mensagem.
 
 

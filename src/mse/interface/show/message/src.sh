@@ -13,7 +13,7 @@ mse_interface_show_message() {
 
 
   if [ "${mseUseMetaAssoc}" == "" ] || [[ ! "$(declare -p ${mseUseMetaAssoc} 2> /dev/null)" =~ "declare -A" ]]; then
-    mseUseMetaAssoc="MSE_GLOBAL_SHOW_MESSAGE_CONFIG"
+    mseUseMetaAssoc="MSE_MESSAGE_THEME_CONFIG"
   fi
   declare -n mseTmpInterArrShowMessage="${mseUseMetaAssoc}"
 

@@ -11,5 +11,5 @@ test_mse_interface_show_message() {
   declare -a bodyLines=()
   bodyLines+=("first")
   bodyLines+=("second")
-  mse_interface_show_message "MSE_GLOBAL_SHOW_MESSAGE_CONFIG" "s" "default" "title" "bodyLines"
+  mse_interface_show_message "MSE_MESSAGE_THEME_CONFIG" "s" "default" "title" "bodyLines"
 }

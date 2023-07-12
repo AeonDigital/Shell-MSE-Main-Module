@@ -17,7 +17,7 @@ mse_interface_theme_default_message_prepare() {
 
   declare -n mseTmpArrThemePrepareMessage="${1}"
   local mseMessageType="${mseTmpArrThemePrepareMessage[meta_type]}"
-  local msePrefix="${MSE_GLOBAL_MAIN_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
+  local msePrefix="${MSE_MESSAGE_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"
 
 
   case "${mseTmpArrThemePrepareMessage[meta_format]}" in
@@ -47,8 +47,8 @@ mse_interface_theme_default_message_prepare() {
       mseTmpArrThemePrepareMessage["title_bullet_color_alt"]=""
       mseTmpArrThemePrepareMessage["title_bullet_colorize"]="0"
 
-      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
-      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
+      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
+      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
       mseTmpArrThemePrepareMessage["title_string_colorize"]="1"
       mseTmpArrThemePrepareMessage["title_string_end"]="\n"
 
@@ -79,8 +79,8 @@ mse_interface_theme_default_message_prepare() {
       mseTmpArrThemePrepareMessage["body_lines_bullet_color_alt"]=""
       mseTmpArrThemePrepareMessage["body_lines_bullet_colorize"]="0"
 
-      mseTmpArrThemePrepareMessage["body_lines_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_body]}"
-      mseTmpArrThemePrepareMessage["body_lines_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_body_alt]}"
+      mseTmpArrThemePrepareMessage["body_lines_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_body]}"
+      mseTmpArrThemePrepareMessage["body_lines_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_body_alt]}"
       mseTmpArrThemePrepareMessage["body_lines_colorize"]="1"
 
       mseTmpArrThemePrepareMessage["body_bottom_separator_string"]=""
@@ -123,8 +123,8 @@ mse_interface_theme_default_message_prepare() {
       mseTmpArrThemePrepareMessage["title_bullet_color_alt"]=""
       mseTmpArrThemePrepareMessage["title_bullet_colorize"]="0"
 
-      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
-      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
+      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
+      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
       mseTmpArrThemePrepareMessage["title_string_colorize"]="1"
       mseTmpArrThemePrepareMessage["title_string_end"]="\n"
 
@@ -167,8 +167,8 @@ mse_interface_theme_default_message_prepare() {
       mseTmpArrThemePrepareMessage["title_bullet_color_alt"]=""
       mseTmpArrThemePrepareMessage["title_bullet_colorize"]="0"
 
-      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
-      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_GLOBAL_MAIN_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
+      mseTmpArrThemePrepareMessage["title_string_color"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}]}"
+      mseTmpArrThemePrepareMessage["title_string_color_alt"]="${MSE_MESSAGE_THEME_COLORS[${msePrefix}_message_title_string_${mseMessageType}_alt]}"
       mseTmpArrThemePrepareMessage["title_string_colorize"]="1"
       mseTmpArrThemePrepareMessage["title_string_end"]=""
 

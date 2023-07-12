@@ -15,7 +15,7 @@ Shows a message to the user in the terminal.
   Name of the associative array containing the message settings.
 
 If omitted or invalid, the associative array is started 
-"MSE_GLOBAL_SHOW_MESSAGE_CONFIG" using the default theme and this will be used 
+"MSE_MESSAGE_THEME_CONFIG" using the default theme and this will be used 
 for the message formatting.
 
 
