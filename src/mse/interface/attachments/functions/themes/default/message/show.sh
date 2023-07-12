@@ -14,7 +14,7 @@
 # Optional.
 # Name of an associative array bringing configurations not initially foreseen.
 # Used to expand themes.
-mse_inter_theme_default_message_show() {
+mse_interface_theme_default_message_show() {
   declare -n mseTmpThemeArrShowMessage="${1}"
 
 
@@ -37,7 +37,7 @@ mse_inter_theme_default_message_show() {
 
     if [ "${mseValidBody}" == "0" ]; then
       mseTmpThemeArrShowMessage[meta_format]="title"
-      mse_inter_theme_default_message_prepare "${1}"
+      mse_interface_theme_default_message_prepare "${1}"
     fi
   fi
 
@@ -60,14 +60,14 @@ mse_inter_theme_default_message_show() {
 
 
 
-  mse_inter_theme_default_showMessage_createSeparator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[top_separator_string]}" "${mseTmpThemeArrShowMessage[top_separator_color]}" "${mseTmpThemeArrShowMessage[top_separator_color_alt]}" "${mseTmpThemeArrShowMessage[top_separator_colorize]}"
-  mse_inter_theme_default_showMessage_createTitle "${1}"
+  mse_interface_theme_default_message_create_separator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[top_separator_string]}" "${mseTmpThemeArrShowMessage[top_separator_color]}" "${mseTmpThemeArrShowMessage[top_separator_color_alt]}" "${mseTmpThemeArrShowMessage[top_separator_colorize]}"
+  mse_interface_theme_default_message_create_title "${1}"
 
   if [ "${mseTmpThemeArrShowMessage[meta_format]}" == "prompt" ]; then
-    mse_inter_theme_default_showMessage_createPromptBody "${1}" "${2}"
+    mse_interface_theme_default_message_create_prompt "${1}" "${2}"
   fi
 
-  mse_inter_theme_default_showMessage_createMessageBody "${1}"
+  mse_interface_theme_default_message_create_body "${1}"
 
-  mse_inter_theme_default_showMessage_createSeparator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[bottom_separator_string]}" "${mseTmpThemeArrShowMessage[bottom_separator_color]}" "${mseTmpThemeArrShowMessage[bottom_separator_color_alt]}" "${mseTmpThemeArrShowMessage[bottom_separator_colorize]}"
+  mse_interface_theme_default_message_create_separator "${mseTmpThemeArrShowMessage[meta_type]}" "${mseTmpThemeArrShowMessage[bottom_separator_string]}" "${mseTmpThemeArrShowMessage[bottom_separator_color]}" "${mseTmpThemeArrShowMessage[bottom_separator_color_alt]}" "${mseTmpThemeArrShowMessage[bottom_separator_colorize]}"
 }

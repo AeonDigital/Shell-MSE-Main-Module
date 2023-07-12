@@ -29,6 +29,6 @@
 #
 # @return
 # Printa o resultado conforme as configurações passadas.
-mse_inter_theme_default_showMessage_createBullet() {
-  mse_inter_theme_default_showMessage_createSeparator "${1}" "${2}" "${3}" "${4}" "${5}"
+mse_interface_theme_default_message_create_bullet() {
+  mse_interface_theme_default_message_create_separator "${1}" "${2}" "${3}" "${4}" "${5}"
 }

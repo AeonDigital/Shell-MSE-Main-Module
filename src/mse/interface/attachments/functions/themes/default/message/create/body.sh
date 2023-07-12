@@ -10,7 +10,7 @@
 #
 # @return
 # Prints the result according to the settings passed.
-mse_inter_theme_default_showMessage_createMessageBody() {
+mse_interface_theme_default_message_create_body() {
   declare -n mseTmpThemeArrCreateBody="${1}"
 
   if [ "${mseTmpThemeArrCreateBody[body_show]}" == "1" ]; then
@@ -89,7 +89,7 @@ mse_inter_theme_default_showMessage_createMessageBody() {
 
 
       mseUseBody+="${mseLineIndent}"
-      mseUseBody+=$(mse_inter_theme_default_showMessage_createBullet "${mseMessageType}" "${mseLineBullet}" "${mseLineBulletColor}" "${mseLineBulletColorAlt}" "${mseLineBulletColorize}")
+      mseUseBody+=$(mse_interface_theme_default_message_create_bullet "${mseMessageType}" "${mseLineBullet}" "${mseLineBulletColor}" "${mseLineBulletColorAlt}" "${mseLineBulletColorize}")
 
       if [ "${mseBodyLinesColorize}" == "1" ]; then
         mseUseBody+="${mseBodyLinesColor}"
@@ -103,8 +103,8 @@ mse_inter_theme_default_showMessage_createMessageBody() {
     done
 
 
-    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseBodyTopSeparatorString}" "${mseBodyTopSeparatorColor}" "${mseBodyTopSeparatorColorAlt}" "${mseBodyTopSeparatorColorize}"
+    mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseBodyTopSeparatorString}" "${mseBodyTopSeparatorColor}" "${mseBodyTopSeparatorColorAlt}" "${mseBodyTopSeparatorColorize}"
     printf "${mseUseBody}"
-    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseBodyBottomSeparatorString}" "${mseBodyBottomSeparatorColor}" "${mseBodyBottomSeparatorColorAlt}" "${mseBodyBottomSeparatorColorize}"
+    mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseBodyBottomSeparatorString}" "${mseBodyBottomSeparatorColor}" "${mseBodyBottomSeparatorColorAlt}" "${mseBodyBottomSeparatorColorize}"
   fi
 }

@@ -12,7 +12,7 @@
 #
 # @return
 # Prints the result according to the settings passed.
-mse_inter_theme_default_showMessage_createTitle() {
+mse_interface_theme_default_message_create_title() {
   declare -n mseTmpThemeArrCreateTitle="${1}"
 
   if [ "${mseTmpThemeArrCreateTitle[title_show]}" == "1" ]; then
@@ -108,10 +108,10 @@ mse_inter_theme_default_showMessage_createTitle() {
 
 
 
-    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseTitleTopSeparatorString}" "${mseTitleTopSeparatorColor}" "${mseTitleTopSeparatorColorAlt}" "${mseTitleTopSeparatorColorize}"
+    mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseTitleTopSeparatorString}" "${mseTitleTopSeparatorColor}" "${mseTitleTopSeparatorColorAlt}" "${mseTitleTopSeparatorColorize}"
     printf "${mseTitleIndent}"
-    mse_inter_theme_default_showMessage_createBullet "${mseMessageType}" "${mseTitleBullet}" "${mseTitleBulletColor}" "${mseTitleBulletColorAlt}" "${mseTitleBulletColorize}"
+    mse_interface_theme_default_message_create_bullet "${mseMessageType}" "${mseTitleBullet}" "${mseTitleBulletColor}" "${mseTitleBulletColorAlt}" "${mseTitleBulletColorize}"
     printf "${mseUseTitle}${mseTitleStringEnd}"
-    mse_inter_theme_default_showMessage_createSeparator "${mseMessageType}" "${mseTitleBottomSeparatorString}" "${mseTitleBottomSeparatorColor}" "${mseTitleBottomSeparatorColorAlt}" "${mseTitleBottomSeparatorColorize}"
+    mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseTitleBottomSeparatorString}" "${mseTitleBottomSeparatorColor}" "${mseTitleBottomSeparatorColorAlt}" "${mseTitleBottomSeparatorColorize}"
   fi
 }

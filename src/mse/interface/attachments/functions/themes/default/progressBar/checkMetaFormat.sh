@@ -18,7 +18,7 @@
 #
 # @return
 # Valor "meta_format" válido para este tema
-mse_inter_theme_default_progressBar_checkMetaFormat() {
+mse_interface_theme_default_progressBar_checkMetaFormat() {
   declare -a mseAllowedMetaFormat=("custom" "default" "onlybar")
 
   local mseReturn="${1}"

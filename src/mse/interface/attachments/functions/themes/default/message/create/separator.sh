@@ -24,7 +24,7 @@
 #
 # @return
 # Prints the result according to the settings passed.
-mse_inter_theme_default_showMessage_createSeparator() {
+mse_interface_theme_default_message_create_separator() {
   if [ "${2}" != "" ]; then
     local mseReturn=""
 

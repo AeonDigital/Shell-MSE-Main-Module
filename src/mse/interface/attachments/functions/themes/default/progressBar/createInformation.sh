@@ -16,7 +16,7 @@
 #
 # @return
 # Printa o resultado conforme as configurações passadas.
-mse_inter_theme_default_showProgressBar_createInformation() {
+mse_interface_theme_default_showProgressBar_createInformation() {
   declare -n mseTmpThemeArrProgressBarInformation="${1}"
 
   if [ "${mseTmpThemeArrProgressBarInformation[info_show]}" == "1" ]; then

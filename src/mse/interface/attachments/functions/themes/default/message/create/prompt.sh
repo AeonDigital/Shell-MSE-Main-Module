@@ -22,7 +22,7 @@
 #
 # @return
 # Printa o resultado conforme as configurações passadas.
-mse_inter_theme_default_showMessage_createPromptBody() {
+mse_interface_theme_default_message_create_prompt() {
   declare -n mseTmpThemeArrCreatePrompt="${1}"
   declare -n mseTmpThemePromptConfig="${2}"
 

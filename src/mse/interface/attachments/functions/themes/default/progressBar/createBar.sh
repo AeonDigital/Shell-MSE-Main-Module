@@ -16,7 +16,7 @@
 #
 # @return
 # Printa o resultado conforme as configurações passadas.
-mse_inter_theme_default_showProgressBar_createBar() {
+mse_interface_theme_default_showProgressBar_createBar() {
   declare -n mseTmpThemeArrProgressBar="${1}"
 
   local mseBarIniString="${mseTmpThemeArrProgressBar[bar_ini_string]}"

@@ -18,12 +18,12 @@
 #
 # @return
 # Printa o resultado conforme as configurações passadas.
-mse_inter_theme_default_showProgressBar() {
+mse_interface_theme_default_showProgressBar() {
   declare -n mseTmpThemeArrShowProgressBar="${1}"
 
 
-  local mseProgressBarComponent=$(mse_inter_theme_default_showProgressBar_createBar "${1}")
-  local mseInformationComponent=$(mse_inter_theme_default_showProgressBar_createInformation "${1}")
+  local mseProgressBarComponent=$(mse_interface_theme_default_showProgressBar_createBar "${1}")
+  local mseInformationComponent=$(mse_interface_theme_default_showProgressBar_createInformation "${1}")
 
   mse_inter_clearLine
 

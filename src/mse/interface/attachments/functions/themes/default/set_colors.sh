@@ -33,8 +33,8 @@
 # - 05: Variation
 #       Every color can offer one or more alternative versions, each of which
 #       is identified by the suffix "alt".
-mse_inter_theme_default_set_colors() {
-  if [ -z "${MSE_GLOBAL_MAIN_THEME_COLORS[mse_inter_theme_default]+x}" ]; then
+mse_interface_theme_default_set_colors() {
+  if [ -z "${MSE_GLOBAL_MAIN_THEME_COLORS[mse_interface_theme_default]+x}" ]; then
     local msePrefix="itd"
 
     declare -A mseToneArr
@@ -108,7 +108,7 @@ mse_inter_theme_default_set_colors() {
     #   For cases where no component should be colorized, use the "main" value:
     declare -A mseArrFunctionComponents
     #
-    # Para a função "showMessage", apenas o título é colorizado em multitons
+    # Para a função "message_show", apenas o título é colorizado em multitons
     mseArrFunctionComponents["message"]="title_string"
 
 
@@ -151,6 +151,6 @@ mse_inter_theme_default_set_colors() {
 
 
 
-    MSE_GLOBAL_MAIN_THEME_COLORS["mse_inter_theme_default"]="${msePrefix}"
+    MSE_GLOBAL_MAIN_THEME_COLORS["mse_interface_theme_default"]="${msePrefix}"
   fi
 }

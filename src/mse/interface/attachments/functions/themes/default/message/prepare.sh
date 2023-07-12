@@ -12,8 +12,8 @@
 # of the message.
 # To initialize this associative array you can use the
 # "mse_interface_prepare_message" function.
-mse_inter_theme_default_message_prepare() {
-  mse_inter_theme_default_set_colors
+mse_interface_theme_default_message_prepare() {
+  mse_interface_theme_default_set_colors
 
   declare -n mseTmpArrThemePrepareMessage="${1}"
   local mseMessageType="${mseTmpArrThemePrepareMessage[meta_type]}"
