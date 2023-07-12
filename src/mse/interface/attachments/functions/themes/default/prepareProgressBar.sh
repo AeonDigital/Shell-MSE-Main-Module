@@ -19,7 +19,7 @@
 #
 # Para configurar este array associativo use a função "mse_inter_prepareProgressBar".
 mse_inter_theme_default_prepareProgressBar() {
-  mse_inter_theme_default_setColors
+  mse_inter_theme_default_set_colors
 
   declare -n mseTmpArrThemePrepareProgressBar="${1}"
   local msePrefix="${MSE_GLOBAL_MAIN_THEME_COLORS[${MSE_GLOBAL_THEME_NAME}]}"

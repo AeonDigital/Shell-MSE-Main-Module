@@ -33,7 +33,7 @@
 # - 05: Variation
 #       Every color can offer one or more alternative versions, each of which
 #       is identified by the suffix "alt".
-mse_inter_theme_default_setColors() {
+mse_inter_theme_default_set_colors() {
   if [ -z "${MSE_GLOBAL_MAIN_THEME_COLORS[mse_inter_theme_default]+x}" ]; then
     local msePrefix="itd"
 
