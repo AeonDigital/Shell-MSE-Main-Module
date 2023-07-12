@@ -2,33 +2,28 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-
-
-
-
-
 #
-# Monta um bullet conforme as informações passadas.
+# Assembles a bullet according to the information passed.
 #
 # @param string $1
-# Tipo de mensagem.
+# Message type.
 #
 # @param string $2
-# String a ser usada.
+# String to use.
 #
 # @param string $3
-# Código da cor a ser usada.
+# Code of the color to use.
 #
 # @param string $4
-# Código da cor alternativa a ser usada.
+# Alternate color code to use.
 #
 # @param bool $5
-# Indica se deve usar a colorização indicada.
-# Use "0" para não.
-# Use "1" para sim.
+# Indicates whether to use the indicated colorization.
+# Use "0" for no.
+# Use "1" for yes.
 #
 # @return
-# Printa o resultado conforme as configurações passadas.
+# Prints the result according to the settings passed.
 mse_interface_theme_default_message_create_bullet() {
   mse_interface_theme_default_message_create_separator "${1}" "${2}" "${3}" "${4}" "${5}"
 }

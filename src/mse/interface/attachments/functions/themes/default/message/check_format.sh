@@ -3,7 +3,6 @@
 
 
 #
-# @desc
 # Validates the indicated "meta_format" value.
 # If valid, it returns itself.
 # If invalid, returns the default value.

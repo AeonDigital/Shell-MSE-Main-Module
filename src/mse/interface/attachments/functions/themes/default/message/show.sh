@@ -3,7 +3,6 @@
 
 
 #
-# @desc
 # Assembles and displays the message from the indicated settings.
 #
 # @param string $1

@@ -8,7 +8,6 @@
 
 
 #
-# @desc
 # Usado para barras de progresso.
 # Valida o valor "meta_format" indicado. Sendo válido, retorna ele próprio.
 # Sendo inválido, retorna o valor padrão.

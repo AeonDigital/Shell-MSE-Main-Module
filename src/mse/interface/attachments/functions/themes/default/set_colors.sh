@@ -3,7 +3,6 @@
 
 
 #
-# @desc
 # Arrow in the global associative array "MSE_MESSAGE_THEME_COLORS" all
 # color definitions used by this theme.
 #

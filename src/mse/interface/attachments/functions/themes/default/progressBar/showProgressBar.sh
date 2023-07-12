@@ -8,7 +8,6 @@
 
 
 #
-# @desc
 # Efetivamente monta e mostra a barra de progresso a partir das configurações
 # indicadas.
 #

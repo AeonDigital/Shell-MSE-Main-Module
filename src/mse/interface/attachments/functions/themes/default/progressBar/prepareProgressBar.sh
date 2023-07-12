@@ -8,7 +8,6 @@
 
 
 #
-# @desc
 # Finaliza o preparo de um array associativo aplicando as configurações
 # próprias deste tema.
 #

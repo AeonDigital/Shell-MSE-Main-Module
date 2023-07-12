@@ -3,7 +3,6 @@
 
 
 #
-# @desc
 # Finishes preparing an associative array by applying the settings that are
 # specific to this theme.
 #
