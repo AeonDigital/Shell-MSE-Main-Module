@@ -14,7 +14,7 @@
 # Optional.
 # Name of an associative array bringing configurations not initially foreseen.
 # Used to expand themes.
-mse_inter_theme_default_showMessage() {
+mse_inter_theme_default_message_show() {
   declare -n mseTmpThemeArrShowMessage="${1}"
 
 

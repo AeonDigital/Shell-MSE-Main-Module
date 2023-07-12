@@ -1,7 +1,7 @@
 # Synopsis
 
 Prepares an associative array by filling in the keys required for execution of 
-a command **mse_inter_showMessage**.
+a command **mse_interface_message_show**.
 
 
 

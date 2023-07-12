@@ -1,7 +1,7 @@
 # Synopsis
 
 Prepara um array associativo preenchendo as chaves necessárias para a execução 
-de um comando **mse_inter_showMessage**.
+de um comando **mse_interface_message_show**.
 
 
 

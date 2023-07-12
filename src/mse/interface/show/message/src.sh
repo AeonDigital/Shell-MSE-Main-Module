@@ -48,7 +48,7 @@ mse_interface_show_message() {
     mseRedefineTheme="1"
   else
     mseUseMetaTheme="${mseTmpInterArrShowMessage[meta_theme]}"
-    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_message_prepare")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_check_format")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_showMessage")" != "function" ]); then
+    if [ "${mseUseMetaTheme}" != "${MSE_GLOBAL_THEME_NAME}" ] && ([ "$(type -t "${mseUseMetaTheme}_message_prepare")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_check_format")" != "function" ] || [ "$(type -t "${mseUseMetaTheme}_message_show")" != "function" ]); then
       mseUseMetaTheme="${MSE_GLOBAL_THEME_NAME}"
       mseRedefineTheme="1"
     fi
@@ -56,7 +56,7 @@ mse_interface_show_message() {
 
 
   local mseThemeCheckMetaFormat="${mseUseMetaTheme}_message_check_format"
-  local mseThemeShowMessage="${mseUseMetaTheme}_showMessage"
+  local mseThemeShowMessage="${mseUseMetaTheme}_message_show"
 
 
 

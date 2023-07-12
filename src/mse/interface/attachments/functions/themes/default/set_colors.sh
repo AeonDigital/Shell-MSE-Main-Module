@@ -14,7 +14,7 @@
 # - 01: Theme identifier prefix
 #
 # - 02: Identifier of the role for which the definition is intended
-#       message   : mse_inter_showMessage
+#       message   : mse_inter_message_show
 #       prompt    : mse_inter_showPrompt
 #       progress  : mse_inter_showProgressBar
 #       spinner   : mse_inter_startSpinner
