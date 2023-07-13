@@ -98,19 +98,22 @@ test_mse_interface_show_message() {
   fi
 
 
-  local mseTestShowStatusInShell="0"
+
+
+
+  local mseTestShowStatusInShell="1"
   if [ "${mseTestShowStatusInShell}" == "1" ]; then
     echo "---"
     # Mostra uma mensagem tendo apenas um título simples
-    mse_inter_showStatus "w" "Verificando o andamento do processo"
+    mse_interface_show_status "w" "Verificando o andamento do processo"
     sleep 1
-    mse_inter_clearLine "" "1"
+    mse_interface_clear_line "" "1"
 
-    mse_inter_showStatus "a" "O processo iniciou"
+    mse_interface_show_status "a" "O processo iniciou"
     sleep 1
-    mse_inter_clearLine "" "1"
+    mse_interface_clear_line "" "1"
 
-    mse_inter_showStatus "s" "O processo finalizou sem erros"
+    mse_interface_show_status "s" "O processo finalizou sem erros"
     printf "\n---\n"
   fi
 
