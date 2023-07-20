@@ -1,7 +1,7 @@
 # Synopsis
 
 Prepares an associative array by filling in the keys required to execute a 
-command **mse_inter_showProgressBar**.
+command **mse_interface_progressBar**.
 
 
 

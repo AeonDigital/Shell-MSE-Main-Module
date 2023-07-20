@@ -10,3 +10,8 @@ declare -g MSE_MESSAGE_THEME_NAME="mse_interface_theme_default"
 # Stores the settings of the last display of a message using any of the
 # "interface" functions.
 declare -gA MSE_MESSAGE_THEME_CONFIG
+
+#
+# Stores the settings of the last display of a progressbar using any of the
+# "interface" functions.
+declare -gA MSE_PROGRESSBAR_THEME_CONFIG
