@@ -9,8 +9,8 @@ test_mse_prepare_interface_message() {
   unset MSE_MESSAGE_THEME_CONFIG
   declare -gA MSE_MESSAGE_THEME_CONFIG
 
-  unset MSE_GLOBAL_SHOW_PROMPT_CONFIG
-  declare -gA MSE_GLOBAL_SHOW_PROMPT_CONFIG
+  unset MSE_PROMPT_THEME_CONFIG
+  declare -gA MSE_PROMPT_THEME_CONFIG
 
   unset MSE_MESSAGE_THEME_NAME
   MSE_MESSAGE_THEME_NAME="mse_interface_theme_default"

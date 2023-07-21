@@ -8,8 +8,8 @@ mse_str_split() {
   if [ "$#" -lt "2" ]; then
     mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "Wrong number of arguments."
   else
-    local mseSeparator="$1"
-    local mseString="$2"
+    local mseSeparator="${1}"
+    local mseString="${2}"
     local mseSubStr=""
     local mseRemoveEmpty="0"
     local mseTrimElements="0"

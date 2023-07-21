@@ -2,11 +2,6 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-
-
-
-
-
 #
 # Monta toda a parte do corpo do prompt conforme as configurações
 # definidas e o tema utilizado.
