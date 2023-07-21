@@ -2,21 +2,16 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-
-
-
-
-
 #
-# Monta o componente "informações" conforme as configurações definidas.
+# Assembles the "information" component according to the configured settings.
 #
 # @param string $1
-# Nome do array associativo que traz as configurações para a apresentação da
-# barra de progresso.
+# Name of the associative array that brings the settings for the presentation
+# of the progress bar.
 #
 # @return
-# Printa o resultado conforme as configurações passadas.
-mse_interface_theme_default_showProgressBar_createInformation() {
+# Prints the result according to the settings passed.
+mse_interface_theme_default_progressBar_create_information() {
   declare -n mseTmpThemeArrProgressBarInformation="${1}"
 
   if [ "${mseTmpThemeArrProgressBarInformation[info_show]}" == "1" ]; then
@@ -55,12 +50,10 @@ mse_interface_theme_default_showProgressBar_createInformation() {
 
 
 
-    #
-    # Printa o início do delimitador
+
     printf "%s" "${mseInfoIniString}"
 
-    #
-    # Inicia a informação em si
+
     printf "${mseUseColor}"
     printf "%s" "${mseStrPercent}"
     printf "${mseNONE}"
@@ -74,8 +67,6 @@ mse_interface_theme_default_showProgressBar_createInformation() {
       printf "${mseNONE}"
     fi
 
-    #
-    # Printa o fim do delimitador
     printf "${mseInfoEndString}"
   fi
 }

@@ -2,21 +2,16 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-
-
-
-
-
 #
-# Monta o componente "barra de progresso" conforme as configurações definidas.
+# Assembles the "progress bar" component according to the configured settings.
 #
 # @param string $1
-# Nome do array associativo que traz as configurações para a apresentação da
-# barra de progresso.
+# Name of the associative array that brings the settings for the presentation
+# of the progress bar.
 #
 # @return
-# Printa o resultado conforme as configurações passadas.
-mse_interface_theme_default_showProgressBar_createBar() {
+# Prints the result according to the settings passed.
+mse_interface_theme_default_progressBar_create_bar() {
   declare -n mseTmpThemeArrProgressBar="${1}"
 
   local mseBarIniString="${mseTmpThemeArrProgressBar[bar_ini_string]}"
@@ -32,9 +27,7 @@ mse_interface_theme_default_showProgressBar_createBar() {
   local mseBarColorize="${mseTmpThemeArrProgressBar[bar_colorize]}"
 
 
-  #
-  # Calcula o tamanho total que a barra deve ter para representar o
-  # progresso atualmente definido...
+
   local mseBarAtualBarLength=0
   ((mseBarAtualBarLength = (mseBarMaxCharLength * mseBarAtualProgress) / 100))
   mseTmpThemeArrProgressBar["bar_atual_bar_length"]="${mseBarAtualBarLength}"
@@ -47,8 +40,7 @@ mse_interface_theme_default_showProgressBar_createBar() {
 
 
 
-  #
-  # Printa o início do delimitador
+
   printf "%s" "${mseBarIniString}";
 
   for ((i=0; i<mseBarMaxCharLength; i++)); do
@@ -60,8 +52,5 @@ mse_interface_theme_default_showProgressBar_createBar() {
   done
 
   printf "${mseUseColor}"; printf "%s" "${mseStrBar}"; printf "${mseNONE}"
-
-  #
-  # Printa o fim do delimitador
   printf "%s" "${mseBarEndString}";
 }

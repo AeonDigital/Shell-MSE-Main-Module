@@ -2,27 +2,18 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-
-
-
-
-
 #
-# Efetivamente monta e mostra a barra de progresso a partir das configurações
-# indicadas.
+# Assembles and displays the progress bar from the indicated settings.
 #
 # @param string $1
-# Nome do array associativo que traz as configurações para a apresentação da
-# barra de progresso.
-#
-# @return
-# Printa o resultado conforme as configurações passadas.
-mse_interface_theme_default_showProgressBar() {
+# Name of the associative array that brings the settings for the presentation
+# of the progress bar.
+mse_interface_theme_default_progressBar_show() {
   declare -n mseTmpThemeArrShowProgressBar="${1}"
 
 
-  local mseProgressBarComponent=$(mse_interface_theme_default_showProgressBar_createBar "${1}")
-  local mseInformationComponent=$(mse_interface_theme_default_showProgressBar_createInformation "${1}")
+  local mseProgressBarComponent=$(mse_interface_theme_default_progressBar_create_bar "${1}")
+  local mseInformationComponent=$(mse_interface_theme_default_progressBar_create_information "${1}")
 
   mse_interface_clear_line
 

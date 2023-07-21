@@ -54,7 +54,7 @@ mse_prepare_interface_progressBar() {
 
     case "${mseKey}" in
       meta_theme)
-        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_prepareProgressBar")" != "function" ]; then
+        if [ "${mseValue}" != "" ] && [ "$(type -t "${mseValue}_progressBar_prepare")" != "function" ]; then
           mseTmpArrPrepareProgressBar["meta_theme"]=""
         fi
       ;;
@@ -107,7 +107,7 @@ mse_prepare_interface_progressBar() {
 
 
   if [ "${mseTmpArrPrepareProgressBar[meta_theme]}" != "" ]; then
-    local mseThemePrepareProgressBar="${mseTmpArrPrepareProgressBar[meta_theme]}_prepareProgressBar"
+    local mseThemePrepareProgressBar="${mseTmpArrPrepareProgressBar[meta_theme]}_progressBar_prepare"
     $mseThemePrepareProgressBar "${1}"
   fi
 }
