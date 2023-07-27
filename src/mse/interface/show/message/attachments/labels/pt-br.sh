@@ -2,20 +2,18 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-lbl_inter_alert_header_info="Informação"
-lbl_inter_alert_header_attention="Atenção"
-lbl_inter_alert_header_warning="Alerta"
-lbl_inter_alert_header_error="Erro"
-lbl_inter_alert_header_fail="Falha"
-lbl_inter_alert_header_success="Sucesso"
+lbl_interface_show_message_header_info="Informação"
+lbl_interface_show_message_header_attention="Atenção"
+lbl_interface_show_message_header_warning="Alerta"
+lbl_interface_show_message_header_error="Erro"
+lbl_interface_show_message_header_fail="Falha"
+lbl_interface_show_message_header_success="Sucesso"
 
-lbl_inter_wait_user_any_key="Precione qualquer tecla para prosseguir"
+lbl_interface_wait_user_any_key="Precione qualquer tecla para prosseguir"
 
-lbl_inter_prompt_invalidValue="O valor \"[[VALUE]]\" é inválido."
+lbl_interface_show_prompt_invalid_value="O valor \"[[VALUE]]\" é inválido."
 
-#
-# Coleção de opções aceitas para um 'prompt' do tipo 'bool'.
-unset lbl_inter_showPrompt_BoolValues
-declare -gA lbl_inter_showPrompt_BoolValues
-lbl_inter_showPrompt_BoolValues["1"]="sim::s"
-lbl_inter_showPrompt_BoolValues["0"]="nao::n"
+unset lbl_interface_show_prompt_bool_values
+declare -gA lbl_interface_show_prompt_bool_values
+lbl_interface_show_prompt_bool_values["1"]="sim::s"
+lbl_interface_show_prompt_bool_values["0"]="nao::n"

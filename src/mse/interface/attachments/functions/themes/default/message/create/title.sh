@@ -48,22 +48,22 @@ mse_interface_theme_default_message_create_title() {
     if [ "${mseTitleString}" == "" ]; then
       case "${mseMessageType}" in
         i)
-          mseTitleString="${lbl_inter_alert_header_info}"
+          mseTitleString="${lbl_interface_show_message_header_info}"
         ;;
         a)
-          mseTitleString="${lbl_inter_alert_header_attention}"
+          mseTitleString="${lbl_interface_show_message_header_attention}"
         ;;
         w)
-          mseTitleString="${lbl_inter_alert_header_warning}"
+          mseTitleString="${lbl_interface_show_message_header_warning}"
         ;;
         e)
-          mseTitleString="${lbl_inter_alert_header_error}"
+          mseTitleString="${lbl_interface_show_message_header_error}"
         ;;
         f)
-          mseTitleString="${lbl_inter_alert_header_fail}"
+          mseTitleString="${lbl_interface_show_message_header_fail}"
         ;;
         s)
-          mseTitleString="${lbl_inter_alert_header_success}"
+          mseTitleString="${lbl_interface_show_message_header_success}"
         ;;
         fr | or | ca | im)
           mseTitleString=""

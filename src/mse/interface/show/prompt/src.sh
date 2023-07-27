@@ -36,7 +36,7 @@ mse_interface_show_prompt() {
 
   case "${mseUsePromptValueType}" in
     bool)
-      mseUsePromptAssocValues="lbl_inter_showPrompt_BoolValues"
+      mseUsePromptAssocValues="lbl_interface_show_prompt_bool_values"
     ;;
 
     list)
@@ -109,7 +109,7 @@ mse_interface_show_prompt() {
 
   while [ "${MSE_PROMPT_RESULT}" == "" ]; do
     if [ "${msePromptUserValue}" != "" ]; then
-      local mseErrMsg=$(mse_str_replace_placeHolder "${lbl_inter_prompt_invalidValue}" "VALUE" "${msePromptUserValue}")
+      local mseErrMsg=$(mse_str_replace_placeHolder "${lbl_interface_show_prompt_invalid_value}" "VALUE" "${msePromptUserValue}")
       mse_interface_show_error "ERR::${mseErrMsg}"
     fi
 

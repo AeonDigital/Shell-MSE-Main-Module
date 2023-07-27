@@ -14,8 +14,8 @@
 #
 # - 02: Identifier of the role for which the definition is intended
 #       message   : mse_interface_show_message
-#       prompt    : mse_inter_showPrompt
-#       progress  : mse_inter_show_progressBar
+#       prompt    : mse_interface_show_prompt
+#       progress  : mse_interface_show_progressBar
 #       spinner   : mse_inter_startSpinner
 #       man       : mse_mmod_help_man
 #       metadata  : mse_mmod_mng_showMetaData
