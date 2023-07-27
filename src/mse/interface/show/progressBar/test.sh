@@ -3,15 +3,12 @@
 
 
 test_mse_interface_show_progressBar() {
-  #
-  # Evoca a função principal
   unset mseTestArrShowProgressBar
   declare -A mseTestArrShowProgressBar
   mse_interface_show_progressBar "mseTestArrShowProgressBar" "default" "50" "10" "l" "teste" &> /dev/null
 
 
-  #
-  # Atesta as informações passadas alteraram o array associativo que configura a mensagem
+
   testResult="${mseTestArrShowProgressBar[meta_format]}"
   testExpected="default"
 
@@ -47,8 +44,7 @@ test_mse_interface_show_progressBar() {
 
   mse_interface_show_progressBar "mseTestArrShowProgressBar" "onlybar" "55" "30" "l" "teste 02" &> /dev/null
 
-  #
-  # Atesta as informações passadas alteraram o array associativo que configura a mensagem
+
   testResult="${mseTestArrShowProgressBar[meta_format]}"
   testExpected="onlybar"
 
@@ -82,7 +78,7 @@ test_mse_interface_show_progressBar() {
 
 
 
-  local mseTestShowProgressBarInShell="1"
+  local mseTestShowProgressBarInShell="0"
   if [ "${mseTestShowProgressBarInShell}" == "1" ]; then
     mse_interface_show_progressBar "mseTestArrShowProgressBar" "default" "60" "0" "right" "Informação adicional"
     sleep 0.5
@@ -112,7 +108,4 @@ test_mse_interface_show_progressBar() {
     sleep 0.5
     mse_interface_update_progressBar "mseTestArrShowProgressBar" "100" "Finalizou"
   fi
-
-
-
 }

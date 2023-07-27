@@ -19,3 +19,12 @@ Seguir com:
 Comandos usados que não são built-in do bash
 - find
 - printf
+
+
+
+    #
+    # Ordena as chaves alfabeticamente
+    IFS=$'\n'
+    unset mseTmpPromptSortedKeys
+    declare -a mseTmpPromptSortedKeys=($(sort <<< "${!mseTmpPromptAssocValues[*]}"))
+    IFS=$' \t\n'

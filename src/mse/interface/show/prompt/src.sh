@@ -76,7 +76,7 @@ mse_interface_show_prompt() {
       mse_str_split "::" "${mseTmpAllowedAssocEntries[${msePromptKey}]}" "1"
       if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" -gt "0" ]; then
         for msePromptLabel in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
-          if [ "${mseUsePromptCaseSensitive}" == "0" ]; then
+          if [ "${mseUsePromptCaseSensitive}" == "1" ]; then
             mseTmpAllowedUserAssocEntries["${msePromptLabel}"]="${msePromptKey}"
           else
             mseTmpAllowedUserAssocEntries["${msePromptLabel^^}"]="${msePromptKey}"
@@ -102,6 +102,7 @@ mse_interface_show_prompt() {
   local msePromptUserMessage
   local msePromptUserValue
   local msePromptUserValueCompare
+
   msePromptUserMessage=$(mse_interface_show_message "${mseUsePromptMetaAssoc}" "${mseUsePromptMetaType}" "prompt" "${mseUsePromptTitleString}" "mseUsePromptBodyLines" "mseExtraConfigAssocArrayName")
 
 

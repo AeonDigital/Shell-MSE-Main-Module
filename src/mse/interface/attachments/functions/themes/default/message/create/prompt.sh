@@ -3,20 +3,20 @@
 
 
 #
-# Monta toda a parte do corpo do prompt conforme as configurações
-# definidas e o tema utilizado.
+# Assembles the entire body part of the prompt according to the settings
+# defined and the theme used.
 #
 # @param string $1
-# Nome do array associativo que traz as configurações para a apresentação da
-# mensagem.
+# Name of the associative array that brings the settings for the
+# presentation of the message.
 #
 # @param string $2
-# Opcional.
-# Nome de um array associativo trazendo configurações não previstas
-# inicialmente. Usado para expandir temas.
+# Optional.
+# Name of an associative array bringing configurations not initially
+# foreseen. Used to expand themes.
 #
 # @return
-# Printa o resultado conforme as configurações passadas.
+# Prints the result according to the settings passed.
 mse_interface_theme_default_message_create_prompt() {
   declare -n mseTmpThemeArrCreatePrompt="${1}"
   declare -n mseTmpThemePromptConfig="${2}"
@@ -33,18 +33,13 @@ mse_interface_theme_default_message_create_prompt() {
     declare -n mseTmpPromptAssocValues="${msePromptAllowedAssocValues}"
     declare -a mseTmpPromptBodyLines=()
 
-    #
-    # Ordena as chaves alfabeticamente
     IFS=$'\n'
     unset mseTmpPromptSortedKeys
     declare -a mseTmpPromptSortedKeys=($(sort <<< "${!mseTmpPromptAssocValues[*]}"))
     IFS=$' \t\n'
 
 
-    #
-    # Identifica todos os valores válidos e monta as linhas
-    # de dados que devem ser apresentadas para o usuário como guias de valores
-    # válidos a serem escolhidos.
+
     local mseIndex
     local mseKey
     local mseTmpKeyLabels
@@ -60,13 +55,12 @@ mse_interface_theme_default_message_create_prompt() {
       if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "0" ]; then
         MSE_LAST_FUNCTION_RETURN+=("${mseKey}")
       fi
-      mseTmpKeyLabels=$(mse_str_join " / " "MSE_LAST_FUNCTION_RETURN")
+      tmpArray=("${MSE_LAST_FUNCTION_RETURN[@]}")
+      mseTmpKeyLabels=$(mse_str_join " / " "tmpArray")
 
       mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
       mseTmpPromptBodyLines+=("${mseTmpOptionLine}")
 
-      #
-      # Incrementa os contadores de linhas
       mseTmpLineLength=$(wc -m <<< $mseTmpOptionLine)
 
       if [ "${mseTmpLineLength}" -gt "${mseTmpMaxOptionLength}" ]; then
@@ -76,9 +70,7 @@ mse_interface_theme_default_message_create_prompt() {
 
 
 
-    #
-    # Monta as linhas expositivas de opções de forma a focarem agradáveis de ler
-    # e fáceis de serem distinguidas
+
     local mseMaxOptionsPerLine
     local mseTmpOptionPadLength=0
     local mseTmpOptionPadString=""
@@ -110,8 +102,6 @@ mse_interface_theme_default_message_create_prompt() {
     fi
 
 
-    #
-    # Inicia a leitura na próxima linha
     mseTmpPromptBodyLinesArray+=("")
   else
     mseTmpThemeArrCreatePrompt[body_lines]=""

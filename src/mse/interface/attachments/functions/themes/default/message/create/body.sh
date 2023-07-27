@@ -53,8 +53,7 @@ mse_interface_theme_default_message_create_body() {
 
 
 
-    #
-    # Monta o corpo da mensagem
+
     local mseLineText=""
     local mseCountLines=0
 
@@ -70,16 +69,12 @@ mse_interface_theme_default_message_create_body() {
       ((mseCountLines=mseCountLines+1))
 
       if [ "${mseCountLines}" == "1" ]; then
-        #
-        # Configurações para a primeira linha
         mseLineIndent="${mseBodyFirstLineIndent}"
         mseLineBullet="${mseBodyFirstLineBullet}"
         mseLineBulletColor="${mseBodyFirstLineBulletColor}"
         mseLineBulletColorAlt="${mseBodyFirstLineBulletColorAlt}"
         mseLineBulletColorize="${mseBodyFirstLineBulletColorize}"
       else
-        #
-        # Configurações para as demais linhas
         mseLineIndent="${mseBodyLinesIndent}"
         mseLineBullet="${mseBodyLinesBullet}"
         mseLineBulletColor="${mseBodyLinesBulletColor}"

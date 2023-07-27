@@ -17,7 +17,7 @@ test_mse_interface_show_message() {
   mseTestArrBody+=("Terceira linha")
 
 
-  local mseTestShowMessageInShell="1"
+  local mseTestShowMessageInShell="0"
   if [ "${mseTestShowMessageInShell}" == "1" ]; then
 
     echo "---"
@@ -58,7 +58,7 @@ test_mse_interface_show_message() {
 
 
 
-  local mseTestShowAlertInShell="1"
+  local mseTestShowAlertInShell="0"
   if [ "${mseTestShowAlertInShell}" == "1" ]; then
     echo "---"
     # Mostra uma mensagem do tipo "title"
@@ -82,7 +82,7 @@ test_mse_interface_show_message() {
 
 
 
-  local mseTestShowErrorInShell="1"
+  local mseTestShowErrorInShell="0"
   if [ "${mseTestShowErrorInShell}" == "1" ]; then
     # Mostra uma mensagem tendo apenas um título simples
     mse_interface_show_error "Um erro ocorreu"
@@ -101,7 +101,7 @@ test_mse_interface_show_message() {
 
 
 
-  local mseTestShowStatusInShell="1"
+  local mseTestShowStatusInShell="0"
   if [ "${mseTestShowStatusInShell}" == "1" ]; then
     echo "---"
     # Mostra uma mensagem tendo apenas um título simples
