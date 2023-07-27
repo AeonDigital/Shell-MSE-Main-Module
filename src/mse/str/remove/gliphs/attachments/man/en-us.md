@@ -21,7 +21,7 @@ Removes all strings containing glyphs by their respective glyph-free version.
 # Example
 
 ``` shell
-  mse_str_remove_gliphs "Coração"
+  mse_str_remove_glyphs "Coração"
   Coracao
 ```
 

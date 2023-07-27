@@ -2,7 +2,7 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-mse_str_remove_gliphs() {
+mse_str_remove_glyphs() {
   mseLastFunctionVariablesReset
 
   local mseReturn=$(printf "${1}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')

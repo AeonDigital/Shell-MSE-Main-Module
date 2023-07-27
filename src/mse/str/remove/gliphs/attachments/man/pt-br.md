@@ -21,7 +21,7 @@ Remove todas as string contendo glifos por sua respectiva versão sem glifos.
 # Example
 
 ``` shell
-  mse_str_remove_gliphs "Coração"
+  mse_str_remove_glyphs "Coração"
   Coracao
 ```
 
