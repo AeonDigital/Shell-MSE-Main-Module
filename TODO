@@ -37,3 +37,15 @@ unset lbl_interface_show_prompt_bool_values
 declare -gA lbl_interface_show_prompt_bool_values
 lbl_interface_show_prompt_bool_values["1"]="yes::y"
 lbl_interface_show_prompt_bool_values["0"]="no::n"
+
+
+#
+# convertendo uma string com quotes para array respeitando as aspas simples ou duplas
+Str="This string has \"a substring\" ' and now? '"
+IFS=$'\n' mseTmpArray=( $(xargs -n1 <<<"$Str") )
+printf '<%s>\n' "${arr[@]}"
+<This>
+<string>
+<has>
+<a substring>
+< and now? >

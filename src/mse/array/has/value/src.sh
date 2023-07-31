@@ -10,7 +10,7 @@ mse_array_has_value() {
     mseCaseSensitive=0
   fi
 
-  local mseReturn=$(mse_main_array_search "${1}" "${2}" "${mseCaseSensitive}" "0")
+  local mseReturn=$(mse_main_array_search "${1}" "${2}" "${mseCaseSensitive}" "0" "0" "0")
 
   mseLastFunctionVariablesSet "${mseReturn}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"

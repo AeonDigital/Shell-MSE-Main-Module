@@ -10,7 +10,7 @@ mse_array_get_index_byValue() {
     mseCaseSensitive=0
   fi
 
-  local mseReturn=$(mse_main_array_search "${1}" "${2}" "${mseCaseSensitive}" "1")
+  local mseReturn=$(mse_main_array_search "${1}" "${2}" "${mseCaseSensitive}" "0" "0" "1")
 
   mseLastFunctionVariablesSet "${mseReturn}" 0 ""
   printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
