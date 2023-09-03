@@ -24,3 +24,23 @@ declare -gA MSE_PROMPT_THEME_CONFIG
 #
 # Stores the user's typed response to a prompt command.
 declare -g MSE_PROMPT_RESULT=""
+
+#
+# Stores the process id of the spinner so that you can terminate it later.
+declare -g MSE_SPINNER_PID=""
+
+#
+# Default spinner template
+declare -ga MSE_SPINNER_DEFAULT=(" / " " - " " \\ " " | ")
+
+#
+# Spinner template 'come and go'
+declare -ga MSE_SPINNER_COMEANDGO=(" •      " "  •     " "   •    " "    •   " "     •  " "      • " "     •  " "    •   " "   •    " "  •     ")
+
+#
+# Spinner template 'stick star'
+declare -ga MSE_SPINNER_STICK_STAR=(" ┤ " " ┘ " " ┴ " " └ " " ├ " " ┌ " " ┬ " " ┐ ")
+
+#
+# Spinner template 'thinking'
+declare -ga MSE_SPINNER_THINKING=(".     " "..    " "...   " "....  " "..... ")

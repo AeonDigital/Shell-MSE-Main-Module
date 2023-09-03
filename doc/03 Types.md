@@ -21,6 +21,10 @@ Accepts only values ​​`0` or `1`.
 Any integer value.  
 The maxvalue accepts depends on your CPU architecture.
 
+`float`  
+Any float value (as string).  
+The maxvalue accepts depends on your CPU architecture.
+
 `char`  
 Accepts only one char (UTF-8).
 
