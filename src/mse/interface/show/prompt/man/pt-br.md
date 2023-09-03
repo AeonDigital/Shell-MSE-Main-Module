@@ -3,7 +3,7 @@
 Mostra uma mensagem para o usuário e permite que ele ofereça uma resposta.
 
 O resultado selecionado/digitado pelo usuário ficará definido na variável
-global 'MSE_PROMPT_RESULT'.
+global `MSE_PROMPT_RESULT`.
 
 
 
@@ -80,13 +80,16 @@ linha do título vazia em caso de tipo de mensagem `none`.
   Tipo de valor que é esperado como resposta do prompt.
 
 Se nenhum valor for informado, ou, se informado um valor inválido, usará o tipo 
-'value'.
+`value`.
 
 Abaixo segue uma breve descrição de cada um dos tipos de retorno.
 
 - b | bool  : espera uma resposta booleana 
 - l | list  : espera uma resposta baseada em uma lista pré-definida.
 - v | value : aceita qualquer resposta como válida.
+
+Para tipos `bool` a comparação de valores será sempre feita em case insensitive 
+e ignorará glifos (veja parametros abaixo).
 
 
 &nbsp;
@@ -120,6 +123,23 @@ convertido para o tipo `value`.
   sensitive.
 
 Usado apenas para prompts que tem `list` como `returnType`.
+Quando o `returnType` este valor será sempre `0`.
+
+
+&nbsp;
+
+## bool ignoreGlyphs
+
+- aka       : -ig --ignoreGlyphs
+- default   : 0
+- hint      :  
+  Indique se a comparação de valores deve ignorar os glifos.
+
+Neste caso, os valores testados serão convertidos em ASCII.
+Omita ou indique "0" para fazer uma comparação usando o valor real.
+Digite "1" para ignorar os glifos na comparação.
+
+Quando o `returnType` este valor será sempre `1`.
 
 
 
@@ -127,4 +147,5 @@ Usado apenas para prompts que tem `list` como `returnType`.
 
 # Returns string
 
-Printa na tela a mensagem indicada conforme configuração passada.
+Printa na tela a mensagem de prompt conforme configuração passada e aguarda uma 
+resposta do usuário.

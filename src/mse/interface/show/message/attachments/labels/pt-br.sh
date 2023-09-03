@@ -13,7 +13,8 @@ lbl_interface_wait_user_any_key="Precione qualquer tecla para prosseguir"
 
 lbl_interface_show_prompt_invalid_value="O valor \"[[VALUE]]\" é inválido."
 
+
 unset lbl_interface_show_prompt_bool_values
 declare -gA lbl_interface_show_prompt_bool_values
-lbl_interface_show_prompt_bool_values["1"]="sim::s"
-lbl_interface_show_prompt_bool_values["0"]="nao::n"
+lbl_interface_show_prompt_bool_values["1"]="sim s"
+lbl_interface_show_prompt_bool_values["0"]="não n"

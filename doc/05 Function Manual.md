@@ -235,6 +235,7 @@ a case-sensitive way just declare this property as **option cs**
 - [[labels]]
   A collection of labels (separated by space) that can be used by the user to 
   select the corresponding actual value.  
+  Use single quotation marks to delimit values that contain spaces.
 
 
 &nbsp;
@@ -270,6 +271,16 @@ a case-sensitive way just declare this property as **option cs**
     - "south america" : 7 sa
 
   ...
+
+  ## string brasilian uf
+  - options:
+    - "es" : 1 'Espírito Santo'
+    - "mg" : 2 'Minas Gerais'
+    - "pr" : 3 'Paraná'
+    - "rj" : 4 'Rio de Janeiro'
+    - "rs" : 5 'Rio Grande do Sul'
+    - "sc" : 6 'Santa Catarina'
+    - "sp" : 7 'São Paulo'
   
 ```
 

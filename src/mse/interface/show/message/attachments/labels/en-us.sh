@@ -16,5 +16,5 @@ lbl_interface_show_prompt_invalid_value="Invalid value \"[[VALUE]]\"."
 
 unset lbl_interface_show_prompt_bool_values
 declare -gA lbl_interface_show_prompt_bool_values
-lbl_interface_show_prompt_bool_values["1"]="yes::y"
-lbl_interface_show_prompt_bool_values["0"]="no::n"
+lbl_interface_show_prompt_bool_values["1"]="yes y"
+lbl_interface_show_prompt_bool_values["0"]="no n"

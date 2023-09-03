@@ -7,8 +7,6 @@
 
 
 
-#
-# Declaração de legendas comuns para servir de base à qualquer módulo
 declare -ga MSE_GLOBAL_LABEL_MONTH=("" "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro")
 declare -ga MSE_GLOBAL_LABEL_WEEKDAY=("" "Segunda" "Terça" "Quarta" "Quinta" "Sexta" "Sábado" "Domingo")
 declare -ga MSE_GLOBAL_LABEL_DAYPERIOD=("" "Madrugada" "Manhã" "Tarde" "Noite")

@@ -22,5 +22,5 @@ declare -gA MSE_PROGRESSBAR_THEME_CONFIG
 declare -gA MSE_PROMPT_THEME_CONFIG
 
 #
-# Stores the response typed by the user in response to the prompt.
+# Stores the user's typed response to a prompt command.
 declare -g MSE_PROMPT_RESULT=""

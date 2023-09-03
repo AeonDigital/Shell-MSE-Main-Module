@@ -87,6 +87,9 @@ Below is a brief description of each of the return types.
 - l | list  : expects a response based on a predefined list.
 - v | value : accepts any response as valid.
 
+For 'bool' types the comparison of values will always be made in insensitive 
+case and will ignore glyphs (see parameters below).
+
 
 &nbsp;
 
@@ -120,10 +123,28 @@ converted to type 'value'.
 
 Used only for prompts that have 'list' as 'returnType'.
 
+When the 'returnType' this value will always be '0'.
+
+
+&nbsp;
+
+## bool ignoreGlyphs
+
+- aka       : -ig --ignoreGlyphs
+- default   : 0
+- hint      :  
+  Indicate whether the value comparison should ignore the glyphs.
+
+In this case the tested values will be converted to ASCII.
+Omit or indicate "0" to make a comparison using the actual value.
+Enter "1" to ignore the glyphs in the comparison.
+
+When the 'returnType' this value will always be '1'.
+
 
 
 &nbsp;
 
 # Returns string
 
-Prints on the screen the message indicated according to the past configuration.
+Prints the prompt message as configured past and waits for a user response.

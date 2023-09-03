@@ -26,7 +26,7 @@ mse_interface_theme_default_message_create_prompt() {
   local msePromptAllowedAssocValues="${mseTmpThemePromptConfig[prompt_allowed_assoc_values]}"
 
 
-  if [ "${mseTmpThemeArrCreatePrompt[body_show]}" == "1" ] && ([ "${msePromptExpectedValueType}" == "bool" ] || [ "${msePromptExpectedValueType}" == "list" ]); then
+  if [ "${mseTmpThemeArrCreatePrompt[body_show]}" == "1" ] && ([ "${msePromptExpectedValueType}" == "b" ] || [ "${msePromptExpectedValueType}" == "l" ]); then
     unset mseTmpPromptAssocValues
     unset mseTmpPromptBodyLines
 
@@ -51,12 +51,21 @@ mse_interface_theme_default_message_create_prompt() {
     for mseIndex in "${!mseTmpPromptSortedKeys[@]}"; do
       mseKey="${mseTmpPromptSortedKeys[${mseIndex}]}"
 
-      mse_str_split "::" "${mseTmpPromptAssocValues[${mseKey}]}" "1"
-      if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "0" ]; then
-        MSE_LAST_FUNCTION_RETURN+=("${mseKey}")
+      IFS=$'\n'
+      msePromptLabelArrayXARGS=($(xargs -n1 <<< "${mseTmpPromptAssocValues[${mseKey}]}"))
+      IFS=$' \t\n'
+      if [ "${#msePromptLabelArrayXARGS[@]}" == "0" ]; then
+        msePromptLabelArrayXARGS+=("${mseKey}")
+      else
+        local tmpLabel
+        for i in "${!msePromptLabelArrayXARGS[@]}"; do
+          tmpLabel="${msePromptLabelArrayXARGS[$i]}"
+          if [[ "${tmpLabel}" == *" "* ]]; then
+            msePromptLabelArrayXARGS[$i]="'"${tmpLabel}"'"
+          fi
+        done
       fi
-      tmpArray=("${MSE_LAST_FUNCTION_RETURN[@]}")
-      mseTmpKeyLabels=$(mse_str_join " / " "tmpArray")
+      mseTmpKeyLabels=$(mse_str_join " / " "msePromptLabelArrayXARGS")
 
       mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
       mseTmpPromptBodyLines+=("${mseTmpOptionLine}")

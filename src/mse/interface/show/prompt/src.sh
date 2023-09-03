@@ -11,6 +11,7 @@ mse_interface_show_prompt() {
   local mseUsePromptValueType="${4}"
   local mseUsePromptAssocValues="${5}"
   local mseUsePromptCaseSensitive="${6}"
+  local mseUsePromptIgnoreGlyphs="${7}"
 
 
 
@@ -35,19 +36,21 @@ mse_interface_show_prompt() {
 
 
   case "${mseUsePromptValueType}" in
-    bool)
+    b)
       mseUsePromptAssocValues="lbl_interface_show_prompt_bool_values"
+      mseUsePromptCaseSensitive="0"
+      mseUsePromptIgnoreGlyphs="1"
     ;;
 
-    list)
+    l)
       if [[ ! "$(declare -p ${mseUsePromptAssocValues} 2> /dev/null)" =~ "declare -A" ]]; then
-        mseUsePromptValueType="value"
+        mseUsePromptValueType="v"
         mseUsePromptAssocValues=""
       fi
     ;;
 
     *)
-      mseUsePromptValueType="value"
+      mseUsePromptValueType="v"
       mseUsePromptAssocValues=""
     ;;
   esac
@@ -56,6 +59,10 @@ mse_interface_show_prompt() {
 
   if [ "${mseUsePromptCaseSensitive}" == "" ] || ([ "${mseUsePromptCaseSensitive}" != "0" ] && [ "${mseUsePromptCaseSensitive}" != "1" ]); then
     mseUsePromptCaseSensitive="1"
+  fi
+
+  if [ "${mseUsePromptIgnoreGlyphs}" == "" ] || ([ "${mseUsePromptIgnoreGlyphs}" != "0" ] && [ "${mseUsePromptIgnoreGlyphs}" != "1" ]); then
+    mseUsePromptIgnoreGlyphs="0"
   fi
 
 
@@ -67,26 +74,41 @@ mse_interface_show_prompt() {
     declare -n mseTmpAllowedAssocEntries="${mseUsePromptAssocValues}"
 
     for msePromptKey in "${!mseTmpAllowedAssocEntries[@]}"; do
-      if [ "${mseUsePromptCaseSensitive}" == "1" ]; then
-        mseTmpAllowedUserAssocEntries["${msePromptKey}"]="${msePromptKey}"
-      else
-        mseTmpAllowedUserAssocEntries["${msePromptKey^^}"]="${msePromptKey}"
+      local mseComparePromptKey="${msePromptKey}"
+
+      if [ "${mseUsePromptCaseSensitive}" == "0" ]; then
+        mseComparePromptKey="${mseComparePromptKey^^}"
       fi
 
-      mse_str_split "::" "${mseTmpAllowedAssocEntries[${msePromptKey}]}" "1"
-      if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" -gt "0" ]; then
-        for msePromptLabel in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
-          if [ "${mseUsePromptCaseSensitive}" == "1" ]; then
-            mseTmpAllowedUserAssocEntries["${msePromptLabel}"]="${msePromptKey}"
-          else
-            mseTmpAllowedUserAssocEntries["${msePromptLabel^^}"]="${msePromptKey}"
+      if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
+        mseComparePromptKey=$(printf "${mseComparePromptKey}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+      fi
+
+      mseTmpAllowedUserAssocEntries["${mseComparePromptKey}"]="${msePromptKey}"
+
+
+
+      IFS=$'\n'
+      msePromptLabelArrayXARGS=($(xargs -n1 <<< "${mseTmpAllowedAssocEntries[${msePromptKey}]}"))
+      IFS=$' \t\n'
+      if [ "${#msePromptLabelArrayXARGS[@]}" -gt "0" ]; then
+        for msePromptLabel in "${msePromptLabelArrayXARGS[@]}"; do
+          local mseComparePromptLabel="${msePromptLabel}"
+
+          if [ "${mseUsePromptCaseSensitive}" == "0" ]; then
+            mseComparePromptLabel="${mseComparePromptLabel^^}"
           fi
+
+          if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
+            mseComparePromptLabel=$(printf "${mseComparePromptLabel}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+          fi
+
+          mseTmpAllowedUserAssocEntries["${mseComparePromptLabel}"]="${msePromptKey}"
         done
       fi
 
     done
   fi
-
 
 
   unset mseExtraConfigAssocArrayName
@@ -114,16 +136,21 @@ mse_interface_show_prompt() {
     fi
 
     read -r -p "${msePromptUserMessage}" msePromptUserValue
-
     msePromptUserValueCompare="${msePromptUserValue}"
+
     if [ "${mseUsePromptCaseSensitive}" == "0" ]; then
-      msePromptUserValueCompare="${msePromptUserValue^^}"
+      msePromptUserValueCompare="${msePromptUserValueCompare^^}"
     fi
 
-    if [ "${mseUsePromptValueType}" == "bool" ] || [ "${mseUsePromptValueType}" == "list" ]; then
-      for msePromptKey in "${!mseTmpAllowedUserAssocEntries[@]}"; do
-        if [ "${msePromptUserValueCompare}" == "${msePromptKey}" ]; then
-          MSE_PROMPT_RESULT="${mseTmpAllowedUserAssocEntries[${msePromptKey}]}"
+    if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
+      msePromptUserValueCompare=$(printf "${msePromptUserValueCompare}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+    fi
+
+
+    if [ "${mseUsePromptValueType}" == "b" ] || [ "${mseUsePromptValueType}" == "l" ]; then
+      for mseComparePrompt in "${!mseTmpAllowedUserAssocEntries[@]}"; do
+        if [ "${msePromptUserValueCompare}" == "${mseComparePrompt}" ]; then
+          MSE_PROMPT_RESULT="${mseTmpAllowedUserAssocEntries[${mseComparePrompt}]}"
         fi
       done
     else
