@@ -108,7 +108,7 @@ test_mse_prepare_interface_progressBar() {
   #
   # Bloco 03: Informações
   mseTestExpectedKeyValues["info_show"]="1"
-  mseTestExpectedKeyValues["info_align"]="right"
+  mseTestExpectedKeyValues["info_align"]="r"
   mseTestExpectedKeyValues["info_ini_string"]="( "
   mseTestExpectedKeyValues["info_end_string"]=" )"
   mseTestExpectedKeyValues["info_use_percent"]="1"

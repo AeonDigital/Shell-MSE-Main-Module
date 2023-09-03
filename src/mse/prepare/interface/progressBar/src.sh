@@ -90,14 +90,8 @@ mse_prepare_interface_progressBar() {
         mseTmpArrPrepareProgressBar["bar_max_char_length"]="${mseValue}"
       ;;
       info_align)
-        if [ "${mseValue}" != "l" ] && [ "${mseValue}" != "left" ] && [ "${mseValue}" != "r" ] && [ "${mseValue}" != "right" ]; then
-          mseValue="right"
-        else
-          if [ "${mseValue}" == "l" ]; then
-            mseValue="left"
-          elif [ "${mseValue}" == "r" ]; then
-            mseValue="right"
-          fi
+        if [ "${mseValue}" != "l" ] && [ "${mseValue}" != "r" ]; then
+          mseValue="r"
         fi
         mseTmpArrPrepareProgressBar["info_align"]="${mseValue}"
       ;;

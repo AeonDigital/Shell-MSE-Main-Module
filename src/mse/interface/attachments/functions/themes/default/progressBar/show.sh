@@ -17,14 +17,14 @@ mse_interface_theme_default_progressBar_show() {
 
   mse_interface_clear_line
 
-  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "left" ]; then
+  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "l" ]; then
     printf "%s" "${mseInformationComponent}"
   fi
 
   printf "%s" "${mseTmpThemeArrShowProgressBar[meta_indent]}"
   printf "%s" "${mseProgressBarComponent}"
 
-  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "right" ]; then
+  if [ "${mseTmpThemeArrShowProgressBar[info_align]}" == "r" ]; then
     printf "%s" "${mseInformationComponent}"
   fi
 

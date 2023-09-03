@@ -93,17 +93,11 @@ mse_interface_show_progressBar() {
 
 
 
-    mseTmpInterArrShowProgressBar[info_align]="right"
+    mseTmpInterArrShowProgressBar[info_align]="r"
     mseTmpInterArrShowProgressBar[info_data]=""
     if [ "${mseTmpInterArrShowProgressBar[info_show]}" == "1" ]; then
-      if [ "${mseUseInfoAlign}" != "l" ] && [ "${mseUseInfoAlign}" != "left" ] && [ "${mseUseInfoAlign}" != "r" ] && [ "${mseUseInfoAlign}" != "right" ]; then
-        mseUseInfoAlign="right"
-      else
-        if [ "${mseUseInfoAlign}" == "l" ]; then
-          mseUseInfoAlign="left"
-        elif [ "${mseUseInfoAlign}" == "r" ]; then
-          mseUseInfoAlign="right"
-        fi
+      if [ "${mseUseInfoAlign}" != "l" ] && [ "${mseUseInfoAlign}" != "r" ]; then
+        mseUseInfoAlign="r"
       fi
 
       mseTmpInterArrShowProgressBar[info_align]="${mseUseInfoAlign}"

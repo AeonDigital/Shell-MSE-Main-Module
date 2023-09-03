@@ -28,7 +28,7 @@ test_mse_interface_show_progressBar() {
 
 
   testResult="${mseTestArrShowProgressBar[info_align]}"
-  testExpected="left"
+  testExpected="l"
 
   mse_md_utest_assertEqual
 
@@ -64,7 +64,7 @@ test_mse_interface_show_progressBar() {
 
 
   testResult="${mseTestArrShowProgressBar[info_align]}"
-  testExpected="right"
+  testExpected="r"
 
   mse_md_utest_assertEqual
 
@@ -80,7 +80,7 @@ test_mse_interface_show_progressBar() {
 
   local mseTestShowProgressBarInShell="0"
   if [ "${mseTestShowProgressBarInShell}" == "1" ]; then
-    mse_interface_show_progressBar "mseTestArrShowProgressBar" "default" "60" "0" "right" "Informação adicional"
+    mse_interface_show_progressBar "mseTestArrShowProgressBar" "default" "60" "0" "r" "Informação adicional"
     sleep 0.5
     mse_interface_update_progressBar "mseTestArrShowProgressBar" "1"
     sleep 0.5
