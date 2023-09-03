@@ -8,8 +8,8 @@ Lists the fonts that can be used for your terminal.
 
 # Description
 
-This is a search made in the directories '/usr' and '/etc' for files of font of 
-type 'psf'.
+This is a search made in the directories `/usr` and `/etc` for files of font of 
+type `psf`.
 
 Knowing the available fonts you can select one for use with the command below:
 

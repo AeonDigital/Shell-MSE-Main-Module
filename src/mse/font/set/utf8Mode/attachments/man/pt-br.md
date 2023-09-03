@@ -1,6 +1,6 @@
 # Synopsis
 
-Identifica/Ativa/Desativa o modo UTF-8 do terminal 'bash'.
+Identifica/Ativa/Desativa o modo UTF-8 do terminal `bash`.
 
 
 

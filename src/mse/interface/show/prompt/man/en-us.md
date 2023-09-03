@@ -3,7 +3,7 @@
 Shows a message to the user and allows the user to offer a response.
 
 The result selected/typed by the user will be defined in the variable
-global 'MSE_PROMPT_RESULT'.
+global `MSE_PROMPT_RESULT`.
 
 
 
@@ -79,7 +79,7 @@ line empty in case of message type `none`.
 - hint      :  
   Type of value that is expected as a response to the prompt.
 
-If no value is entered, or, if entered an invalid value, use the type 'value'.
+If no value is entered, or, if entered an invalid value, use the type `value`.
 
 Below is a brief description of each of the return types.
 
@@ -87,7 +87,7 @@ Below is a brief description of each of the return types.
 - l | list  : expects a response based on a predefined list.
 - v | value : accepts any response as valid.
 
-For 'bool' types the comparison of values will always be made in insensitive 
+For `bool` types the comparison of values will always be made in insensitive 
 case and will ignore glyphs (see parameters below).
 
 
@@ -99,7 +99,7 @@ case and will ignore glyphs (see parameters below).
 - hint      :  
   Name of the associative array containing the valid selection options.
 
-Used only for prompts that have 'list' as 'returnType'.
+Used only for prompts that have `list` as `returnType`.
 For this case, consider that:
   key   : Values that will be effectively set by the user's action.
   value : Collection of labels that can be used to represent this value.
@@ -107,8 +107,8 @@ For this case, consider that:
           It is good practice to enclose each label in quotation marks to allow 
           this the use of names with spaces.
 
-If the value of this parameter is set and is invalid, the 'returnType' is 
-converted to type 'value'.
+If the value of this parameter is set and is invalid, the `returnType` is 
+converted to type `value`.
 
 
 &nbsp;
@@ -121,9 +121,9 @@ converted to type 'value'.
   Indicates when the comparison of valid values should be made in case 
   sensitive.
 
-Used only for prompts that have 'list' as 'returnType'.
+Used only for prompts that have `list` as `returnType`.
 
-When the 'returnType' this value will always be '0'.
+When the `returnType` this value will always be `0`.
 
 
 &nbsp;
@@ -139,7 +139,7 @@ In this case the tested values will be converted to ASCII.
 Omit or indicate "0" to make a comparison using the actual value.
 Enter "1" to ignore the glyphs in the comparison.
 
-When the 'returnType' this value will always be '1'.
+When the `returnType` this value will always be `1`.
 
 
 

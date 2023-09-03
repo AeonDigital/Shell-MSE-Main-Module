@@ -1,7 +1,7 @@
 # Synopsis
 
 Prepara um array associativo preenchendo as chaves necessárias para executar um 
-comando 'mse_file_read'.
+comando `mse_file_read`.
 
 
 

@@ -209,10 +209,10 @@ value of each system.**
 - aka       : -raa --returnAsString
 - default   : 0
 - hint      :  
-  Enter '1' if you want to return the style code in readable string format.
+  Enter `1` if you want to return the style code in readable string format.
 
-If omitted or entered '0' a color code will be returned ready for be used in a 
-Bash string formatting. If you enter '1' the value returned will be a string 
+If omitted or entered `0` a color code will be returned ready for be used in a 
+Bash string formatting. If you enter `1` the value returned will be a string 
 containing all the generated code representing the style of colors formed.
 
 
