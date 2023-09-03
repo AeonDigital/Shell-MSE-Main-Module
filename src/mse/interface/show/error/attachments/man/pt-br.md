@@ -1,7 +1,7 @@
 # Synopsis
 
 Mostra uma mensagem de erro para o usuário usando o tema que está atualmente 
-configurado na variável "MSE_MESSAGE_THEME_NAME".
+configurado na variável `MSE_MESSAGE_THEME_NAME`.
 
 
 

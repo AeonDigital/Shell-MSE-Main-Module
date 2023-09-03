@@ -21,7 +21,7 @@ Splits the passed string into an array using the indicated separator.
 
 - aka       : -s --string
 - hint      :  
-  Original string (which will be "splited").
+  Original string (which will be splited).
 
 &nbsp;
 
@@ -40,7 +40,7 @@ Splits the passed string into an array using the indicated separator.
 
 - aka       : -t --trim
 - hint      :  
-  indicates when to perform a "trim" on each of the values found.
+  indicates when to perform a `trim` on each of the values found.
 
 &nbsp;
 
@@ -61,4 +61,4 @@ Splits the passed string into an array using the indicated separator.
 
 # Returns array
 
-The result will be defined in the variable "MSE_LAST_FUNCTION_RETURN".
+The result will be defined in the variable `MSE_LAST_FUNCTION_RETURN`.

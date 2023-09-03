@@ -18,7 +18,7 @@ global `MSE_PROMPT_RESULT`.
   Nome do array associativo contendo as configurações da mensagem.
 
 Se omitido ou inválido, será iniciado o array associativo 
-"MSE_MESSAGE_THEME_CONFIG" usando o tema padrão e este será usado para a 
+`MSE_MESSAGE_THEME_CONFIG` usando o tema padrão e este será usado para a 
 formatação da mensagem.
 
 
@@ -62,7 +62,7 @@ finalidade ele deve ser usado.
 - hint      :  
   Título da mensagem.
 
-Se "", usará o título padrão conforme o `type` de mensagem, ou, deixará a
+Se `""`, usará o título padrão conforme o `type` de mensagem, ou, deixará a
 linha do título vazia em caso de tipo de mensagem `none`.
 
 
@@ -136,8 +136,8 @@ Quando o `returnType` este valor será sempre `0`.
   Indique se a comparação de valores deve ignorar os glifos.
 
 Neste caso, os valores testados serão convertidos em ASCII.
-Omita ou indique "0" para fazer uma comparação usando o valor real.
-Digite "1" para ignorar os glifos na comparação.
+Omita ou indique `0` para fazer uma comparação usando o valor real.
+Digite `1` para ignorar os glifos na comparação.
 
 Quando o `returnType` este valor será sempre `1`.
 

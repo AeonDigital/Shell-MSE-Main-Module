@@ -234,7 +234,7 @@ used.
   String used for this separator.
 
 ["top_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.
@@ -325,7 +325,7 @@ theme being used is used.
   String used for this separator.
 
 ["title_top_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.
@@ -458,7 +458,7 @@ component.
   Message title.
 
 ["title_string"]
-If "", use the default title as per the message `type`, or, leave the title 
+If `""`, use the default title as per the message `type`, or, leave the title 
 line empty in case of message type `none`.
 
 
@@ -531,7 +531,7 @@ before starting the next component.
   String used for this separator.
 
 ["title_bottom_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.
@@ -606,7 +606,7 @@ component.
   String used for this separator.
 
 ["body_top_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.
@@ -867,7 +867,7 @@ component.
   String used for this separator.
 
 ["body_bottom_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.
@@ -927,7 +927,7 @@ component.
   String used for this separator.
 
 ["bottom_separator_string"]
-It can be just a newline character (\n) or any other that will be displayed as 
+It can be just a newline character `\n` or any other that will be displayed as 
 a separator.
 
 If no characters are defined, this component is omitted entirely.

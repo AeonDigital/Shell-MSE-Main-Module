@@ -9,13 +9,13 @@ By default it is ideal that you always use the parameters enclosed in quotes.
 
 
 `null | !`  
-Accepts the value of the const "MSE_NULL".  
+Accepts the value of the const `MSE_NULL`.  
 Often used in conjunction with a type union operator to represent a value
 that may also be null.  
-Check for "Union Types" section.
+Check for `Union Types` section.
 
 `bool`  
-Accepts only values ​​"0" or "1".
+Accepts only values ​​`0` or `1`.
 
 `int`  
 Any integer value.  
@@ -43,7 +43,7 @@ The name of a declared array in the current scope.
 The name of a declared associative array in the current scope.
 
 `regex`  
-Any regex pattern valid to use with the "test" steatment.
+Any regex pattern valid to use with the `test` steatment.
 
 `function`  
 The name of a declared function in the current scope.
@@ -52,5 +52,5 @@ The name of a declared function in the current scope.
 Any type described above.
 
 `void`  
-Use only for "return" declaration.  
+Use only for `return` declaration.  
 Indicates that the function does not returns any printable results.

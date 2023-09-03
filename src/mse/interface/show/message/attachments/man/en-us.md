@@ -15,7 +15,7 @@ Shows a message to the user in the terminal.
   Name of the associative array containing the message settings.
 
 If omitted or invalid, the associative array is started 
-"MSE_MESSAGE_THEME_CONFIG" using the default theme and this will be used 
+`MSE_MESSAGE_THEME_CONFIG` using the default theme and this will be used 
 for the message formatting.
 
 
@@ -90,7 +90,7 @@ used.
 - hint      :  
   Message title.
 
-If "", use the default title as per the message `type`, or, leave the title 
+If `""`, use the default title as per the message `type`, or, leave the title 
 line empty in case of message type `none`.
 
 

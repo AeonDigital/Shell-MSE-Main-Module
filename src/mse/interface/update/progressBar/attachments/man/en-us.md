@@ -1,7 +1,7 @@
 # Synopsis
 
 Refreshes the progress bar on the prompt line (initiated by the command
-"mse_interface_show_progressBar".
+`mse_interface_show_progressBar`).
 
 
 
@@ -16,7 +16,7 @@ Refreshes the progress bar on the prompt line (initiated by the command
   Name of the associative array containing the message settings.
 
 If omitted or invalid, the associative array is started 
-"MSE_PROGRESSBAR_THEME_CONFIG" using the default theme and this will be used 
+`MSE_PROGRESSBAR_THEME_CONFIG` using the default theme and this will be used 
 for the message formatting.
 
 
@@ -31,7 +31,7 @@ for the message formatting.
 - hint      :  
   Current percentage of progress progress (from 0 to 100).
 
-Invalid values will revert to "0".
+Invalid values will revert to `0`.
 
 
 &nbsp;

@@ -25,7 +25,7 @@ The identified words will be kept without being separated between the lines
 - hint      :  
   Maximum number of characters per line.
 
-If not set, or, if invalid, uses the current value of the variable "\$COLUMNS".
+If not set, or, if invalid, uses the current value of the variable `$COLUMNS`.
 
 &nbsp;
 
@@ -33,4 +33,4 @@ If not set, or, if invalid, uses the current value of the variable "\$COLUMNS".
 
 # Returns array
 
-The result will be defined in the variable "MSE_LAST_FUNCTION_RETURN".
+The result will be defined in the variable `MSE_LAST_FUNCTION_RETURN`.

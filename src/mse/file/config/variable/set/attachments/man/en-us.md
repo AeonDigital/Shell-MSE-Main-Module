@@ -35,7 +35,7 @@ per the model below:
   # [[END-MSE_AVAILABLE_MODULES]]
 ```
 
-It is important to note that the "INI" and "END" markings MUST be commented out 
+It is important to note that the `INI` and `END` markings MUST be commented out 
 and in the beginning of the line and the name of each section must be identical 
 to the variable it is in is enabling editing.
 
@@ -93,9 +93,9 @@ to the variable it is in is enabling editing.
   Type of variable being written.
 
 Specifies the target variable type of the action.
-- Use "scalar" for simple variables.
-- Use "array" for one-dimensional arrays.
-- Use "assoc" for associative arrays..
+- Use `scalar` for simple variables.
+- Use `array` for one-dimensional arrays.
+- Use `assoc` for associative arrays..
 
 
 &nbsp;
@@ -115,7 +115,7 @@ Specifies the target variable type of the action.
 - hint      :  
   Variable value.
 
-For variables of type "array" or "assoc" enter the name of an array of same 
+For variables of type `array` or `assoc` enter the name of an array of same 
 type that contains the values that will be used.
 
 
@@ -149,10 +149,10 @@ Allows you to set the mode in which the writing will be done.
   - a: append
 - hint      :  
   Indicates the position at which the variable should be added.
-  Required only for the "a" mode.
+  Required only for the `a` mode.
 
-If selected "prepend" the variable will be added at the beginning of the file/
-section and if "append" is selected, the variable is added to the end of the 
+If selected `prepend` the variable will be added at the beginning of the file/
+section and if `append` is selected, the variable is added to the end of the 
 file/section.
 
 **Use only for editing default configuration files.**

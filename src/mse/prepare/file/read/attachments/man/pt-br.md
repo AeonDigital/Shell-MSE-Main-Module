@@ -113,7 +113,7 @@ transformadoras uma string.
 
   ## bool isRaw
   Use `0` para informar que as linhas que estão sendo processadas estão no 
-  formato "bruto" (tal qual como no arquivo original).
+  formato `bruto` (tal qual como no arquivo original).
   Use `1` para informar que há, no conteúdo de cada linha, a informação 
   de seu respectivo número dentro do arquivo de destino.
 

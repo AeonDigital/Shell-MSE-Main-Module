@@ -50,7 +50,7 @@ sections are defined using the [section] notation).
 For files in general, the section will be identified by a line whose value is 
 same as indicated. For configuration files, enter only the name of the target 
 section.
-Ignore or set "" for this parameter if you want to use the entire file.
+Ignore or set `""` for this parameter if you want to use the entire file.
 
 
 &nbsp;

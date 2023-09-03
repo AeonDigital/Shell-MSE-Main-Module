@@ -15,7 +15,7 @@ Mostra uma barra de progresso no terminal.
   Nome do array associativo contendo as configurações da barra de progresso.
 
 Se omitido ou inválido, será iniciado o array associativo 
-"MSE_PROGRESSBAR_THEME_CONFIG" usando o tema padrão e este será usado para a 
+`MSE_PROGRESSBAR_THEME_CONFIG` usando o tema padrão e este será usado para a 
 formatação da mensagem.
 
 
@@ -55,7 +55,7 @@ O tema usado pode modificar este valor conforme as próprias regras.
 - hint      :  
   Percentual atual de andamento do progresso (de 0 à 100).
 
-Valores inválidos serão revertidos para "0".
+Valores inválidos serão revertidos para `0`.
 
 
 &nbsp;
@@ -79,7 +79,6 @@ Valores inválidos serão revertidos para "0".
 - hint      :  
   Informação que deve ser usada para preencher a área informativa.
 
-["info_data"]
 Se o percentual de avanço for aparecer também, esta informação aparecerá após o 
 mesmo.
 

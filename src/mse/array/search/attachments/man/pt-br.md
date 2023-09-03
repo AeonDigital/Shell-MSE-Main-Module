@@ -31,10 +31,10 @@ Identifica se o valor indicado existe no array alvo.
 - aka       : -cs --caseSensitive
 - default   : 1
 - hint      :  
-  Indica se a verificação deve ser feita em "insensitive case"
+  Indica se a verificação deve ser feita em `insensitive case`
 
-Omitir ou indique "0" para "case sensitive" (padrão)
-Indique "1" para "case insensitive"
+Omitir ou indique `0` para `case sensitive` (padrão)
+Indique `1` para `case insensitive`
 
 
 &nbsp;
@@ -47,8 +47,8 @@ Indique "1" para "case insensitive"
   Indique se você deseja que a comparação seja feita ignorando glifos.
 
 Neste caso, os valores testados serão convertidos em ASCII.
-Omita ou indique "0" para fazer uma comparação usando o valor real.
-Digite "1" para ignorar os glifos na comparação.
+Omita ou indique `0` para fazer uma comparação usando o valor real.
+Digite `1` para ignorar os glifos na comparação.
 
 
 &nbsp;
@@ -61,9 +61,9 @@ Digite "1" para ignorar os glifos na comparação.
   Indique se os valores da matriz passada devem ser tratados como uma submatriz 
   de valores.
 
-Omita ou digite "0" para que a comparação seja feita usando o valor total de
+Omita ou digite `0` para que a comparação seja feita usando o valor total de
 cada um item (padrão).
-Digite "1" para executar a verificação de subvalor.
+Digite `1` para executar a verificação de subvalor.
 
 
 &nbsp;
@@ -78,9 +78,9 @@ Digite "1" para executar a verificação de subvalor.
 - hint      :  
   Indique o tipo de retorno esperado.
 
-Se "b", retornará um booleano indicando a existência ou não do valor passado 
+Se `b`, retornará um booleano indicando a existência ou não do valor passado 
 entre os valores do array.
-Se "i", retornará o índice ou nome da chave em que o valor passado foi 
+Se `i`, retornará o índice ou nome da chave em que o valor passado foi 
 encontrado. Uma string vazia será retornada caso não exista.
 
 
@@ -89,4 +89,4 @@ encontrado. Uma string vazia será retornada caso não exista.
 
 # Returns int
 
-Varia conforme a definição do parametro "returnType"
+Varia conforme a definição do parametro `returnType`

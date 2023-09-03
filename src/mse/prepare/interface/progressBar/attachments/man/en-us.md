@@ -179,7 +179,7 @@ The theme used can modify this value according to the rules themselves.
   Current percentage of progress progress (from 0 to 100).
 
 ["bar_atual_progress"]
-Invalid values will revert to "0".
+Invalid values will revert to `0`.
 
 
 &nbsp;

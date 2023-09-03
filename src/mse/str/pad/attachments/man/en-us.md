@@ -8,8 +8,8 @@ Fills a string with the indicated character.
 
 # Description
 
-Adds to the original string a total of "pad" characters to the left or right 
-(as per "position") until it has the total characters indicated at at "length".
+Adds to the original string a total of `pad` characters to the left or right 
+(as per `position`) until it has the total characters indicated at at `length`.
 
 
 

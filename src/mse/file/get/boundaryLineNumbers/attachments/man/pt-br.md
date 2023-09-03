@@ -50,7 +50,7 @@ configuração padrão (onde as seções são definidas usando a notação [sect
 Para arquivos em geral, a seção será identificada por uma linha cujo valor seja 
 igual ao indicado. Já para arquivos de configuração, informe apenas o nome da 
 seção alvo.
-Ignore ou defina "" para este parametro se deseja usar o arquivo inteiro.
+Ignore ou defina `""` para este parametro se deseja usar o arquivo inteiro.
 
 
 &nbsp;

@@ -48,6 +48,6 @@ seção uma variável duplicada, apenas a primeira será levada em consideraçã
 # Returns string
 
 Printa o valor da variável indicada.
-Atenção para casos em que o valor da variável é vazio ( "" ) pois o fato de não 
+Atenção para casos em que o valor da variável é vazio `""` pois o fato de não 
 obter uma saída pode ser interpretado da mesma forma que se ela não existisse 
 no arquivo de configuração ou seção indicada.

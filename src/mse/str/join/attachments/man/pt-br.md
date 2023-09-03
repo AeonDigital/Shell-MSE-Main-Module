@@ -12,7 +12,7 @@ Concatena os itens de um array usando uma string especial indicada.
 
 - aka       : -g --glue
 - hint      :  
-  String que será usada como "cola".
+  String que será usada como `cola`.
 
 &nbsp;
 
@@ -40,4 +40,4 @@ Concatena os itens de um array usando uma string especial indicada.
 
 # Returns string
 
-Printa os valores do array separados pela string definida como "cola".
+Printa os valores do array separados pela string definida como `cola`.

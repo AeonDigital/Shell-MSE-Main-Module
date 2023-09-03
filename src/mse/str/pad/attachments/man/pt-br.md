@@ -8,9 +8,9 @@ Preenche uma string com o caractere indicado.
 
 # Description
 
-Adiciona na string original um total de caracteres "pad" à esquerda ou direita 
-(conforme "position") até que ela tenha o total de caracteres indicado em 
-"length".
+Adiciona na string original um total de caracteres `pad` à esquerda ou direita 
+(conforme `position`) até que ela tenha o total de caracteres indicado em 
+`length`.
 
 
 

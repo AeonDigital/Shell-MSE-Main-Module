@@ -1,6 +1,6 @@
 # Synopsis
 
-Replaces one or more "placeholder" in a string with the given values.
+Replaces one or more `placeholder` in a string with the given values.
 
 
 
@@ -8,7 +8,7 @@ Replaces one or more "placeholder" in a string with the given values.
 
 # Description
 
-The "placeholders" need to be defined using the following pattern: [[PHNAME]]
+The `placeholders` need to be defined using the following pattern: [[PHNAME]]
 After the third argument, new argument pairs can be passed to be used in place 
 of a new placeholder within the same original string.
 
@@ -22,7 +22,7 @@ of a new placeholder within the same original string.
 
 - aka       : -s --string
 - hint      :  
-  Original string that contains the "placeholders" and that will be returned 
+  Original string that contains the `placeholders` and that will be returned 
   with the appropriate substitutions.
 
 &nbsp;

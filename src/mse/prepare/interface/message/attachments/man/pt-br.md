@@ -234,7 +234,7 @@ padrão será utilizado.
   String usada para este separador.
 
 ["top_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.
@@ -324,7 +324,7 @@ definido pelo tema sendo usado.
   String usada para este separador.
 
 ["title_top_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.
@@ -455,7 +455,7 @@ Permite alternar entre uma versão com ou sem cores para este componente.
   Título da mensagem.
 
 ["title_string"]
-Se "", usará o título padrão conforme o `type` de mensagem, ou, deixará a
+Se `""`, usará o título padrão conforme o `type` de mensagem, ou, deixará a
 linha do título vazia em caso de tipo de mensagem `none`.
 
 
@@ -527,7 +527,7 @@ de linha antes de iniciar o próximo componente.
   String usada para este separador.
 
 ["title_bottom_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.
@@ -601,7 +601,7 @@ Permite alternar entre uma versão com ou sem cores para este componente.
   String usada para este separador.
 
 ["body_top_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.
@@ -858,7 +858,7 @@ Permite alternar entre uma versão com ou sem cores para este componente.
   String usada para este separador.
 
 ["body_bottom_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.
@@ -917,7 +917,7 @@ Permite alternar entre uma versão com ou sem cores para este componente.
   String usada para este separador.
 
 ["bottom_separator_string"]
-Pode ser apenas um caracter de nova linha (\n) ou um outro qualquer que será 
+Pode ser apenas um caracter de nova linha `\n` ou um outro qualquer que será 
 exibido como separador.
 
 Se nenhum caracter for definido este componente será omitido totalmente.

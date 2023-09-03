@@ -117,7 +117,7 @@ a string.
   Line Contents.
 
   ## bool isRaw
-  Use `0` to inform you that the lines being processed are in "raw" format 
+  Use `0` to inform you that the lines being processed are in `raw` format 
   (just like in the original file).
   Use `1` to inform that there is, in the content of each line, the information 
   of its respective number within the target file.

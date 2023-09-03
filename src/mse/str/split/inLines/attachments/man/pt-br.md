@@ -26,7 +26,7 @@ As palavras identificadas serão mantidas sem serem separadas entre as linhas.
   Número máximo de caracteres por linha.
 
 Se não for definido, ou, se inválido, usará o valor atual da variável 
-"$COLUMNS".
+`$COLUMNS`.
 
 &nbsp;
 
@@ -34,4 +34,4 @@ Se não for definido, ou, se inválido, usará o valor atual da variável
 
 # Returns array
 
-O resultado será definido na variável "MSE_LAST_FUNCTION_RETURN".
+O resultado será definido na variável `MSE_LAST_FUNCTION_RETURN`.

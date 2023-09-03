@@ -36,7 +36,7 @@ próprio terminal (que é um uso não aconselhado do mesmo).
 
 Quando este mesmo comando é executado dentro de um script, a posição do cursor 
 estará vinculada ao último output que ocorreu, portanto o cursor não retorna 
-para o início da linha de forma "natural".
+para o início da linha de forma `natural`.
 
 
 &nbsp;
@@ -59,7 +59,7 @@ para o início da linha de forma "natural".
     - r: right
     - l: left
 - hint      :  
-  Se definido, irá "ancorar" o cursor na posição máxima do limite escolhido.
+  Se definido, irá `ancorar` o cursor na posição máxima do limite escolhido.
 
 
 

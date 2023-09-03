@@ -12,7 +12,7 @@ Joins the items in an array using a special string indicated.
 
 - aka       : -g --glue
 - hint      :  
-  String that will be used as "glue".
+  String that will be used as `glue`.
 
 &nbsp;
 
@@ -40,4 +40,4 @@ Joins the items in an array using a special string indicated.
 
 # Returns string
 
-Prints the array values separated by the string set at "glue".
+Prints the array values separated by the string set at `glue`.

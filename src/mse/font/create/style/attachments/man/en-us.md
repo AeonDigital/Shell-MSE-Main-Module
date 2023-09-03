@@ -108,14 +108,14 @@ table below:
 **8-bit system**
 
 Enter a value between 0 and 255 for the desired color. 
-The default value in this case is "0" (black).
+The default value in this case is `0` (black).
 
 
 **32-bit system**
 
 Enter a value between 0 and 255 for each of the vectors R, G, and B separated 
-by a ";" character.
-The default value in this case is "0;0;0" (black).
+by a `;` character.
+The default value in this case is `0;0;0` (black).
 
 
 **For either case, values considered invalid will be reverted to the default 
@@ -188,14 +188,14 @@ works just as a _wrapper_ to set said color with the _DARK_ attribute.
 **8-bit system**
 
 Enter a value between 0 and 255 for the desired color. 
-The default value in this case is "255" (white).
+The default value in this case is `255` (white).
 
 
 **32-bit system**
 
 Enter a value between 0 and 255 for each of the vectors R, G, and B separated 
-by a ";" character.
-The default value in this case is "255;255;255" (white).
+by a `;` character.
+The default value in this case is `255;255;255` (white).
 
 
 **For either case, values considered invalid will be reverted to the default 

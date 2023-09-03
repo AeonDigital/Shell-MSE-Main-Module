@@ -74,7 +74,7 @@ Neste caso, o conteúdo da string deve ser de 2 numerais inteiros separados por
 um espaço (tal qual o resultado de mse_file_get_boundaryLineNumbers).
 
 **exemplo**  
-Recebendo os valores "10 15" substituirá totalmente o conteúdo das linhas 10, 
+Recebendo os valores `10 15` substituirá totalmente o conteúdo das linhas 10, 
 11, 12, 13, 14 e 15 pelo conteúdo novo a ser adicionado.
 
 

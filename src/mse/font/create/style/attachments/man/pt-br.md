@@ -108,14 +108,14 @@ Neste caso você pode usar o código ou o nome da cor conforme a tabela abaixo:
 **Sistema de 8 bits**
 
 Informe um valor entre 0 e 255 para a cor desejada. 
-O valor padrão neste caso é "0" (preto).
+O valor padrão neste caso é `0` (preto).
 
 
 **Sistema de 32 bits**
 
 Informe um valor entre 0 e 255 para cada um dos vetores R, G e B separados por 
-um caracter ";".
-O valor padrão neste caso é "0;0;0" (preto).
+um caracter `;`.
+O valor padrão neste caso é `0;0;0` (preto).
 
 
 **Para qualquer dos casos, valores considerados inválidos serão revertidos para 
@@ -187,14 +187,14 @@ apenas como um _wrapper_ para definir a referida cor com o atributo _DARK_.
 **Sistema de 8 bits**
 
 Informe um valor entre 0 e 255 para a cor desejada. 
-O valor padrão neste caso é "255" (branco).
+O valor padrão neste caso é `255` (branco).
 
 
 **Sistema de 32 bits**
 
 Informe um valor entre 0 e 255 para cada um dos vetores R, G e B separados por 
-um caracter ";".
-O valor padrão neste caso é "255;255;255" (branco).
+um caracter `;`.
+O valor padrão neste caso é `255;255;255` (branco).
 
 
 **Para qualquer dos casos, valores considerados inválidos serão revertidos para 

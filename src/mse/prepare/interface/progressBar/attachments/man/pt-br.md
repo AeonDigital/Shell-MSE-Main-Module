@@ -182,7 +182,7 @@ O tema usado pode modificar este valor conforme as próprias regras.
   Percentual atual de andamento do progresso (de 0 à 100).
 
 ["bar_atual_progress"]
-Valores inválidos serão revertidos para "0".
+Valores inválidos serão revertidos para `0`.
 
 
 &nbsp;

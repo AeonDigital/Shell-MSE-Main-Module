@@ -1,6 +1,6 @@
 # Synopsis
 
-Substitui um ou mais "placeholder" em uma string pelos valores indicados
+Substitui um ou mais `placeholder` em uma string pelos valores indicados
 adicionando ao mesmo a cor informada.
 
 
@@ -9,7 +9,7 @@ adicionando ao mesmo a cor informada.
 
 # Description
 
-Os "placeholders" precisam ser definidos usando o seguinte padrão: [[PHNAME]]
+Os `placeholders` precisam ser definidos usando o seguinte padrão: [[PHNAME]]
 Após o terceiro argumento, novos pares de argumentos podem ser passados para 
 serem usados em substituição a um novo placeholder dentro da mesma string 
 original.
@@ -24,7 +24,7 @@ original.
 
 - aka       : -s --string
 - hint      :  
-  String original que contém os "placeholders" e que será retornada com as 
+  String original que contém os `placeholders` e que será retornada com as 
   devidas substituições.
 
 &nbsp;

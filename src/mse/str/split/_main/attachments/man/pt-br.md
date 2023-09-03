@@ -21,7 +21,7 @@ Divide a string passada em um array usando o separador indicado.
 
 - aka       : -s --string
 - hint      :  
-  Cadeia de caracteres original (que será "dividida").
+  Cadeia de caracteres original (que será dividida).
 
 &nbsp;
 
@@ -40,7 +40,7 @@ Divide a string passada em um array usando o separador indicado.
 
 - aka       : -t --trim
 - hint      :  
-  indica quando realizar um "trim" em cada um dos valores encontrados.
+  indica quando realizar um `trim` em cada um dos valores encontrados.
 
 &nbsp;
 
@@ -61,4 +61,4 @@ Divide a string passada em um array usando o separador indicado.
 
 # Returns array
 
-O resultado será definido na variável "MSE_LAST_FUNCTION_RETURN".
+O resultado será definido na variável `MSE_LAST_FUNCTION_RETURN`.

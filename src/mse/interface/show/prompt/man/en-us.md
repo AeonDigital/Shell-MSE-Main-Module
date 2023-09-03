@@ -18,7 +18,7 @@ global `MSE_PROMPT_RESULT`.
   Name of the associative array containing the message settings.
 
 If omitted or invalid, the associative array is started 
-"MSE_MESSAGE_THEME_CONFIG" using the default theme and this will be used 
+`MSE_MESSAGE_THEME_CONFIG` using the default theme and this will be used 
 for the message formatting.
 
 
@@ -62,7 +62,7 @@ purpose it should be used.
 - hint      :  
   Message title.
 
-If "", use the default title as per the message `type`, or, leave the title 
+If `""`, use the default title as per the message `type`, or, leave the title 
 line empty in case of message type `none`.
 
 
@@ -136,8 +136,8 @@ When the `returnType` this value will always be `0`.
   Indicate whether the value comparison should ignore the glyphs.
 
 In this case the tested values will be converted to ASCII.
-Omit or indicate "0" to make a comparison using the actual value.
-Enter "1" to ignore the glyphs in the comparison.
+Omit or indicate `0` to make a comparison using the actual value.
+Enter `1` to ignore the glyphs in the comparison.
 
 When the `returnType` this value will always be `1`.
 

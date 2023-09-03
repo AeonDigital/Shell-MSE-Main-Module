@@ -36,7 +36,7 @@ own terminal (which is an inadvisable use of it).
 
 When this same command is executed within a script, the position of the cursor 
 will be linked to the last output that occurred, so the cursor does not return 
-to the beginning of the line in a "natural" way.
+to the beginning of the line in a `natural` way.
 
 
 &nbsp;
@@ -59,7 +59,7 @@ to the beginning of the line in a "natural" way.
     - r: right
     - l: left
 - hint      :  
-  If set, it will "anchor" the cursor at the maximum position of the chosen 
+  If set, it will `anchor` the cursor at the maximum position of the chosen 
   limit.
 
 

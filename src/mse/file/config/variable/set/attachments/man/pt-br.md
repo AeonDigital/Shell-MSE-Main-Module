@@ -35,7 +35,7 @@ conforme o modelo abaixo:
   # [[END-MSE_AVAILABLE_MODULES]]
 ```
 
-Importante notar que as marcações "INI" e "END" DEVEM estar comentadas e no 
+Importante notar que as marcações `INI` e `END` DEVEM estar comentadas e no 
 início da linha e o nome de cada seção deve ser idêntico à variável que ela 
 está habilitando a edição.
 
@@ -92,9 +92,9 @@ está habilitando a edição.
   Tipo de variável que está sendo escrita.
 
 Especifica o tipo de variável alvo da ação.
-- Use "scalar" para variáveis simples.
-- Use "array" para arrays unidimencionais.
-- Use "assoc" para arrays associativos.
+- Use `scalar` para variáveis simples.
+- Use `array` para arrays unidimencionais.
+- Use `assoc` para arrays associativos.
 
 
 &nbsp;
@@ -114,7 +114,7 @@ Especifica o tipo de variável alvo da ação.
 - hint      :  
   Valor da variável.
 
-Para variáveis do tipo "array" ou "assoc" informe o nome de um array de mesmo 
+Para variáveis do tipo `array` ou `assoc` informe o nome de um array de mesmo 
 tipo que contenha os valores que serão usados.
 
 
@@ -148,10 +148,10 @@ Permite definir o modo em que a escrita será feita.
   - a: a append
 - hint      :  
   Indica a posição em que a variável deve ser adicionada.
-  Necessário apenas para o mode "a".
+  Necessário apenas para o mode `a`.
 
-Se selecionado "prepend" a variável será adicionada no início do arquivo/seção 
-e se for selecionado "append" a variável será adicionada ao final do arquivo/
+Se selecionado `prepend` a variável será adicionada no início do arquivo/seção 
+e se for selecionado `append` a variável será adicionada ao final do arquivo/
 seção.
 
 **Use apenas para edição de arquivos de configuração padrão.**

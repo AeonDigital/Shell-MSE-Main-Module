@@ -1,6 +1,6 @@
 # Synopsis
 
-Replaces one or more "placeholder" in a string by the indicated values adding 
+Replaces one or more `placeholder` in a string by the indicated values adding 
 the informed color to it.
 
 
@@ -9,7 +9,7 @@ the informed color to it.
 
 # Description
 
-The "placeholders" need to be defined using the following pattern: [[PHNAME]]
+The `placeholders` need to be defined using the following pattern: [[PHNAME]]
 After the fourth argument, new argument triplets can be passed to be used in 
 place of a new placeholder within the same original string.
 
@@ -23,7 +23,7 @@ place of a new placeholder within the same original string.
 
 - aka       : -s --string
 - hint      :  
-  Original string that contains the "placeholders" and that will be returned 
+  Original string that contains the `placeholders` and that will be returned 
   with the appropriate substitutions.
 
 &nbsp;

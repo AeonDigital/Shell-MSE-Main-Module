@@ -31,10 +31,10 @@ Identifies whether the indicated value exists in the target array.
 - aka       : -cs --caseSensitive
 - default   : 0
 - hint      :  
-  Indicates whether the check should be done in "insensitive case"
+  Indicates whether the check should be done in `insensitive case`
 
-Omit or indicate "0" for "case sensitive" (default)
-Indicate "1" for "case insensitive"
+Omit or indicate `0` for `case sensitive` (default)
+Indicate `1` for `case insensitive`
 
 
 &nbsp;
@@ -47,8 +47,8 @@ Indicate "1" for "case insensitive"
   Indicate whether you want the comparison to be made by ignoring glyphs.
 
 In this case the tested values will be converted to ASCII.
-Omit or indicate "0" to make a comparison using the actual value.
-Enter "1" to ignore the glyphs in the comparison.
+Omit or indicate `0` to make a comparison using the actual value.
+Enter `1` to ignore the glyphs in the comparison.
 
 
 &nbsp;
@@ -61,9 +61,9 @@ Enter "1" to ignore the glyphs in the comparison.
   Indicate whether the values of the passed array should be treated as a sub 
   array of values.
 
-Omit or enter "0" so that the comparison is made using the full value of each 
+Omit or enter `0` so that the comparison is made using the full value of each 
 item (default).
-Enter "1" to perform the sub-value check.
+Enter `1` to perform the sub-value check.
 
 
 &nbsp;
@@ -78,9 +78,9 @@ Enter "1" to perform the sub-value check.
 - hint      :  
   Indicate the type of return expected
 
-If "b", returns a Boolean indicating the existence or not of the past value 
+If `b`, returns a Boolean indicating the existence or not of the past value 
 between the array values.
-If "i", returns the index or name of the key where the value passed was 
+If `i`, returns the index or name of the key where the value passed was 
 found. An empty string is returned if it does not exist.
 
 
@@ -89,4 +89,4 @@ found. An empty string is returned if it does not exist.
 
 # Returns bool|string
 
-Varies depending on the definition of the "returnType" parameter.
+Varies depending on the definition of the `returnType` parameter.
