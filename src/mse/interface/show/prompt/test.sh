@@ -13,8 +13,7 @@ test_mse_interface_show_prompt() {
   local mseTestShowPromptInShell="1"
   if [ "${mseTestShowPromptInShell}" == "1" ]; then
     echo "---"
-
-    mse_interface_show_prompt "" "fr" "Você é um usuário root?" "b"
+    mse_interface_show_prompt "" "fr" "You are root user?" "b"
     echo "you choose: ${MSE_PROMPT_RESULT}"
 
 
@@ -24,7 +23,7 @@ test_mse_interface_show_prompt() {
     mseTestPromptAssocValues["value01"]="1 01 v1 val1 'valor 1'"
     mseTestPromptAssocValues["value02"]="2 02 v2 val2 'valor 2'"
     mseTestPromptAssocValues["value03"]="3 03 v3 val3 'valor 3'"
-    mse_interface_show_prompt "" "or" "Escolha um dos valores:" "l" "mseTestPromptAssocValues" "0"
+    mse_interface_show_prompt "" "or" "Pick one value:" "l" "mseTestPromptAssocValues" "0"
     echo "you choose: ${MSE_PROMPT_RESULT}"
 
 
@@ -59,7 +58,13 @@ test_mse_interface_show_prompt() {
     mseTestPromptAssocValues["se"]="26 Sergipe"
     mseTestPromptAssocValues["to"]="27 Tocantins"
 
-    mse_interface_show_prompt "" "ca" "Indique o seu estado:" "l" "mseTestPromptAssocValues" "0" "1"
+    mse_interface_show_prompt "" "ca" "Select one brasilian UF:" "l" "mseTestPromptAssocValues" "0" "1"
     echo "you choose: ${MSE_PROMPT_RESULT}"
+
+
+
+    echo "---"
+    mse_interface_show_prompt "" "fr" "Type your name: "
+    echo "you typed: ${MSE_PROMPT_RESULT}"
   fi
 }
