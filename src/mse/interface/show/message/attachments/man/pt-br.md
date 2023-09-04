@@ -48,6 +48,7 @@ parametro.
 Abaixo segue uma descrição breve do significado de cada tipo e para qual 
 finalidade ele deve ser usado.
 
+
 **Mensagens de Alerta**
 
 - none      | n   : Não definido; nenhum

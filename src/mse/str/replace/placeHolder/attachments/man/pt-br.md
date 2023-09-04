@@ -9,7 +9,8 @@ Substitui um ou mais `placeholder` em uma string pelos valores indicados.
 # Description
 
 Os `placeholders` precisam ser definidos usando o seguinte padrão: [[PHNAME]]
-Após o terceiro argumento, novos pares de argumentos podem ser passados para 
+
+Após o terceiro argumento, novos pares de argumentos podem ser passados para
 serem usados em substituição a um novo placeholder dentro da mesma string 
 original.
 
