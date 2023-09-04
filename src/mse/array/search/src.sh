@@ -3,6 +3,8 @@
 
 
 mse_array_search() {
+  mseLastFunctionVariablesReset
+
   local mseSearchValue="${1}"
   declare -n arrayName="${2}"
   local mseArrayLength="${#arrayName[@]}"
@@ -114,9 +116,14 @@ mse_array_search() {
 
 
 
+  local mseReturn
   if [ "${mseReturnType}" == "b" ]; then
-    printf "%s" "${mseResultBool}"
+    mseReturn=$(printf "%s" "${mseResultBool}")
   else
-    printf "%s" "${mseResultIndex}"
+    mseReturn=$(printf "%s" "${mseResultIndex}")
   fi
+
+  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
+  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
+  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }

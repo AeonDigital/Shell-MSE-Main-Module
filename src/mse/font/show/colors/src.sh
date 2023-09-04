@@ -3,7 +3,6 @@
 
 
 mse_font_show_colors() {
-
   local mseCheck
 
 

@@ -10,7 +10,7 @@ test_mse_interface_show_prompt() {
 
 
 
-  local mseTestShowPromptInShell="1"
+  local mseTestShowPromptInShell="0"
   if [ "${mseTestShowPromptInShell}" == "1" ]; then
     echo "---"
     mse_interface_show_prompt "" "fr" "You are root user?" "b"
