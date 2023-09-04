@@ -50,7 +50,7 @@ test_mse_str_split_inLines() {
 
 
 
-  mse_str_split_inLines "Isto e apenas um teste para verificar como que ficara." "20"
+  mse_str_split_inLines "Isto  e  apenas um teste para verificar como que ficara." "20"
 
   testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
   testExpected="3"
@@ -59,7 +59,7 @@ test_mse_str_split_inLines() {
 
 
   testResult="${MSE_LAST_FUNCTION_RETURN[0]}"
-  testExpected="Isto e apenas um"
+  testExpected="Isto  e  apenas um"
 
   mse_md_utest_assertEqual
 
