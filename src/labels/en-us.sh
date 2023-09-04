@@ -16,6 +16,7 @@ lbl_err_lostParameters="Lost [[LOST]] parameters."
 lbl_err_variableAlreadExists="Variable \"[[VAR]]\" already exists"
 lbl_err_variableDoNotExists="Variable \"[[VAR]]\" do not exists"
 lbl_err_variableDoNotExistsInSection="Variable \"[[VAR]]\" do not exists in \"[[SECTION]]\" section"
+lbl_err_wrongNumberOfArguments="Wrong number of arguments"
 
 lbl_err_paramA_HasInvalidValue="Parameter \"[[PARAM_A]]\" has an invalid value"
 lbl_err_paramA_HasInvalidOption="Parameter \"[[PARAM_A]]\" has an invalid option"

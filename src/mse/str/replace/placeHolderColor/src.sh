@@ -9,7 +9,7 @@ mse_str_replace_placeHolderColor() {
   ((msePair=msePair-1))
 
   if [ "$#" -lt "4" ] || [ $((msePair%3)) -ne 0 ]; then
-    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "Wrong number of arguments."
+    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "${lbl_err_wrongNumberOfArguments}"
   else
 
     local mseString
@@ -32,7 +32,7 @@ mse_str_replace_placeHolderColor() {
 
       local mseTmpParametersArray=("$@")
       mseTmpParametersArray=("${mseTmpParametersArray[@]:1}")
-      
+
       local mseTotalParans="${#mseTmpParametersArray[@]}"
       mseReturn="$1"
 

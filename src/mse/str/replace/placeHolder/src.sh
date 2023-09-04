@@ -9,7 +9,7 @@ mse_str_replace_placeHolder() {
   ((msePair=msePair-1))
 
   if [ "$#" -lt "3" ] || [ $((msePair%2)) -ne 0 ]; then
-    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "Wrong number of arguments."
+    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "${lbl_err_wrongNumberOfArguments}"
   else
 
     local mseString
@@ -30,7 +30,7 @@ mse_str_replace_placeHolder() {
 
       local mseTmpParametersArray=("$@")
       mseTmpParametersArray=("${mseTmpParametersArray[@]:1}")
-      
+
       local mseTotalParans="${#mseTmpParametersArray[@]}"
       mseReturn="$1"
 

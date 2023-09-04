@@ -6,7 +6,7 @@ mse_str_split() {
   mseLastFunctionVariablesReset
 
   if [ "$#" -lt "2" ]; then
-    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "Wrong number of arguments."
+    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "${lbl_err_wrongNumberOfArguments}"
   else
     local mseSeparator="${1}"
     local mseString="${2}"
