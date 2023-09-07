@@ -212,9 +212,9 @@ mse_file_read() {
             fi
 
             if [ "${line_show_number}" == "1" ]; then
-              printf "${mseLineCount}#"
+              printf "%s" "${mseLineCount}#"
             fi
-            printf "${mseLineRaw}\n"
+            printf "%s\n" "${mseLineRaw}"
 
             if [ "${mseValidLastLine}" == "1" ]; then
               mseValidSection=0
