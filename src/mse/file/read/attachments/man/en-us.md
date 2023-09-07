@@ -1,6 +1,7 @@
 # Synopsis
 
-Reads a file or string line by line.
+Reads a file or string line by line by printing the ones that match the 
+settings indicated in the read settings.
 
 
 

@@ -52,6 +52,12 @@ Any regex pattern valid to use with the `test` steatment.
 `function`  
 The name of a declared function in the current scope.
 
+`file`
+Path to file or file name.
+
+`dir`
+Path to directory or directory name.
+
 `mixed`  
 Any type described above.
 

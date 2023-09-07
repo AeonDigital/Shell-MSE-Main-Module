@@ -1,15 +1,7 @@
 # Synopsis
 
-Lê um arquivo ou string linha a linha.
-
-
-
-&nbsp;
-
-# Description
-
-Retorna todas as linhas que corresponderem às definições indicadas nas 
-configurações de leitura.
+Lê um arquivo ou string linha a linha printando as que correspondem às 
+definições indicadas nas configurações de leitura.
 
 
 
