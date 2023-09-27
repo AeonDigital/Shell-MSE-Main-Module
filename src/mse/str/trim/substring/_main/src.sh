@@ -29,24 +29,20 @@ mse_str_trim_substring() {
 
     i=0
     ((li = mseArrLen - 1))
-    mseArrElemOne="${mseArrTmp[$ii]}"
-    mseArrElemLas="${mseArrTmp[$li]}"
+    mseArrElemOne=$(echo -e "${mseArrTmp[$ii]}")
+    mseArrElemLas=$(echo -e "${mseArrTmp[$li]}")
 
     if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "l" ]; then
-      # Efetua um 'trimR' no primeiro ítem
       mseArrTmp[$ii]="${mseArrElemOne%"${mseArrElemOne##*[![:space:]]}"}" # trim R
     fi
     if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "r" ]; then
-      # Efetua um 'trimL' no último ítem
       mseArrTmp[$li]="${mseArrElemLas#"${mseArrElemLas%%[![:space:]]*}"}" # trim L
     fi
 
 
     if [ "${mseArrLen}" -gt "2" ]; then
-      #
-      # aplica o 'trim' 'L' e 'R' em todos os itens 'do meio' do array
       for (( i=1; i<li; i++ )); do
-        elem="${mseArrTmp[$i]}"
+        elem=$(echo -e "${mseArrTmp[$i]}")
 
         if [ "${mseTrimType}" == "b" ] || [ "${mseTrimType}" == "l" ]; then
           elem="${elem%"${elem##*[![:space:]]}"}" # trim R

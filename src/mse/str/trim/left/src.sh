@@ -5,7 +5,7 @@
 mse_str_trim_left() {
   mseLastFunctionVariablesReset
 
-  local mseReturn="$1"
+  local mseReturn=$(echo -e "${1}")
   mseReturn="${mseReturn#"${mseReturn%%[![:space:]]*}"}" # trim L
 
   mseLastFunctionVariablesSet "${mseReturn}" 0 ""
