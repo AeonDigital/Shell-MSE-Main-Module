@@ -35,7 +35,7 @@ mse_str_pad() {
       if [ "${msePadChar}" == " " ]; then
         msePadStr=$(printf "%-${msePadLeft}s")
       else
-        msePadStr=$(eval printf "${msePadChar}%.0s" {1..${msePadLeft}})
+        msePadStr=$(printf "${msePadChar}%.0s" $(eval "echo {1.."$((${msePadLeft}))"}"))
       fi
 
       if [ "${msePadPosition}" == "l" ]; then
