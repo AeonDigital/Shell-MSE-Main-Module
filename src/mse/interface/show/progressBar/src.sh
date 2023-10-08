@@ -72,7 +72,7 @@ mse_interface_show_progressBar() {
 
 
 
-    mseCheck=$(mse_is_integer "$mseUseMaxCharLength")
+    mseCheck=$(mse_is_int "$mseUseMaxCharLength")
     if [ "${mseCheck}" == "0" ]; then
       mseUseMaxCharLength="50"
     elif [ "${mseUseMaxCharLength}" -lt "20" ]; then
@@ -83,7 +83,7 @@ mse_interface_show_progressBar() {
     mseTmpInterArrShowProgressBar[bar_max_char_length]="${mseUseMaxCharLength}"
 
 
-    mseCheck=$(mse_is_integer "$mseUseAtualProgress")
+    mseCheck=$(mse_is_int "$mseUseAtualProgress")
     if [ "${mseCheck}" == "0" ] || [ "${mseUseAtualProgress}" -lt "0" ]; then
       mseUseAtualProgress="0"
     elif [ "${mseUseAtualProgress}" -gt "100" ]; then

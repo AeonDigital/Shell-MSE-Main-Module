@@ -14,7 +14,7 @@ mse_font_show_characters() {
 
   local mseFromChar="33"
   if [ $# -ge 2 ]; then
-    mseCheck=$(mse_is_integer "${2}")
+    mseCheck=$(mse_is_int "${2}")
     if [ "${mseCheck}" == "1" ] && [ "${2}" -ge "33" ] && [ "${2}" -le "255" ]; then
       mseFromChar="${2}"
     fi
@@ -22,7 +22,7 @@ mse_font_show_characters() {
 
   local mseToChar="255"
   if [ $# -ge 3 ]; then
-    mseCheck=$(mse_is_integer "${3}")
+    mseCheck=$(mse_is_int "${3}")
     if [ "${mseCheck}" == "1" ] && [ "${3}" -ge "33" ] && [ "${3}" -le "255" ]; then
       mseToChar="${3}"
     fi

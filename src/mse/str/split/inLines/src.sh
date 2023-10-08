@@ -10,7 +10,7 @@ mse_str_split_inLines() {
     local mseOriginalString=$(mse_str_trim "${1}")
     local mseMaxLineLength="${2}"
 
-    local mseCheck=$(mse_is_integer "${mseMaxLineLength}")
+    local mseCheck=$(mse_is_int "${mseMaxLineLength}")
     if [ "${mseCheck}" == "0" ] || [ "${mseCheck}" -lt "1" ]; then
       mseMaxLineLength="${COLUMNS}"
     fi

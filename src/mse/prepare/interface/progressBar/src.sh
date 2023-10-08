@@ -78,7 +78,7 @@ mse_prepare_interface_progressBar() {
         if [ "${mseValue}" == "" ]; then
           mseValue="50"
         else
-          local mseCheck=$(mse_is_integer "$mseValue")
+          local mseCheck=$(mse_is_int "$mseValue")
           if [ "${mseCheck}" == "0" ]; then
             mseValue="50"
           elif [ "${mseValue}" -lt "20" ]; then

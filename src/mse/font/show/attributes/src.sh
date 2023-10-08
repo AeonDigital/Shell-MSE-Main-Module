@@ -14,7 +14,7 @@ mse_font_show_attributes() {
     mseFormat="${1}"
   fi
   if [ $# == 2 ]; then
-    local isInt=$(mse_is_integer "${2}")
+    local isInt=$(mse_is_int "${2}")
     if [ ${isInt} == 1 ]; then
       mseLineItens="${2}"
     fi

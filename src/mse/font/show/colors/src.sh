@@ -19,7 +19,7 @@ mse_font_show_colors() {
   local mseItensPerLine=12
   local mseItensPerLineIsSet="4"
   if [ $# -ge 3 ]; then
-    mseCheck="$(mse_is_integer ${3})"
+    mseCheck="$(mse_is_int ${3})"
     if [ "${mseCheck}" == "1" ]; then
       if [ "$3" -le 4 ]; then
         mseItensPerLine="4"

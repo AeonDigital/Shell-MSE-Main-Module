@@ -2,7 +2,7 @@
 # myShellEnv v 1.0 [aeondigital.com.br]
 
 
-mse_is_integer() {
+mse_is_int() {
   mseLastFunctionVariablesReset
 
   local mseReturn

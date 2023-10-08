@@ -53,7 +53,7 @@ mse_font_create_style() {
 
 
       if [ "${mseUseDark}" == "0" ]; then
-        mseIsResult=$(mse_is_integer "${mseTmpForeground}")
+        mseIsResult=$(mse_is_int "${mseTmpForeground}")
         if [ "${mseIsResult}" == "1" ] && [ "${mseTmpForeground}" -gt 200 ]; then
           mseUseDark=1
           ((mseTmpForeground = mseTmpForeground - 200))
@@ -87,7 +87,7 @@ mse_font_create_style() {
           mseTmpAttr=""
 
           mseUParam=$(mse_str_trim "${mseUParam}")
-          mseIsResult=$(mse_is_integer "${mseUParam}")
+          mseIsResult=$(mse_is_int "${mseUParam}")
 
           if [ "${mseIsResult}" == "1" ]; then
             mseIsCheck=$(mse_array_has_value "${mseUParam}" "MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES")
@@ -122,7 +122,7 @@ mse_font_create_style() {
 
 
     if [ "${mseTmpBackground}" != "" ]; then
-      mseIsResult=$(mse_is_integer "${mseTmpBackground}")
+      mseIsResult=$(mse_is_int "${mseTmpBackground}")
 
       case "${mseColorSystem}" in
         4)
@@ -154,7 +154,7 @@ mse_font_create_style() {
             local mseIsValid=1
 
             for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
-              mseIsResult=$(mse_is_integer "${mseUParam}")
+              mseIsResult=$(mse_is_int "${mseUParam}")
 
               if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
                 mseIsValid=0
@@ -172,7 +172,7 @@ mse_font_create_style() {
 
 
     if [ "${mseTmpForeground}" != "" ]; then
-      mseIsResult=$(mse_is_integer "${mseTmpForeground}")
+      mseIsResult=$(mse_is_int "${mseTmpForeground}")
 
       case "${mseColorSystem}" in
         4)
@@ -204,7 +204,7 @@ mse_font_create_style() {
             local mseIsValid=1
 
             for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
-              mseIsResult=$(mse_is_integer "${mseUParam}")
+              mseIsResult=$(mse_is_int "${mseUParam}")
 
               if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
                 mseIsValid=0

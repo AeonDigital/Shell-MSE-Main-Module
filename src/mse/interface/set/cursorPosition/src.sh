@@ -15,7 +15,7 @@ mse_interface_set_cursorPosition() {
       t | r | b | l)
         mseStrPos="${1}"
 
-        local mseCheck=$(mse_is_integer "${2}")
+        local mseCheck=$(mse_is_int "${2}")
         if [ "${mseCheck}" == "1" ] && [ "${2}" -ge "0" ]; then
           mseIntPos="${2}"
         fi

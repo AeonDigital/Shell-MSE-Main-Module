@@ -186,7 +186,7 @@ mse_man_process_section_generic() {
   local mseTargetSectionName="${2}"
   local mseTargetSectionLevel="${3}"
 
-  local mseIsLevelOk=$(mse_is_integer "${mseTargetSectionLevel}")
+  local mseIsLevelOk=$(mse_is_int "${mseTargetSectionLevel}")
 
   if [ "${mseTargetSectionName}" != "" ] && [ "${mseIsLevelOk}" == "1" ] && [ "${#mseTargetAssocArray[@]}" -gt "0" ]; then
     local mseHasTargetSection=$(mse_array_has_key "${mseTargetSectionName}" "${mseTargetAssocArrayName}")
