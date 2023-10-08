@@ -65,7 +65,7 @@ following specification:
   Check more information about types in _Types.md_.
 
 - [[name]]  
-  Must contain the cononical name of this parameter.  
+  Must contain the canonical name of this parameter.  
   This is the name that´s will be used with the hints.
 
 - [[properties]]  
@@ -202,8 +202,8 @@ For a summary related to each valid type, see the summary below:
 
 #### options
 
-Use this property to declare a list of options of valid values for this 
-parameter. To do this, create a sublist of options according to the template 
+Use this property to declare a list of valid choices where the user can select 
+only one. To do this, create a sublist of options according to the template 
 below and remember to indent the sublist with two spaces.
 
 By default, the match between typed values, labels, and valid values occurs in 
@@ -282,6 +282,60 @@ a case-sensitive way just declare this property as **option cs**
     - "sc" : 6 'Santa Catarina'
     - "sp" : 7 'São Paulo'
   
+```
+
+
+
+&nbsp;
+
+#### list
+
+Use this property to set a series of valid options that the user can select as 
+many as they want.
+Passed values must be separated by spaces. If any of them is a value composed 
+of more than one word, it should be surrounded by quotation marks.
+The dot character `.` will always represent all available options.
+
+Every list is by default exclusivist, that is, it extritally admits one or more 
+previously defined values but can be defined a list of the open type.
+This type of list brings the predefined options as a guide to common options 
+but leaves it open for the user to add new unforeseen values.
+To define an open list, use the notation **list op**
+
+For validation purposes this is a case where every value in the list should be 
+considered case-sensitive.
+
+
+&nbsp;
+
+**Meta-models**
+
+```
+  # Parameters
+  ## string types
+  - list:
+    - [[value 01]]
+    - [[value 02]]
+  ...
+```
+
+- [[value]]
+  Value that will be considered as valid to be among those selectable.
+
+
+&nbsp;
+
+**Examples**
+
+```
+  # Parameters
+  ## string sections
+  - list:
+    - synopsis
+    - description
+    - parameters
+    - 'another section name'
+  ...
 ```
 
 

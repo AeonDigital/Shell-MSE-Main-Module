@@ -52,11 +52,21 @@ Any regex pattern valid to use with the `test` steatment.
 `function`  
 The name of a declared function in the current scope.
 
-`file`
-Path to file or file name.
+`file`  
+Full path to the target file.  
+The file must exist for a value of this type to be accepted.
 
-`dir`
-Path to directory or directory name.
+`xfile`  
+Valid file name or full path to the target file.  
+This type is not verified.
+
+`dir`  
+Full path to the target directory.  
+The directory must exist for a value of this type to be accepted.
+
+`xdir`  
+Valid directory name or full path to the target directory.  
+This type is not verified.
 
 `mixed`  
 Any type described above.

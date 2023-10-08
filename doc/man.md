@@ -1,6 +1,6 @@
 <!-- [[
   null, bool, int, char, charDecimal, charHex, charOctal, string, 
-  array, assoc, regex, function, mixed, void
+  array, assoc, regex, function, file, xfile, dir, xdir, mixed, void
 ]] -->
 # Synopsis
 
