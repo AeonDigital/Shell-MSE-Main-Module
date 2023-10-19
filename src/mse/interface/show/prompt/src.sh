@@ -81,7 +81,7 @@ mse_interface_show_prompt() {
       fi
 
       if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
-        mseComparePromptKey=$(printf "${mseComparePromptKey}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+        mseComparePromptKey=$(mse_str_remove_glyphs "${mseComparePromptKey}")
       fi
 
       mseTmpAllowedUserAssocEntries["${mseComparePromptKey}"]="${msePromptKey}"
@@ -100,7 +100,7 @@ mse_interface_show_prompt() {
           fi
 
           if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
-            mseComparePromptLabel=$(printf "${mseComparePromptLabel}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+            mseComparePromptLabel=$(mse_str_remove_glyphs "${mseComparePromptLabel}")
           fi
 
           mseTmpAllowedUserAssocEntries["${mseComparePromptLabel}"]="${msePromptKey}"
@@ -143,7 +143,7 @@ mse_interface_show_prompt() {
     fi
 
     if [ "${mseUsePromptIgnoreGlyphs}" == "1" ]; then
-      msePromptUserValueCompare=$(printf "${msePromptUserValueCompare}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+      msePromptUserValueCompare=$(mse_str_remove_glyphs "${msePromptUserValueCompare}")
     fi
 
 

@@ -3,43 +3,22 @@
 
 
 mse_array_search() {
-  mseLastFunctionVariablesReset
-
   local mseSearchValue="${1}"
   declare -n arrayName="${2}"
   local mseArrayLength="${#arrayName[@]}"
 
-  local mseCaseSensitive=1
-  local mseIgnoreGlyphs=0
-  local mseCheckSubValues=0
-  local mseReturnType="b"
+  local mseCaseSensitive=$(mseGetDefault "${3}" "1" "0 1")
+  local mseIgnoreGlyphs=$(mseGetDefault "${4}" "0" "0 1")
+  local mseCheckSubValues=$(mseGetDefault "${5}" "0" "0 1")
+  local mseReturnType=$(mseGetDefault "${6}" "b" "b i")
 
-  local isAssoc=0
-  if [[ "$(declare -p ${2} 2> /dev/null)" == "declare -A"* ]]; then
-    isAssoc=1
-  fi
-
-
-  if [ "$#" -ge "3" ] && [ "${3}" == "0" ]; then
-    mseCaseSensitive=0
+  if [ "${mseCaseSensitive}" == "0" ]; then
     mseSearchValue="${mseSearchValue^^}"
   fi
 
-  if [ "$#" -ge "4" ] && [ "${4}" == "1" ]; then
-    mseIgnoreGlyphs=1
-    mseSearchValue=$(printf "${mseSearchValue}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+  if [ "${mseIgnoreGlyphs}" == "1" ]; then
+    mseSearchValue=$(mse_str_remove_glyphs "${mseSearchValue}")
   fi
-
-  if [ "$#" -ge "5" ] && [ "${5}" == "1" ]; then
-    mseCheckSubValues=1
-  fi
-
-  if [ "$#" -ge "6" ] && [ "${6}" == "i" ]; then
-    mseReturnType="${6}"
-  fi
-
-
-
 
 
   local i
@@ -49,26 +28,27 @@ mse_array_search() {
   local mseCompareValue=""
 
 
-  if [ "${isAssoc}" == "0" ]; then
+
+  if [ $(mse_is_assoc "${2}") == "0" ]; then
 
     for ((i=0; i<mseArrayLength; i++)); do
-      mseCompareValue="${arrayName[$i]}"
+      mseCompareValue="${arrayName[${i}]}"
 
       if [ "${mseCaseSensitive}" == "0" ]; then
         mseCompareValue="${mseCompareValue^^}"
       fi
 
       if [ "${mseIgnoreGlyphs}" == "1" ]; then
-        mseCompareValue=$(printf "${mseCompareValue}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+        mseCompareValue=$(mse_str_remove_glyphs "${mseCompareValue}")
       fi
 
 
       unset mseTmpArray
       declare -a mseTmpArray=("${mseCompareValue}")
-      local mseTmpArrayLength=0
+      local mseTmpArrayLength="0"
 
       if [ "${mseCheckSubValues}" == "1" ]; then
-        IFS=$'\n' mseTmpArray=($(xargs -n1 <<< "${mseCompareValue}"))
+        mse_str_convert_toArray "mseTmpArray" "${mseCompareValue}"
       fi
       mseTmpArrayLength="${#mseTmpArray[@]}"
 
@@ -91,16 +71,16 @@ mse_array_search() {
       fi
 
       if [ "${mseIgnoreGlyphs}" == "1" ]; then
-        mseCompareValue=$(printf "${mseCompareValue}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT')
+        mseCompareValue=$(mse_str_remove_glyphs "${mseCompareValue}")
       fi
 
 
       unset mseTmpArray
       declare -a mseTmpArray=("${mseCompareValue}")
-      local mseTmpArrayLength=0
+      local mseTmpArrayLength="0"
 
       if [ "${mseCheckSubValues}" == "1" ]; then
-        IFS=$'\n' mseTmpArray=($(xargs -n1 <<< "${mseCompareValue}"))
+        mse_str_convert_toArray "mseTmpArray" "${mseCompareValue}"
       fi
       mseTmpArrayLength="${#mseTmpArray[@]}"
 
@@ -123,7 +103,5 @@ mse_array_search() {
     mseReturn=$(printf "%s" "${mseResultIndex}")
   fi
 
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }
