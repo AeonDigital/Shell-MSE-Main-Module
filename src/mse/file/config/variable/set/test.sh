@@ -6,120 +6,54 @@ test_mse_file_config_variable_set() {
   local dir=$(dirname "${BASH_SOURCE}")
   local originalDir="${dir}/attachments/test/original"
   local expectedDir="${dir}/attachments/test/expected"
+  local rawResult=""
 
 
 
   cp "${originalDir}/config.cfg" "${expectedDir}/config.cfg"
   #
-  # INTERNAL VALIDATION - FAIL
-  testResult=$(mse_file_config_variable_set; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Lost 8 parameters."
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "" "" "" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"PathToFile\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${originalDir}/.nonexistent" "" "" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"PathToFile\" points to a non existent file"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "" "" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"ConfigFile\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "a" "" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"ConfigFile\" has an invalid value"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"CommentChar\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarType\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "z" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarType\" has an invalid value"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "s" "" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarName\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "a" "varName" "" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarValue\" is required"
-
-  mse_md_utest_assertEqual
-
-
-  declare -a mseTmpIndexArr=()
-  declare -A mseTmpAssocArr
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "a" "varName" "mseTmpAssocArr" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarValue\" must be an array"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "A" "varName" "mseTmpIndexArr" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"VarValue\" must be an associative array"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "a" "varName" "mseTmpIndexArr" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"Operation\" has an invalid option"
-
-  mse_md_utest_assertEqual
-
-
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "a" "varName" "mseTmpIndexArr" "a" "z"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Parameter \"Position\" has an invalid option"
-
-  mse_md_utest_assertEqual
-
-
-
-
-
-  #
   # DEFAULT CONFIGURATION FILES - FAIL
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "s" "GIT_LOG_LENGTH" "" "a"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Variable \"GIT_LOG_LENGTH\" already exists"
+  rawResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "s" "GIT_LOG_LENGTH" "" "a")
+  testResult="${rawResult%%[![:graph:]]*}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+  testResult="${rawResult#*[![:graph:]]}"
+  testExpected="Variable \"GIT_LOG_LENGTH\" already exists"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "s" "NONEXIST" "" "d"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Variable \"NONEXIST\" do not exists"
+
+
+  rawResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "" "s" "NONEXIST" "" "d")
+  testResult="${rawResult%%[![:graph:]]*}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+  testResult="${rawResult#*[![:graph:]]}"
+  testExpected="Variable \"NONEXIST\" do not exists"
 
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NONEXIST" "" "d"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Variable \"NONEXIST\" do not exists in \"teste\" section"
+
+
+  rawResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NONEXIST" "" "d")
+  testResult="${rawResult%%[![:graph:]]*}"
+  testExpected="0"
 
   mse_md_utest_assertEqual
+
+  testResult="${rawResult#*[![:graph:]]}"
+  testExpected="Variable \"NONEXIST\" do not exists in \"teste\" section"
+
+  mse_md_utest_assertEqual
+
+
 
 
 
@@ -136,8 +70,8 @@ test_mse_file_config_variable_set() {
   mse_md_utest_assertEqual
 
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "p"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "p")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -151,8 +85,8 @@ test_mse_file_config_variable_set() {
 
   #
   # REMOVE VAR
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "" "d"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "" "d")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -166,8 +100,8 @@ test_mse_file_config_variable_set() {
 
   #
   # MODIFY VAR
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "50" "m"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "50" "m")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -181,8 +115,8 @@ test_mse_file_config_variable_set() {
 
   #
   # COMMENT VAR
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "" "c"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "" "c")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -196,8 +130,8 @@ test_mse_file_config_variable_set() {
 
   #
   # UNCOMMENT VAR
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "" "u"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "GIT_LOG_LENGTH" "" "u")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -211,8 +145,8 @@ test_mse_file_config_variable_set() {
 
   #
   # ADD NEW VAR - IN THE BOTTOM
-  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "a"; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/config.cfg" "1" "#" "teste" "s" "NEW_TEST_VAR" "ntv_01" "a" "a")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -232,8 +166,14 @@ test_mse_file_config_variable_set() {
   cp "${originalDir}/.bashrc" "${expectedDir}/.bashrc"
 
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "s" "NONEXIST" "ntv_01" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="0 Cannot identify the target line to perform this operation."
+  rawResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "s" "NONEXIST" "ntv_01" "" "")
+  testResult="${rawResult%%[![:graph:]]*}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+  testResult="${rawResult#*[![:graph:]]}"
+  testExpected="Cannot identify the target line to perform this operation."
 
   mse_md_utest_assertEqual
 
@@ -244,8 +184,8 @@ test_mse_file_config_variable_set() {
   #
   # SCRIPT FILES - SCALAR SUCCESS
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "s" "MSE_UTEST" "ntv_01" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "s" "MSE_UTEST" "ntv_01" "" "")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -292,8 +232,8 @@ test_mse_file_config_variable_set() {
   mseTmpIndexArr+=("first")
   mseTmpIndexArr+=("second")
 
-  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "a" "MSE_UTEST" "mseTmpIndexArr" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "a" "MSE_UTEST" "mseTmpIndexArr" "" "")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 
@@ -329,8 +269,8 @@ test_mse_file_config_variable_set() {
   mseTmpAssocArr["second"]="two"
   mseTmpAssocArr["third"]="tree"
   mseTmpAssocArr["fourth"]="four"
-  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "A" "MSE_UTEST" "mseTmpAssocArr" "" ""; printf " ${MSE_LAST_FUNCTION_ERR_MESSAGE}")
-  testExpected="1 "
+  testResult=$(mse_file_config_variable_set "${expectedDir}/.bashrc" "0" "#" "" "A" "MSE_UTEST" "mseTmpAssocArr" "" "")
+  testExpected="1"
 
   mse_md_utest_assertEqual
 

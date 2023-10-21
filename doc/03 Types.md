@@ -74,3 +74,13 @@ Any type described above.
 `void`  
 Use only for `return` declaration.  
 Indicates that the function does not returns any printable results.
+
+`[type]+`  
+Use only for `return` declaration.  
+The + sign indicates that immediately after the expected return value may come 
+a newline character, and after it may come one or more informational lines 
+related to the processing performed.
+
+For string returns in which more than one line can be returned, it is necessary 
+that the first line of the extra message is set to `FUNCTION MESSAGE:` and the 
+message/s itself start from the second line.

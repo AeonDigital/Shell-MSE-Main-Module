@@ -18,6 +18,7 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 # Comandos usados que não são built-in do bash ?
 - find
 - printf
+- sed
 
 
 
@@ -43,3 +44,62 @@ printf '<%s>\n' "${arr[@]}"
 
 
 
+#
+# Split uma string em linhas
+local mseLine=0
+local mseLineRaw=""
+local mseSectionContent=$(cat file)
+
+IFS=$'\n'
+while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
+((mseLine++))
+echo "${mseLine} - ${mseLineRaw}"
+done <<< "${mseSectionContent}"
+IFS=$' \t\n'
+
+
+#
+# Printar um determinado número de caracteres
+char="#"
+printf "${char}%.0s" {1..10}
+# fazer isso x vezes
+length=10
+msePadStr=$(eval printf "${char}%.0s" {1..${length}})
+
+
+Fazer uma função que substitua as entidades HTML pelos respectivos caracteres.
+Ver se o 'iconv' já não faz isso.
+
+
+
+
+[[:alnum:]]   Alphanumeric characters
+[[:alpha:]]   Alphabetic characters
+[[:blank:]]   Space and tab
+[[:cntrl:]]   Control characters
+[[:digit:]]   Digits
+[[:graph:]]   Visible characters (anything except spaces and control characters)
+[[:lower:]]   Lowercase letters
+[[:print:]]   Visible characters and spaces (anything except control characters)
+[[:punct:]]   Punctuation (and symbols).
+[[:space:]]   All whitespace characters, including line breaks
+[[:upper:]]   Uppercase letters
+[[:xdigit:]]  Hexadecimal digits
+
+
+1. Criando retornos [type]+
+
+  mseReturn="bla bla bla\n"
+  mseReturn+="Primeira linha de retorno"
+  mseReturn+="\nSegunda linha de retorno"
+
+2. Processa os caracteres especiais da string
+  rawResult=$(printf "${mseReturn}")
+
+3. Pega apenas o retorno esperado
+  echo "${rawResult%%[![:graph:]]*}"
+  echo "${rawResult%%$'\n'FUNCTION MESSAGE:$'\n'*}"
+
+4. Pega apenas a mensagem de retorno
+  echo "${rawResult#*[![:graph:]]}"
+  echo "${rawResult#*$'\n'FUNCTION MESSAGE:$'\n'}"

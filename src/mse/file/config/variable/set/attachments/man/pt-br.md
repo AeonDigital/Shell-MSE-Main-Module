@@ -45,7 +45,7 @@ está habilitando a edição.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  
@@ -54,11 +54,15 @@ está habilitando a edição.
 
 &nbsp;
 
-## bool configFile
+## bool isConfigFile
 
-- aka       : -cf --configFile
+- aka       : -icf --isConfigFile
 - hint      :  
-  Indique `0` para arquivos de configuração ou `1` para scripts.
+  Identifica se trata-se de um arquivo de configuração ou outro tipo.
+
+Isto altera a forma como a seção é procurada.
+Use `0` para arquivos de qualquer tipo ou `1` quando trata-se de um arquivo de 
+configuração padrão (onde as seções são definidas usando a notação [section]).
 
 
 &nbsp;
@@ -160,6 +164,6 @@ seção.
 
 &nbsp;
 
-# Returns bool
+# Returns bool+
 
 `1` se `true` ou `0` se `false`.

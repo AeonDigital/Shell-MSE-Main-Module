@@ -45,7 +45,7 @@ to the variable it is in is enabling editing.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  
@@ -54,11 +54,15 @@ to the variable it is in is enabling editing.
 
 &nbsp;
 
-## bool configFile
+## bool isConfigFile
 
-- aka       : -cf --configFile
+- aka       : -icf --isConfigFile
 - hint      :  
-  Enter `0` for configuration files or `1` for scripts.
+  Identifies whether it is a configuration file or another type.
+
+This changes the way the section is searched.
+Use `0` for files of any type or `1` when it is a default setting (where 
+sections are defined using the [section] notation).
 
 
 &nbsp;
@@ -161,6 +165,6 @@ file/section.
 
 &nbsp;
 
-# Returns bool
+# Returns bool+
 
 `1` if `true` or `0` if `false`.
