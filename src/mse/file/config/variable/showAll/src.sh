@@ -3,9 +3,6 @@
 
 
 mse_file_config_variable_showAll() {
-  mseLastFunctionVariablesReset
-
-
   unset mseReadOptionsShowVars
   declare -A mseReadOptionsShowVars
   mse_prepare_file_read "mseReadOptionsShowVars"
@@ -19,9 +16,9 @@ mse_file_config_variable_showAll() {
     mseReadOptionsShowVars["block_end_check"]="mse_file_read_checkSection_end"
   fi
 
-  local mseShowLineNumber=0
-  if [ $# -ge 3 ] && [ "$3" == "1" ]; then
-    mseShowLineNumber=1
+  local mseShowLineNumber="0"
+  if [ "$#" -ge "3" ] && [ "${3}" == "1" ]; then
+    mseShowLineNumber="1"
   fi
 
   mseReadOptionsShowVars["line_check"]="mse_file_read_checkLine_isVariable"
@@ -33,8 +30,5 @@ mse_file_config_variable_showAll() {
 
   local mseReturn=$(mse_file_read "${1}" "mseReadOptionsShowVars" "1" "${mseShowLineNumber}")
 
-
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

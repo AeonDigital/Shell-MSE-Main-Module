@@ -17,7 +17,7 @@ Linhas comentadas e vazias não serão mostradas.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  

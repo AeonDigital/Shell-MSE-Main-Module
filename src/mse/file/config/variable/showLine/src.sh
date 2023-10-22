@@ -3,12 +3,10 @@
 
 
 mse_file_config_variable_showLine() {
-  mseLastFunctionVariablesReset
-
   local mseReturn=""
-  local mseShowLineNumber=0
-  if [ $# -ge 4 ] && [ "$4" == "1" ]; then
-    mseShowLineNumber=1
+  local mseShowLineNumber="0"
+  if [ "$#" -ge "4" ] && [ "${4}" == "1" ]; then
+    mseShowLineNumber="1"
   fi
   local mseRawSection=$(mse_file_config_variable_showAll "${1}" "${2}" "${mseShowLineNumber}")
 
@@ -28,8 +26,5 @@ mse_file_config_variable_showLine() {
     mseReturn=$(printf "${mseReturn%%[[:cntrl:]]*}")
   fi
 
-
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

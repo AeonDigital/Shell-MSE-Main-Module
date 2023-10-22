@@ -17,7 +17,7 @@ Commented and empty lines will not be shown.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  
