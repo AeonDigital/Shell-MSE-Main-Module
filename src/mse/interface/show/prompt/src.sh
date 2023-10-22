@@ -88,9 +88,7 @@ mse_interface_show_prompt() {
 
 
 
-      IFS=$'\n'
-      msePromptLabelArrayXARGS=($(xargs -n1 <<< "${mseTmpAllowedAssocEntries[${msePromptKey}]}"))
-      IFS=$' \t\n'
+      mse_str_convert_toArray "msePromptLabelArrayXARGS" "${mseTmpAllowedAssocEntries[${msePromptKey}]}"
       if [ "${#msePromptLabelArrayXARGS[@]}" -gt "0" ]; then
         for msePromptLabel in "${msePromptLabelArrayXARGS[@]}"; do
           local mseComparePromptLabel="${msePromptLabel}"

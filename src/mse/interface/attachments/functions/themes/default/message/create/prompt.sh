@@ -51,9 +51,7 @@ mse_interface_theme_default_message_create_prompt() {
     for mseIndex in "${!mseTmpPromptSortedKeys[@]}"; do
       mseKey="${mseTmpPromptSortedKeys[${mseIndex}]}"
 
-      IFS=$'\n'
-      msePromptLabelArrayXARGS=($(xargs -n1 <<< "${mseTmpPromptAssocValues[${mseKey}]}"))
-      IFS=$' \t\n'
+      mse_str_convert_toArray "msePromptLabelArrayXARGS" "${mseTmpPromptAssocValues[${mseKey}]}"
       if [ "${#msePromptLabelArrayXARGS[@]}" == "0" ]; then
         msePromptLabelArrayXARGS+=("${mseKey}")
       else

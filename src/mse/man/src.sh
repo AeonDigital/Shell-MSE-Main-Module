@@ -95,7 +95,7 @@ mse_man_extract_main_sections_data() {
 
   local mseDefaultSections=" synopsis description parameters returns "
   declare -a mseArrDefaultSections=()
-  IFS=$'\n' mseArrDefaultSections=($(xargs -n1 <<< "${mseDefaultSections}"))
+  mse_str_convert_toArray "mseArrDefaultSections" "${mseDefaultSections}"
 
   if [ "${mseSections}" == "" ]; then
     mseSections="${mseDefaultSections}"
@@ -104,7 +104,7 @@ mse_man_extract_main_sections_data() {
   fi
 
   declare -a mseTargetSections=()
-  IFS=$'\n' mseTargetSections=($(xargs -n1 <<< "${mseSections}"))
+  mse_str_convert_toArray "mseTargetSections" "${mseSections}"
 
 
 
@@ -310,11 +310,11 @@ mse_man_process_parameters() {
 
   local mseAllowedTypes=" bool int float char charDecimal charHex charOctal string array assoc regex function file dir mixed void "
   declare -a mseArrAllowedTypes=()
-  IFS=$'\n' mseArrAllowedTypes=($(xargs -n1 <<< "${mseAllowedTypes}"))
+  mse_str_convert_toArray "mseArrAllowedTypes" "${mseAllowedTypes}"
 
   local mseExpectedProperties=" type name aka default min max options list hint description "
   declare -a mseArrExpectedProperties=()
-  IFS=$'\n' mseArrExpectedProperties=($(xargs -n1 <<< "${mseExpectedProperties}"))
+  mse_str_convert_toArray "mseArrExpectedProperties" "${mseExpectedProperties}"
 
 
   local mseRawParametersData="${1}"

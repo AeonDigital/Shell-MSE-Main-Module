@@ -3,8 +3,6 @@
 
 
 mse_file_read() {
-  mseLastFunctionVariablesReset
-
   local mseLineRaw
   local mseTarget="${1}"
 
@@ -122,20 +120,20 @@ mse_file_read() {
       fi
 
       if [ "${mseArrayName[line_transform_has_linenumber]}" == "1" ]; then
-        line_transform_has_linenumber=1
+        line_transform_has_linenumber="1"
       fi
     fi
 
 
 
     local line_hide_empty="0"
-    if [ "${mseArrayName[line_hide_empty]}" == "1" ] || ([ $# -ge 3 ] && [ "${3}" == "1" ]); then
+    if [ "${mseArrayName[line_hide_empty]}" == "1" ] || ([ "$#" -ge "3" ] && [ "${3}" == "1" ]); then
       line_hide_empty="1"
     fi
 
 
     local line_show_number="0"
-    if [ "${mseArrayName[line_show_number]}" == "1" ] || ([ $# -ge 4 ] && [ "${4}" == "1" ]); then
+    if [ "${mseArrayName[line_show_number]}" == "1" ] || ([ "$#" -ge "4" ] && [ "${4}" == "1" ]); then
       line_show_number="1"
     fi
 
@@ -145,20 +143,20 @@ mse_file_read() {
 
 
     local mseValidSection="1"
-    local mseValidLine=1
-    local mseValidLastLine=0
-    local mseLineCount=0
+    local mseValidLine="1"
+    local mseValidLastLine="0"
+    local mseLineCount="0"
     local mseLineRaw=""
 
     if [ "${block_start_check}" != "" ]; then
-      mseValidSection=0
+      mseValidSection="0"
     fi
 
     IFS=$'\n'
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseLineCount=mseLineCount+1))
-      mseValidLine=1
-      mseValidLastLine=0
+      mseValidLine="1"
+      mseValidLastLine="0"
 
 
       if [ "${mseLineRaw}" != "" ] || [ "${line_hide_empty}" == "0" ]; then
@@ -168,7 +166,7 @@ mse_file_read() {
             mseValidSection=$($block_start_check "${2}" "${mseLineCount}" "${mseLineRaw}" "0" "${block_start_check_args}")
 
             if [ "${mseValidSection}" == "1" ] && [ "${block_start_get_first_line}" == "0" ]; then
-              mseValidLine=0
+              mseValidLine="0"
             fi
           fi
         else
@@ -177,13 +175,13 @@ mse_file_read() {
 
             if [ "${mseValidSection}" == "1" ]; then
               if [ "${block_end_get_last_line}" == "1" ]; then
-                mseValidSection=1
-                mseValidLastLine=1
+                mseValidSection="1"
+                mseValidLastLine="1"
               else
-                mseValidSection=0
+                mseValidSection="0"
               fi
             else
-              mseValidSection=1
+              mseValidSection="1"
             fi
           fi
         fi
@@ -218,7 +216,7 @@ mse_file_read() {
             printf "%s\n" "${mseLineRaw}"
 
             if [ "${mseValidLastLine}" == "1" ]; then
-              mseValidSection=0
+              mseValidSection="0"
             fi
           fi
         fi
@@ -226,7 +224,4 @@ mse_file_read() {
     done <<< "${mseTarget}"
     IFS=$' \t\n'
   fi
-
-
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }
