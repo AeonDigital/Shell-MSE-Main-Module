@@ -15,14 +15,14 @@ mse_file_config_variable_set() {
   local mseVarType="${5}"
   local mseVarName="${6}"
   local mseVarValue="${7}"
-  declare -n mseVarArrName
+  declare -n mseVarArrObj
 
   local mseMode="${8}"
   local msePosition="${9}"
 
 
   if ([ "${mseVarType}" == "a" ] || [ "${mseVarType}" == "A" ]) && [ "${mseVarValue}" != "" ]; then
-    mseVarArrName="${mseVarValue}"
+    mseVarArrObj="${mseVarValue}"
   fi
 
 
@@ -97,27 +97,10 @@ mse_file_config_variable_set() {
             s)
               mseNewLine+=("${mseTmpComment}${mseVarName}=${mseVarValue}")
             ;;
-            a)
-              local i
-              local l="${#mseVarArrName[@]}"
-              local v
-
-# encapsular isto!
-              mseNewLine+=("declare -ga ${mseVarName}")
-              for ((i=0; i<l; i++)); do
-                v="${mseVarArrName[$i]}"
-                mseNewLine+=("${mseTmpComment}${mseVarName}[$i]=\"${v}\"")
-              done
-            ;;
-            A)
-              local k
-              local v
-# encapsular isto!
-              mseNewLine+=("declare -gA ${mseVarName}")
-              for k in ${!mseVarArrName[@]}; do
-                v="${mseVarArrName[$k]}"
-                mseNewLine+=("${mseTmpComment}${mseVarName}[\"$k\"]=\"${v}\"")
-              done
+            a | A)
+              IFS=$'\n'
+              mseNewLine+=($(echo -e "$(mse_array_dump "${mseVarValue}" "1" "${mseVarName}" ${mseTmpComment})"))
+              IFS=$' \t\n'
             ;;
           esac
 

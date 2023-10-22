@@ -245,8 +245,8 @@ test_mse_file_config_variable_set() {
   tmpExpectedLines=()
   tmpRawExpectedLines+=("# [[INI-MSE_UTEST]]")
   tmpRawExpectedLines+=("declare -ga MSE_UTEST")
-  tmpRawExpectedLines+=("MSE_UTEST[0]=\"first\"")
-  tmpRawExpectedLines+=("MSE_UTEST[1]=\"second\"")
+  tmpRawExpectedLines+=("MSE_UTEST[\"0\"]=\"first\"")
+  tmpRawExpectedLines+=("MSE_UTEST[\"1\"]=\"second\"")
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
   testResult=$(mse_file_read "${expectedDir}/.bashrc" "mseReadOptionsUTest" "1" "0")
