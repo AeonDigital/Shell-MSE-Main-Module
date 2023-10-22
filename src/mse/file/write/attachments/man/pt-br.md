@@ -8,7 +8,7 @@ Escreve uma ou mais linhas de dados no arquivo alvo na posição indicada.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  
@@ -92,6 +92,6 @@ não será feita nada será feito.
 
 &nbsp;
 
-# Returns bool
+# Returns bool+
 
 Print `0` se ocorrer alguma falha ou `1` se a escrita ocorreu sem falhas.

@@ -8,7 +8,7 @@ Writes one or more lines of data to the target file at the indicated position.
 
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  
@@ -92,6 +92,6 @@ nothing will be done.
 
 &nbsp;
 
-# Returns bool
+# Returns bool+
 
 Print `0` if any failure occurs or `1` if writing occurred without fail.
