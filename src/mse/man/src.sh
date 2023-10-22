@@ -115,11 +115,11 @@ mse_man_extract_main_sections_data() {
 
 
   if [ "${mseFileContent}" != "" ]; then
-    IFS=$'\n'
     local mseLineRaw=""
     local mseInTargetSection="0"
     local mseInTargetSectionName=""
 
+    IFS=$'\n'
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       if [[ "${mseLineRaw}" == "# "* ]]; then
         if [[ "${mseLineRaw,,}" == "# returns"* ]]; then
@@ -145,7 +145,6 @@ mse_man_extract_main_sections_data() {
         fi
       fi
     done <<< "${mseFileContent}"
-
     IFS=$' \t\n'
 
 

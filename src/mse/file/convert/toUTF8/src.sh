@@ -3,11 +3,7 @@
 
 
 mse_file_convert_toUTF8() {
-  mseLastFunctionVariablesReset
-
-  local mseReturn=1
-  local mseReturnCod=0
-  local mseReturnMsg=""
+  local mseReturn="0"
 
   local mseOriginalFile="${1}"
   local mseConvertedFile="${1}"
@@ -15,21 +11,15 @@ mse_file_convert_toUTF8() {
     mseConvertedFile="${2}"
   fi
 
-  if [ ! -f "${mseOriginalFile}" ]; then
-    mseReturnCod="1"
-    mseReturnMsg=$(mse_str_replace_placeHolder "${lbl_err_paramA_PointsToNonExistentFile}" "PARAM_A" "file")
-  else
+  if [ -f "${mseOriginalFile}" ]; then
     local mseOriginalEncoding=$(file -bi "${mseOriginalFile}")
-    if [ "${mseOriginalEncoding}" == "" ]; then
-      mseReturnCod="1"
-      mseReturnMsg="Could not identify the encoding of the target file."
-    else
+    if [ "${mseOriginalEncoding}" != "" ]; then
       mseOriginalEncoding="${mseOriginalEncoding##*charset=}"
       iconv -f "${mseOriginalEncoding}" -t UTF-8//TRANSLIT "${mseOriginalFile}" -o "${mseConvertedFile}"
+
+      mseReturn="1"
     fi
   fi
 
-  mseLastFunctionVariablesSet "${mseReturn}" "${mseReturnCod}" "${mseReturnMsg}"
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

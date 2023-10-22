@@ -143,7 +143,7 @@ mse_file_read() {
 
 
 
-    IFS=$'\n'
+
     local mseValidSection="1"
     local mseValidLine=1
     local mseValidLastLine=0
@@ -154,6 +154,7 @@ mse_file_read() {
       mseValidSection=0
     fi
 
+    IFS=$'\n'
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       ((mseLineCount=mseLineCount+1))
       mseValidLine=1
@@ -223,7 +224,6 @@ mse_file_read() {
         fi
       fi
     done <<< "${mseTarget}"
-
     IFS=$' \t\n'
   fi
 

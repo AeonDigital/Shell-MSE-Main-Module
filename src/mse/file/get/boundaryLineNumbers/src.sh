@@ -3,11 +3,10 @@
 
 
 mse_file_get_boundaryLineNumbers() {
-  mseLastFunctionVariablesReset
   local mseReturn=""
 
 
-  if [ $# -ge 5 ] && [ -f "${1}" ]; then
+  if [ "$#" -ge "5" ] && [ -f "${1}" ]; then
     local mseTarget="${1}"
     local mseCommentChar="${2}"
     local mseIsConfigFile="${3}"
@@ -100,17 +99,13 @@ mse_file_get_boundaryLineNumbers() {
         mseLastLineNumber="${mseLastLineNumber%*#}"
       fi
     fi
+
+
+    if [ "${mseFirstLineNumber}" != "" ] && [ "${mseLastLineNumber}" != "" ]; then
+      mseReturn="${mseFirstLineNumber} ${mseLastLineNumber}"
+    fi
   fi
 
 
-
-  if [ "${mseFirstLineNumber}" != "" ] && [ "${mseLastLineNumber}" != "" ]; then
-    mseReturn="${mseFirstLineNumber} ${mseLastLineNumber}"
-  fi
-
-
-
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }
