@@ -6,6 +6,8 @@ mse_array_dump() {
   declare -a mseReturn=()
   local mseArrayName="${1}"
   local mseIsGlobal=$(mseGetDefault "${2}" "0" "0 1")
+  local mseArrayUseName=$(mseGetDefault "${3}" "${mseArrayName}")
+  local msePrefixLines="${4}"
 
   local mseProperties="-"
   if [ "${mseIsGlobal}" == "1" ]; then
@@ -26,10 +28,10 @@ mse_array_dump() {
     declare -n mseArrayObj="${mseArrayName}"
     local v=""
 
-    mseReturn+=("declare "${mseProperties}" ${mseArrayName}")
+    mseReturn+=("${msePrefixLines}declare "${mseProperties}" ${mseArrayUseName}")
     for k in "${!mseArrayObj[@]}"; do
       v="${mseArrayObj[${k}]}"
-      mseReturn+=("${mseArrayName}[\"${k}\"]=\"${v}\"")
+      mseReturn+=("${msePrefixLines}${mseArrayUseName}[\"${k}\"]=\"${v}\"")
     done
 
     printf "%s\n" "${mseReturn[@]}"

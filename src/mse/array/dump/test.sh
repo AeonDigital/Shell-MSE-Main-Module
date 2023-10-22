@@ -42,6 +42,46 @@ test_mse_array_dump() {
 
 
   unset testArray
+  declare -a testArray=("one" "two" "tree" "and four")
+
+  testResult=$(mse_array_dump "testArray" "1" "useName")
+  testExpected="declare -ga useName"
+  testExpected+="\n"
+  testExpected+="useName[\"0\"]=\"one\""
+  testExpected+="\n"
+  testExpected+="useName[\"1\"]=\"two\""
+  testExpected+="\n"
+  testExpected+="useName[\"2\"]=\"tree\""
+  testExpected+="\n"
+  testExpected+="useName[\"3\"]=\"and four\""
+  testExpected=$(echo -e "${testExpected}")
+
+  mse_md_utest_assertEqual
+
+
+
+  unset testArray
+  declare -a testArray=("one" "two" "tree" "and four")
+
+  testResult=$(mse_array_dump "testArray" "1" "useName" "# ")
+  testExpected="# declare -ga useName"
+  testExpected+="\n"
+  testExpected+="# useName[\"0\"]=\"one\""
+  testExpected+="\n"
+  testExpected+="# useName[\"1\"]=\"two\""
+  testExpected+="\n"
+  testExpected+="# useName[\"2\"]=\"tree\""
+  testExpected+="\n"
+  testExpected+="# useName[\"3\"]=\"and four\""
+  testExpected=$(echo -e "${testExpected}")
+
+  mse_md_utest_assertEqual
+
+
+
+
+
+  unset testArray
   declare -A testArray
   testArray["one"]="um"
   testArray["two"]="dois"
@@ -49,13 +89,10 @@ test_mse_array_dump() {
   testArray["and four"]="e quatro"
 
   local tmpTestResult=$(mse_array_dump "testArray" "1")
-  declare -a testResult=()
-
   IFS=$'\n'
-  while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
-    testResult+=("${mseLineRaw}")
-  done <<< "${tmpTestResult}"
+  declare -a testResult=($(echo -e "${tmpTestResult[@]}"))
   IFS=$' \t\n'
+
 
 
   declare -a testExpected

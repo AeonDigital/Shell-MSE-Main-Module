@@ -29,6 +29,31 @@ common array or an associative type.
   Indicates when the array should be marked as global in scope.
 
 
+&nbsp;
+
+## string arrayNewName
+
+- aka       : -ann --arrayNewName
+- hint      :
+  If informed, it will use this value as the name of the array in the final 
+  output.
+
+
+&nbsp;
+
+## string prefixLines
+
+- aka       : -pl --prefixLines
+- hint      :
+  If prompted, it will use this value in front of each line.
+
+Useful if you want to print a commendable version of the array code.
+
+
+
+&nbsp;
+
+
 
 &nbsp;
 

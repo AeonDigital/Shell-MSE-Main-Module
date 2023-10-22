@@ -29,6 +29,26 @@ matriz comum ou um do tipo associativo.
   Indica quando o array deve ser marcado como sendo de escopo global.
 
 
+&nbsp;
+
+## string arrayNewName
+
+- aka       : -ann --arrayNewName
+- hint      :
+  Se informado irá usar este valor como nome do array na saída final.
+
+
+&nbsp;
+
+## string prefixLines
+
+- aka       : -pl --prefixLines
+- hint      :
+  Se informado irá usar este valor na frente de cada linha.
+
+Útil se deseja printar uma versão comendata do código do array.
+
+
 
 &nbsp;
 
