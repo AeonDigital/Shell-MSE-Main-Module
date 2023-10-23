@@ -7,5 +7,5 @@ mse_array_get_index_byValue() {
   if [ "$#" -ge "3" ] && [ "${3}" == "0" ]; then
     mseCaseSensitive="0"
   fi
-  printf "%s" $(mse_array_search "${1}" "${2}" "${mseCaseSensitive}" "0" "0" "i")
+  mse_array_search "${1}" "${2}" "${mseCaseSensitive}" "0" "0" "i"
 }

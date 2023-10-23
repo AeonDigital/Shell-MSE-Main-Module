@@ -3,9 +3,6 @@
 
 
 mse_font_show_attributes() {
-  local mseReturn=""
-
-
   local mseFormat="l"
   local mseLineItens="6"
 
@@ -47,8 +44,6 @@ mse_font_show_attributes() {
   done
 
   mseRawTable=$(printf "${mseRawTable}")
-  mseReturn=$(printf "NONE\n"; column -e -t -s ":" <<< "${mseRawTable}")
-
-
+  local mseReturn=$(printf "NONE\n"; column -e -t -s ":" <<< "${mseRawTable}")
   printf "%s" "${mseReturn}"
 }

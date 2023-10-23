@@ -28,7 +28,5 @@ mse_file_config_variable_showAll() {
   mseReadOptionsShowVars["line_check_has_linenumber"]="${mseShowLineNumber}"
 
 
-  local mseReturn=$(mse_file_read "${1}" "mseReadOptionsShowVars" "1" "${mseShowLineNumber}")
-
-  printf "%s" "${mseReturn}"
+  mse_file_read "${1}" "mseReadOptionsShowVars" "1" "${mseShowLineNumber}"
 }

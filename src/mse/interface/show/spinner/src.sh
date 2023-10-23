@@ -3,7 +3,6 @@
 
 
 mse_interface_show_spinner() {
-
   if [ "${MSE_SPINNER_PID}" == "" ]; then
     declare -n mseSpinnerPhases="MSE_SPINNER_DEFAULT"
     if [ "$#" -ge "1" ] && [ "${1}" != "" ]; then
