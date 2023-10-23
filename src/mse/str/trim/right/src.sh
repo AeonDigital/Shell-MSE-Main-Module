@@ -3,12 +3,6 @@
 
 
 mse_str_trim_right() {
-  mseLastFunctionVariablesReset
-
   local mseReturn=$(echo -e "${1}")
-  mseReturn="${mseReturn%"${mseReturn##*[![:space:]]}"}" # trim R
-
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn%"${mseReturn##*[![:space:]]}"}" # trim R
 }

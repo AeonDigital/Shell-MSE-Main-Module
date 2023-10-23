@@ -10,9 +10,6 @@ mse_str_trim_substring() {
   local mseArrLen="${#mseArrTmp[@]}"
 
 
-  mseLastFunctionVariablesReset
-
-
   if [ "${mseArrLen}" -gt "0" ]; then
     local i
     local ii
@@ -27,7 +24,7 @@ mse_str_trim_substring() {
     fi
 
 
-    i=0
+    i="0"
     ((li = mseArrLen - 1))
     mseArrElemOne=$(echo -e "${mseArrTmp[$ii]}")
     mseArrElemLas=$(echo -e "${mseArrTmp[$li]}")
@@ -58,7 +55,5 @@ mse_str_trim_substring() {
 
 
   mseReturn=$(mse_str_join "${1}" "mseArrTmp")
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }
