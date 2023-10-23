@@ -3,8 +3,6 @@
 
 
 mse_str_convert_decimal_toChar() {
-  mseLastFunctionVariablesReset
-
   local mseReturn=""
   local mseTmp
   local mseByte
@@ -26,7 +24,5 @@ mse_str_convert_decimal_toChar() {
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

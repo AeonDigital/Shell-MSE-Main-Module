@@ -3,8 +3,6 @@
 
 
 mse_str_pad() {
-  mseLastFunctionVariablesReset
-
   local mseNStr=""
   local mseOStr="${1}"
   local msePadChar="${2}"
@@ -23,12 +21,12 @@ mse_str_pad() {
   local oLC_CTYPE="${LC_CTYPE}"
   LC_CTYPE=""
 
-  if [ "${#msePadChar}" == "1" ] && [ "${mseTotalLength}" -gt 0 ] && [ "${msePadPosition}" != "" ]; then
+  if [ "${#msePadChar}" == "1" ] && [ "${mseTotalLength}" -gt "0" ] && [ "${msePadPosition}" != "" ]; then
     mseNStr="${mseOStr}"
 
     if [ "${mseTotalLength}" -gt "${#mseNStr}" ]; then
       local mseStringLength="${#mseNStr}"
-      local msePadLeft=0
+      local msePadLeft="0"
       local msePadStr=""
 
       ((msePadLeft=mseTotalLength-mseStringLength))
@@ -48,7 +46,5 @@ mse_str_pad() {
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  mseLastFunctionVariablesSet "${mseNStr}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseNStr}"
 }

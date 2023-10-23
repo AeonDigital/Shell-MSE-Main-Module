@@ -3,19 +3,15 @@
 
 
 mse_str_join() {
-  mseLastFunctionVariablesReset
-
-  local mseGlue="$1"
+  local mseGlue="${1}"
   local mseGlueLen="${#mseGlue}"
 
-  declare -n mseArrayName="$2"
+  declare -n mseArrayName="${2}"
   mseReturn=$(printf "%s${1}" "${mseArrayName[@]}")
 
-  if [ $mseGlueLen -gt 0 ]; then
+  if [ "${mseGlueLen}" -gt "0" ]; then
     mseReturn="${mseReturn:: -$mseGlueLen}"
   fi
 
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }
