@@ -3,8 +3,6 @@
 
 
 mse_is_char() {
-  mseLastFunctionVariablesReset
-
   local mseReturn="0"
   #
   # A alteração do "LC_CTYPE" abaixo
@@ -15,7 +13,5 @@ mse_is_char() {
   if [ "${#1}" == "1" ]; then mseReturn="1"; else mseReturn="0"; fi
   LC_CTYPE="${oLC_CTYPE}"
 
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

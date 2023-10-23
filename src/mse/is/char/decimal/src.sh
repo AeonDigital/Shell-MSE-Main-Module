@@ -3,9 +3,7 @@
 
 
 mse_is_char_decimal() {
-  mseLastFunctionVariablesReset
-
-  local mseReturn=1
+  local mseReturn="1"
 
   local mseI
   local mseREG
@@ -15,15 +13,13 @@ mse_is_char_decimal() {
   mseArrParam=(${1// / })
 
   for (( mseI=0; mseI<${#mseArrParam[@]}; mseI++ )); do
-    if [ $mseReturn == 1 ]; then
+    if [ "${mseReturn}" == "1" ]; then
       if ! [[ "${mseArrParam[$mseI]}" =~ $mseREG ]]; then
-        mseReturn=0
+        mseReturn="0"
         break
       fi
     fi
   done
 
-  mseLastFunctionVariablesSet "${mseReturn}" 0 ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }
