@@ -7,21 +7,21 @@ mse_font_show_colors() {
 
 
   local mseColorSystem="4"
-  if [ $# -ge 1 ] && ([ "${1}" == "8" ] || [ "${1}" == "32" ]); then
+  if [ "$#" -ge "1" ] && ([ "${1}" == "8" ] || [ "${1}" == "32" ]); then
     mseColorSystem="${1}"
   fi
 
   local mseFocus="f"
-  if [ $# -ge 2 ] && [ "${2}" == "b" ]; then
+  if [ "$#" -ge "2" ] && [ "${2}" == "b" ]; then
     mseFocus="b"
   fi
 
-  local mseItensPerLine=12
+  local mseItensPerLine="12"
   local mseItensPerLineIsSet="4"
-  if [ $# -ge 3 ]; then
-    mseCheck="$(mse_is_int ${3})"
+  if [ "$#" -ge "3" ]; then
+    mseCheck="$(mse_is_int "${3}")"
     if [ "${mseCheck}" == "1" ]; then
-      if [ "$3" -le 4 ]; then
+      if [ "$3" -le "4" ]; then
         mseItensPerLine="4"
       else
         mseItensPerLine="${3}"
@@ -34,7 +34,7 @@ mse_font_show_colors() {
   case "${mseColorSystem}" in
     4)
       local i
-      local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+      local mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
 
       local mseColorLabel
       local mseColorName
@@ -46,8 +46,8 @@ mse_font_show_colors() {
       mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
 
       for (( i=0; i<mseLength; i++)); do
-        mseColorLabel=${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}
-        mseColorName=${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}
+        mseColorLabel="${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}"
+        mseColorName="${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}"
         mseColorVarName="mse${mseColorName}"
         mseColorCode="\\${!mseColorVarName}"
 
@@ -64,23 +64,23 @@ mse_font_show_colors() {
       printf "\n"
     ;;
     8)
-      local mseColorSet=255
+      local mseColorSet="255"
       local mseColorCodeMaxLength=($(eval echo {0..${mseColorSet}}))
 
       local mseColorIndex
-      local mseColorNumber=0
-      local mseColorMod=0
+      local mseColorNumber="0"
+      local mseColorMod="0"
       local mseStrColorNumber
       local mseNewLine
 
 
       printf "\n"
       for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
-        mseNewLine=0
+        mseNewLine="0"
 
-        if [ "${mseColorIndex}" -lt 10 ]; then
+        if [ "${mseColorIndex}" -lt "10" ]; then
           mseStrColorNumber="  ${mseColorIndex}"
-        elif [ "${mseColorIndex}" -lt 100 ]; then
+        elif [ "${mseColorIndex}" -lt "100" ]; then
           mseStrColorNumber=" ${mseColorIndex}"
         else
           mseStrColorNumber="${mseColorIndex}"
@@ -96,11 +96,11 @@ mse_font_show_colors() {
         ((mseColorMod=mseColorNumber % mseItensPerLine))
         if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
           printf "\n"
-          mseNewLine=1
+          mseNewLine="1"
         fi
       done
 
-      if [ "${mseNewLine}" == 0 ]; then
+      if [ "${mseNewLine}" == "0" ]; then
         printf "\n"
       fi
 

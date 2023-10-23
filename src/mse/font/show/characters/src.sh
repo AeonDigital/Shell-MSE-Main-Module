@@ -13,7 +13,7 @@ mse_font_show_characters() {
   esac
 
   local mseFromChar="33"
-  if [ $# -ge 2 ]; then
+  if [ "$#" -ge "2" ]; then
     mseCheck=$(mse_is_int "${2}")
     if [ "${mseCheck}" == "1" ] && [ "${2}" -ge "33" ] && [ "${2}" -le "255" ]; then
       mseFromChar="${2}"
@@ -21,7 +21,7 @@ mse_font_show_characters() {
   fi
 
   local mseToChar="255"
-  if [ $# -ge 3 ]; then
+  if [ "$#" -ge "3" ]; then
     mseCheck=$(mse_is_int "${3}")
     if [ "${mseCheck}" == "1" ] && [ "${3}" -ge "33" ] && [ "${3}" -le "255" ]; then
       mseToChar="${3}"
@@ -35,11 +35,11 @@ mse_font_show_characters() {
 
 
 
-  if [ ${mseOutputFormat} == "t" ] || [ ${mseOutputFormat} == "c" ]; then
+  if [ "${mseOutputFormat}" == "t" ] || [ "${mseOutputFormat}" == "c" ]; then
     local x
     local c
 
-    if [ ${mseOutputFormat} == "t" ]; then
+    if [ "${mseOutputFormat}" == "t" ]; then
       printf "\n      ";
       for x in {0..15}; do
         printf "%-3x" ${x};
@@ -47,7 +47,7 @@ mse_font_show_characters() {
       printf "\n%46s\n" | sed 's/ /-/g;s/^/      /';
     fi
 
-    if [ ${mseOutputFormat} == "t" ]; then
+    if [ "${mseOutputFormat}" == "t" ]; then
       c=$(printf "fa" | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
       printf "%32s" | sed 's/../'"${c}"'  /g;s/^/  0   /;s/$/\n/'
       printf "%32s" | sed 's/../'"${c}"'  /g;s/^/  1   /'
@@ -57,23 +57,23 @@ mse_font_show_characters() {
     for x in {32..255}; do
       (( x % 16 == 0 )) && printf "\n"
 
-      if [ ${mseOutputFormat} == "t" ]; then
-        n=$(expr $x % 15) || true
-        (( (x % 16) == 0 )) && printf "%-4x" $n | sed 's/0/f/;s/^/  /'
+      if [ "${mseOutputFormat}" == "t" ]; then
+        n=$(expr ${x} % 15) || true
+        (( (x % 16) == 0 )) && printf "%-4x" ${n} | sed 's/0/f/;s/^/  /'
       fi
 
-      printf "%02x" $x | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8' | sed 's/.*/&  /'
+      printf "%02x" ${x} | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8' | sed 's/.*/&  /'
 
-      if [ ${mseOutputFormat} == "t" ]; then
+      if [ "${mseOutputFormat}" == "t" ]; then
         (( x == 127 )) && printf "%46s" | sed 's/ /-/g;s/^/      /;i\ '
       fi
     done
 
 
-    if [ ${mseOutputFormat} == "t" ]; then
+    if [ "${mseOutputFormat}" == "t" ]; then
       printf "%46s" | sed 's/ /-/g;s/^/\n      /;s/$/\n      /';
       for x in {0..15}; do
-        printf "%-3x" $x;
+        printf "%-3x" "${x}";
       done
     fi
 
@@ -84,7 +84,7 @@ mse_font_show_characters() {
     local i
     local mseLine
     local mseRawTable
-    local mseHasTwoDots=0
+    local mseHasTwoDots="0"
 
     local mseChar
     local mseCDec
@@ -94,22 +94,22 @@ mse_font_show_characters() {
     mseRawTable="Index:Char:Decimal:Hex:Octal\n"
 
     for (( i=mseFromChar; i<=mseToChar; i++ )); do
-      if [ $i == 37 ]; then
+      if [ "${i}" == "37" ]; then
         mseLine="37:%%:37:25:045"
-      elif [ $i == 42 ]; then
+      elif [ "${i}" == "42" ]; then
         mseLine="42:*:42:2A:052"
       else
-        mseChar=$(printf "%02x" $i | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
-        mseCDec=$(mse_str_convert_char_toDecimal ${mseChar} 1)
-        mseCHex=$(mse_str_convert_char_toHex ${mseChar} 1)
-        mseCOct=$(mse_str_convert_char_toOctal ${mseChar} 1)
+        mseChar=$(printf "%02x" "${i}" | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
+        mseCDec=$(mse_str_convert_char_toDecimal "${mseChar}" 1)
+        mseCHex=$(mse_str_convert_char_toHex "${mseChar}" 1)
+        mseCOct=$(mse_str_convert_char_toOctal "${mseChar}" 1)
 
         if [ "${mseChar}" == ":" ]; then
           mseChar="[[TWODOTS]]"
-          mseHasTwoDots=1
+          mseHasTwoDots="1"
         fi
 
-        mseLine="$i:${mseChar}:${mseCDec}:${mseCHex}:${mseCOct}"
+        mseLine="${i}:${mseChar}:${mseCDec}:${mseCHex}:${mseCOct}"
       fi
 
       mseRawTable+="${mseLine}\n"
@@ -120,7 +120,7 @@ mse_font_show_characters() {
     mseRawTable=$(printf "${mseRawTable}")
     mseRawTable=$(column -e -t -s ":" <<< "${mseRawTable}")
 
-    if [ "${mseHasTwoDots}" == 1 ]; then
+    if [ "${mseHasTwoDots}" == "1" ]; then
       local mseLineRaw
 
       while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
@@ -128,7 +128,7 @@ mse_font_show_characters() {
           mseLineRaw=$(mse_str_replace_placeHolder "${mseLineRaw}" "TWODOTS" ":          ")
         fi
         printf "%s\n" "${mseLineRaw}"
-      done <<< "$mseRawTable"
+      done <<< "${mseRawTable}"
 
     else
       printf "${mseRawTable}\n"

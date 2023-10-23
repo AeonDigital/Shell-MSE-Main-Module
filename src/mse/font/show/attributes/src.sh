@@ -3,31 +3,31 @@
 
 
 mse_font_show_attributes() {
-  mseLastFunctionVariablesReset
-
   local mseReturn=""
 
 
   local mseFormat="l"
-  local mseLineItens=6
-  if [ $# -ge 1 ] && ([ "${1}" == "l" ] || [ "${1}" == "t" ]); then
+  local mseLineItens="6"
+
+  if [ "$#" -ge "1" ] && ([ "${1}" == "l" ] || [ "${1}" == "t" ]); then
     mseFormat="${1}"
   fi
-  if [ $# == 2 ]; then
+
+  if [ "$#" == "2" ]; then
     local isInt=$(mse_is_int "${2}")
-    if [ ${isInt} == 1 ]; then
+    if [ "${isInt}" == "1" ]; then
       mseLineItens="${2}"
     fi
   fi
 
 
   local i
-  local mseLength=${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}
+  local mseLength="${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
   local mseLine
   local mseRawTable
 
   for (( i=0; i<mseLength; i++)); do
-    mseAttrName=${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}
+    mseAttrName="${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}"
 
     if [ "${mseAttrName}" != "NONE" ]; then
 
@@ -50,7 +50,5 @@ mse_font_show_attributes() {
   mseReturn=$(printf "NONE\n"; column -e -t -s ":" <<< "${mseRawTable}")
 
 
-  mseLastFunctionVariablesSet "${mseReturn}" "0" ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

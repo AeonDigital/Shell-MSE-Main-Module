@@ -6,12 +6,8 @@ mse_font_create_style() {
   mseLastFunctionVariablesReset
 
   local mseReturn=""
-  local mseReturnCod=0
 
-  if [ $# -lt 4 ]; then
-    mseReturnCod=0
-  else
-
+  if [ "$#" -ge "4" ]; then
     local mseColorSystem="4"
     local mseAttributes="20"
     local mseBackground="49"
@@ -35,27 +31,28 @@ mse_font_create_style() {
       mseForeground="255;255;255"
     fi
 
-    if [ $# -ge 5 ] && [ "$5" == "1" ]; then
+
+    if [ "$#" -ge "5" ] && [ "${5}" == "1" ]; then
       mseReturnAsString="1"
     fi
 
 
     if [ "${mseColorSystem}" == "4" ]; then
-      local mseUseDark=0
+      local mseUseDark="0"
 
       if [ "${mseTmpBackground:0:1}" == "D" ]; then
         mseTmpBackground="${mseTmpBackground:1}"
       fi
       if [ "${mseTmpForeground:0:1}" == "D" ]; then
-        mseUseDark=1
+        mseUseDark="1"
         mseTmpForeground="${mseTmpForeground:1}"
       fi
 
 
       if [ "${mseUseDark}" == "0" ]; then
         mseIsResult=$(mse_is_int "${mseTmpForeground}")
-        if [ "${mseIsResult}" == "1" ] && [ "${mseTmpForeground}" -gt 200 ]; then
-          mseUseDark=1
+        if [ "${mseIsResult}" == "1" ] && [ "${mseTmpForeground}" -gt "200" ]; then
+          mseUseDark="1"
           ((mseTmpForeground = mseTmpForeground - 200))
         fi
       fi
@@ -95,7 +92,7 @@ mse_font_create_style() {
               mseTmpAttr="${mseUParam}"
             fi
           else
-            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}
+            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
               if [ "${mseUParam}" == "${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}" ]; then
                 mseTmpAttr="${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES[$i]}"
@@ -132,7 +129,7 @@ mse_font_create_style() {
                 mseBackground="${mseTmpBackground}"
             fi
           else
-            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
               if [ "${mseTmpBackground}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
                 mseBackground="${MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES[$i]}"
@@ -143,7 +140,7 @@ mse_font_create_style() {
         ;;
         8)
           if [ "${mseIsResult}" == "1" ]; then
-            if [ "${mseTmpBackground}" -ge 0 ] && [ "${mseTmpBackground}" -le 255 ]; then
+            if [ "${mseTmpBackground}" -ge "0" ] && [ "${mseTmpBackground}" -le "255" ]; then
               mseBackground="48;5;${mseTmpBackground}"
             fi
           fi
@@ -151,13 +148,13 @@ mse_font_create_style() {
         32)
           mse_str_split ";" "${mseTmpBackground}"
           if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "3" ]; then
-            local mseIsValid=1
+            local mseIsValid="1"
 
             for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
               mseIsResult=$(mse_is_int "${mseUParam}")
 
-              if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
-                mseIsValid=0
+              if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt "0" ] || [ "${mseUParam}" -gt "255" ]; then
+                mseIsValid="0"
               fi
             done
 
@@ -182,7 +179,7 @@ mse_font_create_style() {
               mseForeground="${mseTmpForeground}"
             fi
           else
-            mseLength=${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}
+            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
               if [ "${mseTmpForeground}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
                 mseForeground="${MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES[$i]}"
@@ -193,7 +190,7 @@ mse_font_create_style() {
         ;;
         8)
           if [ "${mseIsResult}" == "1" ]; then
-            if [ "${mseTmpForeground}" -ge 0 ] && [ "${mseTmpForeground}" -le 255 ]; then
+            if [ "${mseTmpForeground}" -ge "0" ] && [ "${mseTmpForeground}" -le "255" ]; then
               mseForeground="38;5;${mseTmpForeground}"
             fi
           fi
@@ -201,13 +198,13 @@ mse_font_create_style() {
         32)
           mse_str_split ";" "${mseTmpForeground}"
           if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "3" ]; then
-            local mseIsValid=1
+            local mseIsValid="1"
 
             for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
               mseIsResult=$(mse_is_int "${mseUParam}")
 
-              if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt 0 ] || [ "${mseUParam}" -gt 255 ]; then
-                mseIsValid=0
+              if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt "0" ] || [ "${mseUParam}" -gt "255" ]; then
+                mseIsValid="0"
               fi
             done
 
@@ -229,8 +226,5 @@ mse_font_create_style() {
   fi
 
 
-
-  mseLastFunctionVariablesSet "${mseReturn}" "${mseReturnCod}" ""
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

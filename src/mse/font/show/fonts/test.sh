@@ -5,5 +5,5 @@
 test_mse_font_show_fonts() {
   printf ""
 
-  #mse_font_show_fonts
+  # mse_font_show_fonts
 }

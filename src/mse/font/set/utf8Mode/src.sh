@@ -6,7 +6,7 @@ mse_font_set_utf8Mode() {
   local mseReturn=""
 
   local mseMode="check"
-  if [ $# -ge 1 ] && ([ "${1,,}" == "on" ] || [ "${1,,}" == "off" ]); then
+  if [ "$#" -ge "1" ] && ([ "${1,,}" == "on" ] || [ "${1,,}" == "off" ]); then
     mseMode="${1,,}"
   fi
 
