@@ -3,27 +3,21 @@
 
 
 mse_str_replace_placeHolder() {
-  mseLastFunctionVariablesReset
-
+  local mseReturn=""
   local msePair="$#"
   ((msePair=msePair-1))
 
-  if [ "$#" -lt "3" ] || [ $((msePair%2)) -ne 0 ]; then
-    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "${lbl_err_wrongNumberOfArguments}"
-  else
-
+  if [ "$#" -ge "3" ] && [ $((msePair % 2)) == "0" ]; then
     local mseString
     local msePHName
     local msePHValue
-    local mseReturn
 
 
     if [ "$#" == "3" ]; then
-      mseString="$1"
+      mseString="${1}"
       msePHName="\[\[${2}\]\]"
-      msePHValue="$3"
+      msePHValue="${3}"
       mseReturn="${mseString//${msePHName}/${msePHValue}}"
-      mseLastFunctionVariablesSet "${mseReturn}" 0 ""
     else
       local i
       local v
@@ -32,7 +26,7 @@ mse_str_replace_placeHolder() {
       mseTmpParametersArray=("${mseTmpParametersArray[@]:1}")
 
       local mseTotalParans="${#mseTmpParametersArray[@]}"
-      mseReturn="$1"
+      mseReturn="${1}"
 
       for ((i=0; i<mseTotalParans; i=i+2)); do
         ((v=i+1))
@@ -42,11 +36,8 @@ mse_str_replace_placeHolder() {
           mseReturn=$(mse_str_replace_placeHolder "${mseReturn}" "${msePHName}" "${msePHValue}")
         fi
       done
-
-      mseLastFunctionVariablesSet "${mseReturn}" 0 ""
     fi
   fi
 
-  printf "%s" "${MSE_LAST_FUNCTION_RETURN}"
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
+  printf "%s" "${mseReturn}"
 }

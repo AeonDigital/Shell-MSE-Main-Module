@@ -8,31 +8,31 @@ test_mse_str_replace_placeHolderColor() {
   local tmpBlue='\e[20;49;34m'
 
   testResult=$(mse_str_replace_placeHolderColor)
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red" "PH")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red" "PH" "test")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red" "PH" "test" "${tmpRED}" "wrong")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 

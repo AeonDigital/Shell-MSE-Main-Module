@@ -4,19 +4,19 @@
 
 test_mse_str_replace_placeHolder() {
   testResult=$(mse_str_replace_placeHolder)
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolder "this is a [[PH]]")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolder "this is a [[PH]]" "PH" "test" "wrong")
-  testExpected="${MSE_UNDEF}"
+  testExpected=""
 
   mse_md_utest_assertEqual
 
