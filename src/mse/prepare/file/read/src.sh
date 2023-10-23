@@ -3,8 +3,6 @@
 
 
 mse_prepare_file_read() {
-  mseLastFunctionVariablesReset
-
   declare -n mseArrAssoc="${1}"
 
   local mseKey=""
@@ -123,8 +121,4 @@ mse_prepare_file_read() {
   if [ "${21}" != "0" ] && [ "${21}" != "1" ]; then
     mseArrAssoc["line_show_number"]="0"
   fi
-
-
-
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }

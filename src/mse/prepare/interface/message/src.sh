@@ -128,7 +128,7 @@ mse_prepare_interface_message() {
         fi
       ;;
       top_separator_colorize | title_show | title_top_separator_colorize | title_bullet_colorize | title_string_colorize | title_bottom_separator_colorize | body_show | body_top_separator_colorize | body_first_line_bullet_colorize | body_lines_bullet_colorize | body_lines_colorize | body_bottom_separator_colorize | bottom_separator_colorize)
-        if [ "$mseValue" == "" ] || ([ "$mseValue" != "0" ] && [ "$mseValue" != "1" ]); then
+        if [ "${mseValue}" == "" ] || ([ "${mseValue}" != "0" ] && [ "${mseValue}" != "1" ]); then
           mseValue="0"
         fi
         mseTmpArrPrepareMessage[$mseKey]="${mseValue}"
@@ -140,6 +140,6 @@ mse_prepare_interface_message() {
 
   if [ "${mseTmpArrPrepareMessage[meta_theme]}" != "" ]; then
     local mseThemePrepareMessage="${mseTmpArrPrepareMessage[meta_theme]}_message_prepare"
-    $mseThemePrepareMessage "${1}"
+    ${mseThemePrepareMessage} "${1}"
   fi
 }

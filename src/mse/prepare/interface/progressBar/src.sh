@@ -64,7 +64,7 @@ mse_prepare_interface_progressBar() {
         fi
       ;;
       bar_colorize | info_show | info_use_percent | info_colorize)
-        if [ "$mseValue" == "" ] || ([ "$mseValue" != "0" ] && [ "$mseValue" != "1" ]); then
+        if [ "${mseValue}" == "" ] || ([ "${mseValue}" != "0" ] && [ "${mseValue}" != "1" ]); then
           mseValue="0"
         fi
         mseTmpArrPrepareProgressBar[$mseKey]="${mseValue}"
@@ -78,7 +78,7 @@ mse_prepare_interface_progressBar() {
         if [ "${mseValue}" == "" ]; then
           mseValue="50"
         else
-          local mseCheck=$(mse_is_int "$mseValue")
+          local mseCheck=$(mse_is_int "${mseValue}")
           if [ "${mseCheck}" == "0" ]; then
             mseValue="50"
           elif [ "${mseValue}" -lt "20" ]; then
