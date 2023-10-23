@@ -29,7 +29,7 @@ mse_interface_show_message() {
 
 
 
-  if [ $# -ge 2 ] && [ "${2}" != "" ] && [ "${2}" != "${mseUseMetaType}" ]; then
+  if [ "$#" -ge "2" ] && [ "${2}" != "" ] && [ "${2}" != "${mseUseMetaType}" ]; then
     mseUseMetaType="${2}"
     mseRedefineTheme="1"
   fi
@@ -68,7 +68,7 @@ mse_interface_show_message() {
     mseUseMetaFormat="${mseTmpInterArrShowMessage[meta_format]}"
   fi
 
-  if [ $# -ge 3 ] && [ "${3}" != "" ] && [ "${3}" != "${mseUseMetaFormat}" ]; then
+  if [ "$#" -ge "3" ] && [ "${3}" != "" ] && [ "${3}" != "${mseUseMetaFormat}" ]; then
     mseUseMetaFormat=$($mseThemeCheckFormat "${3}")
     mseRedefineTheme="1"
   fi

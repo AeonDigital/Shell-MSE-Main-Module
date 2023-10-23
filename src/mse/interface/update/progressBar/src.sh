@@ -3,7 +3,7 @@
 
 
 mse_interface_update_progressBar() {
-  if [ $# -ge 2 ]; then
+  if [ "$#" -ge "2" ]; then
     declare -n mseTmpInterArrUpdateProgressBar="${1}"
 
     local mseUpdateMetaFormat="${mseTmpInterArrUpdateProgressBar[meta_format]}"
@@ -11,7 +11,7 @@ mse_interface_update_progressBar() {
     local mseUpdateInfoAlign="${mseTmpInterArrUpdateProgressBar[info_align]}"
     local mseUpdateInfoData="${mseTmpInterArrUpdateProgressBar[info_data]}"
 
-    if [ $# -ge 3 ]; then
+    if [ "$#" -ge "3" ]; then
       mseUpdateInfoData="${3}"
     fi
 

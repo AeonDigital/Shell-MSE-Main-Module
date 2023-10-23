@@ -3,7 +3,11 @@
 
 
 test_mse_font_show_characters() {
-  printf ""
+  testResult="-"
+  testExpected="-"
+
+  mse_md_utest_assertEqual
+
   #
   # mse_font_show_characters "t"
   # mse_font_show_characters "c"

@@ -3,11 +3,13 @@
 
 
 test_mse_font_set_utf8Mode() {
-  printf ""
+  testResult="-"
+  testExpected="-"
 
+  mse_md_utest_assertEqual
+
+  #
   # mse_font_set_utf8Mode check
-
   # mse_font_set_utf8Mode off
-
   # mse_font_set_utf8Mode on
 }

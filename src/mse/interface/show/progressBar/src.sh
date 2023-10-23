@@ -3,7 +3,7 @@
 
 
 mse_interface_show_progressBar() {
-  if [ $# -ge 4 ]; then
+  if [ "$#" -ge "4" ]; then
     local mseCheck=""
 
     local mseUseMetaAssoc="${1}"
@@ -23,7 +23,7 @@ mse_interface_show_progressBar() {
 
 
 
-    if [ "${mseUseMetaAssoc}" == "" ] || [[ ! "$(declare -p ${mseUseMetaAssoc} 2> /dev/null)" =~ "declare -A" ]]; then
+    if [ "${mseUseMetaAssoc}" == "" ] || [[ ! "$(declare -p "${mseUseMetaAssoc}" 2> /dev/null)" =~ "declare -A" ]]; then
       mseUseMetaAssoc="MSE_PROGRESSBAR_THEME_CONFIG"
     fi
 
@@ -72,7 +72,7 @@ mse_interface_show_progressBar() {
 
 
 
-    mseCheck=$(mse_is_int "$mseUseMaxCharLength")
+    mseCheck=$(mse_is_int "${mseUseMaxCharLength}")
     if [ "${mseCheck}" == "0" ]; then
       mseUseMaxCharLength="50"
     elif [ "${mseUseMaxCharLength}" -lt "20" ]; then
@@ -83,7 +83,7 @@ mse_interface_show_progressBar() {
     mseTmpInterArrShowProgressBar[bar_max_char_length]="${mseUseMaxCharLength}"
 
 
-    mseCheck=$(mse_is_int "$mseUseAtualProgress")
+    mseCheck=$(mse_is_int "${mseUseAtualProgress}")
     if [ "${mseCheck}" == "0" ] || [ "${mseUseAtualProgress}" -lt "0" ]; then
       mseUseAtualProgress="0"
     elif [ "${mseUseAtualProgress}" -gt "100" ]; then

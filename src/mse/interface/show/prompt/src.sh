@@ -15,7 +15,7 @@ mse_interface_show_prompt() {
 
 
 
-  if [ "${mseUsePromptMetaAssoc}" == "" ] || [[ ! "$(declare -p ${mseUsePromptMetaAssoc} 2> /dev/null)" =~ "declare -A" ]]; then
+  if [ "${mseUsePromptMetaAssoc}" == "" ] || [[ ! "$(declare -p "${mseUsePromptMetaAssoc}" 2> /dev/null)" =~ "declare -A" ]]; then
     mseUsePromptMetaAssoc="MSE_PROMPT_THEME_CONFIG"
   fi
 
@@ -43,7 +43,7 @@ mse_interface_show_prompt() {
     ;;
 
     l)
-      if [[ ! "$(declare -p ${mseUsePromptAssocValues} 2> /dev/null)" =~ "declare -A" ]]; then
+      if [[ ! "$(declare -p "${mseUsePromptAssocValues}" 2> /dev/null)" =~ "declare -A" ]]; then
         mseUsePromptValueType="v"
         mseUsePromptAssocValues=""
       fi

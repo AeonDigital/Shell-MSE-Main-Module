@@ -6,7 +6,7 @@ mse_interface_clear_line() {
   local mseCmd="2"
   local mseCR=""
 
-  if [ $# -ge 1 ]; then
+  if [ "$#" -ge "1" ]; then
     if [ "${1}" == "l" ]; then
       mseCmd="1"
     elif [ "${1}" == "r" ]; then
@@ -14,7 +14,7 @@ mse_interface_clear_line() {
     fi
   fi
 
-  if [ $# -ge 2 ]; then
+  if [ "$#" -ge "2" ]; then
     if [ "${2}" == "1" ]; then
       mseCR="\r"
     fi

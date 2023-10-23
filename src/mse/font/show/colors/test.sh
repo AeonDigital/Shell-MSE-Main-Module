@@ -3,8 +3,12 @@
 
 
 test_mse_font_show_colors() {
-  printf ""
+  testResult="-"
+  testExpected="-"
 
+  mse_md_utest_assertEqual
+
+  #
   # mse_font_show_colors
   # mse_font_show_colors 8 f
   # mse_font_show_colors 8 b

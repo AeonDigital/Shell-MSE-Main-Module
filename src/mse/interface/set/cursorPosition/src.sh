@@ -3,7 +3,7 @@
 
 
 mse_interface_set_cursorPosition() {
-  if [ $# -ge 2 ]; then
+  if [ "$#" -ge "2" ]; then
     local mseStrPos
     local mseIntPos
     local mseResetToPosition
@@ -21,7 +21,7 @@ mse_interface_set_cursorPosition() {
         fi
 
         mseResetToPosition=""
-        if [ $# -ge 3 ] && ([ "${3}" == "l" ] || [ "${3}" == "r" ]); then
+        if [ "$#" -ge "3" ] && ([ "${3}" == "l" ] || [ "${3}" == "r" ]); then
           mseResetToPosition="${3}"
         fi
       ;;

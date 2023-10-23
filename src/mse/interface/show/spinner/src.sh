@@ -7,7 +7,7 @@ mse_interface_show_spinner() {
   if [ "${MSE_SPINNER_PID}" == "" ]; then
     declare -n mseSpinnerPhases="MSE_SPINNER_DEFAULT"
     if [ "$#" -ge "1" ] && [ "${1}" != "" ]; then
-      if [[ "$(declare -p ${1} 2> /dev/null)" =~ "declare -a" ]]; then
+      if [[ "$(declare -p "${1}" 2> /dev/null)" =~ "declare -a" ]]; then
         declare -n mseSpinnerPhases="${1}"
       fi
     fi
@@ -23,13 +23,13 @@ mse_interface_show_spinner() {
     set +m
     {
       local mseStep=""
-      local mseFirst=1
+      local mseFirst="1"
       while : ; do
         # Causes a delay at the start of the presentation to allow time for the
         # prompt to start when in interactive mode
         if [ "${mseFirst}" == "1" ]; then
-          mseFirst=0
-          sleep 0.5
+          mseFirst="0"
+          sleep "0.5"
         fi
 
         for mseStep in "${mseSpinnerPhases[@]}"; do
