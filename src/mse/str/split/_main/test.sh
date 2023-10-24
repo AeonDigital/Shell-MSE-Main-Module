@@ -3,27 +3,30 @@
 
 
 test_mse_str_split() {
-  mse_str_split "-" "2022-12-22"
+  unset testArray
+  declare -a testArray=()
 
-  testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
+  mse_str_split "testArray" "-" "2022-12-22"
+
+  testResult="${#testArray[@]}"
   testExpected="3"
 
   mse_md_utest_assertEqual
 
 
-  testResult="${MSE_LAST_FUNCTION_RETURN[0]}"
+  testResult="${testArray[0]}"
   testExpected="2022"
 
   mse_md_utest_assertEqual
 
 
-  testResult="${MSE_LAST_FUNCTION_RETURN[1]}"
+  testResult="${testArray[1]}"
   testExpected="12"
 
   mse_md_utest_assertEqual
 
 
-  testResult="${MSE_LAST_FUNCTION_RETURN[2]}"
+  testResult="${testArray[2]}"
   testExpected="22"
 
   mse_md_utest_assertEqual
@@ -32,27 +35,27 @@ test_mse_str_split() {
 
   #
   # Teste com espaços entre os separadores
-  mse_str_split "-" " 2022 - 12 - 22 "
+  mse_str_split "testArray" "-" " 2022 - 12 - 22 "
 
-  testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
+  testResult="${#testArray[@]}"
   testExpected="3"
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[0]}=="
+  testResult="==${testArray[0]}=="
   testExpected="== 2022 =="
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[1]}=="
+  testResult="==${testArray[1]}=="
   testExpected="== 12 =="
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[2]}=="
+  testResult="==${testArray[2]}=="
   testExpected="== 22 =="
 
   mse_md_utest_assertEqual
@@ -62,17 +65,17 @@ test_mse_str_split() {
   #
   # Teste uma separação que permite espaços em branco no array
   # de resposta
-  mse_str_split " " " primeiro   segundo   terceiro "
+  mse_str_split "testArray" " " " primeiro   segundo   terceiro "
 
-  testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
+  testResult="${#testArray[@]}"
   testExpected="8"
 
   mse_md_utest_assertEqual
 
 
-  mse_str_split " " " primeiro   segundo   terceiro " "1"
+  mse_str_split "testArray" " " " primeiro   segundo   terceiro " "1"
 
-  testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
+  testResult="${#testArray[@]}"
   testExpected="3"
 
   mse_md_utest_assertEqual
@@ -83,27 +86,27 @@ test_mse_str_split() {
 
   #
   # Efetua um "trim" nos elementos
-  mse_str_split "-" " 2022 - 12 - 22 " "1" "1"
+  mse_str_split "testArray" "-" " 2022 - 12 - 22 " "1" "1"
 
-  testResult="${#MSE_LAST_FUNCTION_RETURN[@]}"
+  testResult="${#testArray[@]}"
   testExpected="3"
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[0]}=="
+  testResult="==${testArray[0]}=="
   testExpected="==2022=="
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[1]}=="
+  testResult="==${testArray[1]}=="
   testExpected="==12=="
 
   mse_md_utest_assertEqual
 
 
-  testResult="==${MSE_LAST_FUNCTION_RETURN[2]}=="
+  testResult="==${testArray[2]}=="
   testExpected="==22=="
 
   mse_md_utest_assertEqual

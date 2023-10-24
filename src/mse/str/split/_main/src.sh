@@ -3,27 +3,15 @@
 
 
 mse_str_split() {
-  mseLastFunctionVariablesReset
+  declare -n mseTargetArray="${1}"
+  mseTargetArray=()
 
-  if [ "$#" -lt "2" ]; then
-    mseLastFunctionVariablesSet "${MSE_UNDEF}" 1 "${lbl_err_wrongNumberOfArguments}"
-  else
-    local mseSeparator="${1}"
-    local mseString="${2}"
+  if [ "$#" -ge "3" ]; then
+    local mseSeparator="${2}"
+    local mseString="${3}"
     local mseSubStr=""
-    local mseRemoveEmpty="0"
-    local mseTrimElements="0"
-
-    if [ "$#" -ge "3" ] && [ "$3" == "1" ]; then
-      mseRemoveEmpty="1"
-    fi
-
-    if [ "$#" -ge "4" ] && [ "$4" == "1" ]; then
-      mseTrimElements="1"
-    fi
-
-    unset MSE_LAST_FUNCTION_RETURN
-    declare -ga MSE_LAST_FUNCTION_RETURN
+    local mseRemoveEmpty=$(mseGetDefault "${4}" "0" "0 1")
+    local mseTrimElements=$(mseGetDefault "${5}" "0" "0 1")
 
 
     while [ "${mseString}" != "" ]; do
@@ -32,7 +20,7 @@ mse_str_split() {
           mseString=$(mse_str_trim "${mseString}")
         fi
 
-        MSE_LAST_FUNCTION_RETURN+=("${mseString}")
+        mseTargetArray+=("${mseString}")
         break
       else
         mseSubStr="${mseString%%${mseSeparator}*}"
@@ -42,13 +30,11 @@ mse_str_split() {
         fi
 
         if [ "${mseSubStr}" != "" ] || [ "${mseRemoveEmpty}" == "0" ]; then
-          MSE_LAST_FUNCTION_RETURN+=("${mseSubStr}")
+          mseTargetArray+=("${mseSubStr}")
         fi
 
         mseString="${mseString#*${mseSeparator}}"
       fi
     done
   fi
-
-  return ${MSE_LAST_FUNCTION_ERR_CODE}
 }

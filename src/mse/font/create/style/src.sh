@@ -71,6 +71,7 @@ mse_font_create_style() {
     local mseLength
     local mseUParam
     local mseIsCheck
+    declare -a mseArrSplit=()
 
 
     if [ "${mseTmpAttributes}" != "" ]; then
@@ -78,8 +79,8 @@ mse_font_create_style() {
       local mseTmpAttr
 
 
-      mse_str_split "," "${mseTmpAttributes}"
-      for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
+      mse_str_split "mseArrSplit" "," "${mseTmpAttributes}"
+      for mseUParam in "${mseArrSplit[@]}"; do
         if [ "${mseUParam}" != "" ]; then
           mseTmpAttr=""
 
@@ -146,11 +147,11 @@ mse_font_create_style() {
           fi
         ;;
         32)
-          mse_str_split ";" "${mseTmpBackground}"
-          if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "3" ]; then
+          mse_str_split "mseArrSplit" ";" "${mseTmpBackground}"
+          if [ "${#mseArrSplit[@]}" == "3" ]; then
             local mseIsValid="1"
 
-            for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
+            for mseUParam in "${mseArrSplit[@]}"; do
               mseIsResult=$(mse_is_int "${mseUParam}")
 
               if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt "0" ] || [ "${mseUParam}" -gt "255" ]; then
@@ -196,11 +197,11 @@ mse_font_create_style() {
           fi
         ;;
         32)
-          mse_str_split ";" "${mseTmpForeground}"
-          if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" == "3" ]; then
+          mse_str_split "mseArrSplit" ";" "${mseTmpForeground}"
+          if [ "${#mseArrSplit[@]}" == "3" ]; then
             local mseIsValid="1"
 
-            for mseUParam in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
+            for mseUParam in "${mseArrSplit[@]}"; do
               mseIsResult=$(mse_is_int "${mseUParam}")
 
               if [ "${mseIsResult}" == "0" ] || [ "${mseUParam}" -lt "0" ] || [ "${mseUParam}" -gt "255" ]; then

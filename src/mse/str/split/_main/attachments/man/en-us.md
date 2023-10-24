@@ -8,6 +8,16 @@ Splits the passed string into an array using the indicated separator.
 
 # Parameters
 
+## array arrayName
+
+- aka       : -a --arrayName
+- hint      :  
+  Name of the array that will be populated with the processing result.
+    
+
+&nbsp;
+
+
 ## string separator
 
 - aka       : -sep --separator
@@ -49,10 +59,11 @@ Splits the passed string into an array using the indicated separator.
 # Example
 
 ``` shell
-  mse_str_split "-" "2022-12-22"
-  echo "${MSE_LAST_FUNCTION_RETURN[0]}"
+  declare -a arrSplit=()
+  mse_str_split "arrSplit" "-" "2022-12-22"
+  echo "${arrSplit[0]}"
   2022
-  echo "${MSE_LAST_FUNCTION_RETURN[1]}"
+  echo "${arrSplit[1]}"
   12
 ```
 
@@ -61,4 +72,4 @@ Splits the passed string into an array using the indicated separator.
 
 # Returns array
 
-The result will be defined in the variable `MSE_LAST_FUNCTION_RETURN`.
+The result will be defined in the indicated array.

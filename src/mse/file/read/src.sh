@@ -5,6 +5,7 @@
 mse_file_read() {
   local mseLineRaw
   local mseTarget="${1}"
+  declare -a mseArrSplit=()
 
 
   if [ -f "${mseTarget}" ]; then
@@ -31,8 +32,7 @@ mse_file_read() {
       block_start_get_first_line="0"
 
       if [ "${block_start_check_args_sep}" != "" ]; then
-        mse_str_split "${block_start_check_args_sep}" "${block_start_check_args}"
-        block_start_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
+        mse_str_split "block_start_check_args_array" "${block_start_check_args_sep}" "${block_start_check_args}"
       fi
 
       if [ "${mseArrayName[block_start_get_first_line]}" == "1" ]; then
@@ -55,8 +55,7 @@ mse_file_read() {
       block_end_get_last_line="0"
 
       if [ "${block_end_check_args_sep}" != "" ]; then
-        mse_str_split "${block_end_check_args_sep}" "${block_end_check_args}"
-        block_end_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
+        mse_str_split "block_end_check_args_array" "${block_end_check_args_sep}" "${block_end_check_args}"
       fi
 
       if [ "${mseArrayName[block_end_get_last_line]}" == "1" ]; then
@@ -88,8 +87,7 @@ mse_file_read() {
       line_check_has_linenumber="0"
 
       if [ "${line_check_args_sep}" != "" ]; then
-        mse_str_split "${line_check_args_sep}" "${line_check_args}"
-        line_check_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
+        mse_str_split "line_check_args_array" "${line_check_args_sep}" "${line_check_args}"
       fi
 
       if [ "${mseArrayName[line_check_invert]}" == "1" ]; then
@@ -115,8 +113,7 @@ mse_file_read() {
       line_transform_args_sep="${mseArrayName[line_transform_args_sep]}"
 
       if [ "${line_transform_args_sep}" != "" ]; then
-        mse_str_split "${line_transform_args_sep}" "${line_transform_args}"
-        line_transform_args_array=("${MSE_LAST_FUNCTION_RETURN[@]}")
+        mse_str_split "line_transform_args_array" "${line_transform_args_sep}" "${line_transform_args}"
       fi
 
       if [ "${mseArrayName[line_transform_has_linenumber]}" == "1" ]; then

@@ -95,13 +95,14 @@ mse_interface_theme_default_message_create_title() {
       ;;
 
       code)
-        mse_str_split "::" "${mseTitleString}"
-        mseTitleTextParts="${#MSE_LAST_FUNCTION_RETURN[@]}"
+        declare -a mseArrSplit=()
+        mse_str_split "mseArrSplit" "::" "${mseTitleString}"
+        mseTitleTextParts="${#mseArrSplit[@]}"
 
         if [ "${mseTitleTextParts}" -le "1" ]; then
           mseUseTitle="[ ${mseUseTitleColorAlt}script${mseNONE} ] ${mseUseTitleColor}${mseTitleString}${mseNONE}"
         else
-          mseUseTitle="[ ${mseUseTitleColorAlt}${MSE_LAST_FUNCTION_RETURN[0]}${mseNONE} ] ${mseUseTitleColor}${MSE_LAST_FUNCTION_RETURN[@]:1}${mseNONE}"
+          mseUseTitle="[ ${mseUseTitleColorAlt}${mseArrSplit[0]}${mseNONE} ] ${mseUseTitleColor}${mseArrSplit[@]:1}${mseNONE}"
         fi
       ;;
     esac

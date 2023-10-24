@@ -4,9 +4,11 @@
 
 mse_str_trim_substring() {
   local mseReturn="${2}"
-  mse_str_split "${1}" "${2}"
 
-  local mseArrTmp=("${MSE_LAST_FUNCTION_RETURN[@]}")
+  declare -a mseArrSplit=()
+  mse_str_split "mseArrSplit" "${1}" "${2}"
+
+  local mseArrTmp=("${mseArrSplit[@]}")
   local mseArrLen="${#mseArrTmp[@]}"
 
 

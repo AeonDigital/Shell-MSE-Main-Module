@@ -62,6 +62,7 @@ mse_file_write() {
         local mseFnName="-"
         local mseFnResult
         local mseFnResultCountParts
+        declare -a mseArrSplit=()
 
         mseFnResult="${4}"
         if [ "$(type -t ${4})" == "function" ]; then
@@ -69,22 +70,22 @@ mse_file_write() {
           mseFnResult=$(${4})
         fi
 
-        mse_str_split " " "${mseFnResult}"
-        mseFnResultCountParts="${#MSE_LAST_FUNCTION_RETURN[@]}"
+        mse_str_split "mseArrSplit" " " "${mseFnResult}"
+        mseFnResultCountParts="${#mseArrSplit[@]}"
 
         if [ "${mseFnResultCountParts}" == "0" ] || [ "${mseFnResultCountParts}" -gt "2" ]; then
           mseReturn="0"
           mseTmpReturnMsg=$(mse_str_replace_placeHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "1")
         else
-          mseTargetFirstLine="${MSE_LAST_FUNCTION_RETURN[0]}"
+          mseTargetFirstLine="${mseArrSplit[0]}"
           mseTargetLastLine="0"
 
           if ! [[ "${mseTargetFirstLine}" =~ ^[0-9]+$ ]]; then
             mseReturn="0"
             mseTmpReturnMsg=$(mse_str_replace_placeHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "2")
           else
-            if [ "${mseFnResultCountParts}" == "2" ] && [ "${MSE_LAST_FUNCTION_RETURN[1]}" != "${mseTargetFirstLine}" ]; then
-              mseTargetLastLine="${MSE_LAST_FUNCTION_RETURN[1]}"
+            if [ "${mseFnResultCountParts}" == "2" ] && [ "${mseArrSplit[1]}" != "${mseTargetFirstLine}" ]; then
+              mseTargetLastLine="${mseArrSplit[1]}"
               if ! [[ "${mseTargetLastLine}" =~ ^[0-9]+$ ]]; then
                 mseReturn="0"
                 mseTmpReturnMsg=$(mse_str_replace_placeHolder "${lbl_fw_iv_expectedFunctionNameOrInteger}" "FUNCTION" "${mseFnName}" "RESULT" "${mseFnResult}" "ERR" "3")

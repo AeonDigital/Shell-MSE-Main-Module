@@ -5,7 +5,7 @@
 mse_file_config_variable_set() {
   local mseReturn="0"
   local mseReturnMsg=""
-
+  declare -a mseArrSplit=()
 
   local mseFile="${1}"
   local mseIsConfigFile="${2}"
@@ -37,13 +37,12 @@ mse_file_config_variable_set() {
 
   local mseTargetSectionLines=$(mse_file_get_boundaryLineNumbers "${mseFile}" "${mseCommentChar}" "${mseIsConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
 
-
-  mse_str_split " " "${mseTargetSectionLines}"
-  if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" != 2 ]; then
+  mse_str_split "mseArrSplit" " " "${mseTargetSectionLines}"
+  if [ "${#mseArrSplit[@]}" != 2 ]; then
     mseReturnMsg="${lbl_err_cannotIdentifyTargetLine}"
   else
-    local mseTargetSectionFirstLine="${MSE_LAST_FUNCTION_RETURN[0]}"
-    local mseTargetSectionLastLine="${MSE_LAST_FUNCTION_RETURN[1]}"
+    local mseTargetSectionFirstLine="${mseArrSplit[0]}"
+    local mseTargetSectionLastLine="${mseArrSplit[1]}"
 
 
 

@@ -9,13 +9,14 @@ mse_str_split_inLines() {
   if [ "${1}" != "" ]; then
     local mseOriginalString=$(mse_str_trim "${1}")
     local mseMaxLineLength="${2}"
+    declare -a mseArrSplit=()
 
     local mseCheck=$(mse_is_int "${mseMaxLineLength}")
     if [ "${mseCheck}" == "0" ] || [ "${mseCheck}" -lt "1" ]; then
       mseMaxLineLength="${COLUMNS}"
     fi
 
-    mse_str_split " " "${mseOriginalString}"
+    mse_str_split "mseArrSplit" " " "${mseOriginalString}"
 
     local mseWord=""
     local mseTmpWordLength="0"
@@ -32,7 +33,7 @@ mse_str_split_inLines() {
     local oLC_CTYPE="$LC_CTYPE"
     LC_CTYPE=""
 
-    for mseWord in "${MSE_LAST_FUNCTION_RETURN[@]}"; do
+    for mseWord in "${mseArrSplit[@]}"; do
       mseTmpWordLength=${#mseWord}
       mseTmpLineSpaces="${#mseTmpArrayLineWords[@]}"
       ((mseTmpLineSpaces = mseTmpLineSpaces - 1))

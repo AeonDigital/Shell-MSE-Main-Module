@@ -322,6 +322,7 @@ mse_man_process_parameters() {
     local mseRawDeclaration=""
     local mseParameterType=""
     local mseParameterName=""
+    declare -a mseArrSplit=()
 
 
 
@@ -334,8 +335,8 @@ mse_man_process_parameters() {
           mseRawDeclaration="${mseLineRaw##*# }"
           echo "${mseRawDeclaration}"
 
-          mse_str_split " " "${mseRawDeclaration}" "1" "1"
-          if [ "${#MSE_LAST_FUNCTION_RETURN[@]}" != "2" ]; then
+          mse_str_split "mseArrSplit" " " "${mseRawDeclaration}" "1" "1"
+          if [ "${#mseArrSplit[@]}" != "2" ]; then
             mseParameterType="${MSE_ERROR}"
             mseParameterName="ERROR_${#MSE_MAN_PARAMETERS_ORDER[@]}"
           else
