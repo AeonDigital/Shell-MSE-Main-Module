@@ -23,7 +23,7 @@ setting will be disabled.
   Name of the array containing the characters used for the spinner's 
   `animation`.
 
-If omitted or invalid, the default value set in 'MSE_SPINNER_DEFAULT' is used.
+If omitted or invalid, the default value set in `MSE_SPINNER_DEFAULT` is used.
 
 Out-of-the-box options are the templates:
 - MSE_SPINNER_COMEANDGO

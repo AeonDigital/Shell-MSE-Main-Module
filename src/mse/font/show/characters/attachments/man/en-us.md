@@ -39,7 +39,7 @@ The following options are available:
 - max       : 255
 - hint      :
   Index of the first character in the list.
-  Used only if "outputFormat" is `d`.
+  Used only if `outputFormat` is `d`.
 
 
 
@@ -53,7 +53,7 @@ The following options are available:
 - max       : 255
 - hint      :
   Index of the last character in the list.
-  Used only if "outputFormat" is `d`.
+  Used only if `outputFormat` is `d`.
 
 
 

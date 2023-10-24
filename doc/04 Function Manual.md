@@ -409,9 +409,6 @@ Use the template below to correctly define this section:
   Details that influence the processing return or how it should be interpreted 
   by the user.
 
-By default the result is printed with the "echo" command but it will be
-stored in "MSE_LAST_FUNCTION_RETURN" global variable too.
-
 
 
 &nbsp;
