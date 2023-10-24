@@ -298,7 +298,7 @@ mse_man_process_section_generic() {
 # - description
 #
 # Caso alguma propriedade esteja preenchida com algum valor inválido, o mesmo
-# será substituido pela constante 'MSE_ERROR'.
+# será substituido pela constante '!!MSE_ERROR!!'.
 #
 mse_man_process_parameters() {
   unset MSE_MAN_PARAMETERS_DATA

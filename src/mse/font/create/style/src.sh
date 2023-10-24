@@ -3,8 +3,6 @@
 
 
 mse_font_create_style() {
-  mseLastFunctionVariablesReset
-
   local mseReturn=""
 
   if [ "$#" -ge "4" ]; then

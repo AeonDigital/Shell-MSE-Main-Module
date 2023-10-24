@@ -41,78 +41,8 @@ fi
 
 
 
-# GLOBAL FUNCTION VARIABLES
-
-# [mixed] MSE_LAST_FUNCTION_RETURN
-# Stores the last function return value.
-# This value is defined to "MSE_UNDEF" imediatly before the function starts.
-unset MSE_LAST_FUNCTION_RETURN
-declare -g MSE_LAST_FUNCTION_RETURN="${MSE_UNDEF}"
-
-
-# [int] MSE_LAST_FUNCTION_ERR_CODE
-# Stores the last function error code.
-# The "0" value indicates that´s no error ocourred.
-# This value is defined to "0" imediatly before the function starts.
-unset MSE_LAST_FUNCTION_ERR_CODE
-declare -g MSE_LAST_FUNCTION_ERR_CODE="0"
-
-
-# [string] MSE_LAST_FUNCTION_ERR_MESSAGE
-# Stores the last function error message.
-# This value is defined to "" imediatly before the function starts.
-unset MSE_LAST_FUNCTION_ERR_MESSAGE
-declare -g MSE_LAST_FUNCTION_ERR_MESSAGE=""
-
-
-
-
-
-
 # FUNCTIONS
 
-#
-# Returns global function control variables to their initial states.
-mseLastFunctionVariablesReset() {
-  MSE_LAST_FUNCTION_RETURN="${MSE_UNDEF}"
-  MSE_LAST_FUNCTION_ERR_CODE="0"
-  MSE_LAST_FUNCTION_ERR_MESSAGE=""
-}
-#
-# Sets current values for function control global variables
-#
-# @param string $1
-# Define the value of '$MSE_LAST_FUNCTION_RETURN'.
-# If omitted will keep the initial value.
-#
-# @param string $2
-# Define the value of '$MSE_LAST_FUNCTION_ERR_CODE'.
-# If omitted will keep the initial value.
-#
-# @param string $3
-# Define the value of '$MSE_LAST_FUNCTION_ERR_MESSAGE'.
-# If omitted will keep the initial value.
-mseLastFunctionVariablesSet() {
-  mseLastFunctionVariablesReset
-
-  if [ $# -gt 0 ]; then
-    MSE_LAST_FUNCTION_RETURN="${1}"
-  fi
-  if [ $# -gt 1 ]; then
-    MSE_LAST_FUNCTION_ERR_CODE="${2}"
-  fi
-  if [ $# -gt 2 ]; then
-    MSE_LAST_FUNCTION_ERR_MESSAGE="${3}"
-  fi
-}
-#
-# It prints on the screen the value of the function control variables
-# with their current state.
-mseLastFunctionsVariableDump() {
-  printf '%s\n' "MSE_LAST_FUNCTION_RETURN       : ${MSE_LAST_FUNCTION_RETURN}"
-  printf '%s\n' "MSE_LAST_FUNCTION_ERR_CODE     : ${MSE_LAST_FUNCTION_ERR_CODE}"
-  printf '%s\n' "MSE_LAST_FUNCTION_ERR_MESSAGE  : ${MSE_LAST_FUNCTION_ERR_MESSAGE}"
-}
 #
 # Returns the default value to be used according to the rules defined
 # in the arguments.

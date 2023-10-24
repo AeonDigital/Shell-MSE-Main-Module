@@ -16,9 +16,11 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 
 #
 # Comandos usados que não são built-in do bash ?
-- find
+- xargs
 - printf
+- find
 - sed
+- iconv
 
 
 
@@ -52,10 +54,16 @@ local mseSectionContent=$(cat file)
 
 IFS=$'\n'
 while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
-((mseLine++))
-echo "${mseLine} - ${mseLineRaw}"
+  ((mseLine++))
+  echo "${mseLine} - ${mseLineRaw}"
 done <<< "${mseSectionContent}"
 IFS=$' \t\n'
+
+## Versão mais simples:
+IFS=$'\n'
+declare -a testResult=($(echo -e "${mseSectionContent[@]}"))
+IFS=$' \t\n'
+
 
 
 #
