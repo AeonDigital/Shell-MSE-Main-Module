@@ -107,5 +107,5 @@ mse_file_get_boundaryLineNumbers() {
   fi
 
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

@@ -42,5 +42,5 @@ mse_str_replace_placeHolderColor() {
     fi
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

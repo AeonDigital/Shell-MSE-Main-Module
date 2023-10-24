@@ -21,5 +21,5 @@ mse_is_char_decimal() {
     fi
   done
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

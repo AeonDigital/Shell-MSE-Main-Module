@@ -23,5 +23,5 @@ mse_str_convert_octal_toChar() {
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

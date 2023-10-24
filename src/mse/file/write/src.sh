@@ -161,7 +161,7 @@ mse_file_write() {
   fi
 
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
   if [ "${mseReturnMsg}" != "" ]; then
     printf "\n${mseReturnMsg}"
   fi

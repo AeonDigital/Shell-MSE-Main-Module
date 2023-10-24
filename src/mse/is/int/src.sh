@@ -9,5 +9,5 @@ mse_is_int() {
   regEx='^[-]?[0-9]+$'
   if [[ "${1}" =~ $regEx ]]; then mseReturn="1"; else mseReturn="0"; fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

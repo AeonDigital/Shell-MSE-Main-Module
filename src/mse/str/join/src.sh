@@ -13,5 +13,5 @@ mse_str_join() {
     mseReturn="${mseReturn:: -$mseGlueLen}"
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

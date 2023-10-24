@@ -41,7 +41,7 @@ if [ ! -d "${MSE_GLOBAL_UTEST_MAIN_PATH}/src" ]; then
   mseAlertMsg+="   - git submodule update --remote \n"
   mseAlertMsg+="\n"
 
-  printf "${mseAlertMsg}"
+  echo -n "${mseAlertMsg}"
 else
   #
   # Load unit test module

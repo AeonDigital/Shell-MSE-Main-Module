@@ -8,5 +8,5 @@ mse_str_replace() {
   local mseString="${3}"
   local mseReturn="${mseString//${mseOld}/${mseNew}}"
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

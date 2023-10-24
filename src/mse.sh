@@ -89,7 +89,7 @@ myShellEnvRegisterModuleComponents() {
 
 
   if [ "${mseAlertMsg}" != "" ]; then
-    printf "${mseAlertMsg}\n"
+    echo -n "${mseAlertMsg}\n"
   fi
 
   return ${mseReturn}

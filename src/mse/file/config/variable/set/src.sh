@@ -150,8 +150,8 @@ mse_file_config_variable_set() {
   fi
 
 
-  printf "${mseReturn}"
+  echo -n "${mseReturn}"
   if [ "${mseReturnMsg}" != "" ]; then
-    printf "\n${mseReturnMsg}"
+    echo -ne "\n${mseReturnMsg}"
   fi
 }

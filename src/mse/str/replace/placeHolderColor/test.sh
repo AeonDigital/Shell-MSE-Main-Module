@@ -38,13 +38,13 @@ test_mse_str_replace_placeHolderColor() {
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red" "PH" "test" "${tmpRED}")
-  testExpected=$(printf "%s" "this is a ${tmpRED}test${tmpNONE} in red")
+  testExpected=$(echo -n "this is a ${tmpRED}test${tmpNONE} in red")
 
   mse_md_utest_assertEqual
 
 
   testResult=$(mse_str_replace_placeHolderColor "this is a [[PH]] in red and [[APH]] in blue" "PH" "test" "${tmpRED}" "APH" "another" "${tmpBlue}")
-  testExpected=$(printf "%s" "this is a ${tmpRED}test${tmpNONE} in red and ${tmpBlue}another${tmpNONE} in blue")
+  testExpected=$(echo -n "this is a ${tmpRED}test${tmpNONE} in red and ${tmpBlue}another${tmpNONE} in blue")
 
   mse_md_utest_assertEqual
 }

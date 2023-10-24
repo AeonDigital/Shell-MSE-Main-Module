@@ -20,5 +20,5 @@ mse_file_count_lines() {
     IFS=$' \t\n'
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

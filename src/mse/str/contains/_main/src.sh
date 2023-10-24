@@ -7,5 +7,5 @@ mse_str_contains() {
   if [[ "${2}" == *"${1}"* ]]; then
     mseReturn="1"
   fi
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

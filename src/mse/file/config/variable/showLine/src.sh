@@ -23,8 +23,8 @@ mse_file_config_variable_showLine() {
     mseReadOptionsShowVarLine["line_check_has_linenumber"]="${mseShowLineNumber}"
 
     mseReturn=$(mse_file_read "${mseRawSection}" "mseReadOptionsShowVarLine" "1" "0")
-    mseReturn=$(printf "${mseReturn%%[[:cntrl:]]*}")
+    mseReturn=$(echo -ne "${mseReturn%%[[:cntrl:]]*}")
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

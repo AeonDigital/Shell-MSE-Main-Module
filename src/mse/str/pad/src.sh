@@ -46,5 +46,5 @@ mse_str_pad() {
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  printf "%s" "${mseNStr}"
+  echo -n "${mseNStr}"
 }

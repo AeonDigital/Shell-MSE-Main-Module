@@ -63,7 +63,7 @@ mse_man_normalize_section_name() {
   str=$(mse_str_remove_glyphs "${str,,}")
   str="${str// /_}"
 
-  printf "%s" "${str}"
+  echo -n "${str}"
 }
 
 

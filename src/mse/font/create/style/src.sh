@@ -225,5 +225,5 @@ mse_font_create_style() {
   fi
 
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

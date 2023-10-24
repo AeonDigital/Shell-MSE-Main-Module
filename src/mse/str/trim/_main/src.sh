@@ -9,5 +9,5 @@ mse_str_trim() {
   local mseReturn=$(echo -e "${1}")
   mseReturn="${mseReturn#"${mseReturn%%[![:space:]]*}"}" # trim L
   mseReturn="${mseReturn%"${mseReturn##*[![:space:]]}"}" # trim R
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

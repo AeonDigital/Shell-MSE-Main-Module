@@ -57,5 +57,5 @@ mse_str_trim_substring() {
 
 
   mseReturn=$(mse_str_join "${1}" "mseArrTmp")
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

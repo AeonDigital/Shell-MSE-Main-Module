@@ -41,7 +41,7 @@ mse_interface_theme_default_progressBar_create_bar() {
 
 
 
-  printf "%s" "${mseBarIniString}";
+  echo -n "${mseBarIniString}";
 
   for ((i=0; i<mseBarMaxCharLength; i++)); do
     if [ "${i}" -le "${mseBarAtualBarLength}" ]; then
@@ -51,6 +51,6 @@ mse_interface_theme_default_progressBar_create_bar() {
     fi
   done
 
-  printf "${mseUseColor}"; printf "%s" "${mseStrBar}"; printf "${mseNONE}"
-  printf "%s" "${mseBarEndString}";
+  echo -ne "${mseUseColor}"; echo -n "${mseStrBar}"; echo -ne "${mseNONE}"
+  echo -n "${mseBarEndString}";
 }

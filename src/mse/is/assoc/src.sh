@@ -7,5 +7,5 @@ mse_is_assoc() {
   if [[ "$(declare -p "${1}" 2> /dev/null)" == "declare -A"* ]]; then
     mseReturn="1"
   fi
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

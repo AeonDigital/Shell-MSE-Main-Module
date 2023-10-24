@@ -83,5 +83,5 @@ mseGetDefault() {
     done
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

@@ -3,5 +3,5 @@
 
 
 mse_str_upper() {
-  printf "%s" "${1^^}"
+  echo -n "${1^^}"
 }

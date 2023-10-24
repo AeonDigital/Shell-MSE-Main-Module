@@ -106,9 +106,9 @@ mse_font_show_colors() {
 
       printf "\n${lbl_font_showTextColors_UseCodeExample}"
       if [ "${mseFocus}" == "f" ]; then
-        printf "%s" "\\e[38;5;Xm"
+        echo -n "\\e[38;5;Xm"
       elif [ "${mseFocus}" == "b" ]; then
-        printf "%s" "\\e[48;5;Xm"
+        echo -n "\\e[48;5;Xm"
       fi
 
       printf "\n\n"

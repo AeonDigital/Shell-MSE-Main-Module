@@ -13,5 +13,5 @@ mse_is_char() {
   if [ "${#1}" == "1" ]; then mseReturn="1"; else mseReturn="0"; fi
   LC_CTYPE="${oLC_CTYPE}"
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

@@ -39,5 +39,5 @@ mse_str_replace_placeHolder() {
     fi
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

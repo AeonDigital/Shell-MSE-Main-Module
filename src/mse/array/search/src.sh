@@ -96,12 +96,9 @@ mse_array_search() {
 
 
 
-  local mseReturn
   if [ "${mseReturnType}" == "b" ]; then
-    mseReturn=$(printf "%s" "${mseResultBool}")
+    echo -n "${mseResultBool}"
   else
-    mseReturn=$(printf "%s" "${mseResultIndex}")
+    echo -n "${mseResultIndex}"
   fi
-
-  printf "%s" "${mseReturn}"
 }

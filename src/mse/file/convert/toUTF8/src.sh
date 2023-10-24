@@ -21,5 +21,5 @@ mse_file_convert_toUTF8() {
     fi
   fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

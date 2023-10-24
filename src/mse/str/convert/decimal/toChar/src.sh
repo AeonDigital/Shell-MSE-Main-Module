@@ -24,5 +24,5 @@ mse_str_convert_decimal_toChar() {
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

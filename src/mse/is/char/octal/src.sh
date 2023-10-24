@@ -21,5 +21,5 @@ mse_is_char_octal() {
     fi
   done
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

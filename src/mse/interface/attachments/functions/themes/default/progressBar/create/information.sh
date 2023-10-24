@@ -51,22 +51,22 @@ mse_interface_theme_default_progressBar_create_information() {
 
 
 
-    printf "%s" "${mseInfoIniString}"
+    echo -n "${mseInfoIniString}"
 
 
-    printf "${mseUseColor}"
-    printf "%s" "${mseStrPercent}"
-    printf "${mseNONE}"
+    echo -ne "${mseUseColor}"
+    echo -n "${mseStrPercent}"
+    echo -ne "${mseNONE}"
 
     if [ "${mseInfoData}" != "" ]; then
       if [ "${mseStrPercent}" != "" ]; then
-        printf " "
+        echo -n " "
       fi
-      printf "${mseUseColorAlt}"
-      printf "%s" "${mseInfoData}"
-      printf "${mseNONE}"
+      echo -ne "${mseUseColorAlt}"
+      echo -n "${mseInfoData}"
+      echo -ne "${mseNONE}"
     fi
 
-    printf "${mseInfoEndString}"
+    echo -ne "${mseInfoEndString}"
   fi
 }

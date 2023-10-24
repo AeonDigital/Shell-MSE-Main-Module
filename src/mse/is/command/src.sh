@@ -8,5 +8,5 @@ mse_is_command() {
   ${1} &> /dev/null
   if [ "$?" == "0" ]; then mseReturn="1"; else mseReturn="0"; fi
 
-  printf "%s" "${mseReturn}"
+  echo -n "${mseReturn}"
 }

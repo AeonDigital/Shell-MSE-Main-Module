@@ -208,7 +208,7 @@ mse_file_read() {
             fi
 
             if [ "${line_show_number}" == "1" ]; then
-              printf "%s" "${mseLineCount}#"
+              echo -n "${mseLineCount}#"
             fi
             printf "%s\n" "${mseLineRaw}"
 
