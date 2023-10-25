@@ -127,7 +127,7 @@ mse_font_show_characters() {
         if [[ "${mseLineRaw}" =~ "[[TWODOTS]]" ]]; then
           mseLineRaw=$(mse_str_replace_placeHolder "${mseLineRaw}" "TWODOTS" ":          ")
         fi
-        printf "%s\n" "${mseLineRaw}"
+        echo -e "${mseLineRaw}"
       done <<< "${mseRawTable}"
 
     else

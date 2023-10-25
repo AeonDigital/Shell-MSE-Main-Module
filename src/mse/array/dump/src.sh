@@ -34,6 +34,6 @@ mse_array_dump() {
       mseReturn+=("${msePrefixLines}${mseArrayUseName}[\"${k}\"]=\"${v}\"")
     done
 
-    printf "%s\n" "${mseReturn[@]}"
+    mse_array_print_inLines "mseReturn"
   fi
 }

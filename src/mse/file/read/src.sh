@@ -210,7 +210,7 @@ mse_file_read() {
             if [ "${line_show_number}" == "1" ]; then
               echo -n "${mseLineCount}#"
             fi
-            printf "%s\n" "${mseLineRaw}"
+            echo -e "${mseLineRaw}"
 
             if [ "${mseValidLastLine}" == "1" ]; then
               mseValidSection="0"

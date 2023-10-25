@@ -217,7 +217,7 @@ test_mse_file_config_variable_set() {
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
   testResult=$(mse_file_read "${expectedDir}/.bashrc" "mseReadOptionsUTest" "1" "0")
-  testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
+  testExpected=$(mse_array_print_inLines "tmpRawExpectedLines")
 
   mse_md_utest_assertEqual
   unset tmpRawExpectedLines
@@ -250,7 +250,7 @@ test_mse_file_config_variable_set() {
   tmpRawExpectedLines+=("# [[END-MSE_UTEST]]")
 
   testResult=$(mse_file_read "${expectedDir}/.bashrc" "mseReadOptionsUTest" "1" "0")
-  testExpected=$(printf "%s\n" "${tmpRawExpectedLines[@]}")
+  testExpected=$(mse_array_print_inLines "tmpRawExpectedLines")
 
   mse_md_utest_assertEqual
   unset tmpRawExpectedLines
