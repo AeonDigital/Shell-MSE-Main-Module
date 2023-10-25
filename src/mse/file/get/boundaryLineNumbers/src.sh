@@ -84,7 +84,15 @@ mse_file_get_boundaryLineNumbers() {
           fi
         done
 
-        mseRawLines=$(printf "%s\n" "${mseNewRawLines[@]:0:$mseLastInvalidLineIndex}")
+
+        local mseL=""
+        declare -a mseArrSelectedLines=()
+
+        for mseL in "${mseNewRawLines[@]:0:$mseLastInvalidLineIndex}"; do
+          mseArrSelectedLines+=("${mseL}")
+        done
+
+        mseRawLines=$(mse_array_print_inLines "mseArrSelectedLines")
       fi
 
 
