@@ -3,11 +3,16 @@
 
 
 mse_str_join() {
+  local mseReturn=""
   local mseGlue="${1}"
   local mseGlueLen="${#mseGlue}"
 
   declare -n mseArrayName="${2}"
-  mseReturn=$(printf "%s${1}" "${mseArrayName[@]}")
+
+  local mseItem=""
+  for mseItem in "${mseArrayName[@]}"; do
+    mseReturn+="${mseItem}${1}"
+  done
 
   if [ "${mseGlueLen}" -gt "0" ]; then
     mseReturn="${mseReturn:: -$mseGlueLen}"
