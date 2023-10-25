@@ -1,8 +1,12 @@
 # Synopsis
 
-Efetua um split na string passada em um array onde cada linha terá no máximo o 
-número de caracteres informados.
-As palavras identificadas serão mantidas sem serem separadas entre as linhas.
+Efetua um split na string passada separando-a em linhas.
+
+Você pode definir um número máximo de caracteres por linha.
+Palavras que excedam o limite da linha formarão uma nova linha dentro do limite 
+definido.
+Se uma palavra for grande demais para caber em uma linha ela ficará em uma 
+linha só para si que poderá exceder o limite exposto.
 
 
 

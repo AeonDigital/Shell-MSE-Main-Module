@@ -1,8 +1,11 @@
 # Synopsis
 
-Splits the string passed in an array where each line will have at most the 
-number of characters entered.
-The identified words will be kept without being separated between the lines
+Splits the passed string by separating it into rows.
+
+You can set a maximum number of characters per line.
+Words that exceed the line limit will form a new line within the set limit.
+If a word is too long to fit on a line, it will be on a line of its own, which 
+may exceed the exposed limit.
 
 
 
