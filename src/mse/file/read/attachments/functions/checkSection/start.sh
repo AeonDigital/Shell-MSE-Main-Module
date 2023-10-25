@@ -17,5 +17,5 @@ mse_file_read_checkSection_start() {
     done
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

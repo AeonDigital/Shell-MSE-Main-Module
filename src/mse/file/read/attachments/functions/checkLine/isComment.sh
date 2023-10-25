@@ -20,5 +20,5 @@ mse_file_read_checkLine_isComment() {
     done
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

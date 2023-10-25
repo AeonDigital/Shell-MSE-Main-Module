@@ -16,11 +16,12 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 
 #
 # Comandos usados que não são built-in do bash ?
-- printf  mse_array_print (printf "%s\n" "array")
+- printf
 - xargs
 - find
 - sed
 - iconv
+- column
 
 
 

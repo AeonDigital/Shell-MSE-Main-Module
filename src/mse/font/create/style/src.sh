@@ -218,9 +218,9 @@ mse_font_create_style() {
 
 
     if [ "${mseReturnAsString}" == "1" ]; then
-      mseReturn=$(printf "e[%s;%s;%sm" "${mseAttributes}" "${mseBackground}" "${mseForeground}")
+      mseReturn=$(echo "e[${mseAttributes};${mseBackground};${mseForeground}m")
     else
-      mseReturn=$(printf "\e[%s;%s;%sm" "${mseAttributes}" "${mseBackground}" "${mseForeground}")
+      mseReturn=$(echo "\e[${mseAttributes};${mseBackground};${mseForeground}m")
     fi
   fi
 

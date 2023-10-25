@@ -10,12 +10,12 @@ mse_font_set_utf8Mode() {
 
   case "${mseMode}" in
     on)
-      printf "\033%%G"
+      echo -ne "\033%%G"
     ;;
     off)
-      printf "\033%%@"
+      echo -ne "\033%%@"
     ;;
   esac
 
-  printf "UTF-8: ${mseMode} \u2658 \n"
+  echo -ne "UTF-8: ${mseMode} \u2658 \n"
 }

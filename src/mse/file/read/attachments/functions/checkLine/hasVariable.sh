@@ -28,5 +28,5 @@ mse_file_read_checkLine_hasVariable() {
     fi
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

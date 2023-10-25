@@ -154,7 +154,7 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # \e[Atributo;Fundo;Fonte
 #
 # Exemplo:
-# printf "\e[0;44;93mTexto estilizado\e[0;49;39m"
+# echo -e "\e[0;44;93mTexto estilizado\e[0;49;39m"
 # O código acima exibirá o texto sem nenhum atributo especial onde a cor da fonte é amarelo claro
 # e o fundo é azul.
 #
@@ -164,7 +164,7 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # cor de fonte ou cor de fundo.
 #
 # Exemplo:
-# printf "\e[0mA partir daqui a cor é a padrão do seu terminal"
+# echo -e "\e[0mA partir daqui a cor é a padrão do seu terminal"
 #
 #
 #
@@ -210,8 +210,8 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # atributos for encontrado.
 #
 # ex:
-# printf "\e[1;4mNegrito e sublinhado \n"
-# printf "\e[1;4;2mNegrito, sublinhado e escuro \n"
+# echo -e "\e[1;4mNegrito e sublinhado \n"
+# echo -e "\e[1;4;2mNegrito, sublinhado e escuro \n"
 #
 
 
@@ -251,7 +251,7 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # \e[Atributo;48;5;{0..255};Fontem
 #
 # Ex:
-# printf "\e[1;4;48;5;82;30mNegrito e sublinhado em um fundo verde brilhoso e uma fonte preta \e[0m\n"
+# echo -e "\e[1;4;48;5;82;30mNegrito e sublinhado em um fundo verde brilhoso e uma fonte preta \e[0m\n"
 #
 #
 #
@@ -266,7 +266,7 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # inteiro entre 0 e 255.
 #
 # Ex:
-# printf "\e[48;2;100;50;150mTeste de cores true type \e[0m\n"
+# echo -e "\e[48;2;100;50;150mTeste de cores true type \e[0m\n"
 #
 
 
@@ -306,7 +306,7 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # \e[Atributo;Fundo;38;5;{1..256}
 #
 # Ex:
-# printf "\e[1;4;38;5;82mNegrito e sublinhado em um verde brilhoso\e[0;49;39m\n"
+# echo -e "\e[1;4;38;5;82mNegrito e sublinhado em um verde brilhoso\e[0;49;39m\n"
 #
 #
 #
@@ -321,5 +321,5 @@ MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
 # inteiro entre 0 e 255.
 #
 # Ex:
-# printf "\e[38;2;100;50;150mTeste de cores true type \e[0m\n"
+# echo -e "\e[38;2;100;50;150mTeste de cores true type \e[0m\n"
 #

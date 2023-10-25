@@ -9,5 +9,5 @@ mse_file_read_checkArbitratySection_start() {
     mseR=1
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

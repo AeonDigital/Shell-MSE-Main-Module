@@ -10,5 +10,5 @@ mse_file_read_checkArbitratySection_end() {
     mseR=1
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

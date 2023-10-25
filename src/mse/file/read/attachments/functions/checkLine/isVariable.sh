@@ -12,12 +12,12 @@ mse_file_read_checkLine_isVariable() {
       mseLine="${mseLine#*#}"
     fi
 
-    local mseCommentChars=$(printf '%s' "${line_check_args_array[@]}")
+    local mseCommentChars=$(echo -n "${line_check_args_array[@]}")
     local mseReg='^(['"${mseCommentChars}"']?)([a-zA-Z]+).*='
     if [[ "$mseLine" =~ $mseReg ]]; then
       mseR=1
     fi
   fi
 
-  printf "${mseR}"
+  echo -n "${mseR}"
 }

@@ -43,7 +43,7 @@ mse_font_show_attributes() {
     fi
   done
 
-  mseRawTable=$(printf "${mseRawTable}")
-  local mseReturn=$(printf "NONE\n"; column -e -t -s ":" <<< "${mseRawTable}")
+  mseRawTable=$(echo -ne "${mseRawTable}")
+  local mseReturn=$(echo -ne "NONE\n"; column -e -t -s ":" <<< "${mseRawTable}")
   echo -n "${mseReturn}"
 }

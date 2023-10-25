@@ -9,5 +9,5 @@ mse_file_read_transformLine_normalizeKeyValue() {
     mseLine=$(mse_str_trim_substring "=" "${3}")
   fi
 
-  printf "${mseLine}"
+  echo -n "${mseLine}"
 }

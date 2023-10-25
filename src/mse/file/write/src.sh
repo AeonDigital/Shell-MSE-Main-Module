@@ -152,7 +152,7 @@ mse_file_write() {
       IFS=$' \t\n'
 
 
-      printf "${mseNewFileContent}" > "${mseFile}"
+      echo -ne "${mseNewFileContent}" > "${mseFile}"
       if [ "$?" != "0" ]; then
         mseReturn="0"
         mseReturnMsg="${lbl_fw_iv_errorOnSave}"
@@ -163,6 +163,6 @@ mse_file_write() {
 
   echo -n "${mseReturn}"
   if [ "${mseReturnMsg}" != "" ]; then
-    printf "\n${mseReturnMsg}"
+    echo -ne "\n${mseReturnMsg}"
   fi
 }
