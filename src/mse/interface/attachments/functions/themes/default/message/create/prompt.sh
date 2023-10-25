@@ -88,10 +88,11 @@ mse_interface_theme_default_message_create_prompt() {
     declare -n mseTmpPromptBodyLinesArray="${mseTmpThemeArrCreatePrompt[body_lines]}"
 
     for mseTmpOptionLine in "${mseTmpPromptBodyLines[@]}"; do
-      mseTmpLineLength=$(wc -m <<< $mseTmpOptionLine)
+      mseTmpLineLength=$(wc -m <<< ${mseTmpOptionLine})
       ((mseTmpOptionPadLength = mseTmpMaxOptionLength - mseTmpLineLength))
 
-      mseTmpOptionPadString=$(printf "%-${mseTmpOptionPadLength}s" "")
+
+      mseTmpOptionPadString=$(mse_str_pad "" " " "${mseTmpOptionPadLength}" "l")
       mseTmpBigLine+=("${mseTmpOptionLine}${mseTmpOptionPadString}")
 
       local mseMod=$(expr ${#mseTmpBigLine[@]} % ${mseMaxOptionsPerLine}) || true

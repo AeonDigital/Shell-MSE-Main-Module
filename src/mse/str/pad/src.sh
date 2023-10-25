@@ -30,11 +30,10 @@ mse_str_pad() {
       local msePadStr=""
 
       ((msePadLeft=mseTotalLength-mseStringLength))
-      if [ "${msePadChar}" == " " ]; then
-        msePadStr=$(printf "%-${msePadLeft}s")
-      else
-        msePadStr=$(printf "${msePadChar}%.0s" $(eval "echo {1.."$((${msePadLeft}))"}"))
-      fi
+      local i=""
+      for ((i=0; i<msePadLeft; i++)) do
+        msePadStr+="${msePadChar}"
+      done
 
       if [ "${msePadPosition}" == "l" ]; then
         mseNStr="${msePadStr}${mseNStr}"

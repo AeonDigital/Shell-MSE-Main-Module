@@ -40,7 +40,7 @@ mse_font_show_characters() {
     local c
 
     if [ "${mseOutputFormat}" == "t" ]; then
-      printf "\n      ";
+      echo -ne "\n      ";
       for x in {0..15}; do
         printf "%-3x" ${x};
       done;
@@ -117,7 +117,7 @@ mse_font_show_characters() {
 
     echo ""
 
-    mseRawTable=$(printf "${mseRawTable}")
+    mseRawTable=$(echo -ne "${mseRawTable}")
     mseRawTable=$(column -e -t -s ":" <<< "${mseRawTable}")
 
     if [ "${mseHasTwoDots}" == "1" ]; then
@@ -131,7 +131,7 @@ mse_font_show_characters() {
       done <<< "${mseRawTable}"
 
     else
-      printf "${mseRawTable}\n"
+      echo -ne "${mseRawTable}\n"
     fi
 
     echo ""

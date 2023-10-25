@@ -206,7 +206,7 @@ mse_man_process_section_generic() {
         local mseTargetPart=""
 
         ((mseTargetSectionLevel++))
-        local mseOpenSectionHash=$(printf "#%.0s" $(eval "echo {1.."$((${mseTargetSectionLevel}))"}"))
+        local mseOpenSectionHash=$(mse_str_pad "" "#" "${mseTargetSectionLevel}" "l")
         local mseOpenSubSectionHash="${mseOpenSectionHash}#"
 
 

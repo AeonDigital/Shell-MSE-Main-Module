@@ -25,4 +25,10 @@ test_mse_str_pad() {
   testExpected="    é"
 
   mse_md_utest_assertEqual
+
+
+  testResult=$(mse_str_pad "" "#" "6" "l")
+  testExpected="######"
+
+  mse_md_utest_assertEqual
 }

@@ -22,6 +22,7 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 - sed
 - iconv
 - column
+- wc
 
 
 
@@ -112,3 +113,16 @@ Ver se o 'iconv' já não faz isso.
 4. Pega apenas a mensagem de retorno
   echo "${rawResult#*[![:graph:]]}"
   echo "${rawResult#*$'\n'FUNCTION MESSAGE:$'\n'}"
+
+
+
+
+# TRIM
+# with 'sed'
+# local mseReturn=$(echo "${1}" | sed -z -E -e 's/^[ \t\r\n]+//' | sed -z -E -e 's/[ \t\r\n]+$//')
+
+
+# PAD
+# with 'printf'
+# printf "%-${msePadLeft}s"  # for empty spaces
+# printf "${msePadChar}%.0s" $(eval "echo {1.."$((${msePadLeft}))
