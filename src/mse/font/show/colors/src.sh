@@ -55,13 +55,13 @@ mse_font_show_colors() {
         mseRawTable+="${mseLine}"
       done
 
-      printf "\n"
+      echo ""
 
       mseRawTable=$(printf "${mseRawTable}")
       mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
       column -e -t -s ":" <<< "${mseRawTable}"
 
-      printf "\n"
+      echo ""
     ;;
     8)
       local mseColorSet="255"
@@ -74,7 +74,7 @@ mse_font_show_colors() {
       local mseNewLine
 
 
-      printf "\n"
+      echo ""
       for mseColorIndex in "${mseColorCodeMaxLength[@]}"; do
         mseNewLine="0"
 
@@ -95,13 +95,13 @@ mse_font_show_colors() {
         ((mseColorNumber=mseColorIndex+1))
         ((mseColorMod=mseColorNumber % mseItensPerLine))
         if [ "${mseColorMod}" == "${mseItensPerLineIsSet}" ]; then
-          printf "\n"
+          echo ""
           mseNewLine="1"
         fi
       done
 
       if [ "${mseNewLine}" == "0" ]; then
-        printf "\n"
+        echo ""
       fi
 
       printf "\n${lbl_font_showTextColors_UseCodeExample}"

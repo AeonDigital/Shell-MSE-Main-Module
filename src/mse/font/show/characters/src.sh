@@ -55,7 +55,7 @@ mse_font_show_characters() {
 
 
     for x in {32..255}; do
-      (( x % 16 == 0 )) && printf "\n"
+      (( x % 16 == 0 )) && echo ""
 
       if [ "${mseOutputFormat}" == "t" ]; then
         n=$(expr ${x} % 15) || true
@@ -77,7 +77,7 @@ mse_font_show_characters() {
       done
     fi
 
-    printf "\n"
+    echo ""
 
   else
 
@@ -115,7 +115,7 @@ mse_font_show_characters() {
       mseRawTable+="${mseLine}\n"
     done
 
-    printf "\n"
+    echo ""
 
     mseRawTable=$(printf "${mseRawTable}")
     mseRawTable=$(column -e -t -s ":" <<< "${mseRawTable}")
@@ -134,6 +134,6 @@ mse_font_show_characters() {
       printf "${mseRawTable}\n"
     fi
 
-    printf "\n"
+    echo ""
   fi
 }

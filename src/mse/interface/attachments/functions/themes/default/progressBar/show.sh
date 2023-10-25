@@ -30,8 +30,8 @@ mse_interface_theme_default_progressBar_show() {
 
 
   if [ "${mseTmpThemeArrShowProgressBar[bar_atual_progress]}" == "100" ]; then
-    printf "\n"
+    echo ""
   else
-    printf "\r"
+    echo -ne "\r"
   fi
 }

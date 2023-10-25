@@ -10,5 +10,5 @@ mse_interface_show_waitUser() {
 
   local mseWaitingMessage=$(mse_interface_show_message "MSE_MESSAGE_THEME_CONFIG" "${1}" "title" "${mseWaitingTitle}")
   read -n 1 -s -r -p "${mseWaitingMessage}  "
-  printf "\n"
+  echo ""
 }
