@@ -30,25 +30,25 @@ mse_interface_set_cursorPosition() {
 
     if [ "${mseStrPos}" != "" ] && [ "${mseIntPos}" != "" ]; then
       if [ "${mseResetToPosition}" == "l" ]; then
-        printf "\r"
+        echo -ne "\r"
       elif [ "${mseResetToPosition}" == "r" ]; then
-        printf "\r\e[${mseTerminalTotalColumns}C"
+        echo -ne "\r\e[${mseTerminalTotalColumns}C"
       fi
 
 
       if [ "${mseIntPos}" -ge 1 ]; then
         case "${mseStrPos}" in
           t)
-            printf "\e[${mseIntPos}A"
+            echo -ne "\e[${mseIntPos}A"
           ;;
           r)
-            printf "\e[${mseIntPos}D"
+            echo -ne "\e[${mseIntPos}D"
           ;;
           b)
-            printf "\e[${mseIntPos}B"
+            echo -ne "\e[${mseIntPos}B"
           ;;
           l)
-            printf "\e[${mseIntPos}C"
+            echo -ne "\e[${mseIntPos}C"
           ;;
         esac
       fi

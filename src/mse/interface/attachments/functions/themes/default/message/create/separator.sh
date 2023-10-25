@@ -37,6 +37,6 @@ mse_interface_theme_default_message_create_separator() {
       mseReturn+="${mseNONE}"
     fi
 
-    printf "${mseReturn}"
+    echo -ne "${mseReturn}"
   fi
 }

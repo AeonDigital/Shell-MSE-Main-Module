@@ -32,7 +32,7 @@ mse_interface_show_spinner() {
         fi
 
         for mseStep in "${mseSpinnerPhases[@]}"; do
-          printf "\r${mseStep}"
+          echo -ne "\r${mseStep}"
           sleep "${mseInterval}"
         done
       done &

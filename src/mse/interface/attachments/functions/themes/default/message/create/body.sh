@@ -99,7 +99,7 @@ mse_interface_theme_default_message_create_body() {
 
 
     mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseBodyTopSeparatorString}" "${mseBodyTopSeparatorColor}" "${mseBodyTopSeparatorColorAlt}" "${mseBodyTopSeparatorColorize}"
-    printf "${mseUseBody}"
+    echo -ne "${mseUseBody}"
     mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseBodyBottomSeparatorString}" "${mseBodyBottomSeparatorColor}" "${mseBodyBottomSeparatorColorAlt}" "${mseBodyBottomSeparatorColorize}"
   fi
 }

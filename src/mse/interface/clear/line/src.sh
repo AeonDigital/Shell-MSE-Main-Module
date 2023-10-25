@@ -20,5 +20,5 @@ mse_interface_clear_line() {
     fi
   fi
 
-  printf "\e[${mseCmd}K${mseCR}"
+  echo -ne "\e[${mseCmd}K${mseCR}"
 }

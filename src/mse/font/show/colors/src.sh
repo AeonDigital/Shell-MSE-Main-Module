@@ -57,7 +57,7 @@ mse_font_show_colors() {
 
       echo ""
 
-      mseRawTable=$(printf "${mseRawTable}")
+      mseRawTable=$(echo -ne "${mseRawTable}")
       mseRawTable=$(sed 's/^\s*//g' <<< "${mseRawTable}" | sed 's/\s*$//g' | sed 's/\s*:/:/g' | sed 's/:\s*/:/g')
       column -e -t -s ":" <<< "${mseRawTable}"
 
@@ -87,9 +87,9 @@ mse_font_show_colors() {
         fi
 
         if [ "${mseFocus}" == "f" ]; then
-          printf "\e[38;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+          echo -ne "\e[38;5;${mseColorIndex}m  ${mseStrColorNumber}  ${mseNONE}"
         elif [ "${mseFocus}" == "b" ]; then
-          printf "\e[48;5;%sm  %s  ${mseNONE}" ${mseColorIndex} "${mseStrColorNumber}"
+          echo -ne "\e[48;5;${mseColorIndex}m  ${mseStrColorNumber}  ${mseNONE}"
         fi
 
         ((mseColorNumber=mseColorIndex+1))
@@ -104,14 +104,15 @@ mse_font_show_colors() {
         echo ""
       fi
 
-      printf "\n${lbl_font_showTextColors_UseCodeExample}"
+      echo -ne "\n${lbl_font_showTextColors_UseCodeExample}"
       if [ "${mseFocus}" == "f" ]; then
         echo -n "\\e[38;5;Xm"
       elif [ "${mseFocus}" == "b" ]; then
         echo -n "\\e[48;5;Xm"
       fi
 
-      printf "\n\n"
+      echo ""
+      echo ""
     ;;
   esac
 }

@@ -51,7 +51,7 @@ test_mse_interface_show_message() {
     sleep 1
     mse_interface_clear_line "" "1"
     mse_interface_show_message "mseTestArrShowMsg" "s" "status" "X::Tudo certo!" ""
-    printf "\n---"
+    echo -ne "\n---"
   fi
 
 
@@ -114,6 +114,6 @@ test_mse_interface_show_message() {
     mse_interface_clear_line "" "1"
 
     mse_interface_show_status "s" "O processo finalizou sem erros"
-    printf "\n---\n"
+    echo -ne "\n---\n"
   fi
 }

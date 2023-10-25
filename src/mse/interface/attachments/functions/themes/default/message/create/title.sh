@@ -110,9 +110,9 @@ mse_interface_theme_default_message_create_title() {
 
 
     mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseTitleTopSeparatorString}" "${mseTitleTopSeparatorColor}" "${mseTitleTopSeparatorColorAlt}" "${mseTitleTopSeparatorColorize}"
-    printf "${mseTitleIndent}"
+    echo -ne "${mseTitleIndent}"
     mse_interface_theme_default_message_create_bullet "${mseMessageType}" "${mseTitleBullet}" "${mseTitleBulletColor}" "${mseTitleBulletColorAlt}" "${mseTitleBulletColorize}"
-    printf "${mseUseTitle}${mseTitleStringEnd}"
+    echo -ne "${mseUseTitle}${mseTitleStringEnd}"
     mse_interface_theme_default_message_create_separator "${mseMessageType}" "${mseTitleBottomSeparatorString}" "${mseTitleBottomSeparatorColor}" "${mseTitleBottomSeparatorColorAlt}" "${mseTitleBottomSeparatorColorize}"
   fi
 }

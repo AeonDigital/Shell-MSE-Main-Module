@@ -20,5 +20,5 @@ mse_interface_theme_default_message_check_format() {
     mseReturn="default"
   fi
 
-  printf "${mseReturn}"
+  echo -ne "${mseReturn}"
 }
