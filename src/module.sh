@@ -64,9 +64,9 @@ mseGetDefault() {
   local mseCurrentValue="${1}"
   local mseDefaultValueIfEmptyOrInvalid="${2}"
 
-  declare -a mseValidOptions=()
   IFS=$'\n'
-  mseValidOptions=($(xargs -n1 <<< "${3}"))
+  local mseCode="declare -a mseValidOptions=("${3}")"
+  eval "${mseCode}"
   IFS=$' \t\n'
 
   local mseReturn="${mseDefaultValueIfEmptyOrInvalid}"

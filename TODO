@@ -16,13 +16,13 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 
 #
 # Comandos usados que não são built-in do bash ?
-- printf
-- xargs
-- find
-- sed
-- iconv
-- column
-- wc
+- printf  [ 33x ]
+- find    [  5x ]
+- sed     [ 11x ]
+- xxd     [  3x ]
+- iconv   [  5x ]
+- column  [  3x ]
+- wc      [  2x ]
 
 
 
@@ -126,3 +126,7 @@ Ver se o 'iconv' já não faz isso.
 # with 'printf'
 # printf "%-${msePadLeft}s"  # for empty spaces
 # printf "${msePadChar}%.0s" $(eval "echo {1.."$((${msePadLeft}))
+
+
+# ARGS TO ARRAY
+# mseTargetArray=("$(xargs -n1 <<< "arg1 arg2 arg3 'and 4'")"")

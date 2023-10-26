@@ -3,12 +3,11 @@
 
 
 mse_str_convert_toArray() {
-  declare -n mseTargetArray="${1}"
-  mseTargetArray=()
+  local mseArrName="${1}"
+  shift
 
-  if [ "${2}" != "" ]; then
-    IFS=$'\n'
-    mseTargetArray=($(xargs -n1 <<< "${2}"))
-    IFS=$' \t\n'
-  fi
+  IFS=$'\n'
+  local mseCode="${mseArrName}=("$@")"
+  eval "${mseCode}"
+  IFS=$' \t\n'
 }
