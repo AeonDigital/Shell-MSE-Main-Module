@@ -38,7 +38,7 @@ mse_file_config_variable_set() {
   local mseTargetSectionLines=$(mse_file_get_boundaryLineNumbers "${mseFile}" "${mseCommentChar}" "${mseIsConfigFile}" "${mseSectionNameStart}" "${mseSectionNameEnd}")
 
   mse_str_split "mseArrSplit" " " "${mseTargetSectionLines}"
-  if [ "${#mseArrSplit[@]}" != 2 ]; then
+  if [ "${#mseArrSplit[@]}" != "2" ]; then
     mseReturnMsg="${lbl_err_cannotIdentifyTargetLine}"
   else
     local mseTargetSectionFirstLine="${mseArrSplit[0]}"

@@ -23,7 +23,12 @@ DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 - iconv   [  5x ]
 - column  [  3x ]
 - wc      [  2x ]
-
+- dirname
+- readlink
+- sort
+- uniq
+- less
+- expr
 
 
 #

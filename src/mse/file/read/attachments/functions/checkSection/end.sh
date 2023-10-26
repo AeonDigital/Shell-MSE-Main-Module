@@ -3,11 +3,11 @@
 
 
 mse_file_read_checkSection_end() {
-  local mseR=0
+  local mseR="0"
 
-  if [ $# -ge 5 ]; then
+  if [ "$#" -ge "5" ]; then
     if [ "${3:0:1}" == "[" ]; then
-      mseR=1
+      mseR="1"
     fi
   fi
 

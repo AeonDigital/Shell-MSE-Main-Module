@@ -3,19 +3,19 @@
 
 
 mse_file_read_checkLine_isVariable() {
-  local mseR=0
+  local mseR="0"
 
-  if [ $# -ge 4 ] && [ "$3" != "" ]; then
+  if [ "$#" -ge "4" ] && [ "${3}" != "" ]; then
     local mseLine=$(mse_str_trim "${3}")
 
-    if [ "$4" == "1" ]; then
+    if [ "${4}" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 
     local mseCommentChars=$(echo -n "${line_check_args_array[@]}")
     local mseReg='^(['"${mseCommentChars}"']?)([a-zA-Z]+).*='
     if [[ "$mseLine" =~ $mseReg ]]; then
-      mseR=1
+      mseR="1"
     fi
   fi
 

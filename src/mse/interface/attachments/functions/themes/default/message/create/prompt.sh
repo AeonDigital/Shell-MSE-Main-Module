@@ -68,7 +68,7 @@ mse_interface_theme_default_message_create_prompt() {
       mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
       mseTmpPromptBodyLines+=("${mseTmpOptionLine}")
 
-      mseTmpLineLength=$(wc -m <<< $mseTmpOptionLine)
+      mseTmpLineLength=$(wc -m <<< ${mseTmpOptionLine})
 
       if [ "${mseTmpLineLength}" -gt "${mseTmpMaxOptionLength}" ]; then
         mseTmpMaxOptionLength="${mseTmpLineLength}"

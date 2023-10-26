@@ -47,18 +47,18 @@ declare -g MSE_GLOBAL_MAIN_PATH=$(dirname $(dirname $(readlink -f "${BASH_SOURCE
 # @param string $1
 # Full path to the root directory of the target module.
 myShellEnvRegisterModuleComponents() {
-  local mseReturn=0
+  local mseReturn="0"
   local mseAlertMsg=""
 
   if [ "$#" -lt "1" ] || [ "${1}" == "" ]; then
-      mseReturn=1
+      mseReturn="1"
 
       mseAlertMsg+="## Attention\n"
       mseAlertMsg+="   No directory specified.\n\n"
       mseAlertMsg+="   No action was taken."
   else
     if [ ! -d "${1}" ]; then
-      mseReturn=1
+      mseReturn="1"
 
       mseAlertMsg+="## Attention\n"
       mseAlertMsg+="   The specified directory does not exist.\n"
@@ -68,7 +68,7 @@ myShellEnvRegisterModuleComponents() {
 
       local moduleSH="${1}/src/module.sh"
       if [ ! -f "${moduleSH}" ]; then
-        mseReturn=1
+        mseReturn="1"
 
         mseAlertMsg+="## Attention\n"
         mseAlertMsg+="   \"module.sh\" file not found for target module.\n"
@@ -100,17 +100,17 @@ myShellEnvRegisterModuleComponents() {
 #
 # Start "myShellEnv".
 myShellEnvStart() {
-  local mseReturn=1
+  local mseReturn="1"
 
   if [ "${MSE_GLOBAL_IS_LOADED}" == "1" ]; then
-    mseReturn=0
+    mseReturn="0"
   else
     myShellEnvRegisterModuleComponents "${MSE_GLOBAL_MAIN_PATH}"
-    if [ $? == 0 ]; then
-      mseReturn=0
+    if [ "$?" == "0" ]; then
+      mseReturn="0"
       MSE_GLOBAL_IS_LOADED="1"
     fi
   fi
 
-  return ${mseReturn}
+  return "${mseReturn}"
 }

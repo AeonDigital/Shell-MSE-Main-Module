@@ -3,10 +3,10 @@
 
 
 mse_file_read_checkArbitratySection_start() {
-  local mseR=0
+  local mseR="0"
 
   if [ "${3}" == "${5}" ]; then
-    mseR=1
+    mseR="1"
   fi
 
   echo -n "${mseR}"

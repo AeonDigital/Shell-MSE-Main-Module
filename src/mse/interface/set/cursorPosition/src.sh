@@ -36,7 +36,7 @@ mse_interface_set_cursorPosition() {
       fi
 
 
-      if [ "${mseIntPos}" -ge 1 ]; then
+      if [ "${mseIntPos}" -ge "1" ]; then
         case "${mseStrPos}" in
           t)
             echo -ne "\e[${mseIntPos}A"

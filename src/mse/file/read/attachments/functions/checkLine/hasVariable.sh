@@ -3,13 +3,13 @@
 
 
 mse_file_read_checkLine_hasVariable() {
-  local mseR=0
+  local mseR="0"
 
-  if [ $# -ge 5 ] && [ "$3" != "" ]; then
+  if [ "$#" -ge "5" ] && [ "${3}" != "" ]; then
     local mseLine=$(mse_str_trim "$3")
     mseLine=$(mse_str_trim_substring "=" "$mseLine")
 
-    if [ "$4" == "1" ]; then
+    if [ "${4}" == "1" ]; then
       mseLine="${mseLine#*#}"
     fi
 
@@ -24,7 +24,7 @@ mse_file_read_checkLine_hasVariable() {
     done
 
     if [ "${mseLine%%=*}" == "${mseVarName}" ]; then
-      mseR=1
+      mseR="1"
     fi
   fi
 

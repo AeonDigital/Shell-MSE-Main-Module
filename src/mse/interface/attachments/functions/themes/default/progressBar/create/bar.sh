@@ -28,7 +28,7 @@ mse_interface_theme_default_progressBar_create_bar() {
 
 
 
-  local mseBarAtualBarLength=0
+  local mseBarAtualBarLength="0"
   ((mseBarAtualBarLength = (mseBarMaxCharLength * mseBarAtualProgress) / 100))
   mseTmpThemeArrProgressBar["bar_atual_bar_length"]="${mseBarAtualBarLength}"
 
