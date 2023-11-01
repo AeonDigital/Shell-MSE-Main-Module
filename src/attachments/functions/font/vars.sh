@@ -9,121 +9,122 @@
 # 'L' indicates the 'Light'/luminous version of the color
 # 'D' indicates the use of attribute 2/'Dark'/darkened
 #
-mseNONE='\e[0m'
+if [ -z ${mseNONE+x} ]; then
+  declare -gr mseNONE='\e[0m'
 
 
-mseBLACK='\e[20;47;30m'
-mseDBLACK='\e[2;47;30m'
-mseLBLACK='\e[20;47;90m'
-mseDLBLACK='\e[2;47;90m'
+  declare -gr mseBLACK='\e[20;47;30m'
+  declare -gr mseDBLACK='\e[2;47;30m'
+  declare -gr mseLBLACK='\e[20;47;90m'
+  declare -gr mseDLBLACK='\e[2;47;90m'
 
-mseRED='\e[20;49;31m'
-mseDRED='\e[2;49;31m'
-mseLRED='\e[20;49;91m'
-mseDLRED='\e[2;49;91m'
+  declare -gr mseRED='\e[20;49;31m'
+  declare -gr mseDRED='\e[2;49;31m'
+  declare -gr mseLRED='\e[20;49;91m'
+  declare -gr mseDLRED='\e[2;49;91m'
 
-mseGREEN='\e[20;49;32m'
-mseDGREEN='\e[2;49;32m'
-mseLGREEN='\e[20;49;92m'
-mseDLGREEN='\e[2;49;92m'
+  declare -gr mseGREEN='\e[20;49;32m'
+  declare -gr mseDGREEN='\e[2;49;32m'
+  declare -gr mseLGREEN='\e[20;49;92m'
+  declare -gr mseDLGREEN='\e[2;49;92m'
 
-mseYELLOW='\e[20;49;33m'
-mseDYELLOW='\e[2;49;33m'
-mseLYELLOW='\e[20;49;93m'
-mseDLYELLOW='\e[2;49;93m'
+  declare -gr mseYELLOW='\e[20;49;33m'
+  declare -gr mseDYELLOW='\e[2;49;33m'
+  declare -gr mseLYELLOW='\e[20;49;93m'
+  declare -gr mseDLYELLOW='\e[2;49;93m'
 
-mseBLUE='\e[20;49;34m'
-mseDBLUE='\e[2;49;34m'
-mseLBLUE='\e[20;49;94m'
-mseDLBLUE='\e[2;49;94m'
+  declare -gr mseBLUE='\e[20;49;34m'
+  declare -gr mseDBLUE='\e[2;49;34m'
+  declare -gr mseLBLUE='\e[20;49;94m'
+  declare -gr mseDLBLUE='\e[2;49;94m'
 
-msePURPLE='\e[20;49;35m'
-mseDPURPLE='\e[2;49;35m'
-mseLPURPLE='\e[20;49;95m'
-mseDLPURPLE='\e[2;49;95m'
+  declare -gr msePURPLE='\e[20;49;35m'
+  declare -gr mseDPURPLE='\e[2;49;35m'
+  declare -gr mseLPURPLE='\e[20;49;95m'
+  declare -gr mseDLPURPLE='\e[2;49;95m'
 
-mseCYAN='\e[20;49;36m'
-mseDCYAN='\e[2;49;36m'
-mseLCYAN='\e[20;49;96m'
-mseDLCYAN='\e[2;49;96m'
+  declare -gr mseCYAN='\e[20;49;36m'
+  declare -gr mseDCYAN='\e[2;49;36m'
+  declare -gr mseLCYAN='\e[20;49;96m'
+  declare -gr mseDLCYAN='\e[2;49;96m'
 
-mseWHITE='\e[20;49;37m'
-mseDWHITE='\e[2;49;37m'
-mseLWHITE='\e[20;49;97m'
-mseDLWHITE='\e[2;49;97m'
-
-
-
-MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
-  'NONE'
-  'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
-  'RED'     'DRED'    'LRED'    'DLRED'
-  'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
-  'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
-  'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
-  'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
-  'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
-  'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
-)
-
-MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
-  'Normal'
-  'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
-  'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
-  'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
-  'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
-  'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
-  'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
-  'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
-  'White'   'White + Dark'  'White Light'   'White Light + Dark'
-)
-
-MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
-  '39'
-  '30' '230' '90' '290'
-  '31' '231' '91' '291'
-  '32' '232' '92' '292'
-  '33' '233' '93' '293'
-  '34' '234' '94' '294'
-  '35' '235' '95' '295'
-  '36' '236' '96' '296'
-  '37' '237' '97' '297'
-)
-
-MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
-  '49'
-  '40' '' '100' ''
-  '41' '' '101' ''
-  '42' '' '102' ''
-  '43' '' '103' ''
-  '44' '' '104' ''
-  '45' '' '105' ''
-  '46' '' '106' ''
-  '47' '' '107' ''
-)
+  declare -gr mseWHITE='\e[20;49;37m'
+  declare -gr mseDWHITE='\e[2;49;37m'
+  declare -gr mseLWHITE='\e[20;49;97m'
+  declare -gr mseDLWHITE='\e[2;49;97m'
 
 
 
-#
-# The Array below has all the names of the attribute codes that can be used.
-#
-# 'R' indicates 'Remove'
-#
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
-  'NONE'
-  'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
-  'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
-  'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
-  'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
-)
-MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
-  '20'
-  '1'   '2'   '3'   '4'
-  '5'   '6'   '7'   '8'   '9'
-  '21'  '22'  '23'  '24'
-  '25'  '16'  '27'  '28'  '29'
-)
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
+    'NONE'
+    'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
+    'RED'     'DRED'    'LRED'    'DLRED'
+    'GREEN'   'DGREEN'  'LGREEN'  'DLGREEN'
+    'YELLOW'  'DYELLOW' 'LYELLOW' 'DLYELLOW'
+    'BLUE'    'DBLUE'   'LBLUE'   'DLBLUE'
+    'PURPLE'  'DPURPLE' 'LPURPLE' 'DLPURPLE'
+    'CYAN'    'DCYAN'   'LCYAN'   'DLCYAN'
+    'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
+  )
 
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
+    'Normal'
+    'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
+    'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
+    'Green'   'Green + Dark'  'Green Light'   'Green Light + Dark'
+    'Yellow'  'Yellow + Dark' 'Yellow Light'  'Yellow Light + Dark'
+    'Blue'    'Blue + Dark'   'Blue Light'    'Blue Light + Dark'
+    'Purple'  'Purple + Dark' 'Purple Light'  'Purple Light + Dark'
+    'Cyan'    'Cyan + Dark'   'Cyan Light'    'Cyan Light + Dark'
+    'White'   'White + Dark'  'White Light'   'White Light + Dark'
+  )
+
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
+    '39'
+    '30' '230' '90' '290'
+    '31' '231' '91' '291'
+    '32' '232' '92' '292'
+    '33' '233' '93' '293'
+    '34' '234' '94' '294'
+    '35' '235' '95' '295'
+    '36' '236' '96' '296'
+    '37' '237' '97' '297'
+  )
+
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
+    '49'
+    '40' '' '100' ''
+    '41' '' '101' ''
+    '42' '' '102' ''
+    '43' '' '103' ''
+    '44' '' '104' ''
+    '45' '' '105' ''
+    '46' '' '106' ''
+    '47' '' '107' ''
+  )
+
+
+
+  #
+  # The Array below has all the names of the attribute codes that can be used.
+  #
+  # 'R' indicates 'Remove'
+  #
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
+    'NONE'
+    'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
+    'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
+    'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
+    'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
+  )
+  declare -gar MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
+    '20'
+    '1'   '2'   '3'   '4'
+    '5'   '6'   '7'   '8'   '9'
+    '21'  '22'  '23'  '24'
+    '25'  '16'  '27'  '28'  '29'
+  )
+fi
 
 
 
