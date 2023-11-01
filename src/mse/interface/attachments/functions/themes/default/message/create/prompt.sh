@@ -94,7 +94,7 @@ mse_interface_theme_default_message_create_prompt() {
       mseTmpOptionPadString=$(mse_str_pad "" " " "${mseTmpOptionPadLength}" "l")
       mseTmpBigLine+=("${mseTmpOptionLine}${mseTmpOptionPadString}")
 
-      local mseMod=$(expr ${#mseTmpBigLine[@]} % ${mseMaxOptionsPerLine}) || true
+      local mseMod=$((${#mseTmpBigLine[@]} % ${mseMaxOptionsPerLine})) || true
       if [ "${mseMod}" == "0" ]; then
         mseTmpPromptBodyLinesArray+=("$(mse_str_join "  |  " "mseTmpBigLine")")
 

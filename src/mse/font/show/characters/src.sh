@@ -58,7 +58,7 @@ mse_font_show_characters() {
       (( x % 16 == 0 )) && echo ""
 
       if [ "${mseOutputFormat}" == "t" ]; then
-        n=$(expr ${x} % 15) || true
+        n=$((${x} % 15)) || true
         (( (x % 16) == 0 )) && printf "%-4x" ${n} | sed 's/0/f/;s/^/  /'
       fi
 
