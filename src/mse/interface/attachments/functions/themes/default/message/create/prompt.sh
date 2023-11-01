@@ -35,7 +35,7 @@ mse_interface_theme_default_message_create_prompt() {
 
     IFS=$'\n'
     unset mseTmpPromptSortedKeys
-    declare -a mseTmpPromptSortedKeys=($(sort <<< "${!mseTmpPromptAssocValues[*]}"))
+    declare -a mseTmpPromptSortedKeys=($(mse_array_print_sort "mseTmpPromptAssocValues" "k" "a"))
     IFS=$' \t\n'
 
 
