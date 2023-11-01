@@ -4,7 +4,7 @@
 
 test_mse_array_print_sort() {
   unset testArray
-  #declare -a testArray=("banana" "apple" "grape" "coconut" "orange")
+
   declare -A testArray
   testArray["grape"]="1"
   testArray["apple"]="5"

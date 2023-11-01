@@ -45,3 +45,5 @@ Prints the values or keys of the array sorted as indicated.
 &nbsp;
 
 # Returns string
+
+The items will be written one on each line.

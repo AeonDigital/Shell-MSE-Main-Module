@@ -45,3 +45,5 @@ Printa os valores ou chaves do array ordenados conforme indicação passada.
 &nbsp;
 
 # Returns string
+
+Os itens sserão escritos um em cada linha.
