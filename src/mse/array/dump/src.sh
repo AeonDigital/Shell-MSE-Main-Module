@@ -5,8 +5,8 @@
 mse_array_dump() {
   declare -a mseReturn=()
   local mseArrayName="${1}"
-  local mseIsGlobal=$(mse_getDefault "${2}" "0" "0 1")
-  local mseArrayUseName=$(mse_getDefault "${3}" "${mseArrayName}")
+  local mseIsGlobal=$(mse_get_default "${2}" "0" "0 1")
+  local mseArrayUseName=$(mse_get_default "${3}" "${mseArrayName}")
   local msePrefixLines="${4}"
 
   local mseProperties="-"

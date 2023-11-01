@@ -10,8 +10,8 @@ mse_str_split() {
     local mseSeparator="${2}"
     local mseString="${3}"
     local mseSubStr=""
-    local mseRemoveEmpty=$(mse_getDefault "${4}" "0" "0 1")
-    local mseTrimElements=$(mse_getDefault "${5}" "0" "0 1")
+    local mseRemoveEmpty=$(mse_get_default "${4}" "0" "0 1")
+    local mseTrimElements=$(mse_get_default "${5}" "0" "0 1")
 
 
     while [ "${mseString}" != "" ]; do

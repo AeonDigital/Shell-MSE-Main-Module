@@ -7,10 +7,10 @@ mse_array_search() {
   declare -n arrayName="${2}"
   local mseArrayLength="${#arrayName[@]}"
 
-  local mseCaseSensitive=$(mse_getDefault "${3}" "1" "0 1")
-  local mseIgnoreGlyphs=$(mse_getDefault "${4}" "0" "0 1")
-  local mseCheckSubValues=$(mse_getDefault "${5}" "0" "0 1")
-  local mseReturnType=$(mse_getDefault "${6}" "b" "b i")
+  local mseCaseSensitive=$(mse_get_default "${3}" "1" "0 1")
+  local mseIgnoreGlyphs=$(mse_get_default "${4}" "0" "0 1")
+  local mseCheckSubValues=$(mse_get_default "${5}" "0" "0 1")
+  local mseReturnType=$(mse_get_default "${6}" "b" "b i")
 
   if [ "${mseCaseSensitive}" == "0" ]; then
     mseSearchValue="${mseSearchValue^^}"
