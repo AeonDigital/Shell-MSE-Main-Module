@@ -85,3 +85,11 @@ mseGetDefault() {
 
   echo -n "${mseReturn}"
 }
+#
+# Lists the fonts (.psf) that can be used for your terminal.
+#
+# @return string
+# List of unique fonts sorted in ascending order
+mseShowFonts() {
+  find /usr /etc -name "*.psf*" 2> /dev/null | sort | uniq | less
+}
