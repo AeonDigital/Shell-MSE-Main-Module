@@ -48,7 +48,7 @@ mse_font_show_characters() {
     fi
 
     if [ "${mseOutputFormat}" == "t" ]; then
-      c=$(printf "fa" | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
+      c=$(printf "fa" | xxd -p -r | iconv --from-code="CP437//" --to-code="UTF-8")
       printf "%32s" | sed 's/../'"${c}"'  /g;s/^/  0   /;s/$/\n/'
       printf "%32s" | sed 's/../'"${c}"'  /g;s/^/  1   /'
     fi
@@ -62,7 +62,7 @@ mse_font_show_characters() {
         (( (x % 16) == 0 )) && printf "%-4x" ${n} | sed 's/0/f/;s/^/  /'
       fi
 
-      printf "%02x" ${x} | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8' | sed 's/.*/&  /'
+      printf "%02x" ${x} | xxd -p -r | iconv --from-code="CP437//" --to-code="UTF-8" | sed 's/.*/&  /'
 
       if [ "${mseOutputFormat}" == "t" ]; then
         (( x == 127 )) && printf "%46s" | sed 's/ /-/g;s/^/      /;i\ '
@@ -99,7 +99,7 @@ mse_font_show_characters() {
       elif [ "${i}" == "42" ]; then
         mseLine="42:*:42:2A:052"
       else
-        mseChar=$(printf "%02x" "${i}" | xxd -p -r | iconv -f 'CP437//' -t 'UTF-8')
+        mseChar=$(printf "%02x" "${i}" | xxd -p -r | iconv --from-code="CP437//" --to-code="UTF-8")
         mseCDec=$(mse_str_convert_char_toDecimal "${mseChar}" 1)
         mseCHex=$(mse_str_convert_char_toHex "${mseChar}" 1)
         mseCOct=$(mse_str_convert_char_toOctal "${mseChar}" 1)

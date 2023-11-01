@@ -5,6 +5,14 @@
 . src/unittests.sh "mse_file_read"
 
 
+## SEGUIR DAQUI->
+
+# CRIAR UM SCRIPT OU DIRETÓRIO COM SCRIPTS QUE DEVEM SER DISPONIBILIZADOS
+# PARA USO GERAL DO PROJETO.
+# ALÉM DO mseGetDefault E mseShowFonts, TODAS FUNÇÕES EM 'FONT' DEVEM SER
+# MIGRADAS PARA LÁ... ASSIM DESAFOGA AS DEPENDENCIAS IMEDIATAS.
+
+
 ## TODO
 PROCURAR BOA ALTERNATIVA PARA VER MARKDOWNS NA TELA...
 `glow` não é tão bom... ver se ao atualizar resolve os bugs encontrados.
@@ -14,57 +22,7 @@ SEGUIR COM O MANUAL E O 'DEBUGADOR' DE SEÇÕES PARA PEGAR AS INFORMAÇÕES
 DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 
 
-#
-# Comandos usados que não são built-in do bash ?
-[v] - dirname   [  2x ] (Core utils - Shell utilities)  Módulo de teste!
-[v] - readlink  [  1x ] (Core utils - Shell utilities)  Módulo de teste!
-[v] - sort      [  1x ] (Core utils - Text utilities)   Módulo de teste!
 
-[.] - column    [  3x ] (bsdmainutils)
-      mse_font_show_colors
-      mse_font_show_attributes
-      mse_font_show_characters
-[v] - expr      [  2x ] (Core utils - Shell utilities)
-      mse_interface_show_prompt
-      mse_font_show_characters
-[v] - find      [  5x ] (Find utils)                    Requisitos básicos
-      modules.sh
-      mse.sh
-      unittests.sh
-[v] - iconv     [  5x ] (libc-bin)
-      mse_str_remove_glyphs
-      mse_font_show_characters
-      mse_file_convert_toUTF8
-[v] - printf    [ 32x ] (Core utils - Shell utilities)
-      mse_file_convert_toUTF8
-      mse_str_convert_octal_toHex
-      mse_str_convert_octal_toDecimal
-      mse_str_convert_octal_toChar
-      mse_str_convert_hex_toOctal
-      mse_str_convert_hex_toDecimal
-      mse_str_convert_hex_toChar
-      mse_str_convert_decimal_toOctal
-      mse_str_convert_decimal_toHex
-      mse_str_convert_decimal_toChar
-      mse_str_convert_char_toOctal
-      mse_str_convert_char_toHex
-      mse_str_convert_char_toDecimal
-      mse_font_show_characters
-      mse_font_create_style
-
-[v] - sed       [ 11x ] (sed)
-      mse_font_show_colors
-      mse_font_show_characters
-
-[v] - xxd       [  3x ] (xxd)
-      mse_font_show_characters
-
-
-
-
-## SEGUIR DAQUI->
-
-# 4. VER A FUNÇÃO QUE ESTÁ NA RAIZ EM 'MODULE.SH' PARA ELA 'SAIR DE LÁ'!
 
 
 

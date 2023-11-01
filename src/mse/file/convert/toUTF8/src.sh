@@ -15,7 +15,7 @@ mse_file_convert_toUTF8() {
     local mseOriginalEncoding=$(file -bi "${mseOriginalFile}")
     if [ "${mseOriginalEncoding}" != "" ]; then
       mseOriginalEncoding="${mseOriginalEncoding##*charset=}"
-      iconv -f "${mseOriginalEncoding}" -t UTF-8//TRANSLIT "${mseOriginalFile}" -o "${mseConvertedFile}"
+      iconv --from-code="${mseOriginalEncoding}" --to-code="UTF-8//TRANSLIT" --output="${mseConvertedFile}" "${mseOriginalFile}"
 
       mseReturn="1"
     fi

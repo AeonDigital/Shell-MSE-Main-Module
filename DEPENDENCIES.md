@@ -29,6 +29,13 @@ estão sendo usados no projeto.
 
 &nbsp;
 
+## file (file)
+
+  - mse_file_convert_toUTF8
+
+
+&nbsp;
+
 ## iconv (libc-bin)
 
   - mse_file_convert_toUTF8
@@ -40,9 +47,9 @@ estão sendo usados no projeto.
 
 ## printf (Core utils - Shell utilities)
 
-  - mse_file_convert_toUTF8
   - mse_font_create_style
   - mse_font_show_characters
+
   - mse_str_convert_char_toDecimal
   - mse_str_convert_char_toHex
   - mse_str_convert_char_toOctal

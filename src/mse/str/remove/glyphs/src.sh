@@ -3,5 +3,5 @@
 
 
 mse_str_remove_glyphs() {
-  echo -ne "${1}" | iconv -f 'UTF8' -t 'ASCII//TRANSLIT'
+  echo -ne "${1}" | iconv --from-code="UTF8" --to-code="ASCII//TRANSLIT"
 }
