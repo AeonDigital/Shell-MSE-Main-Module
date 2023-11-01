@@ -77,8 +77,6 @@ myShellEnvRegisterModuleComponents() {
       else
         . "${moduleSH}"
 
-        local mseSubFunctionFileFullPath
-
         local mseTargetFunctions=$(find "${1}/src/functions" -type f -name "src.sh")
         for fileFunction in "${mseTargetFunctions}"; do
           . "${fileFunction}"

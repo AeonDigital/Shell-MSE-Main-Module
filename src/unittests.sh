@@ -15,8 +15,7 @@ declare -g MSE_GLOBAL_MAIN_PATH=$(spath="${PWD}/${BASH_SOURCE}"; echo "${spath%/
 
 #
 # [string] MSE_GLOBAL_UTEST_MAIN_PATH
-# stores the main path to the root directory of the unit test
-# module.
+# stores the main path to the root directory of the unit test module.
 unset MSE_GLOBAL_UTEST_MAIN_PATH
 declare -g MSE_GLOBAL_UTEST_MAIN_PATH="${MSE_GLOBAL_MAIN_PATH}/Shell-MSE-UnitTest"
 
