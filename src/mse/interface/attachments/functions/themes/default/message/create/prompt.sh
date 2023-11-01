@@ -67,8 +67,7 @@ mse_interface_theme_default_message_create_prompt() {
 
       mseTmpOptionLine="${mseKey} : [${mseTmpKeyLabels}]"
       mseTmpPromptBodyLines+=("${mseTmpOptionLine}")
-
-      mseTmpLineLength=$(wc -m <<< ${mseTmpOptionLine})
+      mseTmpLineLength="${#mseTmpOptionLine}"
 
       if [ "${mseTmpLineLength}" -gt "${mseTmpMaxOptionLength}" ]; then
         mseTmpMaxOptionLength="${mseTmpLineLength}"
@@ -88,7 +87,7 @@ mse_interface_theme_default_message_create_prompt() {
     declare -n mseTmpPromptBodyLinesArray="${mseTmpThemeArrCreatePrompt[body_lines]}"
 
     for mseTmpOptionLine in "${mseTmpPromptBodyLines[@]}"; do
-      mseTmpLineLength=$(wc -m <<< ${mseTmpOptionLine})
+      mseTmpLineLength="${#mseTmpOptionLine}"
       ((mseTmpOptionPadLength = mseTmpMaxOptionLength - mseTmpLineLength))
 
 
