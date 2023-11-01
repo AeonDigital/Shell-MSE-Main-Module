@@ -69,3 +69,12 @@ The value `f` is automatically set if the color set is of the
 # Returns string
 
 Prints a table containing the selected color set on the screen.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column
+- sed

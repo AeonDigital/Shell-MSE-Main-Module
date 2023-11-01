@@ -34,3 +34,11 @@ Converts a `hex` to its respective `octal`.
 `Octal` representation of the reported `hex`.
 Multibyte values will return more than one value, each representing one of its 
 bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf

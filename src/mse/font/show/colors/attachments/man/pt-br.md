@@ -69,3 +69,12 @@ de 4 bits.
 # Returns string
 
 Printa na tela uma tabela contendo o conjunto de cores selecionado.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column
+- sed

@@ -42,3 +42,11 @@ Se omitido, assumirá o total de 6 itens por linha.
 
 Printa na tela as opções de atributos conforme o formato de apresentação 
 selecionado.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column

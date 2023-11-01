@@ -33,3 +33,11 @@ If no file is defined, the original is overwritten.
 # Returns bool
 
 `1` if the conversion is performed otherwise `0`.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- iconv

@@ -149,3 +149,11 @@ Quando o `returnType` este valor será sempre `1`.
 
 Printa na tela a mensagem de prompt conforme configuração passada e aguarda uma 
 resposta do usuário.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- expr

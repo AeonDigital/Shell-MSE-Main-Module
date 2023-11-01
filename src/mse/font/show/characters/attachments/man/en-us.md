@@ -75,3 +75,16 @@ The following options are available:
 
 Prints the attribute options on the screen according to the presentation format 
 selected.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column
+- expr
+- iconv
+- printf
+- sed
+- xxd

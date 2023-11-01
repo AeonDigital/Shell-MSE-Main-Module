@@ -33,3 +33,11 @@ Se nenhum arquivo for definido, o original será sobrescrito.
 # Returns bool
 
 `1` se a conversão for realizada caso contrário `0`.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- iconv

@@ -148,3 +148,11 @@ When the `returnType` this value will always be `1`.
 # Returns string
 
 Prints the prompt message as configured past and waits for a user response.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- expr

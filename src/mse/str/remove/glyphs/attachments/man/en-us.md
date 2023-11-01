@@ -31,3 +31,11 @@ Removes all strings containing glyphs by their respective glyph-free version.
 # Returns string
 
 Prints the result of the conversion performed.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- iconv

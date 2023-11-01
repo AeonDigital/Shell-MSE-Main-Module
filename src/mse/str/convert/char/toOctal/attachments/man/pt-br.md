@@ -34,3 +34,11 @@ Converte um `char` para seu respectivo `octal`.
 Representação `octal` do `char` informado.
 Valores multibyte retornarão mais de um valor, cada qual representando um de 
 seus bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf

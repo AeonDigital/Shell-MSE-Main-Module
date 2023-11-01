@@ -75,3 +75,16 @@ As seguintes opções estão disponíveis:
 
 Printa na tela as opções de atributos conforme o formato de apresentação 
 selecionado.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column
+- expr
+- iconv
+- printf
+- sed
+- xxd

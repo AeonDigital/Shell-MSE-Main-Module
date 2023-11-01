@@ -34,3 +34,11 @@ Converte um `decimal` para seu respectivo `char`.
 Representação `char` do `decimal` informado.
 Valores multibyte retornarão mais de um valor, cada qual representando um de 
 seus bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf

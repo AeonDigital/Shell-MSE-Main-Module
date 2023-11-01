@@ -34,3 +34,11 @@ Converte um `hex` para seu respectivo `char`.
 Representação `char` do `hex` informado.
 Valores multibyte retornarão mais de um valor, cada qual representando um de 
 seus bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf

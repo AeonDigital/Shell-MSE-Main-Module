@@ -26,7 +26,6 @@ Converte um `octal` para seu respectivo `hex`.
 ```
 
 
-
 &nbsp;
 
 # Returns charHex
@@ -34,3 +33,11 @@ Converte um `octal` para seu respectivo `hex`.
 Representação `hex` do `octal` informado.
 Valores multibyte retornarão mais de um valor, cada qual representando um de 
 seus bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf

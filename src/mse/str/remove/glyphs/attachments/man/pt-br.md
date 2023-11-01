@@ -31,3 +31,11 @@ Remove todas as string contendo glifos por sua respectiva versão sem glifos.
 # Returns string
 
 Imprime o resultado da conversão realizada.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- iconv

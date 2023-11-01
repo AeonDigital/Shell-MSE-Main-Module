@@ -41,3 +41,11 @@ If omitted, it assumes a total of 6 items per line.
 
 Prints the attribute options on the screen according to the presentation format 
 selected.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- column

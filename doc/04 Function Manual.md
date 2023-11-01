@@ -413,6 +413,23 @@ Use the template below to correctly define this section:
 
 &nbsp;
 
+## The Dependencies Section
+
+This optional section should contain only a list of commands that are external 
+to bash and that are used in the documented function.
+
+```
+## Dependencies
+
+- printf
+- column
+- sed
+```
+
+
+
+&nbsp;
+
 ## Another Sections
 
 You CAN declare any other section in order to provide informations not 

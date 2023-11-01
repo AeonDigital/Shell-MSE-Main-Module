@@ -34,3 +34,11 @@ Converts a `hex` to its respective `decimal`.
 `Decimal` representation of the reported `hex`.
 Multibyte values will return more than one value, each representing one of its 
 bytes.
+
+
+
+&nbsp;
+
+## Dependencies
+
+- printf
