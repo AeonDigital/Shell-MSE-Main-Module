@@ -1,8 +1,9 @@
 #
 # Rodar testes:
 
-. src/unittests.sh
-. src/unittests.sh "mse_file_read"
+chmod +x src/unittests.sh
+./src/unittests.sh
+./src/unittests.sh "mse_file_read"
 
 
 
