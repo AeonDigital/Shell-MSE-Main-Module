@@ -19,7 +19,7 @@
 #
 # @return string
 # Valid value to use.
-mseGetDefault() {
+mse_getDefault() {
   local mseCurrentValue="${1}"
   local mseDefaultValueIfEmptyOrInvalid="${2}"
 

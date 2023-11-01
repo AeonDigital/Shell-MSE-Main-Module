@@ -4,8 +4,8 @@
 
 mse_array_print_sort() {
   declare -n mseTargetArrayName="${1}"
-  local mseTarget=$(mseGetDefault "${2:0:1}" "v" "v k")
-  local mseOrder=$(mseGetDefault "${3:0:1}" "a" "a d")
+  local mseTarget=$(mse_getDefault "${2:0:1}" "v" "v k")
+  local mseOrder=$(mse_getDefault "${3:0:1}" "a" "a d")
 
 
   declare -a mseArray=("${mseTargetArrayName[@]}")
