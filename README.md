@@ -8,15 +8,16 @@ Shell-MSE-Main-Module
 &nbsp;
 
 Módulo básico para o ``myShellEnv``.  
-Trata-se de um conjunto de ferramentas que visa oferecer uma série de facilitadores para a construção de scripts
-e módulos em ambientes de ``shell`` como o ``Bash``.  
+Trata-se de um conjunto de ferramentas que visa oferecer uma série de 
+facilitadores para a construção de scripts e módulos em ambientes de ``shell`` 
+como o ``Bash``.  
 
 
 &nbsp;
 &nbsp;
 
 
-________________________________________________________________________________________________________________________
+________________________________________________________________________________
 
 ## Instalação
 
@@ -33,11 +34,12 @@ chmod +x install.sh
 &nbsp;
 
 
-________________________________________________________________________________________________________________________
+________________________________________________________________________________
 
 ## Outros módulos
 
-Você pode conhecer/instalar/desinstalar outros módulos de ferramentas usando os comandos mostrados abaixo:  
+Você pode conhecer/instalar/desinstalar outros módulos de ferramentas usando os 
+comandos mostrados abaixo:  
 
 ``` shell
 # Listar módulos aptos a serem instalados
@@ -57,7 +59,7 @@ mse mng submodule install -- "ModuleName"
 &nbsp;
 
 
-________________________________________________________________________________________________________________________
+________________________________________________________________________________
 
 ## Atualizando sua instalação
 
@@ -73,20 +75,23 @@ mse mng submodule updateAll --
 &nbsp;
 
 
-________________________________________________________________________________________________________________________
+________________________________________________________________________________
 
 ## Importante
 
-Este projeto - por hora - é um exercício pessoal de construção de ferramentas usando o ``Bash`` em suas funções mais
-básicas para fins de estudo, domínio e diversão. Tanto quanto possível foi tentado evitar qualquer outro comando que 
-não fossem as capacidades ``naturais`` deste ``shell``. Em alguns momentos isto não foi possível mas valeu o esforço.  
+Este projeto - por hora - é um exercício pessoal de construção de ferramentas 
+usando o ``Bash`` em suas funções mais básicas (built-in) para fins de estudo, 
+domínio e diversão. Tanto quanto possível foi tentado evitar qualquer outro 
+comando que não viessem das capacidades ``naturais`` deste ``shell``. Em alguns 
+momentos isto não foi possível mas valeu o esforço.  
 
-Tenho usado este ferramental pontualmente para trabalhos profissionais não críticos e reconheço que pode melhorar 
-muito, em especial se abrir mão de usar ``only Bash features`` mas isto quebraria o intento original então, por hora,
+Tenho usado este ferramental pontualmente para trabalhos profissionais não 
+críticos e reconheço que pode melhorar muito, em especial se abrir mão de usar 
+``Pure Bash`` mas isto quebraria o intento original então, por hora,
 ficará assim mesmo.  
 
-Uma documentação apropriada deverá ser feita num futuro de médio/longo prazo, até lá o jeito é instalar e deixar que o 
-autocomplete ``mse`` lhe guie:  
+Uma documentação apropriada deverá ser feita num futuro de médio/longo prazo, 
+até lá o jeito é instalar e deixar que o autocomplete ``mse`` lhe guie:  
 
 ``` shel
 mse <TAB><TAB>
@@ -94,12 +99,15 @@ mse <TAB><TAB>
 
 Tendo isto em mente, use e aprimore a vontade.  
 
+Se quiser pode conferir o documento [DEPENDENCIES](DEPENDENCIES.md) que traz os
+comandos externos que estão sendo utilizados e onde.
+
 
 &nbsp;
 &nbsp;
 
 
-________________________________________________________________________________________________________________________
+________________________________________________________________________________
 
 ## Licença
 
