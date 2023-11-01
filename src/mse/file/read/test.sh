@@ -3,7 +3,7 @@
 
 
 test_mse_file_read() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
   unset mseTestArrRead
   declare -A mseTestArrRead

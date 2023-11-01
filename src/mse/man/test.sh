@@ -3,7 +3,7 @@
 
 
 test_mse_man() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
   local mseSection
 
   # . src/unittests.sh "mse_man"

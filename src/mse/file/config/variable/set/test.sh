@@ -3,7 +3,7 @@
 
 
 test_mse_file_config_variable_set() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
   local originalDir="${dir}/attachments/test/original"
   local expectedDir="${dir}/attachments/test/expected"
   local rawResult=""

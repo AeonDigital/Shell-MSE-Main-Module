@@ -11,7 +11,7 @@
 # [string] MSE_GLOBAL_MAIN_PATH
 # stores the main path where the project is installed.
 unset MSE_GLOBAL_MAIN_PATH
-declare -g MSE_GLOBAL_MAIN_PATH=$(dirname $(dirname $(readlink -f "${BASH_SOURCE}")))
+declare -g MSE_GLOBAL_MAIN_PATH=$(spath="${PWD}/${BASH_SOURCE}"; echo "${spath%/*/*}")
 
 #
 # [string] MSE_GLOBAL_UTEST_MAIN_PATH
@@ -92,7 +92,7 @@ else
     readarray -d '' mseFullPathTo_MSE_SelectedFunctionScriptFiles < <(find "${msePathTo_MSE_Directory}" -type f -name "src.sh" -print0)
     if [ "${mseFullPathTo_MSE_SelectedFunctionScriptFiles}" != "" ] && [ "${#mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}" != "0" ]; then
       for mseFullPathTo_MSE_FunctionScriptFile in "${mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}"; do
-        mseFullPathTo_MSE_FunctionScriptDirectory=$(dirname "${mseFullPathTo_MSE_FunctionScriptFile}")
+        mseFullPathTo_MSE_FunctionScriptDirectory=$(echo "${mseFullPathTo_MSE_FunctionScriptFile%/*}")
 
         msePartialPath="${mseFullPathTo_MSE_FunctionScriptDirectory/${msePathTo_SRC_Directory}/}"
         mseFunctionName="${msePartialPath//\//_}"
@@ -122,7 +122,7 @@ else
     readarray -d '' mseFullPathTo_MSE_SelectedFunctionScriptFiles < <(find "${msePathTo_MSE_Directory}" -type f -name "test.sh" -print0)
     if [ "${mseFullPathTo_MSE_SelectedFunctionScriptFiles}" != "" ] && [ "${#mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}" != "0" ]; then
       for mseFullPathTo_MSE_FunctionScriptFile in "${mseFullPathTo_MSE_SelectedFunctionScriptFiles[@]}"; do
-        mseFullPathTo_MSE_FunctionScriptDirectory=$(dirname "${mseFullPathTo_MSE_FunctionScriptFile}")
+        mseFullPathTo_MSE_FunctionScriptDirectory=$(echo "${mseFullPathTo_MSE_FunctionScriptFile%/*}")
 
         msePartialPath="${mseFullPathTo_MSE_FunctionScriptDirectory/${msePathTo_SRC_Directory}/}"
         mseFunctionName="${msePartialPath//\//_}"

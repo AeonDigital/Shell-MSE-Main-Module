@@ -3,7 +3,7 @@
 
 
 test_mse_file_get_boundaryLineNumbers() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
   testResult=$(mse_file_get_boundaryLineNumbers "${dir}/attachments/test/sample/.config" "#" "" "" "")
   testExpected="1 58"

@@ -35,7 +35,7 @@ fi
 # [string] MSE_GLOBAL_MAIN_PATH
 # stores the main path where the project is installed.
 unset MSE_GLOBAL_MAIN_PATH
-declare -g MSE_GLOBAL_MAIN_PATH=$(dirname $(dirname $(readlink -f "${BASH_SOURCE}")))
+declare -g MSE_GLOBAL_MAIN_PATH=$(spath="${PWD}/${BASH_SOURCE}"; echo "${spath%/*/*}")
 
 
 

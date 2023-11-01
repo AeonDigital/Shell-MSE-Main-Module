@@ -3,7 +3,7 @@
 
 
 test_mse_file_config_variable_showLine() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
 
   testResult=$(mse_file_config_variable_showLine "${dir}/attachments/test/config.cfg" "" "GIT_LOG_LENGTH")

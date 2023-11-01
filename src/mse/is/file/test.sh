@@ -3,7 +3,7 @@
 
 
 test_mse_is_file() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
   testResult=$(mse_is_file "${dir}/nonexist.sh")
   testExpected="0"

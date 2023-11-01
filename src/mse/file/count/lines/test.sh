@@ -3,7 +3,7 @@
 
 
 test_mse_file_count_lines() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
   testResult=$(mse_file_count_lines "${dir}/src.sh")
   testExpected="24"

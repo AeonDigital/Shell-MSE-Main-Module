@@ -3,7 +3,7 @@
 
 
 test_mse_file_config_variable_showAll() {
-  local dir=$(dirname "${BASH_SOURCE}")
+  local dir=$(echo "${BASH_SOURCE%/*}")
 
   testResult=$(mse_file_config_variable_showAll "${dir}/attachments/test/config.cfg")
   testExpected=$(< "${dir}/attachments/test/showAll_01.cfg")
