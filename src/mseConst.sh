@@ -6,18 +6,17 @@
 
 
 #
-# [string] MSE_MAIN_PATH
+# [string] MSE_GLOBAL_MAIN_PATH
 # Stores the main path where the project is installed.
-if [ -z ${MSE_MAIN_PATH+x} ]; then
-  declare -gr MSE_MAIN_PATH=$(spath=$(getRealPathToCurrentDirectory); echo "${spath%/*}")
+if [ -z ${MSE_GLOBAL_MAIN_PATH+x} ]; then
+  declare -gr MSE_GLOBAL_MAIN_PATH=$(spath=$(getRealPathToCurrentDirectory); echo "${spath%/*}")
 fi
 
 #
 # [string] MSE_GLOBAL_UTEST_MAIN_PATH
 # stores the main path to the root directory of the unit test module.
-unset MSE_GLOBAL_UTEST_MAIN_PATH
 if [ -z ${MSE_GLOBAL_UTEST_MAIN_PATH+x} ]; then
-  declare -gr MSE_GLOBAL_UTEST_MAIN_PATH="${MSE_MAIN_PATH}/Shell-MSE-UnitTest"
+  declare -gr MSE_GLOBAL_UTEST_MAIN_PATH="${MSE_GLOBAL_MAIN_PATH}/Shell-MSE-UnitTest"
 fi
 
 #
