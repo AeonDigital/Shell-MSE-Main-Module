@@ -10,12 +10,14 @@ chmod +x src/module.sh
 
 
 ## TODO
+SEGUIR COM O MANUAL E O 'DEBUGADOR' DE SEÇÕES PARA PEGAR AS INFORMAÇÕES
+DE CONFIGURAÇÃO PARA AS FUNÇÕES.
+
+
 PROCURAR BOA ALTERNATIVA PARA VER MARKDOWNS NA TELA...
 `glow` não é tão bom... ver se ao atualizar resolve os bugs encontrados.
 criar um visualizador de markdown?!?
 
-SEGUIR COM O MANUAL E O 'DEBUGADOR' DE SEÇÕES PARA PEGAR AS INFORMAÇÕES
-DE CONFIGURAÇÃO PARA AS FUNÇÕES.
 
 
 
