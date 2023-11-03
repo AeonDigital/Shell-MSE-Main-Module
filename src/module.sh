@@ -24,24 +24,27 @@ loadMyShellEnvModule() {
 
       local mseThisDir=$(getRealPathToCurrentDirectory)
 
-      declare -a mseArrModuleSrc=()
+      declare -a mseArrModuleSrcDir=()
       declare -a mseArrModuleAttachments=()
 
-      retrieveModuleComponents "${mseThisDir}" "mseArrModuleSrc" "mseArrModuleAttachments"
+      retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments"
       if [ "$?" == "0" ]; then
-        local mseAttachFile
-        for mseAttachFile in "${mseArrModuleAttachments[@]}"; do
-          . "${mseAttachFile}"
-        done
+        retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+        if [ "$?" == "0" ]; then
+          local mseAttachFile
+          for mseAttachFile in "${mseArrModuleAttachments[@]}"; do
+            . "${mseAttachFile}"
+          done
 
-        local mseSrcDir
-        for mseSrcDir in "${mseArrModuleSrc[@]}"; do
-          . "${mseSrcDir}/src.sh"
-        done
+          local mseSrcDir
+          for mseSrcDir in "${mseArrModuleSrcDir[@]}"; do
+            . "${mseSrcDir}/src.sh"
+          done
 
-        mseReturn="0"
-        MSE_GLOBAL_IS_LOADED="1"
-        readonly MSE_GLOBAL_IS_LOADED
+          mseReturn="0"
+          MSE_GLOBAL_IS_LOADED="1"
+          readonly MSE_GLOBAL_IS_LOADED
+        fi
       fi
     fi
   fi
@@ -79,12 +82,41 @@ execMyShellEnvUnitTests() {
   else
     local mseThisDir=$(getRealPathToCurrentDirectory)
 
-    declare -a mseArrModuleSrc=()
+    declare -a mseArrModuleSrcDir=()
     declare -a mseArrModuleAttachments=()
 
-    retrieveModuleComponents "${mseThisDir}" "mseArrModuleSrc" "mseArrModuleAttachments"
-    echo "iniciando testes"
-    #. "${MSE_GLOBAL_UTEST_MAIN_PATH}/src/module.sh"
+    retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+    if [ "$?" == "0" ]; then
+      retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+      if [ "$?" == "0" ]; then
+        . "${MSE_GLOBAL_UTEST_MAIN_PATH}/src/module.sh"
+
+        MSE_MD_UTEST_PATH_TO_DEPENDENCIES=("${mseArrModuleAttachments[@]}")
+
+
+        local mseSrcDir
+        local mseSrcFile
+        local msePartialPath
+        for mseSrcDir in "${mseArrModuleSrcDir[@]}"; do
+          msePartialPath="${mseSrcDir/${mseThisDir}\//}"
+          mseFunctionName="${msePartialPath//\//_}"
+
+          if [[ ! "${mseFunctionName}" == attach_* ]]; then
+            if [[ "${mseFunctionName}" == *__main ]]; then
+              mseFunctionName="${mseFunctionName/__main/}"
+            fi
+
+            if [ -f "${mseSrcDir}/test.sh" ]; then
+              MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
+              MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
+            fi
+          fi
+        done
+
+
+        mse_md_utest_execute "${1}" "${2}"
+      fi
+    fi
   fi
 }
 

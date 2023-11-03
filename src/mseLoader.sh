@@ -84,19 +84,19 @@ getFullPathToComponentFiles() {
       readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/src.sh" -print0)
     ;;
     "const")
-      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/attachments/const.sh" -print0)
+      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/const.sh" -print0)
     ;;
     "vars")
-      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/attachments/vars.sh" -print0)
+      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/vars.sh" -print0)
     ;;
     "functions")
-      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/attachments/functions/*.sh" -not -name "const.sh" -and -not -name "vars.sh" -and -not -name "src.sh" -and -not -name "test.sh" -not -wholename "*/labels/*" -print0)
+      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/functions/*.sh" -not -name "src.sh" -and -not -name "const.sh" -and -not -name "vars.sh" -and -not -name "test.sh" -not -wholename "*/labels/*" -print0)
     ;;
     "labels")
-      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/attachments/labels/${MSE_GLOBAL_MODULES_USE_LOCALE}.sh" -print0)
+      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/labels/${MSE_GLOBAL_MODULES_USE_LOCALE}.sh" -print0)
     ;;
     "man")
-      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md" -print0)
+      readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md" -print0)
     ;;
     "test")
       readarray -d '' mseTmpFilePaths < <(find "${mseTargetDirectory}" -type f -path "*/test.sh" -print0)
@@ -141,27 +141,25 @@ retrieveModuleComponentsInDirectory() {
     mseReturn="1"
     mseMessage="Target component directory does not exists [ "${mseTargetDirectory}" ]"
   else
+
+    # Retrieve attachments
+    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "const"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "vars"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "functions"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "labels"
+
+    # Retrieve src
     unset mseTmpArrSrc
     declare -a mseTmpArrSrc=()
-
     getFullPathToComponentFiles "${mseTargetDirectory}" "mseTmpArrSrc" "src"
-
 
     local mseI
     local mseFile
-    local mseSrcDir
     declare -n mseArrSrc="${2}"
 
     for mseI in "${!mseTmpArrSrc[@]}"; do
       mseFile="${mseTmpArrSrc[${mseI}]}"
-      mseSrcDir="${mseFile%/*}"
-
-      getFullPathToComponentFiles "${mseSrcDir}" "${3}" "const"
-      getFullPathToComponentFiles "${mseSrcDir}" "${3}" "vars"
-      getFullPathToComponentFiles "${mseSrcDir}" "${3}" "functions"
-      getFullPathToComponentFiles "${mseSrcDir}" "${3}" "labels"
-
-      mseArrSrc+=("${mseSrcDir}")
+      mseArrSrc+=("${mseFile%/*}")
     done
   fi
 
@@ -171,38 +169,4 @@ retrieveModuleComponentsInDirectory() {
   fi
 
   return "${mseReturn}"
-}
-
-
-
-
-
-#
-# Scans the module directory indicated by all the components it brings with it.
-#
-# Populate the indicated arrays with the information pertinent to
-# each type of data.
-#
-# @param string $1
-# Full path to the directory of a module.
-#
-# @param string $2
-# Name of the 'src' array to be populated.
-#
-# This array will be populated with the path of the directory in which there
-# is an 'src.sh' file referring to a function provided by the module.
-#
-# @param string $3
-# Name of the 'attachments' array to be populated.
-#
-# @return void
-retrieveModuleComponents() {
-  # Get all attachments available
-  if [ -d "${1}/attach" ]; then
-    retrieveModuleComponentsInDirectory "${1}/attach" "${2}" "${3}"
-  fi
-
-  # Load the module itself
-  retrieveModuleComponentsInDirectory "${1}/mse" "${2}" "${3}"
-  return "$?"
 }
