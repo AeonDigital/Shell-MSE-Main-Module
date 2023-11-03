@@ -86,13 +86,14 @@ execMyShellEnvUnitTests() {
     declare -a mseArrModuleAttachments=()
 
     retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+    printf "%s\n" "${mseArrModuleAttachments[@]}"
+    printf "%s\n" "${mseArrModuleSrcDir[@]}"
     if [ "$?" == "0" ]; then
       retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments"
       if [ "$?" == "0" ]; then
         . "${MSE_GLOBAL_UTEST_MAIN_PATH}/src/module.sh"
 
         MSE_MD_UTEST_PATH_TO_DEPENDENCIES=("${mseArrModuleAttachments[@]}")
-
 
         local mseSrcDir
         local mseSrcFile
@@ -101,18 +102,18 @@ execMyShellEnvUnitTests() {
           msePartialPath="${mseSrcDir/${mseThisDir}\//}"
           mseFunctionName="${msePartialPath//\//_}"
 
-          if [[ ! "${mseFunctionName}" == attach_* ]]; then
-            if [[ "${mseFunctionName}" == *__main ]]; then
-              mseFunctionName="${mseFunctionName/__main/}"
-            fi
+          if [[ "${mseFunctionName}" == attach_* ]]; then
+            mseFunctionName="${mseFunctionName/attach_/mse_}"
+          fi
+          if [[ "${mseFunctionName}" == *__main ]]; then
+            mseFunctionName="${mseFunctionName/__main/}"
+          fi
 
-            if [ -f "${mseSrcDir}/test.sh" ]; then
-              MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
-              MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
-            fi
+          if [ -f "${mseSrcDir}/test.sh" ]; then
+            MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
+            MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
           fi
         done
-
 
         mse_md_utest_execute "${1}" "${2}"
       fi

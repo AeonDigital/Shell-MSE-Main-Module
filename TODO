@@ -1,9 +1,11 @@
-#
-# Rodar testes:
+# Load
+chmod +x src/module.sh
+. src/module.sh
 
-chmod +x src/unittests.sh
-./src/unittests.sh
-./src/unittests.sh "mse_file_read"
+
+# Run tests
+./src/module.sh test
+./src/module.sh test "mse_file_read"
 
 
 
