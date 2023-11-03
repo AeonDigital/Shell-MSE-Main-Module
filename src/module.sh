@@ -9,6 +9,8 @@
 
 
 
+
+
 #
 # Launches the resources made available by this module
 # for your shell session.
@@ -27,20 +29,13 @@ loadMyShellEnvModule() {
       declare -a mseArrModuleSrcDir=()
       declare -a mseArrModuleAttachments=()
 
-      retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+      retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments" "1"
       if [ "$?" == "0" ]; then
-        retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+        declare -a mseArrModuleSrcDir=()
+        declare -a mseArrModuleAttachments=()
+
+        retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments" "1"
         if [ "$?" == "0" ]; then
-          local mseAttachFile
-          for mseAttachFile in "${mseArrModuleAttachments[@]}"; do
-            . "${mseAttachFile}"
-          done
-
-          local mseSrcDir
-          for mseSrcDir in "${mseArrModuleSrcDir[@]}"; do
-            . "${mseSrcDir}/src.sh"
-          done
-
           mseReturn="0"
           MSE_GLOBAL_IS_LOADED="1"
           readonly MSE_GLOBAL_IS_LOADED
@@ -85,11 +80,9 @@ execMyShellEnvUnitTests() {
     declare -a mseArrModuleSrcDir=()
     declare -a mseArrModuleAttachments=()
 
-    retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments"
-    printf "%s\n" "${mseArrModuleAttachments[@]}"
-    printf "%s\n" "${mseArrModuleSrcDir[@]}"
+    retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments" "0"
     if [ "$?" == "0" ]; then
-      retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments"
+      retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments" "0"
       if [ "$?" == "0" ]; then
         . "${MSE_GLOBAL_UTEST_MAIN_PATH}/src/module.sh"
 
@@ -120,6 +113,7 @@ execMyShellEnvUnitTests() {
     fi
   fi
 }
+
 
 
 

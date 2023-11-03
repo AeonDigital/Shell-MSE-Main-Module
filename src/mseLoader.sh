@@ -131,22 +131,28 @@ getFullPathToComponentFiles() {
 # @param string $3
 # Name of the 'attachments' array to be populated.
 #
+# @param bool $4
+# Set to '1' to load components immediately.
+#
 # @return void
 retrieveModuleComponentsInDirectory() {
   local mseReturn="0"
   local mseMessage=""
   local mseTargetDirectory="${1}"
+  declare -n mseArrTmpModuleSrc="${2}"
+  declare -n mseArrTmpModuleAttachments="${3}"
+  local mseLoadNow="${4}"
+
 
   if [ ! -d "${mseTargetDirectory}" ]; then
     mseReturn="1"
     mseMessage="Target component directory does not exists [ "${mseTargetDirectory}" ]"
   else
-
     # Retrieve attachments
-    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "const"
-    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "vars"
-    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "functions"
-    getFullPathToComponentFiles "${mseTargetDirectory}" "${3}" "labels"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "mseArrTmpModuleAttachments" "const"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "mseArrTmpModuleAttachments" "vars"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "mseArrTmpModuleAttachments" "functions"
+    getFullPathToComponentFiles "${mseTargetDirectory}" "mseArrTmpModuleAttachments" "labels"
 
     # Retrieve src
     unset mseTmpArrSrc
@@ -155,12 +161,24 @@ retrieveModuleComponentsInDirectory() {
 
     local mseI
     local mseFile
-    declare -n mseArrSrc="${2}"
 
     for mseI in "${!mseTmpArrSrc[@]}"; do
       mseFile="${mseTmpArrSrc[${mseI}]}"
-      mseArrSrc+=("${mseFile%/*}")
+      mseArrTmpModuleSrc+=("${mseFile%/*}")
     done
+
+
+    if [ "${mseLoadNow}" == "1" ]; then
+      local mseAttachFile
+      for mseAttachFile in "${mseArrTmpModuleAttachments[@]}"; do
+        . "${mseAttachFile}"
+      done
+
+      local mseSrcDir
+      for mseSrcDir in "${mseArrTmpModuleSrc[@]}"; do
+        . "${mseSrcDir}/src.sh"
+      done
+    fi
   fi
 
 
