@@ -3,6 +3,12 @@
 Activates a spinner that aims to give the user the perception that a process is 
 in progress. 
 
+
+
+&nbsp;
+
+# Description
+
 This function activates the `+m` setting of bash that causes all processes to 
 run detached.
 

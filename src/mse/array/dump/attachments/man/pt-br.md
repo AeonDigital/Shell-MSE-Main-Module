@@ -3,6 +3,12 @@
 Processa as chaves e valores do array alvo e retorna uma coleção de linhas de 
 dados capaz de remontá-lo.
 
+
+
+&nbsp;
+
+# Description
+
 Em cada linha de dados estará presente um único valor do array seja ele uma 
 matriz comum ou um do tipo associativo.
 

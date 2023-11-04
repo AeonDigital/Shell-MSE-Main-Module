@@ -3,6 +3,12 @@
 Ativa um spinner que visa dar ao usuário a percepção de que um processo está 
 em andamento. 
 
+
+
+&nbsp;
+
+# Description
+
 Esta função ativa a configuração `+m` do bash que faz com que todos os 
 processos rodem de forma desanexados.
 

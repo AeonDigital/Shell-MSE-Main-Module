@@ -2,6 +2,12 @@
 
 Splits the passed string by separating it into rows.
 
+
+
+&nbsp;
+
+# Description
+
 You can set a maximum number of characters per line.
 Words that exceed the line limit will form a new line within the set limit.
 If a word is too long to fit on a line, it will be on a line of its own, which 

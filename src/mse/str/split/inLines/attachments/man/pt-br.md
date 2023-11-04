@@ -2,6 +2,12 @@
 
 Efetua um split na string passada separando-a em linhas.
 
+
+
+&nbsp;
+
+# Description
+
 Você pode definir um número máximo de caracteres por linha.
 Palavras que excedam o limite da linha formarão uma nova linha dentro do limite 
 definido.

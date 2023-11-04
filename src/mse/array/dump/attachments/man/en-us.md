@@ -3,6 +3,12 @@
 Processes the keys and values of the target array and returns a collection of 
 lines of data capable of reassembling it.
 
+
+
+&nbsp;
+
+# Description
+
 In each line of data, a single value of the array will be present, either a 
 common array or an associative type.
 
