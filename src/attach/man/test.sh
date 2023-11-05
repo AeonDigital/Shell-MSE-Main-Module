@@ -8,92 +8,59 @@ test_mse_man() {
 
 
   # 01
-  test_mse_man_reset_data
+  #test_mse_man_reset_data
 
   # 02
-  test_mse_man_normalize_section_name
+  #test_mse_man_normalize_section_name
 
   # 03
-  test_mse_man_extract_main_sections_data
+  #test_mse_man_extract_main_sections_data
+
+  # 04
+  test_mse_man_process_section_generic
 
 
-  # - mse_man_process_section_generic  << Seguir daqui!
-  # - mse_man_process_parameters
-  # - mse_man_process_section_data
+  if [ 1 == 2 ]; then
+    echo " "
+    # - mse_man_process_parameters
+    # - mse_man_process_section_data
 
-
-  # . src/unittests.sh "mse_man"
-  # mse_man "${dir}/attachments/man/pt-br.md" "parameters" "aka hint"
-
-
-
-
-
-
+    # . src/unittests.sh "mse_man"
+    # mse_man "${dir}/attachments/man/pt-br.md" "parameters" "aka hint"
 
 
 
-  # #
-  # # Prepare data section with parameters informations
-  # mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+    # #
+    # # Prepare data section with parameters informations
+    # mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
 
-  # testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
-  # testExpected="4"
-
-  # mse_utest_assert_equals
-
-
-  # declare -a arrExpected=("title" "summary" "description" "subsections")
-  # testExpected="1"
-  # for mseSection in "${arrExpected[@]}"; do
-  #   testResult="0"
-  #   if [ ! -z "${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]+x}" ]; then
-  #     testResult="1"
-  #   fi
-  #   mse_utest_assert_equals
-  # done
+    # for mseI in "${!MSE_MAN_SECTIONS_ORDER[@]}"; do
+    #   mseSection="${MSE_MAN_SECTIONS_ORDER[${mseI}]}"
+    #   echo "${mseSection}"
+    #   echo "${MSE_MAN_SECTIONS_DATA[${mseSection}]}"
+    #   echo "-----------------------"
+    # done
 
 
 
+    # #
+    # # Get main data sections
+    # mse_man_process_sections_data
 
-  # #
-  # # Prepare data section with parameters informations
-  # mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+    # testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
+    # testExpected="9"
 
-  # for mseI in "${!MSE_MAN_SECTIONS_ORDER[@]}"; do
-  #   mseSection="${MSE_MAN_SECTIONS_ORDER[${mseI}]}"
-  #   echo "${mseSection}"
-  #   echo "${MSE_MAN_SECTIONS_DATA[${mseSection}]}"
-  #   echo "-----------------------"
-  # done
+    # mse_utest_assert_equals
 
 
+    # testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
+    # testExpected="9"
+
+    # mse_utest_assert_equals
 
 
-
-
-
-
-
-
-
-  # #
-  # # Get main data sections
-  # mse_man_process_sections_data
-
-  # testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
-  # testExpected="9"
-
-  # mse_utest_assert_equals
-
-
-  # testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
-  # testExpected="9"
-
-  # mse_utest_assert_equals
-
-
-  # echo "${MSE_MAN_SECTIONS_DATA["parameters_subsections"]}"
+    # echo "${MSE_MAN_SECTIONS_DATA["parameters_subsections"]}"
+  fi
 }
 
 
@@ -228,6 +195,56 @@ test_mse_man_extract_main_sections_data() {
   for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
     testResult="${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]}"
     testExpected=$(< "${dir}/attachments/test/expected/main_sections_data/${mseSection}.txt")
+
+    mse_utest_assert_string_multiline
+  done
+}
+
+
+
+test_mse_man_process_section_generic() {
+  mse_man_reset_data
+  local dir=$(echo "${BASH_SOURCE%/*}")
+
+  mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+
+  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
+  testExpected="7"
+
+  mse_utest_assert_equals
+
+
+
+
+
+  mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+
+  testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
+  testExpected="4"
+
+  mse_utest_assert_equals
+
+
+  declare -a arrExpected=("title" "summary" "description" "subsections")
+  local mseSection
+
+  testExpected="1"
+  for mseSection in "${arrExpected[@]}"; do
+    testResult="0"
+    if [ ! -z "${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]+x}" ]; then
+      testResult="1"
+    fi
+    mse_utest_assert_equals
+  done
+
+
+
+
+
+
+  for mseSection in "${!MSE_MAN_GENERIC_SECTION_DATA[@]}"; do
+    testResult="${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]}"
+    testExpected=$(< "${dir}/attachments/test/expected/process_section_generic/parameters_${mseSection}.txt")
 
     mse_utest_assert_string_multiline
   done

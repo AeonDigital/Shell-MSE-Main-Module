@@ -1,0 +1,4 @@
+Isto comumente não terá qualquer conteúdo pois na imensa parte das funções não
+é preciso expor alguma informação extra aqui que não possa estar na descrição
+da própria função, relacionada diretamente a algum parâmetro ou em uma seção
+própria para o mesmo.
