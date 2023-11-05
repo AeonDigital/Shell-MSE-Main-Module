@@ -8,20 +8,20 @@ test_mse_man() {
 
 
   # 01
-  #test_mse_man_reset_data
+  test_mse_man_reset_data
 
   # 02
-  #test_mse_man_normalize_section_name
+  test_mse_man_normalize_section_name
 
   # 03
-  #test_mse_man_extract_main_sections_data
+  test_mse_man_extract_main_sections_data
 
   # 04
   test_mse_man_process_section_generic
 
 
   if [ 1 == 2 ]; then
-    echo " "
+    echo "SEGUIR DAQUI!!!"
     # - mse_man_process_parameters
     # - mse_man_process_section_data
 
