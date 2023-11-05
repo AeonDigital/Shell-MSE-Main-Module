@@ -1,6 +1,7 @@
 # Parameters
 
 Descrição prévia sobre os parâmetros a serem usados.
+Eventualmente esta descrição pode ser maior que o comum.
 
 Isto comumente não terá qualquer conteúdo pois na imensa parte das funções não 
 é preciso expor alguma informação extra aqui que não possa estar na descrição
