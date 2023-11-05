@@ -8,10 +8,10 @@ test_mse_man() {
 
 
   # 01
-  #test_mse_man_reset_data
+  test_mse_man_reset_data
 
   # 02
-  #test_mse_man_normalize_section_name
+  test_mse_man_normalize_section_name
 
   # 03
   test_mse_man_extract_main_sections_data
@@ -154,72 +154,72 @@ test_mse_man_extract_main_sections_data() {
 
   mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
 
-  # testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
-  # testExpected="7"
+  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
+  testExpected="7"
 
-  # mse_utest_assert_equals
-
-
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[0]}"
-  # testExpected="synopsis"
-
-  # mse_utest_assert_equals
+  mse_utest_assert_equals
 
 
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[1]}"
-  # testExpected="description"
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[0]}"
+  testExpected="synopsis"
 
-  # mse_utest_assert_equals
-
-
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[2]}"
-  # testExpected="parameters"
-
-  # mse_utest_assert_equals
+  mse_utest_assert_equals
 
 
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[3]}"
-  # testExpected="examples"
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[1]}"
+  testExpected="description"
 
-  # mse_utest_assert_equals
-
-
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[4]}"
-  # testExpected="returns"
-
-  # mse_utest_assert_equals
+  mse_utest_assert_equals
 
 
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[5]}"
-  # testExpected="dependencies"
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[2]}"
+  testExpected="parameters"
 
-  # mse_utest_assert_equals
-
-
-  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[6]}"
-  # testExpected="extra_section"
-
-  # mse_utest_assert_equals
+  mse_utest_assert_equals
 
 
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[3]}"
+  testExpected="examples"
+
+  mse_utest_assert_equals
+
+
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[4]}"
+  testExpected="returns"
+
+  mse_utest_assert_equals
+
+
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[5]}"
+  testExpected="dependencies"
+
+  mse_utest_assert_equals
+
+
+  testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[6]}"
+  testExpected="extra_section"
+
+  mse_utest_assert_equals
 
 
 
-  # testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
-  # testExpected="7"
-
-  # mse_utest_assert_equals
 
 
-  # testExpected="1"
-  # local mseSection
-  # for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
-  #   testResult="0"
-  #   if [ ! -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]+x}" ]; then
-  #     testResult="1"
-  #   fi
-  #   mse_utest_assert_equals
-  # done
+  testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
+  testExpected="7"
+
+  mse_utest_assert_equals
+
+
+  testExpected="1"
+  local mseSection
+  for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
+    testResult="0"
+    if [ ! -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]+x}" ]; then
+      testResult="1"
+    fi
+    mse_utest_assert_equals
+  done
 
 
 
