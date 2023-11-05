@@ -86,7 +86,7 @@ execMyShellEnvUnitTests() {
       if [ "$?" == "0" ]; then
         . "${MSE_GLOBAL_UTEST_MAIN_PATH}/src/module.sh"
 
-        MSE_MD_UTEST_PATH_TO_DEPENDENCIES=("${mseArrModuleAttachments[@]}")
+        MSE_UTEST_PATH_TO_DEPENDENCIES=("${mseArrModuleAttachments[@]}")
 
         local mseSrcDir
         local mseSrcFile
@@ -103,12 +103,12 @@ execMyShellEnvUnitTests() {
           fi
 
           if [ -f "${mseSrcDir}/test.sh" ]; then
-            MSE_MD_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
-            MSE_MD_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
+            MSE_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
+            MSE_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
           fi
         done
 
-        mse_md_utest_execute "${1}" "${2}"
+        mse_utest_execute "${1}" "${2}"
       fi
     fi
   fi

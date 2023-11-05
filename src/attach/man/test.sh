@@ -229,6 +229,6 @@ test_mse_man_extract_main_sections_data() {
     testResult="${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]}"
     testExpected=$(< "${dir}/attachments/test/expected/main_sections_data/${mseSection}.txt")
 
-    mse_md_utest_assertMultilineText
+    mse_utest_assert_string_multiline
   done
 }

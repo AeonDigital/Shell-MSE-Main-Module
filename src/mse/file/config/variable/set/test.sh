@@ -296,6 +296,6 @@ test_mse_file_config_variable_set() {
   testExpected+=("MSE_UTEST[\"fourth\"]=\"four\"")
   testExpected+=("# [[END-MSE_UTEST]]")
 
-  mse_md_utest_assertArrays "a" "0"
+  mse_utest_assert_array "a" "0"
   unset tmpRawExpectedLines
 }
