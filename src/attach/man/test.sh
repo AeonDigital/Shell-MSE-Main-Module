@@ -17,7 +17,7 @@ test_mse_man() {
   test_mse_man_extract_main_sections_data
 
 
-  # - mse_man_process_section_generic
+  # - mse_man_process_section_generic  << Seguir daqui!
   # - mse_man_process_parameters
   # - mse_man_process_section_data
 

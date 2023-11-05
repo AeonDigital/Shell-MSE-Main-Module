@@ -6,3 +6,104 @@ Isto comumente não terá qualquer conteúdo pois na imensa parte das funções 
 é preciso expor alguma informação extra aqui que não possa estar na descrição
 da própria função, relacionada diretamente a algum parâmetro ou em uma seção 
 própria para o mesmo.
+
+
+## !bool alpha
+
+- aka       : -a --alpha
+- default   : MSE_NULL
+- hint      :  
+  Definição simples de um parametro booleano que também é `nullable`.
+
+
+ 
+
+## int beta
+
+- aka       : -b --beta
+- default   : 0
+- min       : -10
+- max       : 10
+- hint      :
+  Parametro que recebe um valor inteiro entre -10 e 10.
+
+Em caso de valor vazio ou inválido, usará `0` como o valor padrão.
+
+
+ 
+
+## int gama
+
+- aka       : -g --gama
+- options   : 
+  - 0 : c c++
+  - 1 : rust
+  - 2 : cobol
+  - 3 : clipper
+- hint      :
+  Parametro que possui uma lista fechada de opções válidas.
+
+Internamente apenas o valor `chave` será usado mas quando usar o autocomplete 
+do MSE o usuário pode selecionar o valor correspondente usando um dos labels
+associados ao mesmo.
+
+Neste caso a lista é avaliada de forma case-insensitive, ou seja:
+- C = c
+- Rust = rust = RUST
+
+
+ 
+
+## char delta
+
+- aka       : -d --delta
+- options cs:
+    - o: output
+    - O: open
+- hint      :
+  Outra lista fechada de opções válidas.
+
+Neste caso ocorre avaliação case-sensitive dos valores digitados pelo usuário e
+ele precisa digitar um valor que case precisamente com um valor `chave` ou com 
+um dos `labels` correspondentes.
+
+
+
+ 
+
+## string epsilon
+
+- aka       : -e --epsilon
+- default   : synopsis
+- list      :
+  - synopsis
+  - description
+  - parameters
+  - returns
+  - example
+  - dependencies
+- hint      :
+  Define uma lista fechada de opções dentre as quais o usuário pode selecionar 
+  um ou mais itens (separados por espaços).
+
+Se desejar, o usuário pode selecionar todos os itens passando como valor o 
+caracter `.`.
+
+
+
+ 
+
+## string zeta
+
+- aka       : -z --zeta
+- list op   :
+  - add
+  - sub
+  - mul
+  - div
+- hint      :
+  Define uma lista aberta de opções dentre as quais o usuário pode selecionar 
+  um ou mais itens, ou ainda incluir opções próprias.
+
+Se desejar, o usuário pode selecionar todos os itens oferecidos pela lista e 
+ainda adicionar o seu próprio usando por exemplo: `. mod sqrt`
