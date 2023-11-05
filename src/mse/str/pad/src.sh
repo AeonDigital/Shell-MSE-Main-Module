@@ -3,7 +3,8 @@
 
 
 mse_str_pad() {
-  local mseNStr=""
+  local mseReturn=""
+
   local mseOStr="${1}"
   local msePadChar="${2}"
   local mseTotalLength="${3}"
@@ -22,28 +23,28 @@ mse_str_pad() {
   LC_CTYPE=""
 
   if [ "${#msePadChar}" == "1" ] && [ "${mseTotalLength}" -gt "0" ] && [ "${msePadPosition}" != "" ]; then
-    mseNStr="${mseOStr}"
+    mseReturn="${mseOStr}"
 
-    if [ "${mseTotalLength}" -gt "${#mseNStr}" ]; then
-      local mseStringLength="${#mseNStr}"
+    if [ "${mseTotalLength}" -gt "${#mseReturn}" ]; then
+      local mseStringLength="${#mseReturn}"
       local msePadLeft="0"
       local msePadStr=""
 
-      ((msePadLeft=mseTotalLength-mseStringLength))
+      ((msePadLeft = mseTotalLength - mseStringLength))
       local i=""
       for ((i=0; i<msePadLeft; i++)) do
         msePadStr+="${msePadChar}"
       done
 
       if [ "${msePadPosition}" == "l" ]; then
-        mseNStr="${msePadStr}${mseNStr}"
+        mseReturn="${msePadStr}${mseReturn}"
       elif [ "${msePadPosition}" == "r" ]; then
-        mseNStr="${mseNStr}${msePadStr}"
+        mseReturn="${mseReturn}${msePadStr}"
       fi
     fi
   fi
 
   LC_CTYPE="${oLC_CTYPE}"
 
-  echo -n "${mseNStr}"
+  echo -n "${mseReturn}"
 }

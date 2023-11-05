@@ -1,0 +1,5 @@
+# Extra section
+
+Caso as seções anteriores não sejam suficientes para expressar tudo o que você 
+precisa expor sobre sua função é possível definir seções extras para adicionar 
+conteúdo que julgar necessário.

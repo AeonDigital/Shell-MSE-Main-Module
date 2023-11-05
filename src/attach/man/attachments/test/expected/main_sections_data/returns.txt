@@ -1,0 +1,8 @@
+# Returns string|assoc
+
+Normalmente apenas definir o tipo de retorno é suficiente mas se necessário é 
+possível agregar informações neste espaço explicando o que é esperado de 
+retorno conforme o tipo de processamento definido nos parametros.
+
+É especialmente útil para casos de retornos múltiplos ou quando `void` efetua 
+uma ação que não é `printavel`.

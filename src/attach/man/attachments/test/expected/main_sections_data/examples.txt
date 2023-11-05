@@ -1,0 +1,12 @@
+# Examples
+
+Nesta seção podemos definir uma demonstração do uso de nossa função. É
+interessante para casos complexos ou explicações que a demonstração prática é
+mais rápida que a leitura do próprio manual.
+
+``` sh
+  # Example 01
+  > mse_my_function -b 5 --gama RUST --delta output --zeta ". sqrt"
+  # Returns :
+  > I like RUST especially to do the operations : add sub mul div and sqrt.
+```

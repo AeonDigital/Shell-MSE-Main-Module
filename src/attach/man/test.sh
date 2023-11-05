@@ -3,104 +3,62 @@
 
 
 test_mse_man() {
-  local dir=$(echo "${BASH_SOURCE%/*}")
+
   local mseSection
+
+
+  # 01
+  #test_mse_man_reset_data
+
+  # 02
+  #test_mse_man_normalize_section_name
+
+  # 03
+  test_mse_man_extract_main_sections_data
+
+
+  # - mse_man_process_section_generic
+  # - mse_man_process_parameters
+  # - mse_man_process_section_data
+
 
   # . src/unittests.sh "mse_man"
   # mse_man "${dir}/attachments/man/pt-br.md" "parameters" "aka hint"
 
 
-  #
-  # Reset all data
-  mse_man_reset_data
-
-  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
-  testExpected="0"
-
-  mse_md_utest_assertEqual
-
-
-  testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
-  testExpected="0"
-
-  mse_md_utest_assertEqual
-
-
-  testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
-  testExpected="0"
-
-  mse_md_utest_assertEqual
-
-
-  testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
-  testExpected="0"
-
-  mse_md_utest_assertEqual
-
-
-  testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
-  testExpected="0"
-
-  mse_md_utest_assertEqual
 
 
 
 
 
-  #
-  # Get main data sections
-  mse_man_extract_main_sections_data "${dir}/attachments/man/pt-br.md" ". another"
-
-  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
-  testExpected="3"
-
-  mse_md_utest_assertEqual
 
 
-  testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
-  testExpected="3"
+  # #
+  # # Prepare data section with parameters informations
+  # mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
 
-  mse_md_utest_assertEqual
+  # testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
+  # testExpected="4"
+
+  # mse_md_utest_assertEqual
 
 
-  testExpected="1"
-  for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
-    testResult="0"
-    if [ ! -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]+x}" ]; then
-      testResult="1"
-    fi
-    mse_md_utest_assertEqual
-  done
+  # declare -a arrExpected=("title" "summary" "description" "subsections")
+  # testExpected="1"
+  # for mseSection in "${arrExpected[@]}"; do
+  #   testResult="0"
+  #   if [ ! -z "${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]+x}" ]; then
+  #     testResult="1"
+  #   fi
+  #   mse_md_utest_assertEqual
+  # done
 
 
 
 
-  #
-  # Prepare data section with parameters informations
-  mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
-
-  testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
-  testExpected="4"
-
-  mse_md_utest_assertEqual
-
-
-  declare -a arrExpected=("title" "summary" "description" "subsections")
-  testExpected="1"
-  for mseSection in "${arrExpected[@]}"; do
-    testResult="0"
-    if [ ! -z "${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]+x}" ]; then
-      testResult="1"
-    fi
-    mse_md_utest_assertEqual
-  done
-
-
-
-
-  #
-  # Prepare data section with parameters informations
-  mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+  # #
+  # # Prepare data section with parameters informations
+  # mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
 
   # for mseI in "${!MSE_MAN_SECTIONS_ORDER[@]}"; do
   #   mseSection="${MSE_MAN_SECTIONS_ORDER[${mseI}]}"
@@ -136,4 +94,141 @@ test_mse_man() {
 
 
   # echo "${MSE_MAN_SECTIONS_DATA["parameters_subsections"]}"
+}
+
+
+
+
+test_mse_man_reset_data() {
+  mse_man_reset_data
+
+  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+
+  testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+
+  testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+
+  testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+
+
+  testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
+  testExpected="0"
+
+  mse_md_utest_assertEqual
+}
+
+
+
+test_mse_man_normalize_section_name() {
+  testResult=$(mse_man_normalize_section_name "# Parameters")
+  testExpected="parameters"
+
+  mse_md_utest_assertEqual
+
+
+  testResult=$(mse_man_normalize_section_name "### Seção com Acentuação e espaços")
+  testExpected="secao_com_acentuacao_e_espacos"
+
+  mse_md_utest_assertEqual
+}
+
+
+
+test_mse_man_extract_main_sections_data() {
+  local dir=$(echo "${BASH_SOURCE%/*}")
+
+  mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+
+  # testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
+  # testExpected="7"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[0]}"
+  # testExpected="synopsis"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[1]}"
+  # testExpected="description"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[2]}"
+  # testExpected="parameters"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[3]}"
+  # testExpected="examples"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[4]}"
+  # testExpected="returns"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[5]}"
+  # testExpected="dependencies"
+
+  # mse_md_utest_assertEqual
+
+
+  # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[6]}"
+  # testExpected="extra_section"
+
+  # mse_md_utest_assertEqual
+
+
+
+
+
+  # testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
+  # testExpected="7"
+
+  # mse_md_utest_assertEqual
+
+
+  # testExpected="1"
+  # local mseSection
+  # for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
+  #   testResult="0"
+  #   if [ ! -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]+x}" ]; then
+  #     testResult="1"
+  #   fi
+  #   mse_md_utest_assertEqual
+  # done
+
+
+
+
+
+  for mseSection in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
+    testResult="${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]}"
+    testExpected=$(< "${dir}/attachments/test/expected/main_sections_data/${mseSection}.txt")
+
+    mse_md_utest_assertMultilineText
+  done
 }

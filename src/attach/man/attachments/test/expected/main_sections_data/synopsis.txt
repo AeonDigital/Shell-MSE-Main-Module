@@ -1,0 +1,3 @@
+# Synopsis
+
+Manual para testes da função `mse_man`.

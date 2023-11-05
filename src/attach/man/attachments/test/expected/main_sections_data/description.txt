@@ -1,0 +1,4 @@
+# Description
+
+Na sequencia vários parâmetros serão definidos apenas para fins de teste e não
+devem ser observados do ponto de vista lógico.
