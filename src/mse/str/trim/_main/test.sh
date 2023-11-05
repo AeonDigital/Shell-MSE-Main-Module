@@ -8,7 +8,7 @@ test_mse_str_trim() {
   testResult="===${testTmp}==="
   testExpected="===texto   aqui==="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   declare -a mseTmpArr=("first" "second" "third")
@@ -17,5 +17,5 @@ test_mse_str_trim() {
   testResult="===${testTmp}==="
   testExpected="===second third==="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

@@ -6,5 +6,5 @@ test_mse_str_upper() {
   testResult=$(mse_str_upper "convert To Upper Case")
   testExpected="CONVERT TO UPPER CASE"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

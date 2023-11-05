@@ -6,5 +6,5 @@ test_mse_str_lower() {
   testResult=$(mse_str_lower "CONVERT To Lower Case")
   testExpected="convert to lower case"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

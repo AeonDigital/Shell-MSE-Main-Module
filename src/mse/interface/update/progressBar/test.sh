@@ -6,5 +6,5 @@ test_mse_interface_update_progressBar() {
   testResult="-"
   testExpected="-"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

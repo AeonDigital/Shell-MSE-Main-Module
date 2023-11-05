@@ -11,20 +11,20 @@ test_mse_array_has_index() {
 
   testResult=$(mse_array_has_index "2" "testArray")
   testExpected="0"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_index "3" "testArray")
   testExpected="0"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_index "0" "testArray")
   testExpected="1"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_index "1" "testArray")
   testExpected="1"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

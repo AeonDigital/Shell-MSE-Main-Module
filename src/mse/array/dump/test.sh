@@ -18,7 +18,7 @@ test_mse_array_dump() {
   testExpected+="testArray[\"3\"]=\"and four\""
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -37,7 +37,7 @@ test_mse_array_dump() {
   testExpected+="testArray[\"3\"]=\"and four\""
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -56,7 +56,7 @@ test_mse_array_dump() {
   testExpected+="useName[\"3\"]=\"and four\""
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -75,7 +75,7 @@ test_mse_array_dump() {
   testExpected+="# useName[\"3\"]=\"and four\""
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -102,5 +102,5 @@ test_mse_array_dump() {
   testExpected+=("testArray[\"tree\"]=\"tres\"")
   testExpected+=("testArray[\"and four\"]=\"e quatro\"")
 
-  mse_md_utest_assertEqual "A"
+  mse_utest_assert_equals "A"
 }

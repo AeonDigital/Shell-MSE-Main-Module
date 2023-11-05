@@ -9,23 +9,23 @@ test_mse_array_has_value() {
   testResult=$(mse_array_has_value "four" "testArray")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_value "tree" "testArray")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_value "TREE" "testArray")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_value "TREE" "testArray" "0")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

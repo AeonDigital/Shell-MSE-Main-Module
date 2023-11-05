@@ -8,11 +8,11 @@ test_mse_is_file() {
   testResult=$(mse_is_file "${dir}/nonexist.sh")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_file "${dir}/test.sh")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

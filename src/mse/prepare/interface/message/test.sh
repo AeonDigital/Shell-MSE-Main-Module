@@ -39,7 +39,7 @@ test_mse_prepare_interface_message() {
 
   testResult="${mseTestArrShowMsg[teste]}"
   testExpected="deve ser excluída após o preparo"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   mse_prepare_interface_message "mseTestArrShowMsg"
@@ -48,7 +48,7 @@ test_mse_prepare_interface_message() {
   # Atesta que chaves não identificadas serão excluídas
   testResult="${mseTestArrShowMsg["teste"]}"
   testExpected=""
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   unset mseTestExpectedKeys
@@ -128,7 +128,7 @@ test_mse_prepare_interface_message() {
   for mseTmpK in "${mseTestExpectedKeys[@]}"; do
     testResult=$(mse_array_has_key "${mseTmpK}" "mseTestArrShowMsg")
     testExpected="1"
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -168,7 +168,7 @@ test_mse_prepare_interface_message() {
       testExpected="${mseTestExpectedKeyValues[${mseTmpK}]}"
     fi
 
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -219,7 +219,7 @@ test_mse_prepare_interface_message() {
   for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
     testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
     testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -257,7 +257,7 @@ test_mse_prepare_interface_message() {
     testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
     testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
 
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -295,7 +295,7 @@ test_mse_prepare_interface_message() {
     testResult="${mseTestArrShowMsg[${mseTmpHasKey}]}"
     testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
 
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -315,25 +315,25 @@ test_mse_prepare_interface_message() {
   testResult="${mseTestArrShowMsg[meta_type]}"
   testExpected="n"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[meta_format]}"
   testExpected="status"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[title_string]}"
   testExpected=""
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[body_lines]}"
   testExpected=""
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   #
@@ -346,23 +346,23 @@ test_mse_prepare_interface_message() {
   testResult="${mseTestArrShowMsg[meta_type]}"
   testExpected="i"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[meta_format]}"
   testExpected="default"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[title_string]}"
   testExpected="Local do Título"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowMsg[body_lines]}"
   testExpected="mseTestArrBody"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

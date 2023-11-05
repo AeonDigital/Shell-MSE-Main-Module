@@ -24,7 +24,7 @@ test_mse_array_print_sort() {
   testExpected+="5"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -40,7 +40,7 @@ test_mse_array_print_sort() {
   testExpected+="1"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -56,7 +56,7 @@ test_mse_array_print_sort() {
   testExpected+="orange"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -72,5 +72,5 @@ test_mse_array_print_sort() {
   testExpected+="apple"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

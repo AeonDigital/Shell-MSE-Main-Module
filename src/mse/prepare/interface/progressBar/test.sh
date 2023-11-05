@@ -30,7 +30,7 @@ test_mse_prepare_interface_progressBar() {
 
   testResult="${mseTestArrShowProgressBar[teste]}"
   testExpected="deve ser excluída após o preparo"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   mse_prepare_interface_progressBar "mseTestArrShowProgressBar"
@@ -39,7 +39,7 @@ test_mse_prepare_interface_progressBar() {
   # Atesta que chaves não identificadas serão excluídas
   testResult="${mseTestArrShowProgressBar["teste"]}"
   testExpected=""
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   unset mseTestExpectedKeys
@@ -73,7 +73,7 @@ test_mse_prepare_interface_progressBar() {
   for mseTmpK in "${mseTestExpectedKeys[@]}"; do
     testResult=$(mse_array_has_key "${mseTmpK}" "mseTestArrShowProgressBar")
     testExpected="1"
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -120,7 +120,7 @@ test_mse_prepare_interface_progressBar() {
   for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
     testResult="${mseTestArrShowProgressBar[${mseTmpHasKey}]}"
     testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 
 
@@ -158,6 +158,6 @@ test_mse_prepare_interface_progressBar() {
   for mseTmpHasKey in "${!mseTestExpectedKeyValues[@]}"; do
     testResult="${mseTestArrShowProgressBar[${mseTmpHasKey}]}"
     testExpected="${mseTestExpectedKeyValues[${mseTmpHasKey}]}"
-    mse_md_utest_assertEqual
+    mse_utest_assert_equals
   done
 }

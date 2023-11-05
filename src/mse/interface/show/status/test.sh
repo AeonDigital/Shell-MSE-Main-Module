@@ -6,5 +6,5 @@ test_mse_interface_show_status() {
   testResult="-"
   testExpected="-"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

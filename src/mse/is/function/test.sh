@@ -6,11 +6,11 @@ test_mse_is_function() {
   testResult=$(mse_is_function "nonExists")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_function "test_mse_is_function")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

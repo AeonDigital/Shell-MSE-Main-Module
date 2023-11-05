@@ -6,11 +6,11 @@ test_mse_str_convert_octal_toChar() {
   testResult=$(mse_str_convert_octal_toChar "151")
   testExpected="i"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_str_convert_octal_toChar "303 255")
   testExpected="í"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

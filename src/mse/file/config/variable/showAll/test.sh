@@ -8,13 +8,13 @@ test_mse_file_config_variable_showAll() {
   testResult=$(mse_file_config_variable_showAll "${dir}/attachments/test/config.cfg")
   testExpected=$(< "${dir}/attachments/test/showAll_01.cfg")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_file_config_variable_showAll "${dir}/attachments/test/config.cfg" "" "1")
   testExpected=$(< "${dir}/attachments/test/showAll_02.cfg")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -22,11 +22,11 @@ test_mse_file_config_variable_showAll() {
   testResult=$(mse_file_config_variable_showAll "${dir}/attachments/test/config.cfg" "webserver")
   testExpected=$(< "${dir}/attachments/test/showAll_03.cfg")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_file_config_variable_showAll "${dir}/attachments/test/config.cfg" "webserver" "1")
   testExpected=$(< "${dir}/attachments/test/showAll_04.cfg")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

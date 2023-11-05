@@ -10,31 +10,31 @@ test_mse_str_convert_toArray() {
   testResult="${#testArray[@]}"
   testExpected="4"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[0]}"
   testExpected="one"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[1]}"
   testExpected="two"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[2]}"
   testExpected="tree"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[3]}"
   testExpected=" and four "
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 

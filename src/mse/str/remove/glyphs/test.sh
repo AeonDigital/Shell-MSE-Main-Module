@@ -6,5 +6,5 @@ test_mse_str_remove_glyphs() {
   testResult=$(mse_str_remove_glyphs "Coração")
   testExpected="Coracao"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

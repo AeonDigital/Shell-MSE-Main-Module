@@ -55,7 +55,7 @@ if [ -z ${mseNONE+x} ]; then
 
 
 
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES=(
+  declare -gar MSE_ICOLOR_AVAILABLE_COLOR_NAMES=(
     'NONE'
     'BLACK'   'DBLACK'  'LBLACK'  'DLBLACK'
     'RED'     'DRED'    'LRED'    'DLRED'
@@ -67,7 +67,7 @@ if [ -z ${mseNONE+x} ]; then
     'WHITE'   'DWHITE'  'LWHITE'  'DLWHITE'
   )
 
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS=(
+  declare -gar MSE_ICOLOR_AVAILABLE_COLOR_LABELS=(
     'Normal'
     'Black'   'Black + Dark'  'Black Light'   'Black Light + Dark'
     'Red'     'Red + Dark'    'Red Light'     'Red Light + Dark'
@@ -79,7 +79,7 @@ if [ -z ${mseNONE+x} ]; then
     'White'   'White + Dark'  'White Light'   'White Light + Dark'
   )
 
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES=(
+  declare -gar MSE_ICOLOR_AVAILABLE_COLOR_CODES=(
     '39'
     '30' '230' '90' '290'
     '31' '231' '91' '291'
@@ -91,7 +91,7 @@ if [ -z ${mseNONE+x} ]; then
     '37' '237' '97' '297'
   )
 
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
+  declare -gar MSE_ICOLOR_AVAILABLE_BGCOLOR_CODES=(
     '49'
     '40' '' '100' ''
     '41' '' '101' ''
@@ -110,14 +110,14 @@ if [ -z ${mseNONE+x} ]; then
   #
   # 'R' indicates 'Remove'
   #
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
+  declare -gar MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES=(
     'NONE'
     'BOLD'    'DARK'    'ITALIC'    'UNDERLINE'
     'BLINKS'  'BLINKF'  'REVERSE'   'HIDE'        'STRIKE'
     'RBOLD'   'RDARK'   'RITALIC'   'RUNDERLINE'
     'RBLINKS' 'RBLINKF' 'RREVERSE'  'RHIDE'       'RSTRIKE'
   )
-  declare -gar MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
+  declare -gar MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES=(
     '20'
     '1'   '2'   '3'   '4'
     '5'   '6'   '7'   '8'   '9'

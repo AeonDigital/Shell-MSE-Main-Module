@@ -86,15 +86,15 @@ mse_font_create_style() {
           mseIsResult=$(mse_is_int "${mseUParam}")
 
           if [ "${mseIsResult}" == "1" ]; then
-            mseIsCheck=$(mse_array_has_value "${mseUParam}" "MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES")
+            mseIsCheck=$(mse_array_has_value "${mseUParam}" "MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES")
             if [ "${mseIsCheck}" == "1" ]; then
               mseTmpAttr="${mseUParam}"
             fi
           else
-            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
+            mseLength="${#MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
-              if [ "${mseUParam}" == "${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}" ]; then
-                mseTmpAttr="${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES[$i]}"
+              if [ "${mseUParam}" == "${MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}" ]; then
+                mseTmpAttr="${MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_CODES[$i]}"
                 break
               fi
             done
@@ -123,15 +123,15 @@ mse_font_create_style() {
       case "${mseColorSystem}" in
         4)
           if [ "${mseIsResult}" == "1" ]; then
-            mseIsCheck=$(mse_array_has_value "${mseTmpBackground}" "MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES")
+            mseIsCheck=$(mse_array_has_value "${mseTmpBackground}" "MSE_ICOLOR_AVAILABLE_BGCOLOR_CODES")
             if [ "${mseIsCheck}" == "1" ]; then
                 mseBackground="${mseTmpBackground}"
             fi
           else
-            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
+            mseLength="${#MSE_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
-              if [ "${mseTmpBackground}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
-                mseBackground="${MSE_MD_ICOLOR_AVAILABLE_BGCOLOR_CODES[$i]}"
+              if [ "${mseTmpBackground}" == "${MSE_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
+                mseBackground="${MSE_ICOLOR_AVAILABLE_BGCOLOR_CODES[$i]}"
                 break
               fi
             done
@@ -173,15 +173,15 @@ mse_font_create_style() {
       case "${mseColorSystem}" in
         4)
           if [ "${mseIsResult}" == "1" ]; then
-            mseIsCheck=$(mse_array_has_value "${mseTmpForeground}" "MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES")
+            mseIsCheck=$(mse_array_has_value "${mseTmpForeground}" "MSE_ICOLOR_AVAILABLE_COLOR_CODES")
             if [ "${mseIsCheck}" == "1" ]; then
               mseForeground="${mseTmpForeground}"
             fi
           else
-            mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
+            mseLength="${#MSE_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
             for (( i=0; i<mseLength; i++)); do
-              if [ "${mseTmpForeground}" == "${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
-                mseForeground="${MSE_MD_ICOLOR_AVAILABLE_COLOR_CODES[$i]}"
+              if [ "${mseTmpForeground}" == "${MSE_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}" ]; then
+                mseForeground="${MSE_ICOLOR_AVAILABLE_COLOR_CODES[$i]}"
                 break
               fi
             done

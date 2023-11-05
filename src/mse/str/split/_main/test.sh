@@ -11,25 +11,25 @@ test_mse_str_split() {
   testResult="${#testArray[@]}"
   testExpected="3"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[0]}"
   testExpected="2022"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[1]}"
   testExpected="12"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${testArray[2]}"
   testExpected="22"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -40,25 +40,25 @@ test_mse_str_split() {
   testResult="${#testArray[@]}"
   testExpected="3"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[0]}=="
   testExpected="== 2022 =="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[1]}=="
   testExpected="== 12 =="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[2]}=="
   testExpected="== 22 =="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -70,7 +70,7 @@ test_mse_str_split() {
   testResult="${#testArray[@]}"
   testExpected="8"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   mse_str_split "testArray" " " " primeiro   segundo   terceiro " "1"
@@ -78,7 +78,7 @@ test_mse_str_split() {
   testResult="${#testArray[@]}"
   testExpected="3"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -91,23 +91,23 @@ test_mse_str_split() {
   testResult="${#testArray[@]}"
   testExpected="3"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[0]}=="
   testExpected="==2022=="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[1]}=="
   testExpected="==12=="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="==${testArray[2]}=="
   testExpected="==22=="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

@@ -7,19 +7,19 @@ test_mse_str_join() {
   testResult="$(mse_str_join "-" "myArray")"
   testExpected="2022-12-22"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   myArray=("2022" "12" "22")
   testResult="$(mse_str_join "::" "myArray")"
   testExpected="2022::12::22"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   myArray=("2022" "12" "22")
   testResult="$(mse_str_join " : " "myArray")"
   testExpected="2022 : 12 : 22"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

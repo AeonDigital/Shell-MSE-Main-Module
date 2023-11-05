@@ -20,12 +20,12 @@ test_mse_file_write() {
   testResult=$(mse_file_write "${expectedDir}/test_mse_file_write_result" "ContentArrayName" "p")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="$(< "${expectedDir}/test_mse_file_write_result")"
   testExpected="$(< "${expectedDir}/test_mse_file_write_result_1")"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -38,12 +38,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" is required for \"replace\" operation"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -53,12 +53,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"-\": \"invalidfunction\"  :: 2 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -68,12 +68,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"fn mse_str_trim\": \"\"  :: 1 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -83,12 +83,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Outside the file limits; 1 - 7 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -98,12 +98,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"-\": \"\"  :: 1 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -113,12 +113,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"-\": \"2 4 6\"  :: 1 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -128,12 +128,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"-\": \"a 4\"  :: 2 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -143,12 +143,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ Expected a function name or one/two integers; \"-\": \"2 b\"  :: 3 ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -158,12 +158,12 @@ test_mse_file_write() {
   testResult="${rawResult%%[![:graph:]]*}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="${rawResult#*[![:graph:]]}"
   testExpected="Parameter \"targetLine\" has an invalid value [ First line must be less than the last: \"2 1\" ]"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -175,12 +175,12 @@ test_mse_file_write() {
   testResult=$(mse_file_write "${expectedDir}/test_mse_file_write_result" "ContentArrayName" "r" "3")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="$(< "${expectedDir}/test_mse_file_write_result")"
   testExpected="$(< "${expectedDir}/test_mse_file_write_result_2")"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -192,12 +192,12 @@ test_mse_file_write() {
   testResult=$(mse_file_write "${expectedDir}/test_mse_file_write_result" "ContentArrayName" "r" "2 4")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="$(< "${expectedDir}/test_mse_file_write_result")"
   testExpected="$(< "${expectedDir}/test_mse_file_write_result_3")"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -210,12 +210,12 @@ test_mse_file_write() {
   testResult=$(mse_file_write "${expectedDir}/test_mse_file_write_result" "ContentArrayName" "a")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="$(< "${expectedDir}/test_mse_file_write_result")"
   testExpected="$(< "${expectedDir}/test_mse_file_write_result_4")"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -228,10 +228,10 @@ test_mse_file_write() {
   testResult=$(mse_file_write "${expectedDir}/test_mse_file_write_result" "ContentArrayName" "d" "2 4")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   testResult="$(< "${expectedDir}/test_mse_file_write_result")"
   testExpected="$(< "${expectedDir}/test_mse_file_write_result_5")"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

@@ -8,5 +8,5 @@ test_mse_file_count_lines() {
   testResult=$(mse_file_count_lines "${dir}/src.sh")
   testExpected="24"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

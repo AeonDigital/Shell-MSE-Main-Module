@@ -6,7 +6,7 @@ test_mse_interface_show_prompt() {
   testResult="-"
   testExpected="-"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 

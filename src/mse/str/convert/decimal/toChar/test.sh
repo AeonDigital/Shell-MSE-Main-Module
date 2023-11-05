@@ -6,11 +6,11 @@ test_mse_str_convert_decimal_toChar() {
   testResult=$(mse_str_convert_decimal_toChar "105")
   testExpected="i"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_str_convert_decimal_toChar "195 173")
   testExpected="í"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

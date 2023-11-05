@@ -6,11 +6,11 @@ test_mse_str_convert_octal_toHex() {
   testResult=$(mse_str_convert_octal_toHex "151")
   testExpected="69"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_str_convert_octal_toHex "303 255")
   testExpected="C3 AD"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

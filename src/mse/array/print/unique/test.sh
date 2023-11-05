@@ -20,7 +20,7 @@ test_mse_array_print_unique() {
   testExpected+="2"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -39,5 +39,5 @@ test_mse_array_print_unique() {
   testExpected+="kiwi"
   testExpected=$(echo -e "${testExpected}")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

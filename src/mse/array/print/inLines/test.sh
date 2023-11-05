@@ -9,5 +9,5 @@ test_mse_array_print_inLines() {
   testResult=$(mse_array_print_inLines "testArray")
   testExpected=$(echo -e "one\ntwo\ntree\nand four")
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

@@ -12,31 +12,31 @@ test_mse_interface_show_progressBar() {
   testResult="${mseTestArrShowProgressBar[meta_format]}"
   testExpected="default"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[bar_max_char_length]}"
   testExpected="50"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[bar_atual_progress]}"
   testExpected="10"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[info_align]}"
   testExpected="l"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[info_data]}"
   testExpected="teste"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 
@@ -48,31 +48,31 @@ test_mse_interface_show_progressBar() {
   testResult="${mseTestArrShowProgressBar[meta_format]}"
   testExpected="onlybar"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[bar_max_char_length]}"
   testExpected="55"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[bar_atual_progress]}"
   testExpected="30"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[info_align]}"
   testExpected="r"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${mseTestArrShowProgressBar[info_data]}"
   testExpected=""
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
 

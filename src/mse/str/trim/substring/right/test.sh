@@ -8,5 +8,5 @@ test_mse_str_trim_substring_right() {
   testResult="===${testTmp}==="
   testExpected="===  Keep  calm   ,and   ... ,think  ==="
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

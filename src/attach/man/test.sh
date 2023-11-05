@@ -40,7 +40,7 @@ test_mse_man() {
   # testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
   # testExpected="4"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # declare -a arrExpected=("title" "summary" "description" "subsections")
@@ -50,7 +50,7 @@ test_mse_man() {
   #   if [ ! -z "${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]+x}" ]; then
   #     testResult="1"
   #   fi
-  #   mse_md_utest_assertEqual
+  #   mse_utest_assert_equals
   # done
 
 
@@ -84,13 +84,13 @@ test_mse_man() {
   # testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
   # testExpected="9"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
   # testExpected="9"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # echo "${MSE_MAN_SECTIONS_DATA["parameters_subsections"]}"
@@ -105,31 +105,31 @@ test_mse_man_reset_data() {
   testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }
 
 
@@ -138,13 +138,13 @@ test_mse_man_normalize_section_name() {
   testResult=$(mse_man_normalize_section_name "# Parameters")
   testExpected="parameters"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_man_normalize_section_name "### Seção com Acentuação e espaços")
   testExpected="secao_com_acentuacao_e_espacos"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }
 
 
@@ -157,49 +157,49 @@ test_mse_man_extract_main_sections_data() {
   # testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
   # testExpected="7"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[0]}"
   # testExpected="synopsis"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[1]}"
   # testExpected="description"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[2]}"
   # testExpected="parameters"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[3]}"
   # testExpected="examples"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[4]}"
   # testExpected="returns"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[5]}"
   # testExpected="dependencies"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testResult="${MSE_MAN_MAIN_SECTIONS_ORDER[6]}"
   # testExpected="extra_section"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
 
@@ -208,7 +208,7 @@ test_mse_man_extract_main_sections_data() {
   # testResult="${#MSE_MAN_MAIN_SECTIONS_DATA[@]}"
   # testExpected="7"
 
-  # mse_md_utest_assertEqual
+  # mse_utest_assert_equals
 
 
   # testExpected="1"
@@ -218,7 +218,7 @@ test_mse_man_extract_main_sections_data() {
   #   if [ ! -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseSection]+x}" ]; then
   #     testResult="1"
   #   fi
-  #   mse_md_utest_assertEqual
+  #   mse_utest_assert_equals
   # done
 
 

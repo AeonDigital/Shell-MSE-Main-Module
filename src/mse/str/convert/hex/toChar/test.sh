@@ -6,11 +6,11 @@ test_mse_str_convert_hex_toChar() {
   testResult=$(mse_str_convert_hex_toChar "69")
   testExpected="i"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_str_convert_hex_toChar "C3 AD")
   testExpected="í"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

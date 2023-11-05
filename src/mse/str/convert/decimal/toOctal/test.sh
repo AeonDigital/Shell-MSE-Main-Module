@@ -6,11 +6,11 @@ test_mse_str_convert_decimal_toOctal() {
   testResult=$(mse_str_convert_decimal_toOctal "69")
   testExpected="105"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_str_convert_decimal_toOctal "195 173")
   testExpected="303 255"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

@@ -6,7 +6,7 @@ test_mse_font_set_utf8Mode() {
   testResult="-"
   testExpected="-"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
   #
   # mse_font_set_utf8Mode check

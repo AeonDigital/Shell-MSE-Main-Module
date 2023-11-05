@@ -11,29 +11,29 @@ test_mse_array_get_key_byValue() {
   testResult=$(mse_array_get_key_byValue "aaa" "testAssocArray")
   testExpected="one"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_get_key_byValue "bbb" "testAssocArray")
   testExpected="two"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_get_key_byValue "ccc" "testAssocArray")
   testExpected="tree"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_get_key_byValue "CCC" "testAssocArray" "0")
   testExpected="tree"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_get_key_byValue "DDD" "testAssocArray")
   testExpected=""
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

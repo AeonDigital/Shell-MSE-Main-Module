@@ -34,7 +34,7 @@ mse_font_show_colors() {
   case "${mseColorSystem}" in
     4)
       local i
-      local mseLength="${#MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
+      local mseLength="${#MSE_ICOLOR_AVAILABLE_COLOR_NAMES[@]}"
 
       local mseColorLabel
       local mseColorName
@@ -46,8 +46,8 @@ mse_font_show_colors() {
       mseRawTable="${lbl_font_showTextColors_TableHeaders}\n"
 
       for (( i=0; i<mseLength; i++)); do
-        mseColorLabel="${MSE_MD_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}"
-        mseColorName="${MSE_MD_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}"
+        mseColorLabel="${MSE_ICOLOR_AVAILABLE_COLOR_LABELS[$i]}"
+        mseColorName="${MSE_ICOLOR_AVAILABLE_COLOR_NAMES[$i]}"
         mseColorVarName="mse${mseColorName}"
         mseColorCode="\\${!mseColorVarName}"
 

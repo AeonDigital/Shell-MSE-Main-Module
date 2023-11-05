@@ -19,12 +19,12 @@ mse_font_show_attributes() {
 
 
   local i
-  local mseLength="${#MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
+  local mseLength="${#MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[@]}"
   local mseLine
   local mseRawTable
 
   for (( i=0; i<mseLength; i++)); do
-    mseAttrName="${MSE_MD_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}"
+    mseAttrName="${MSE_ICOLOR_AVAILABLE_FONT_ATTRIBUTE_NAMES[$i]}"
 
     if [ "${mseAttrName}" != "NONE" ]; then
 

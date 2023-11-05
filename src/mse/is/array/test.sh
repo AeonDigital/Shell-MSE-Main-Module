@@ -9,7 +9,7 @@ test_mse_is_array() {
   testResult=$(mse_is_array "testArray")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   unset testAssocArray
@@ -18,7 +18,7 @@ test_mse_is_array() {
   testResult=$(mse_is_array "testAssocArray")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   unset testVar
@@ -27,5 +27,5 @@ test_mse_is_array() {
   testResult=$(mse_is_array "testVar")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

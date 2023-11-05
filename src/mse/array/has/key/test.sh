@@ -11,20 +11,20 @@ test_mse_array_has_key() {
 
   testResult=$(mse_array_has_key "key3" "testAssocArray")
   testExpected="0"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_key "key4" "testAssocArray")
   testExpected="0"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_key "key1" "testAssocArray")
   testExpected="1"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_array_has_key "key2" "testAssocArray")
   testExpected="1"
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }

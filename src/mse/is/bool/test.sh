@@ -6,29 +6,29 @@ test_mse_is_bool() {
   testResult=$(mse_is_bool "1")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_bool "0")
   testExpected="1"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_bool "-1")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_bool "-0")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 
 
   testResult=$(mse_is_bool "2")
   testExpected="0"
 
-  mse_md_utest_assertEqual
+  mse_utest_assert_equals
 }
