@@ -13,6 +13,7 @@ mse_str_split() {
     local mseRemoveEmpty=$(mse_get_default "${4}" "0" "0 1")
     local mseTrimElements=$(mse_get_default "${5}" "0" "0 1")
 
+    local mseLastChar=""
 
     while [ "${mseString}" != "" ]; do
       if [[ "${mseString}" != *"${mseSeparator}"* ]]; then
@@ -24,6 +25,7 @@ mse_str_split() {
         break
       else
         mseSubStr="${mseString%%${mseSeparator}*}"
+        mseLastChar="${mseString: -1}"
 
         if [ "${mseTrimElements}" == "1" ]; then
           mseSubStr=$(mse_str_trim "${mseSubStr}")
@@ -34,6 +36,9 @@ mse_str_split() {
         fi
 
         mseString="${mseString#*${mseSeparator}}"
+        if [ "${mseString}" == "" ] && [ "${mseLastChar}" == "${mseSeparator}" ] && [ "${mseRemoveEmpty}" == "0" ]; then
+          mseTargetArray+=("")
+        fi
       fi
     done
   fi

@@ -49,6 +49,7 @@ Splits the passed string into an array using the indicated separator.
 ## bool trim
 
 - aka       : -t --trim
+- default   : 0
 - hint      :  
   indicates when to perform a `trim` on each of the values found.
 

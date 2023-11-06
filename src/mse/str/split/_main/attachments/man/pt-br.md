@@ -48,6 +48,7 @@ Divide a string passada em um array usando o separador indicado.
 ## bool trim
 
 - aka       : -t --trim
+- default   : 0
 - hint      :  
   indica quando realizar um `trim` em cada um dos valores encontrados.
 

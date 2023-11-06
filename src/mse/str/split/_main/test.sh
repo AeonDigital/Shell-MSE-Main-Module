@@ -68,7 +68,7 @@ test_mse_str_split() {
   mse_str_split "testArray" " " " primeiro   segundo   terceiro "
 
   testResult="${#testArray[@]}"
-  testExpected="8"
+  testExpected="9"
 
   mse_utest_assert_equals
 
@@ -110,4 +110,30 @@ test_mse_str_split() {
   testExpected="==22=="
 
   mse_utest_assert_equals
+
+
+
+
+
+  #
+  # Verifica se mantém elemento vazio
+  mse_str_split "testArray" ":" "options cs:" "0" "1"
+
+  testResult="${#testArray[@]}"
+  testExpected="2"
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[0]}=="
+  testExpected="==options cs=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[1]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
 }
