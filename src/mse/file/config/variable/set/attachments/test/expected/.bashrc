@@ -34,8 +34,8 @@ fi
 
 # [[INI-MSE_UTEST]]
 declare -gA MSE_UTEST
-MSE_UTEST["second"]="two"
 MSE_UTEST["first"]="one"
 MSE_UTEST["fourth"]="four"
+MSE_UTEST["second"]="two"
 MSE_UTEST["third"]="tree"
 # [[END-MSE_UTEST]]

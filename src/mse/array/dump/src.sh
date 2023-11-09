@@ -25,11 +25,15 @@ mse_array_dump() {
 
 
   if [ "${mseProperties}" != "" ]; then
+    local mseStrSortKeys=$(mse_array_print_sort "${mseArrayName}" "k" "asc")
+    declare -a mseArrSortKeys=()
+    mse_str_split_inLines "mseArrSortKeys" "${mseStrSortKeys}"
+
     declare -n mseArrayObj="${mseArrayName}"
     local v=""
 
     mseReturn+=("${msePrefixLines}declare "${mseProperties}" ${mseArrayUseName}")
-    for k in "${!mseArrayObj[@]}"; do
+    for k in "${mseArrSortKeys[@]}"; do
       v="${mseArrayObj[${k}]}"
       mseReturn+=("${msePrefixLines}${mseArrayUseName}[\"${k}\"]=\"${v}\"")
     done

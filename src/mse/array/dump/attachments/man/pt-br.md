@@ -64,3 +64,5 @@ Uma ou mais linhas de dados representando a declaração e preenchimento do arra
 alvo.
 
 Lembre-se que arrays associativos não mantém a posição de suas chaves.
+Para facilitar a leitura e entendimento as chaves serão mostradas em ordem 
+alfabética

@@ -13,64 +13,44 @@ test_mse_array_print_sort() {
   testArray["orange"]="3"
 
   testResult=$(mse_array_print_sort "testArray")
-  testExpected="1"
-  testExpected+="\n"
-  testExpected+="2"
-  testExpected+="\n"
-  testExpected+="3"
-  testExpected+="\n"
-  testExpected+="4"
-  testExpected+="\n"
-  testExpected+="5"
-  testExpected=$(echo -e "${testExpected}")
+  testExpected="1\n"
+  testExpected+="2\n"
+  testExpected+="3\n"
+  testExpected+="4\n"
+  testExpected+="5\n"
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
   testResult=$(mse_array_print_sort "testArray" "v" "desc")
-  testExpected="5"
-  testExpected+="\n"
-  testExpected+="4"
-  testExpected+="\n"
-  testExpected+="3"
-  testExpected+="\n"
-  testExpected+="2"
-  testExpected+="\n"
-  testExpected+="1"
-  testExpected=$(echo -e "${testExpected}")
+  testExpected="5\n"
+  testExpected+="4\n"
+  testExpected+="3\n"
+  testExpected+="2\n"
+  testExpected+="1\n"
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
   testResult=$(mse_array_print_sort "testArray" "k" "asc")
-  testExpected="apple"
-  testExpected+="\n"
-  testExpected+="banana"
-  testExpected+="\n"
-  testExpected+="coconut"
-  testExpected+="\n"
-  testExpected+="grape"
-  testExpected+="\n"
-  testExpected+="orange"
-  testExpected=$(echo -e "${testExpected}")
+  testExpected="apple\n"
+  testExpected+="banana\n"
+  testExpected+="coconut\n"
+  testExpected+="grape\n"
+  testExpected+="orange\n"
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
   testResult=$(mse_array_print_sort "testArray" "k" "desc")
-  testExpected="orange"
-  testExpected+="\n"
-  testExpected+="grape"
-  testExpected+="\n"
-  testExpected+="coconut"
-  testExpected+="\n"
-  testExpected+="banana"
-  testExpected+="\n"
-  testExpected+="apple"
-  testExpected=$(echo -e "${testExpected}")
+  testExpected="orange\n"
+  testExpected+="grape\n"
+  testExpected+="coconut\n"
+  testExpected+="banana\n"
+  testExpected+="apple\n"
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 }

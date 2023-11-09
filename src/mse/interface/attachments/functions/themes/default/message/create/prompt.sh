@@ -33,11 +33,10 @@ mse_interface_theme_default_message_create_prompt() {
     declare -n mseTmpPromptAssocValues="${msePromptAllowedAssocValues}"
     declare -a mseTmpPromptBodyLines=()
 
-    IFS=$'\n'
-    unset mseTmpPromptSortedKeys
-    declare -a mseTmpPromptSortedKeys=($(mse_array_print_sort "mseTmpPromptAssocValues" "k" "a"))
-    IFS=$' \t\n'
 
+    declare -a mseTmpPromptSortedKeys=()
+    local mseStrSortKeys=$(mse_array_print_sort "mseTmpPromptAssocValues" "k" "a")
+    mse_str_split_inLines "mseTmpPromptSortedKeys" "${mseStrSortKeys}"
 
 
     local mseIndex

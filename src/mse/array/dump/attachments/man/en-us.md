@@ -69,3 +69,5 @@ One or more lines of data representing the declaration and populating of the
 array target.
 
 Remember that associative arrays do not maintain the position of their keys.
+To make it easier to read and understand, the keys will be shown in 
+alphabetical order

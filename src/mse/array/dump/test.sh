@@ -16,9 +16,8 @@ test_mse_array_dump() {
   testExpected+="testArray[\"2\"]=\"tree\""
   testExpected+="\n"
   testExpected+="testArray[\"3\"]=\"and four\""
-  testExpected=$(echo -e "${testExpected}")
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
@@ -35,9 +34,8 @@ test_mse_array_dump() {
   testExpected+="testArray[\"2\"]=\"tree\""
   testExpected+="\n"
   testExpected+="testArray[\"3\"]=\"and four\""
-  testExpected=$(echo -e "${testExpected}")
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
@@ -54,9 +52,8 @@ test_mse_array_dump() {
   testExpected+="useName[\"2\"]=\"tree\""
   testExpected+="\n"
   testExpected+="useName[\"3\"]=\"and four\""
-  testExpected=$(echo -e "${testExpected}")
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
@@ -73,9 +70,8 @@ test_mse_array_dump() {
   testExpected+="# useName[\"2\"]=\"tree\""
   testExpected+="\n"
   testExpected+="# useName[\"3\"]=\"and four\""
-  testExpected=$(echo -e "${testExpected}")
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
 
 
 
@@ -88,19 +84,16 @@ test_mse_array_dump() {
   testArray["tree"]="tres"
   testArray["and four"]="e quatro"
 
-  local tmpTestResult=$(mse_array_dump "testArray" "1")
-  IFS=$'\n'
-  declare -a testResult=($(echo -e "${tmpTestResult[@]}"))
-  IFS=$' \t\n'
+  testResult=$(mse_array_dump "testArray" "1")
+  testExpected="declare -gA testArray"
+  testExpected+="\n"
+  testExpected+="testArray[\"and four\"]=\"e quatro\""
+  testExpected+="\n"
+  testExpected+="testArray[\"one\"]=\"um\""
+  testExpected+="\n"
+  testExpected+="testArray[\"tree\"]=\"tres\""
+  testExpected+="\n"
+  testExpected+="testArray[\"two\"]=\"dois\""
 
-
-
-  declare -a testExpected
-  testExpected+=("declare -gA testArray")
-  testExpected+=("testArray[\"one\"]=\"um\"")
-  testExpected+=("testArray[\"two\"]=\"dois\"")
-  testExpected+=("testArray[\"tree\"]=\"tres\"")
-  testExpected+=("testArray[\"and four\"]=\"e quatro\"")
-
-  mse_utest_assert_equals "A"
+  mse_utest_assert_string_multiline
 }
