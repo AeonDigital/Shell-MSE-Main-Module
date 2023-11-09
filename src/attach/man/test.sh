@@ -8,16 +8,16 @@ test_mse_man() {
 
 
   # 01
-  #test_mse_man_reset_data
+  test_mse_man_reset_data
 
   # 02
-  #test_mse_man_normalize_section_name
+  test_mse_man_normalize_section_name
 
   # 03
-  #test_mse_man_extract_main_sections_data
+  test_mse_man_extract_main_sections_data
 
   # 04
-  #test_mse_man_process_section_generic
+  test_mse_man_process_section_generic
 
   # 05
   test_mse_man_process_parameters
@@ -69,6 +69,7 @@ test_mse_man() {
 
 
 
+
 test_mse_man_reset_data() {
   mse_man_reset_data
 
@@ -104,6 +105,8 @@ test_mse_man_reset_data() {
 
 
 
+
+
 test_mse_man_normalize_section_name() {
   testResult=$(mse_man_normalize_section_name "# Parameters")
   testExpected="parameters"
@@ -116,6 +119,8 @@ test_mse_man_normalize_section_name() {
 
   mse_utest_assert_equals
 }
+
+
 
 
 
@@ -205,6 +210,8 @@ test_mse_man_extract_main_sections_data() {
 
 
 
+
+
 test_mse_man_process_section_generic() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
@@ -255,6 +262,9 @@ test_mse_man_process_section_generic() {
 
 
 
+
+
+
 test_mse_man_process_parameters() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
@@ -290,7 +300,7 @@ test_mse_man_process_parameters() {
 
 
 
-  #
+
   # Processa os dados dos parametros
   mse_man_process_parameters "${MSE_MAN_GENERIC_SECTION_DATA[subsections]}"
 
@@ -315,8 +325,14 @@ test_mse_man_process_parameters() {
 
 
   #
-  # Testa os valores obtidos
+  # @param alpha
+  unset mseAssocTest
   declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
   mseAssocTest["name"]="alpha"
   mseAssocTest["type"]="!bool"
   mseAssocTest["aka"]="-a --alpha"
@@ -338,10 +354,250 @@ test_mse_man_process_parameters() {
     testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
     testExpected="${mseAssocTest[${mseK}]}"
 
-    mse_utest_assert_equals
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
   done
 
 
-  # SEGUIR DAQUI COM O TESTE DAS DEMAIS PROPRIEDADES!
+
+
+  #
+  # @param beta
+  unset mseAssocTest
+  declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
+  mseAssocTest["name"]="beta"
+  mseAssocTest["type"]="int"
+  mseAssocTest["aka"]="-b --beta"
+  mseAssocTest["default"]="0"
+  mseAssocTest["min"]="-10"
+  mseAssocTest["max"]="10"
+  mseAssocTest["options_ci"]="${MSE_NULL}"
+  mseAssocTest["options_cs"]="${MSE_NULL}"
+  mseAssocTest["list_cl"]="${MSE_NULL}"
+  mseAssocTest["list_op"]="${MSE_NULL}"
+  mseAssocTest["hint"]="Parametro que recebe um valor inteiro entre -10 e 10."
+  mseAssocTest["description"]="Em caso de valor vazio ou inválido, usará \`0\` como o valor padrão."
+
+  local mseK
+  local msePName="${mseAssocTest["name"]}"
+  local msePNameTest=""
+  for mseK in "${!mseAssocTest[@]}"; do
+    msePNameTest="${msePName}_${mseK}"
+    testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
+    testExpected="${mseAssocTest[${mseK}]}"
+
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
+  done
+
+
+
+
+  #
+  # @param gama
+  unset mseAssocTest
+  declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
+  mseAssocTest["name"]="gama"
+  mseAssocTest["type"]="int"
+  mseAssocTest["aka"]="-g --gama"
+  mseAssocTest["default"]="${MSE_NULL}"
+  mseAssocTest["min"]="${MSE_NULL}"
+  mseAssocTest["max"]="${MSE_NULL}"
+  mseExpectedOptionsCI+="\n0 : c c++"
+  mseExpectedOptionsCI+="\n1 : rust"
+  mseExpectedOptionsCI+="\n2 : cobol"
+  mseExpectedOptionsCI+="\n3 : clipper"
+  mseAssocTest["options_ci"]=${mseExpectedOptionsCI}
+  mseAssocTest["options_cs"]="${MSE_NULL}"
+  mseAssocTest["list_cl"]="${MSE_NULL}"
+  mseAssocTest["list_op"]="${MSE_NULL}"
+  mseAssocTest["hint"]="Parametro que possui uma lista fechada de opções válidas."
+  mseAssocTest["description"]=""
+  mseAssocTest["description"]+="Internamente apenas o valor \`chave\` será usado mas quando usar o autocomplete\n"
+  mseAssocTest["description"]+="do MSE o usuário pode selecionar o valor correspondente usando um dos labels\n"
+  mseAssocTest["description"]+="associados ao mesmo.\n"
+  mseAssocTest["description"]+="\n"
+  mseAssocTest["description"]+="Neste caso a lista é avaliada de forma case-insensitive, ou seja:\n"
+  mseAssocTest["description"]+="- C = c\n"
+  mseAssocTest["description"]+="- Rust = rust = RUST"
+
+
+  local mseK
+  local msePName="${mseAssocTest["name"]}"
+  local msePNameTest=""
+  for mseK in "${!mseAssocTest[@]}"; do
+    msePNameTest="${msePName}_${mseK}"
+    testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
+    testExpected="${mseAssocTest[${mseK}]}"
+
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
+  done
+
+
+
+
+  #
+  # @param delta
+  unset mseAssocTest
+  declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
+  mseAssocTest["name"]="delta"
+  mseAssocTest["type"]="char"
+  mseAssocTest["aka"]="-d --delta"
+  mseAssocTest["default"]="${MSE_NULL}"
+  mseAssocTest["min"]="${MSE_NULL}"
+  mseAssocTest["max"]="${MSE_NULL}"
+  mseAssocTest["options_ci"]=${MSE_NULL}
+  mseExpectedOptionsCS+="\no: output"
+  mseExpectedOptionsCS+="\nO: open"
+  mseAssocTest["options_cs"]="${mseExpectedOptionsCS}"
+  mseAssocTest["list_cl"]="${MSE_NULL}"
+  mseAssocTest["list_op"]="${MSE_NULL}"
+  mseAssocTest["hint"]="Outra lista fechada de opções válidas."
+  mseExpectedDescription+="Neste caso ocorre avaliação case-sensitive dos valores digitados pelo usuário e\n"
+  mseExpectedDescription+="ele precisa digitar um valor que case precisamente com um valor \`chave\` ou com\n"
+  mseExpectedDescription+="um dos \`labels\` correspondentes.\n"
+
+
+  local mseK
+  local msePName="${mseAssocTest["name"]}"
+  local msePNameTest=""
+  for mseK in "${!mseAssocTest[@]}"; do
+    msePNameTest="${msePName}_${mseK}"
+    testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
+    testExpected="${mseAssocTest[${mseK}]}"
+
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
+  done
+
+
+
+
+  #
+  # @param epsilon
+  unset mseAssocTest
+  declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
+  mseAssocTest["name"]="epsilon"
+  mseAssocTest["type"]="string"
+  mseAssocTest["aka"]="-e --epsilon"
+  mseAssocTest["default"]="synopsis"
+  mseAssocTest["min"]="${MSE_NULL}"
+  mseAssocTest["max"]="${MSE_NULL}"
+  mseAssocTest["options_ci"]=${MSE_NULL}
+  mseAssocTest["options_cs"]="${MSE_NULL}"
+  mseExpectedListCL+="\nsynopsis"
+  mseExpectedListCL+="\ndescription"
+  mseExpectedListCL+="\nparameters"
+  mseExpectedListCL+="\nreturns"
+  mseExpectedListCL+="\nexample"
+  mseExpectedListCL+="\ndependencies"
+  mseAssocTest["list_cl"]="${mseExpectedListCL}"
+  mseAssocTest["list_op"]="${MSE_NULL}"
+  mseAssocTest["hint"]="Define uma lista fechada de opções dentre as quais o usuário pode selecionar\n"
+  mseAssocTest["hint"]+="um ou mais itens (separados por espaços)."
+  mseExpectedDescription+="Se desejar, o usuário pode selecionar todos os itens passando como valor o\n"
+  mseExpectedDescription+="caracter \`.\`.\n"
+
+
+  local mseK
+  local msePName="${mseAssocTest["name"]}"
+  local msePNameTest=""
+  for mseK in "${!mseAssocTest[@]}"; do
+    msePNameTest="${msePName}_${mseK}"
+    testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
+    testExpected="${mseAssocTest[${mseK}]}"
+
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
+  done
+
+
+
+
+  #
+  # @param zeta
+  unset mseAssocTest
+  declare -A mseAssocTest
+  local mseExpectedDescription=""
+  local mseExpectedOptionsCS=""
+  local mseExpectedOptionsCI=""
+  local mseExpectedListCL=""
+  local mseExpectedListOP=""
+  mseAssocTest["name"]="zeta"
+  mseAssocTest["type"]="string"
+  mseAssocTest["aka"]="-z --zeta"
+  mseAssocTest["default"]="${MSE_NULL}"
+  mseAssocTest["min"]="${MSE_NULL}"
+  mseAssocTest["max"]="${MSE_NULL}"
+  mseAssocTest["options_ci"]=${MSE_NULL}
+  mseAssocTest["options_cs"]="${MSE_NULL}"
+  mseAssocTest["list_cl"]="${MSE_NULL}"
+  mseExpectedListOP+="\nadd"
+  mseExpectedListOP+="\nsub"
+  mseExpectedListOP+="\nmul"
+  mseExpectedListOP+="\ndiv"
+  mseAssocTest["list_op"]="${mseExpectedListOP}"
+  mseAssocTest["hint"]="Define uma lista aberta de opções dentre as quais o usuário pode selecionar\n"
+  mseAssocTest["hint"]+="um ou mais itens, ou ainda incluir opções próprias."
+  mseExpectedDescription+="Se desejar, o usuário pode selecionar todos os itens oferecidos pela lista e\n"
+  mseExpectedDescription+="ainda adicionar o seu próprio usando por exemplo: \`. mod sqrt\`\n"
+
+
+  local mseK
+  local msePName="${mseAssocTest["name"]}"
+  local msePNameTest=""
+  for mseK in "${!mseAssocTest[@]}"; do
+    msePNameTest="${msePName}_${mseK}"
+    testResult="${MSE_MAN_PARAMETERS_DATA[${msePNameTest}]}"
+    testExpected="${mseAssocTest[${mseK}]}"
+
+    if [ "${mseK}" == "hint" ] || [ "${mseK}" == "description" ]; then
+      testExpected=$(mse_normalize_string "${mseAssocTest[${mseK}]}")
+      mse_utest_assert_string_multiline
+    else
+      mse_utest_assert_equals
+    fi
+  done
 
 }

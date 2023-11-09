@@ -76,8 +76,8 @@ Neste caso a lista é avaliada de forma case-insensitive, ou seja:
 
 - aka       : -d --delta
 - options cs:
-    - o: output
-    - O: open
+  - o: output
+  - O: open
 - hint      :
   Outra lista fechada de opções válidas.
 

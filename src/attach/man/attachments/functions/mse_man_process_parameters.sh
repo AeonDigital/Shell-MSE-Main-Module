@@ -107,8 +107,10 @@ mse_man_process_parameters() {
           mseParameterPropertyFirstLine="0"
 
           if [[ "${mseLineRaw}" == "- "* ]]; then
-            mseParameterPropertyName=""
-            mseParameterPropertyValueSubList="0"
+            if [ "${mseParameterPropertyName}" != "description" ]; then
+              mseParameterPropertyName=""
+              mseParameterPropertyValueSubList="0"
+            fi
 
 
             mse_str_split "mseArrSplit" ":" "${mseLineRaw#- }" "0" "1"
@@ -120,11 +122,15 @@ mse_man_process_parameters() {
                 mseParameterPropertyFirstLine="1"
 
 
-                if [ "${mseParameterPropertyName}" == "options" ]; then
+                if [ "${mseParameterPropertyName}" == "options" ] || [ "${mseParameterPropertyName}" == "options ci" ]; then
                   mseParameterPropertyName="options_ci"
+                elif [ "${mseParameterPropertyName}" == "options cs" ]; then
+                  mseParameterPropertyName="options_cs"
                 fi
-                if [ "${mseParameterPropertyName}" == "list" ]; then
+                if [ "${mseParameterPropertyName}" == "list" ] || [ "${mseParameterPropertyName}" == "list cl" ]; then
                   mseParameterPropertyName="list_cl"
+                elif [ "${mseParameterPropertyName}" == "list op" ]; then
+                  mseParameterPropertyName="list_op"
                 fi
 
 
@@ -135,6 +141,8 @@ mse_man_process_parameters() {
                 fi
               fi
             fi
+
+
           fi
 
 

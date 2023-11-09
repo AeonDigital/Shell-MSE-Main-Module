@@ -109,10 +109,10 @@ mse_man_process_section_generic() {
         msePartDescription=$(mse_str_trim "${msePartDescription}")
         msePartSubsections=$(mse_str_trim "${msePartSubsections}")
 
-        MSE_MAN_GENERIC_SECTION_DATA["title"]=$(echo -e "${msePartTitle}")
-        MSE_MAN_GENERIC_SECTION_DATA["summary"]=$(echo -e "${msePartSummary}")
-        MSE_MAN_GENERIC_SECTION_DATA["description"]=$(echo -e "${msePartDescription}")
-        MSE_MAN_GENERIC_SECTION_DATA["subsections"]=$(echo -e "${msePartSubsections}")
+        MSE_MAN_GENERIC_SECTION_DATA["title"]=$(mse_normalize_string "${msePartTitle}")
+        MSE_MAN_GENERIC_SECTION_DATA["summary"]=$(mse_normalize_string "${msePartSummary}")
+        MSE_MAN_GENERIC_SECTION_DATA["description"]=$(mse_normalize_string "${msePartDescription}")
+        MSE_MAN_GENERIC_SECTION_DATA["subsections"]=$(mse_normalize_string "${msePartSubsections}")
       fi
     fi
   fi
