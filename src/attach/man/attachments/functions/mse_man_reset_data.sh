@@ -15,8 +15,8 @@ mse_man_reset_data() {
 
 
 
-  unset MSE_MAN_GENERIC_SECTION_DATA
-  declare -Ag MSE_MAN_GENERIC_SECTION_DATA
+  unset MSE_MAN_SECTION_DATA
+  declare -Ag MSE_MAN_SECTION_DATA
 
 
 

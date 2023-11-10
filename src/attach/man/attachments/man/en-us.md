@@ -6,6 +6,13 @@ Expõe na tela um manual de função em formato `MarkDown`.
 
 &nbsp;
 
+# Description
+
+
+
+
+&nbsp;
+    
 # Parameters
 
 ## string file
@@ -20,50 +27,44 @@ Expõe na tela um manual de função em formato `MarkDown`.
 ## string sections
 
 - aka       : -s --sections
-- default   : 
+- default   : .
+- list op   :
+  - synopsis
+  - description
+  - parameters
+  - returns
+  - examples
+  - dependencies
 - hint      :
   Nome das seções do documento que devem ser exibidas.
 
-Se nenhuma seção for definida mostrará todas.
-Quando definidas use espaços para separar cada uma das seções.
-
-Valores comumente usados são:
-- Synopsis
-- Description
-- Parameters
-- Returns
-
-Use aspas para nomes de seções que contenham espaços.
-
+Se o valor passado for ignorado ou inválido, todas as seções serão mostradas.
 Este parametro serve apenas para as seções de primeiro nível do manual.
+
+Seções customizadas precisam ser informadas aqui para serem reconhecidas.
 
 
 &nbsp;
 
-## string dataParameters
+## string dataParameter
 
-- aka       : -dp --dataParameters
-- default   : 
+- aka       : -dp --dataParameter
+- default   : .
+- list      :
+  - type
+  - name
+  - aka
+  - default
+  - min
+  - max
+  - options
+  - list
+  - hint
+  - description
 - hint      :
   Indica quais dados referentes aos parametros que devem ser mostrados.
 
-Se ignorado ou inválido todos os itens serão mostrados.
-
-Os seguintes valores podem ser escolhidos:
-- type
-- name
-- aka
-- default
-- min
-- max
-- options
-- hint
-- description
-
-Se desejar, pode mostrar mais de um tipo bastando informá-los separados por 
-espaço.
-
-Dados não aplicáveis aos parametros serão ignorados.
+Se o valor passado for ignorado ou inválido, todos parametros serão mostrados.
 
 
 &nbsp;
@@ -71,36 +72,14 @@ Dados não aplicáveis aos parametros serão ignorados.
 ## string dataReturn
 
 - aka       : -dr --dataReturn
-- default   : 
+- default   : .
+- list      : 
+  - type
+  - description
 - hint      :
   Indica quais dados referentes ao retorno da função que devem ser mostrados.
 
-Se ignorado ou inválido todos os itens serão mostrados.
-
-Os seguintes valores podem ser escolhidos:
-- type
-- description
-
-Se desejar, pode mostrar mais de um tipo bastando informá-los separados por 
-espaço.
-
-Dados não aplicáveis aos parametros serão ignorados.
-
-
-
-&nbsp;
-
-## int maxLevel
-
-- aka       : -ml --maxLevel
-- default   : 2
-- min       : 1
-- max       : 6
-- hint      :
-  Indica o nível máximo de subseções que devem ser exibidas.
-
-Por padrão será usado o nível `2` para trazer também as informações dos 
-parametros das funções pois eles são definidos como seções de segundo nível.
+Se o valor passado for ignorado ou inválido, todas informações serão mostrados.
 
 
 
