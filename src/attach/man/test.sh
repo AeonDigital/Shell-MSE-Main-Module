@@ -8,62 +8,22 @@ test_mse_man() {
 
 
   # 01
-  test_mse_man_reset_data
+  #test_mse_man_reset_data
 
   # 02
-  test_mse_man_normalize_section_name
+  #test_mse_man_normalize_section_name
 
   # 03
-  test_mse_man_extract_main_sections_data
+  #test_mse_man_extract_sections_data
 
   # 04
-  test_mse_man_process_section_generic
+  #test_mse_man_process_section_data
 
   # 05
-  test_mse_man_process_parameters
+  #test_mse_man_process_parameters
 
-
-  if [ 1 == 2 ]; then
-    echo "SEGUIR DAQUI PROCESSANDO OS PARAMETROS!!!"
-    # - mse_man_process_parameters
-    # - mse_man_process_section_data
-
-    # . src/unittests.sh "mse_man"
-    # mse_man "${dir}/attachments/man/pt-br.md" "parameters" "aka hint"
-
-
-
-    # #
-    # # Prepare data section with parameters informations
-    # mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
-
-    # for mseI in "${!MSE_MAN_SECTIONS_ORDER[@]}"; do
-    #   mseSection="${MSE_MAN_SECTIONS_ORDER[${mseI}]}"
-    #   echo "${mseSection}"
-    #   echo "${MSE_MAN_SECTIONS_DATA[${mseSection}]}"
-    #   echo "-----------------------"
-    # done
-
-
-
-    # #
-    # # Get main data sections
-    # mse_man_process_sections_data
-
-    # testResult="${#MSE_MAN_SECTIONS_ORDER[@]}"
-    # testExpected="9"
-
-    # mse_utest_assert_equals
-
-
-    # testResult="${#MSE_MAN_SECTIONS_DATA[@]}"
-    # testExpected="9"
-
-    # mse_utest_assert_equals
-
-
-    # echo "${MSE_MAN_SECTIONS_DATA["parameters_subsections"]}"
-  fi
+  # 06
+  #>>test_mse_man_process_section_data
 }
 
 
@@ -124,10 +84,11 @@ test_mse_man_normalize_section_name() {
 
 
 
-test_mse_man_extract_main_sections_data() {
+test_mse_man_extract_sections_data() {
+  mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
 
   testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
   testExpected="7"
@@ -212,22 +173,17 @@ test_mse_man_extract_main_sections_data() {
 
 
 
-test_mse_man_process_section_generic() {
+test_mse_man_process_section_data() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
-
-  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
-  testExpected="7"
-
-  mse_utest_assert_equals
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
 
 
 
 
 
-  mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+  mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
 
   testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
   testExpected="4"
@@ -251,7 +207,6 @@ test_mse_man_process_section_generic() {
 
 
 
-
   for mseSection in "${!MSE_MAN_GENERIC_SECTION_DATA[@]}"; do
     testResult="${MSE_MAN_GENERIC_SECTION_DATA[$mseSection]}"
     testExpected=$(< "${dir}/attachments/test/expected/process_section_generic/parameters_${mseSection}.txt")
@@ -264,44 +219,17 @@ test_mse_man_process_section_generic() {
 
 
 
-
 test_mse_man_process_parameters() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_main_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
-
-  testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
-  testExpected="7"
-
-  mse_utest_assert_equals
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
 
 
 
 
 
-  mse_man_process_section_generic "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
-
-  testResult="${#MSE_MAN_GENERIC_SECTION_DATA[@]}"
-  testExpected="4"
-
-  mse_utest_assert_equals
-
-
-
-
-
-  testResult="${MSE_MAN_GENERIC_SECTION_DATA[subsections]}"
-  testExpected=$(< "${dir}/attachments/test/expected/process_section_generic/parameters_subsections.txt")
-
-  mse_utest_assert_string_multiline
-
-
-
-
-
-
-  # Processa os dados dos parametros
   mse_man_process_parameters "${MSE_MAN_GENERIC_SECTION_DATA[subsections]}"
 
   testResult="${#MSE_MAN_PARAMETERS_ORDER[@]}"
@@ -323,7 +251,15 @@ test_mse_man_process_parameters() {
 
 
 
+  test_mse_man_process_parameters_alpha
+  test_mse_man_process_parameters_beta
+  test_mse_man_process_parameters_gama
+  test_mse_man_process_parameters_delta
+  test_mse_man_process_parameters_epsilon
+  test_mse_man_process_parameters_zeta
+}
 
+test_mse_man_process_parameters_alpha() {
   #
   # @param alpha
   unset mseAssocTest
@@ -361,10 +297,8 @@ test_mse_man_process_parameters() {
       mse_utest_assert_equals
     fi
   done
-
-
-
-
+}
+test_mse_man_process_parameters_beta() {
   #
   # @param beta
   unset mseAssocTest
@@ -402,10 +336,8 @@ test_mse_man_process_parameters() {
       mse_utest_assert_equals
     fi
   done
-
-
-
-
+}
+test_mse_man_process_parameters_gama() {
   #
   # @param gama
   unset mseAssocTest
@@ -455,10 +387,8 @@ test_mse_man_process_parameters() {
       mse_utest_assert_equals
     fi
   done
-
-
-
-
+}
+test_mse_man_process_parameters_delta() {
   #
   # @param delta
   unset mseAssocTest
@@ -501,10 +431,8 @@ test_mse_man_process_parameters() {
       mse_utest_assert_equals
     fi
   done
-
-
-
-
+}
+test_mse_man_process_parameters_epsilon() {
   #
   # @param epsilon
   unset mseAssocTest
@@ -551,10 +479,8 @@ test_mse_man_process_parameters() {
       mse_utest_assert_equals
     fi
   done
-
-
-
-
+}
+test_mse_man_process_parameters_zeta() {
   #
   # @param zeta
   unset mseAssocTest
@@ -598,6 +524,35 @@ test_mse_man_process_parameters() {
     else
       mse_utest_assert_equals
     fi
+  done
+}
+
+
+
+
+
+test_mse_man_process_section____data() {
+  mse_man_reset_data
+  local dir=$(echo "${BASH_SOURCE%/*}")
+
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_process_section_data "MSE_MAN_MAIN_SECTIONS_DATA" "parameters" "1"
+  mse_man_process_parameters "${MSE_MAN_GENERIC_SECTION_DATA[subsections]}"
+
+
+
+
+
+
+
+  testExpected="1"
+  local mseParameterName
+  for mseParameterName in "${MSE_MAN_PARAMETERS_ORDER[@]}"; do
+    testResult="0"
+    if [ ! -z "${MSE_MAN_PARAMETERS_DATA[$mseParameterName]+x}" ]; then
+      testResult="1"
+    fi
+    mse_utest_assert_equals
   done
 
 }

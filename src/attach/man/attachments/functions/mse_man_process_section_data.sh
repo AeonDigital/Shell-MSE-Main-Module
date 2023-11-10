@@ -4,9 +4,7 @@
 
 #
 # Processa as linhas de dados de uma seção armazenada em um array associativo
-# para extrair as informações do mesmo de forma estruturada.
-#
-# Esta função pode ser acionada recursivamente caso existam subseções.
+# para extrair as informações genéricas definidas.
 #
 # @param string $1
 # Nome do array associativo em que a informação a ser processada se encontra.
@@ -20,31 +18,102 @@
 #
 # @return
 # Os dados obtidos serão armazenados no array associativo
-# 'MSE_MAN_SECTIONS_DATA'.
+# 'MSE_MAN_GENERIC_SECTION_DATA'.
+#
+# Ao final do processo as seguintes chaves devem ser preenchidas com os
+# dados encontrados:
+# - [title]     -> Primeira linha não vazia da seção (sempre em 1 única linha)
+# - summary     -> Após o título, primeira coleção de linhas contiguas de
+#                  informação até encontrar a primeira linha vazia.
+# - description -> Toda informação existênte após o sumário até o início da
+#                  primeira subseção, se houver.
+# - subsections -> Coleção de subseções presentes após a descrição.
 mse_man_process_section_data() {
   local mseTargetAssocArrayName="${1}"
+  declare -n mseTargetAssocArray="${1}"
   local mseTargetSectionName="${2}"
   local mseTargetSectionLevel="${3}"
 
 
-  mse_man_process_section_generic "${mseTargetAssocArrayName}" "${mseTargetSectionName}" "${mseTargetSectionLevel}"
+  if [ "${mseTargetSectionName}" != "" ] && [ $(mse_is_int "${mseTargetSectionLevel}") == "1" ] && [ "${#mseTargetAssocArray[@]}" -gt "0" ]; then
+    if [ $(mse_array_has_key "${mseTargetSectionName}" "${mseTargetAssocArrayName}") == "1" ]; then
+      unset MSE_MAN_GENERIC_SECTION_DATA
+      declare -Ag MSE_MAN_GENERIC_SECTION_DATA
 
-  local mseSectionPart=""
-  local mseSectionPartName=""
-  local mseNextTargetSectionLevel=$((mseTargetSectionLevel+1))
-  declare -a mseSectionParts=("title" "summary" "description" "subsections")
-  for mseSectionPart in "${mseSectionParts[@]}"; do
-    mseSectionPartName="${mseTargetSectionName}_${mseSectionPart}"
+      MSE_MAN_GENERIC_SECTION_DATA["title"]=""
+      MSE_MAN_GENERIC_SECTION_DATA["summary"]=""
+      MSE_MAN_GENERIC_SECTION_DATA["description"]=""
+      MSE_MAN_GENERIC_SECTION_DATA["subsections"]=""
 
-    MSE_MAN_SECTIONS_ORDER+=("${mseSectionPartName}")
-    MSE_MAN_SECTIONS_DATA["${mseSectionPartName}"]="${MSE_MAN_GENERIC_SECTION_DATA[${mseSectionPart}]}"
+      local mseTargetSectionContent="${mseTargetAssocArray[${mseTargetSectionName}]}"
+      if [ "${mseTargetSectionContent}" != "" ]; then
+        local mseLineRaw=""
+        local mseInContent="0"
+        local mseTargetPart=""
 
-    if [ "${mseSectionPart}" == "subsections" ] && [ "${MSE_MAN_SECTIONS_DATA[${mseSectionPartName}]}" != "" ]; then
-      if [ "${mseTargetSectionName}" == "parameters" ]; then
-        mse_man_process_parameters "${MSE_MAN_GENERIC_SECTION_DATA[${mseSectionPart}]}"
-      else
-        mse_man_process_section_data "MSE_MAN_SECTIONS_DATA" "${mseSectionPartName}" "${mseNextTargetSectionLevel}"
+        ((mseTargetSectionLevel++))
+        local mseHashOpenSectionInSubLevel=$(mse_str_pad "" "#" "${mseTargetSectionLevel}" "l")
+
+        local msePartTitle=""
+        local msePartSummary=""
+        local msePartDescription=""
+        local msePartSubsections=""
+
+        IFS=$'\n'
+        while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
+          mseLineRaw=$(mse_str_trim_right "${mseLineRaw}")
+
+          if [ "${mseInContent}" == "0" ] && [ "${mseLineRaw}" != "" ]; then
+            mseInContent="1"
+            msePartTitle="${mseLineRaw##*# }"
+
+            mseTargetPart="summary"
+          else
+            if [ "${mseInContent}" == "1" ]; then
+              if [[ "${mseLineRaw}" == "#"* ]]; then
+                mseTargetPart="subsections"
+              fi
+
+              case "${mseTargetPart}" in
+                summary)
+                  if [ "${msePartSummary}" == "" ]; then
+                    if [ "${mseLineRaw}" != "" ]; then
+                      msePartSummary+="\n${mseLineRaw}"
+                    fi
+                  else
+                    if [ "${mseLineRaw}" == "" ]; then
+                      mseTargetPart="description"
+                    else
+                      msePartSummary+="\n${mseLineRaw}"
+                    fi
+                  fi
+                ;;
+                description)
+                  if [ "${msePartDescription}" != "" ] || [ "${mseLineRaw}" != "" ]; then
+                    msePartDescription+="\n${mseLineRaw}"
+                  fi
+                ;;
+                subsections)
+                  msePartSubsections+="\n${mseLineRaw}"
+                ;;
+              esac
+            fi
+          fi
+
+        done <<< "${mseTargetSectionContent}"
+        IFS=$' \t\n'
+
+
+        msePartTitle=$(mse_str_trim "${msePartTitle}")
+        msePartSummary=$(mse_str_trim "${msePartSummary}")
+        msePartDescription=$(mse_str_trim "${msePartDescription}")
+        msePartSubsections=$(mse_str_trim "${msePartSubsections}")
+
+        MSE_MAN_GENERIC_SECTION_DATA["title"]=$(mse_normalize_string "${msePartTitle}")
+        MSE_MAN_GENERIC_SECTION_DATA["summary"]=$(mse_normalize_string "${msePartSummary}")
+        MSE_MAN_GENERIC_SECTION_DATA["description"]=$(mse_normalize_string "${msePartDescription}")
+        MSE_MAN_GENERIC_SECTION_DATA["subsections"]=$(mse_normalize_string "${msePartSubsections}")
       fi
     fi
-  done
+  fi
 }

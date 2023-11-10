@@ -21,7 +21,7 @@
 # 'MSE_MAN_MAIN_SECTIONS_DATA' sob uma chave que resulta do seu próprio nome
 # que será 'normalizado' a partir do processo de
 # 'mse_man_normalize_section_name'.
-mse_man_extract_main_sections_data() {
+mse_man_extract_sections_data() {
   mse_man_reset_data
 
   local mseFile="${1}"

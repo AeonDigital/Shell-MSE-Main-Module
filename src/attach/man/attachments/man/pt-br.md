@@ -1,31 +1,19 @@
 # Synopsis
 
 Expõe na tela um manual de função em formato `MarkDown`.
-Isto segue o teste
 
-Esta é a sequencia da descrição
 
-daquilo que deve ser
-a explicação completa
 
-a ser dada
+&nbsp;
+
+# Description
+
 
 
 
 &nbsp;
     
 # Parameters
-
-Expõe na tela um manual de função em formato `MarkDown`.
-Isto segue o teste
-
-Esta é a sequencia da descrição
-
-daquilo que deve ser
-a explicação completa
-
-a ser dada
-
 
 ## string file
 
