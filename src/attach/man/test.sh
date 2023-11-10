@@ -541,8 +541,12 @@ test_mse_man_compile_data() {
 
   mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder"
 
+  echo "-" > testeman
+
   local mseK
   for mseK in "${mseArrCompileManOrder[@]}"; do
-    echo "${mseK}"
+    echo -e "${mseK}" >> testeman
+    echo -e "${mseAssocCompiledMan[${mseK}]}" >> testeman
+    echo -e "-----------------" >> testeman
   done
 }
