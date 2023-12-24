@@ -73,7 +73,7 @@ execMyShellEnvUnitTests() {
     mseAlertMsg+="   - git submodule update --remote \n"
     mseAlertMsg+="\n"
 
-    echo -n "${mseAlertMsg}"
+    echo -en "${mseAlertMsg}"
   else
     local mseThisDir=$(getRealPathToCurrentDirectory)
 
@@ -148,6 +148,6 @@ case "${1,,}" in
     mseAlertMsg+="      Stop tests on the first fail."
     mseAlertMsg+="\n"
 
-    echo -e "${mseAlertMsg}"
+    echo -en "${mseAlertMsg}"
   ;;
 esac

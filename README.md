@@ -77,6 +77,35 @@ mse mng submodule updateAll --
 
 ________________________________________________________________________________
 
+## Módulo de testes
+
+Se está fazendo uma instalação como desenvolvedor, será necessário instalar 
+também o módulo de testes.  
+Para isto use:  
+
+``` shell
+git submodule init
+git submodule update --remote
+```
+
+E para rodar os testes você pode usar:
+
+``` shell
+# Para rodar TODOS os testes
+./src/module.sh test
+
+# Para rodar apenas um teste específico
+./src/module.sh test <function_name>
+```
+
+
+
+&nbsp;
+&nbsp;
+
+
+________________________________________________________________________________
+
 ## Importante
 
 Este projeto - por hora - é um exercício pessoal de construção de ferramentas 
