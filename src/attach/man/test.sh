@@ -541,18 +541,18 @@ test_mse_man_compile_data() {
 
   mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder"
 
-  echo "-" > testeman.txt
+  echo -e "" > testeman.txt
 
   printf "%s\n" "${MSE_MAN_PARAMETERS_ORDER[@]}"
 
   local mseK
   for mseK in "${mseArrCompileManOrder[@]}"; do
-    echo -e "[${mseK}]" >> testeman.txt
+    echo -e "#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n${mseK}" >> testeman.txt
     if [ "${mseK}" == "parameters_subsections" ]; then
       echo -e "..." >> testeman.txt
     else
       echo -e "${mseAssocCompiledMan[${mseK}]}" >> testeman.txt
     fi
-    echo -e "-----------------" >> testeman.txt
+    echo -e "---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#\n\n\n" >> testeman.txt
   done
 }
