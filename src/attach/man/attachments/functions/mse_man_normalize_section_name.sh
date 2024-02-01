@@ -9,7 +9,7 @@
 # Nome da seção que será normalizado.
 #
 # @return string
-# Remove os 'hashs' do início da string.
+# Remove os '#' do início da string.
 # Remove glifos de caracteres acentuados.
 # Remove espaços substituindo-os por '_'.
 mse_man_normalize_section_name() {

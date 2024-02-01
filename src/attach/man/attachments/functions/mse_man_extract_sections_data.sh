@@ -4,17 +4,10 @@
 
 #
 # Lê todo o arquivo de manual (MarkDown) indicado e coleta linha a linha as
-# informações das seções principais.
+# informações das seções principais existentes.
 #
 # @param string $1
 # Caminho até o arquivo do manual.
-#
-# @param string $2
-# Nome das seções do documento que devem ser exibidas.
-#
-# Se o valor passado for ignorado ou inválido, todas as seções padrões
-# serão mostradas.
-# Seções customizadas precisam ser informadas aqui para serem reconhecidas.
 #
 # @return
 # Os dados de cada seção do manual serão alocados no array associativo
@@ -25,28 +18,6 @@ mse_man_extract_sections_data() {
   mse_man_reset_data
 
   local mseFile="${1}"
-  local mseSections="${2}"
-
-
-  local mseDefaultSections=" synopsis description parameters returns examples dependencies "
-  declare -a mseArrDefaultSections=()
-  mse_str_convert_toArray "mseArrDefaultSections" "${mseDefaultSections}"
-
-  if [ "${mseSections}" == "" ]; then
-    mseSections="${mseDefaultSections}"
-  else
-    mseSections="${mseSections/./${mseDefaultSections}}"
-  fi
-
-  declare -a mseTargetSections=()
-  mse_str_convert_toArray "mseTargetSections" "${mseSections}"
-
-  local mseI
-  local mseS
-  for mseI in "${!mseTargetSections[@]}"; do
-    mseTargetSections["${mseI}"]=$(mse_man_normalize_section_name "${mseTargetSections["${mseI}"]}")
-  done
-
 
   local mseFileContent=""
   if [ -f "${mseFile}" ]; then
@@ -56,34 +27,28 @@ mse_man_extract_sections_data() {
 
   if [ "${mseFileContent}" != "" ]; then
     local mseLineRaw=""
-    local mseInTargetSection="0"
-    local mseInTargetSectionName=""
+    local mseTargetSectionName=""
 
 
     IFS=$'\n'
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
       if [[ "${mseLineRaw}" == "# "* ]]; then
         if [[ "${mseLineRaw,,}" == "# returns"* ]]; then
-          mseInTargetSectionName="returns"
+          mseTargetSectionName="returns"
         else
-          mseInTargetSectionName=$(mse_man_normalize_section_name "${mseLineRaw}")
+          mseTargetSectionName=$(mse_man_normalize_section_name "${mseLineRaw}")
         fi
-        mseInTargetSection=$(mse_array_has_value "${mseInTargetSectionName}" "mseTargetSections")
 
-        if [ "${mseInTargetSection}" == "1" ]; then
-          MSE_MAN_MAIN_SECTIONS_ORDER+=("${mseInTargetSectionName}")
-        fi
+        MSE_MAN_MAIN_SECTIONS_ORDER+=("${mseTargetSectionName}")
       fi
 
 
-      if [ "${mseInTargetSection}" == "1" ]; then
-        mseLineRaw="${mseLineRaw//&nbsp;/ }"
+      mseLineRaw="${mseLineRaw//&nbsp;/ }"
 
-        if [ -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseInTargetSectionName]+x}" ]; then
-          MSE_MAN_MAIN_SECTIONS_DATA[${mseInTargetSectionName}]="${mseLineRaw}"
-        else
-          MSE_MAN_MAIN_SECTIONS_DATA[${mseInTargetSectionName}]+="\n${mseLineRaw}"
-        fi
+      if [ -z "${MSE_MAN_MAIN_SECTIONS_DATA[$mseTargetSectionName]+x}" ]; then
+        MSE_MAN_MAIN_SECTIONS_DATA[${mseTargetSectionName}]="${mseLineRaw}"
+      else
+        MSE_MAN_MAIN_SECTIONS_DATA[${mseTargetSectionName}]+="\n${mseLineRaw}"
       fi
     done <<< "${mseFileContent}"
     IFS=$' \t\n'

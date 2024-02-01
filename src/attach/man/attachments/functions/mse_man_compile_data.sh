@@ -3,7 +3,22 @@
 
 
 #
-# Compila as informações extraídas do arquivo de manual indicado.
+# Compila as informações extraídas do arquivo de manual indicado
+# preenchendo os arrays indicados com todo o conteúdo de todas as seções
+# encontradas.
+#
+# @param string $1
+# Caminho até o arquivo do manual.
+#
+# @param assoc $2
+# Nome do array associativo que receberá todo o conteúdo do manual devidamente
+# compilado.
+#
+# @param array $3
+# Nome do array que receberá o nome de cada chave identificadora de conteúdo
+# do array $2 na ordem em que ele deve ser exposto.
+#
+# @return void
 mse_man_compile_data() {
   local mseTargetFile="${1}"
   local mseInternalStrCompileManName="${2}"
@@ -12,7 +27,6 @@ mse_man_compile_data() {
   declare -n mseInternalArrCompileManOrder="${mseInternalStrCompileManOrder}"
 
 
-  mse_man_reset_data
   mse_man_extract_sections_data "${mseTargetFile}"
 
 

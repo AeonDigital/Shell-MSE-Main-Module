@@ -21,7 +21,7 @@
 #
 # Ao final do processo as seguintes chaves devem ser preenchidas com os
 # dados encontrados:
-# - [title]     -> Primeira linha não vazia da seção (sempre em 1 única linha)
+# - title       -> Primeira linha não vazia da seção (sempre em 1 única linha)
 # - summary     -> Após o título, primeira coleção de linhas contiguas de
 #                  informação até encontrar a primeira linha vazia.
 # - description -> Toda informação existênte após o sumário até o início da

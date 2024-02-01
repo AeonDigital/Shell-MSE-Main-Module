@@ -88,7 +88,7 @@ test_mse_man_extract_sections_data() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md"
 
   testResult="${#MSE_MAN_MAIN_SECTIONS_ORDER[@]}"
   testExpected="7"
@@ -177,7 +177,7 @@ test_mse_man_process_section_data() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md"
 
 
 
@@ -223,7 +223,7 @@ test_mse_man_process_parameters() {
   mse_man_reset_data
   local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md" ". 'Extra section'"
+  mse_man_extract_sections_data "${dir}/attachments/test/man/pt-br.md"
   mse_man_process_section_data "parameters" "1"
 
 
@@ -541,12 +541,18 @@ test_mse_man_compile_data() {
 
   mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder"
 
-  echo "-" > testeman
+  echo "-" > testeman.txt
+
+  printf "%s\n" "${MSE_MAN_PARAMETERS_ORDER[@]}"
 
   local mseK
   for mseK in "${mseArrCompileManOrder[@]}"; do
-    echo -e "${mseK}" >> testeman
-    echo -e "${mseAssocCompiledMan[${mseK}]}" >> testeman
-    echo -e "-----------------" >> testeman
+    echo -e "[${mseK}]" >> testeman.txt
+    if [ "${mseK}" == "parameters_subsections" ]; then
+      echo -e "..." >> testeman.txt
+    else
+      echo -e "${mseAssocCompiledMan[${mseK}]}" >> testeman.txt
+    fi
+    echo -e "-----------------" >> testeman.txt
   done
 }
