@@ -18,6 +18,9 @@
 # Nome do array que receberá o nome de cada chave identificadora de conteúdo
 # do array $2 na ordem em que ele deve ser exposto.
 #
+# @param string $4
+# Caminho até o local do arquivo onde os dados extraídos serão salvos.
+#
 # @return void
 mse_man_compile_data() {
   local mseTargetFile="${1}"
@@ -25,7 +28,7 @@ mse_man_compile_data() {
   declare -n mseInternalAssocCompileManName="${mseInternalStrCompileManName}"
   local mseInternalStrCompileManOrder="${3}"
   declare -n mseInternalArrCompileManOrder="${mseInternalStrCompileManOrder}"
-
+  local mseCompiledFile="${4}"
 
   mse_man_extract_sections_data "${mseTargetFile}"
 
@@ -60,4 +63,35 @@ mse_man_compile_data() {
       fi
     done
   done
+
+
+  if [ "${mseCompiledFile}" != "" ]; then
+    printf "" > "${mseCompiledFile}"
+
+    local mseK
+    local mseSepare="0"
+    local mseStrPart=""
+
+    for mseK in "${mseInternalStrCompileManOrder[@]}"; do
+      mseStrPart=""
+      if [ "${mseSepare}" == "0" ]; then
+        mseSepare="1"
+      elif [ "${mseSepare}" == "1" ]; then
+        mseStrPart+="\n\n\n"
+      fi
+
+      mseStrPart+="#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n"
+      mseStrPart+="${mseK}\n"
+      if [ "${mseK}" == "parameters_subsections" ]; then
+        mseStrPart+="...\n"
+      else
+        mseStrPart+="${mseInternalStrCompileManName[${mseK}]}\n"
+      fi
+
+      mseStrPart+="---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#"
+
+      mseStrPart="${mseStrPart//<<<\\0/<<<\\\\0}"
+      printf "${mseStrPart}" >> "${mseCompiledFile}"
+    done
+  fi
 }

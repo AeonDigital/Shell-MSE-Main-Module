@@ -209,7 +209,7 @@ test_mse_man_process_section_data() {
 
   for mseSection in "${!MSE_MAN_SECTION_DATA[@]}"; do
     testResult="${MSE_MAN_SECTION_DATA[$mseSection]}"
-    testExpected=$(< "${dir}/attachments/test/expected/process_section_generic/parameters_${mseSection}.txt")
+    testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_${mseSection}.txt")
 
     mse_utest_assert_string_multiline
   done
@@ -539,20 +539,44 @@ test_mse_man_compile_data() {
   unset mseArrCompileManOrder
   declare -a mseArrCompileManOrder=()
 
-  mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder"
+  mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "compiled.cman"
 
-  echo -e "" > testeman.txt
+  printf "" > testeman.txt
 
-  printf "%s\n" "${MSE_MAN_PARAMETERS_ORDER[@]}"
+  #printf "%s\n" "${MSE_MAN_PARAMETERS_ORDER[@]}"
 
   local mseK
+  local mseSepare="0"
+  local mseStrPart=""
+
   for mseK in "${mseArrCompileManOrder[@]}"; do
-    echo -e "#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n${mseK}" >> testeman.txt
-    if [ "${mseK}" == "parameters_subsections" ]; then
-      echo -e "..." >> testeman.txt
-    else
-      echo -e "${mseAssocCompiledMan[${mseK}]}" >> testeman.txt
+    mseStrPart=""
+    if [ "${mseSepare}" == "0" ]; then
+      mseSepare="1"
+    elif [ "${mseSepare}" == "1" ]; then
+      mseStrPart+="\n\n\n"
     fi
-    echo -e "---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#\n\n\n" >> testeman.txt
+
+    mseStrPart+="#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n"
+    mseStrPart+="${mseK}\n"
+    if [ "${mseK}" == "parameters_subsections" ]; then
+      mseStrPart+="...\n"
+    else
+      mseStrPart+="${mseAssocCompiledMan[${mseK}]}\n"
+    fi
+
+    mseStrPart+="---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#"
+
+    mseStrPart="${mseStrPart//<<<\\0/<<<\\\\0}"
+    printf "${mseStrPart}" >> testeman.txt
+
   done
+
+
+
+  # testResult="${MSE_MAN_SECTION_DATA[$mseSection]}"
+  # testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_${mseSection}.txt")
+
+  # mse_utest_assert_string_multiline
+
 }
