@@ -1,0 +1,645 @@
+<![MAN-DATA[
+:: synopsis_title
+Synopsis
+]]!>
+
+
+<![MAN-DATA[
+:: synopsis_summary
+Manual para testes da função `mse_man`.
+]]!>
+
+
+<![MAN-DATA[
+:: synopsis_description
+
+]]!>
+
+
+<![MAN-DATA[
+:: synopsis_subsections
+
+]]!>
+
+
+<![MAN-DATA[
+:: description_title
+Description
+]]!>
+
+
+<![MAN-DATA[
+:: description_summary
+Na sequencia vários parâmetros serão definidos apenas para fins de teste e não
+devem ser observados do ponto de vista lógico.
+]]!>
+
+
+<![MAN-DATA[
+:: description_description
+
+]]!>
+
+
+<![MAN-DATA[
+:: description_subsections
+
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_title
+Parameters
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_summary
+Descrição prévia sobre os parâmetros a serem usados.
+Eventualmente esta descrição pode ser maior que o comum.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_description
+Isto comumente não terá qualquer conteúdo pois na imensa parte das funções não
+é preciso expor alguma informação extra aqui que não possa estar na descrição
+da própria função, relacionada diretamente a algum parâmetro ou em uma seção
+própria para o mesmo.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_subsections
+...
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_name
+alpha
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_type
+!bool
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_aka
+-a --alpha
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_default
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_min
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_max
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_options_ci
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_options_cs
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_list_cl
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_list_op
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_hint
+Definição simples de um parametro booleano que também é `nullable`.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_alpha_description
+
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_name
+beta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_type
+int
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_aka
+-b --beta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_default
+0
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_min
+-10
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_max
+10
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_options_ci
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_options_cs
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_list_cl
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_list_op
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_hint
+Parametro que recebe um valor inteiro entre -10 e 10.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_beta_description
+Em caso de valor vazio ou inválido, usará `0` como o valor padrão.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_name
+gama
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_type
+int
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_aka
+-g --gama
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_default
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_min
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_max
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_options_ci
+
+0 : c c++
+1 : rust
+2 : cobol
+3 : clipper
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_options_cs
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_list_cl
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_list_op
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_hint
+Parametro que possui uma lista fechada de opções válidas.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_gama_description
+Internamente apenas o valor `chave` será usado mas quando usar o autocomplete
+do MSE o usuário pode selecionar o valor correspondente usando um dos labels
+associados ao mesmo.
+
+Neste caso a lista é avaliada de forma case-insensitive, ou seja:
+- C = c
+- Rust = rust = RUST
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_name
+delta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_type
+char
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_aka
+-d --delta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_default
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_min
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_max
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_options_ci
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_options_cs
+
+o: output
+O: open
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_list_cl
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_list_op
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_hint
+Outra lista fechada de opções válidas.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_delta_description
+Neste caso ocorre avaliação case-sensitive dos valores digitados pelo usuário e
+ele precisa digitar um valor que case precisamente com um valor `chave` ou com
+um dos `labels` correspondentes.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_name
+epsilon
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_type
+string
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_aka
+-e --epsilon
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_default
+synopsis
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_min
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_max
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_options_ci
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_options_cs
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_list_cl
+
+synopsis
+description
+parameters
+returns
+example
+dependencies
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_list_op
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_hint
+Define uma lista fechada de opções dentre as quais o usuário pode selecionar
+um ou mais itens (separados por espaços).
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_epsilon_description
+Se desejar, o usuário pode selecionar todos os itens passando como valor o
+caracter `.`.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_name
+zeta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_type
+string
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_aka
+-z --zeta
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_default
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_min
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_max
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_options_ci
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_options_cs
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_list_cl
+<<<\0null>>>
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_list_op
+
+add
+sub
+mul
+div
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_hint
+Define uma lista aberta de opções dentre as quais o usuário pode selecionar
+um ou mais itens, ou ainda incluir opções próprias.
+]]!>
+
+
+<![MAN-DATA[
+:: parameters_zeta_description
+Se desejar, o usuário pode selecionar todos os itens oferecidos pela lista e
+ainda adicionar o seu próprio usando por exemplo: `. mod sqrt`
+]]!>
+
+
+<![MAN-DATA[
+:: examples_title
+Examples
+]]!>
+
+
+<![MAN-DATA[
+:: examples_summary
+Nesta seção podemos definir uma demonstração do uso de nossa função. É
+interessante para casos complexos ou explicações que a demonstração prática é
+mais rápida que a leitura do próprio manual.
+]]!>
+
+
+<![MAN-DATA[
+:: examples_description
+``` sh
+  # Example 01
+  > mse_my_function -b 5 --gama RUST --delta output --zeta ". sqrt"
+  # Returns :
+  > I like RUST especially to do the operations : add sub mul div and sqrt.
+```
+]]!>
+
+
+<![MAN-DATA[
+:: examples_subsections
+
+]]!>
+
+
+<![MAN-DATA[
+:: returns_title
+Returns string|assoc
+]]!>
+
+
+<![MAN-DATA[
+:: returns_summary
+Normalmente apenas definir o tipo de retorno é suficiente mas se necessário é
+possível agregar informações neste espaço explicando o que é esperado de
+retorno conforme o tipo de processamento definido nos parametros.
+]]!>
+
+
+<![MAN-DATA[
+:: returns_description
+É especialmente útil para casos de retornos múltiplos ou quando `void` efetua
+uma ação que não é `printavel`.
+]]!>
+
+
+<![MAN-DATA[
+:: returns_subsections
+
+]]!>
+
+
+<![MAN-DATA[
+:: dependencies_title
+Dependencies
+]]!>
+
+
+<![MAN-DATA[
+:: dependencies_summary
+- printf
+- sed
+- awk
+]]!>
+
+
+<![MAN-DATA[
+:: dependencies_description
+
+]]!>
+
+
+<![MAN-DATA[
+:: dependencies_subsections
+
+]]!>
+
+
+<![MAN-DATA[
+:: extra_section_title
+Extra section
+]]!>
+
+
+<![MAN-DATA[
+:: extra_section_summary
+Caso as seções anteriores não sejam suficientes para expressar tudo o que você
+precisa expor sobre sua função é possível definir seções extras para adicionar
+conteúdo que julgar necessário.
+]]!>
+
+
+<![MAN-DATA[
+:: extra_section_description
+
+]]!>
+
+
+<![MAN-DATA[
+:: extra_section_subsections
+
+]]!>

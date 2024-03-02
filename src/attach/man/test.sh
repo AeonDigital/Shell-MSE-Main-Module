@@ -533,50 +533,22 @@ test_mse_man_process_parameters_zeta() {
 
 test_mse_man_compile_data() {
   local dir=$(echo "${BASH_SOURCE%/*}")
+  local testResultFile="${dir}/attachments/test/result/compile_data/compiled.cman"
+  local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
+
 
   unset mseAssocCompiledMan
   declare -A mseAssocCompiledMan
   unset mseArrCompileManOrder
   declare -a mseArrCompileManOrder=()
 
-  mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "compiled.cman"
 
-  printf "" > testeman.txt
-
-  #printf "%s\n" "${MSE_MAN_PARAMETERS_ORDER[@]}"
-
-  local mseK
-  local mseSepare="0"
-  local mseStrPart=""
-
-  for mseK in "${mseArrCompileManOrder[@]}"; do
-    mseStrPart=""
-    if [ "${mseSepare}" == "0" ]; then
-      mseSepare="1"
-    elif [ "${mseSepare}" == "1" ]; then
-      mseStrPart+="\n\n\n"
-    fi
-
-    mseStrPart+="#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n"
-    mseStrPart+="${mseK}\n"
-    if [ "${mseK}" == "parameters_subsections" ]; then
-      mseStrPart+="...\n"
-    else
-      mseStrPart+="${mseAssocCompiledMan[${mseK}]}\n"
-    fi
-
-    mseStrPart+="---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#"
-
-    mseStrPart="${mseStrPart//<<<\\0/<<<\\\\0}"
-    printf "${mseStrPart}" >> testeman.txt
-
-  done
+  printf "" > "${testResultFile}"
+  mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "${testResultFile}"
 
 
+  testResult=$(< "${testResultFile}")
+  testExpected=$(< "${testExpectedFile}")
 
-  # testResult="${MSE_MAN_SECTION_DATA[$mseSection]}"
-  # testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_${mseSection}.txt")
-
-  # mse_utest_assert_string_multiline
-
+  mse_utest_assert_equals
 }

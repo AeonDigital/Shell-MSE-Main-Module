@@ -72,7 +72,7 @@ mse_man_compile_data() {
     local mseSepare="0"
     local mseStrPart=""
 
-    for mseK in "${mseInternalStrCompileManOrder[@]}"; do
+    for mseK in "${mseInternalArrCompileManOrder[@]}"; do
       mseStrPart=""
       if [ "${mseSepare}" == "0" ]; then
         mseSepare="1"
@@ -80,15 +80,15 @@ mse_man_compile_data() {
         mseStrPart+="\n\n\n"
       fi
 
-      mseStrPart+="#[[  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n"
-      mseStrPart+="${mseK}\n"
+      mseStrPart+="<![MAN-DATA[\n"
+      mseStrPart+=":: ${mseK}\n"
       if [ "${mseK}" == "parameters_subsections" ]; then
         mseStrPart+="...\n"
       else
-        mseStrPart+="${mseInternalStrCompileManName[${mseK}]}\n"
+        mseStrPart+="${mseInternalAssocCompileManName[${mseK}]}\n"
       fi
 
-      mseStrPart+="---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  ]]#"
+      mseStrPart+="]]!>"
 
       mseStrPart="${mseStrPart//<<<\\0/<<<\\\\0}"
       printf "${mseStrPart}" >> "${mseCompiledFile}"
