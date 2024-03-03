@@ -24,6 +24,9 @@ test_mse_man() {
 
   # 06
   test_mse_man_write_compiled_data
+
+  # 07
+  #test_mse_man_read_compiled_data
 }
 
 
@@ -550,5 +553,29 @@ test_mse_man_write_compiled_data() {
   testResult=$(< "${testResultFile}")
   testExpected=$(< "${testExpectedFile}")
 
-  mse_utest_assert_equals
+  mse_utest_assert_string_multiline
+}
+
+
+
+
+
+test_mse_man_read_compiled_data() {
+  local dir=$(echo "${BASH_SOURCE%/*}")
+  local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
+
+
+  unset mseAssocCompiledMan
+  declare -A mseAssocCompiledMan
+  unset mseArrCompileManOrder
+  declare -a mseArrCompileManOrder=()
+
+
+  mse_man_read_compiled_data "${testExpectedFile}" "mseAssocCompiledMan" "mseArrCompileManOrder"
+
+
+  #testResult=$(< "${testResultFile}")
+  #testExpected=$(< "${testExpectedFile}")
+
+  #mse_utest_assert_equals
 }

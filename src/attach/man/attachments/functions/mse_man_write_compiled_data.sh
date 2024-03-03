@@ -5,13 +5,16 @@
 #
 # Compila as informações extraídas do arquivo de manual indicado
 # preenchendo os arrays indicados com todo o conteúdo de todas as seções
-# encontradas.
+# encontradas exceto a subseção 'subsections' da seção 'parameters'.
+#
+# A subseção 'subsections' da seção 'parameters' sempre virá vazia, pois, para
+# a compilação o que importa são os dados estruturados da mesma.
 #
 # @param string $1
 # Caminho até o arquivo do manual.
 #
 # @param assoc $2
-# Nome do array associativo que receberá todo o conteúdo do manual devidamente
+# Nome do array associativo que receberá o conteúdo do manual devidamente
 # compilado.
 #
 # @param array $3
