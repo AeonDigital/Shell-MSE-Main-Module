@@ -15,7 +15,7 @@ Expõe na tela um manual de função em formato `MarkDown`.
     
 # Parameters
 
-## string file
+## file file
 
 - aka       : -f --file
 - hint      :  

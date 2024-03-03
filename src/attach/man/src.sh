@@ -3,8 +3,6 @@
 
 # Parei no desenvolvimento da função 'mse_man_compile_data'
 #
-# O formato do arquivo compilado está pronto (ou quase).
-#
 # Agora é necessário criar um header para ele com meta informações que possam
 # agilizar o processo de extração de dados do manual.
 # Uma das coisas que penso neste momento é a lista de parametros disponíveis.

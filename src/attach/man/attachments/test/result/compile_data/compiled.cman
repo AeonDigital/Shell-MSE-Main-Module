@@ -70,12 +70,6 @@ própria para o mesmo.
 
 
 <![MAN-DATA[
-:: parameters_subsections
-...
-]]!>
-
-
-<![MAN-DATA[
 :: parameters_alpha_name
 alpha
 ]]!>
