@@ -8,8 +8,10 @@ test_mse_normalize_string() {
 
   mseTestMultilineResult+="\ntest 0 with \`multiline\`"
   mseTestMultilineResult+="\nstring "
+  mseTestMultilineResult+=" \0null "
   mseTestMultilineExpected+="\ntest 0 with \`multiline\`"
   mseTestMultilineExpected+="\nstring "
+  mseTestMultilineExpected+=" \0null "
 
 
   testResult="${mseTestMultilineResult}"
