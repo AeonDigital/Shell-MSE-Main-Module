@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # myShellEnv v 1.0 [aeondigital.com.br]
 
-# Parei no desenvolvimento da função 'mse_man_compile_data'
+# Parei no desenvolvimento da função 'mse_man_write_compiled_data'
 #
 # Agora é necessário criar um header para ele com meta informações que possam
 # agilizar o processo de extração de dados do manual.

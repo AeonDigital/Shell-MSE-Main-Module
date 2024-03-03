@@ -22,7 +22,7 @@
 # Caminho até o local do arquivo onde os dados extraídos serão salvos.
 #
 # @return void
-mse_man_compile_data() {
+mse_man_write_compiled_data() {
   local mseTargetFile="${1}"
   local mseInternalStrCompileManName="${2}"
   declare -n mseInternalAssocCompileManName="${mseInternalStrCompileManName}"

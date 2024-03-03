@@ -23,7 +23,7 @@ test_mse_man() {
   #test_mse_man_process_parameters
 
   # 06
-  test_mse_man_compile_data
+  test_mse_man_write_compiled_data
 }
 
 
@@ -531,7 +531,7 @@ test_mse_man_process_parameters_zeta() {
 
 
 
-test_mse_man_compile_data() {
+test_mse_man_write_compiled_data() {
   local dir=$(echo "${BASH_SOURCE%/*}")
   local testResultFile="${dir}/attachments/test/result/compile_data/compiled.cman"
   local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
@@ -544,7 +544,7 @@ test_mse_man_compile_data() {
 
 
   printf "" > "${testResultFile}"
-  mse_man_compile_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "${testResultFile}"
+  mse_man_write_compiled_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "${testResultFile}"
 
 
   testResult=$(< "${testResultFile}")
