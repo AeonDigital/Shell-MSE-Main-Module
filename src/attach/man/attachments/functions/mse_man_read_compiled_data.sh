@@ -37,79 +37,36 @@ mse_man_read_compiled_data() {
     local mseTargetSectionName=""
 
 
+    local mseInManData="0"
+    local mseManDataTitle=""
+    local mseManDataContent=""
+
+
     IFS=$'\n'
     while read mseLineRaw || [ -n "${mseLineRaw}" ]; do
-      if [ "${mseLineRaw}" == ":: parameters_description" ]; then
-        echo "achei!"
+      if [ "${mseInManData}" == "0" ]; then
+        if [ "${mseLineRaw}" == "<![MAN-DATA[" ]; then
+          mseInManData="1"
+          mseManDataTitle=""
+          mseManDataContent=""
+        fi
+      elif [ "${mseInManData}" == "1" ]; then
+        if [ "${mseLineRaw}" != "]]!>" ]; then
+          if [ "${mseManDataTitle}" == "" ]; then
+            if [[ "${mseLineRaw}" == ":: "* ]]; then
+              mseManDataTitle="${mseLineRaw#:: *}"
+              mseInternalArrCompileManOrder+=("${mseManDataTitle}")
+            fi
+          else
+            mseManDataContent+="${mseLineRaw}\n"
+          fi
+        else
+          mseInManData="0"
+          mseManDataContent="${mseManDataContent//<<<0/<<<\\0}"
+          mseInternalAssocCompileManName["${mseManDataTitle}"]="${mseManDataContent}"
+        fi
       fi
     done <<< "${mseFileContent}"
     IFS=$' \t\n'
   fi
-
-
-  # mse_man_extract_sections_data "${mseTargetFile}"
-
-
-  # declare -a mseExpectedSectionSubParts=("title" "summary" "description" "subsections");
-  # declare -a mseExpectedSectionParameterProperties=("name" "type" "aka" "default" "min" "max" "options_ci" "options_cs" "list_cl" "list_op" "hint" "description");
-
-  # local mseSectionName
-  # local mseSectionSubPart
-  # local mseSectionParameterName
-  # local mseSectionParameterPropertyName
-
-  # local mseNewKey
-  # for mseSectionName in "${MSE_MAN_MAIN_SECTIONS_ORDER[@]}"; do
-  #   mse_man_process_section_data "${mseSectionName}" "1"
-
-  #   for mseSectionSubPart in "${mseExpectedSectionSubParts[@]}"; do
-  #     mseNewKey="${mseSectionName}_${mseSectionSubPart}"
-  #     mseInternalAssocCompileManName["${mseNewKey}"]="${MSE_MAN_SECTION_DATA[${mseSectionSubPart}]}"
-  #     mseInternalArrCompileManOrder+=("${mseNewKey}")
-
-  #     if [ "${mseSectionName}" == "parameters" ] && [ "${mseSectionSubPart}" == "subsections" ] && [ "${MSE_MAN_SECTION_DATA["subsections"]}" != "" ]; then
-  #       mse_man_process_parameters "${MSE_MAN_SECTION_DATA[subsections]}"
-  #       for mseSectionParameterName in "${MSE_MAN_PARAMETERS_ORDER[@]}"; do
-  #         for mseSectionParameterPropertyName in "${mseExpectedSectionParameterProperties[@]}" ; do
-  #           mseNewKey="${mseSectionName}_${mseSectionParameterName}_${mseSectionParameterPropertyName}"
-  #           mseNewKey="${mseNewKey,,}"
-  #           mseInternalAssocCompileManName["${mseNewKey}"]="${MSE_MAN_PARAMETERS_DATA["${mseSectionParameterName}_${mseSectionParameterPropertyName}"]}"
-  #           mseInternalArrCompileManOrder+=("${mseNewKey}")
-  #         done
-  #       done
-  #     fi
-  #   done
-  # done
-
-
-  # if [ "${mseCompiledFile}" != "" ]; then
-  #   printf "" > "${mseCompiledFile}"
-
-  #   local mseK
-  #   local mseSepare="0"
-  #   local mseStrPart=""
-  #   local mseStrContent=""
-
-  #   for mseK in "${mseInternalArrCompileManOrder[@]}"; do
-  #     mseStrPart=""
-  #     if [ "${mseSepare}" == "0" ]; then
-  #       mseSepare="1"
-  #     elif [ "${mseSepare}" == "1" ]; then
-  #       mseStrPart+="\n\n\n"
-  #     fi
-
-  #     if [ "${mseK}" != "parameters_subsections" ]; then
-  #       mseStrPart+="<![MAN-DATA[\n"
-  #       mseStrPart+=":: ${mseK}\n"
-  #       mseStrPart+="${mseInternalAssocCompileManName[${mseK}]}\n"
-  #       mseStrPart+="]]!>"
-
-  #       mseStrPart="${mseStrPart//<<<\\0/<<<\\\\0}"
-  #       mseStrContent+="${mseStrPart}"
-  #     fi
-  #   done
-
-
-  #   printf "${mseStrContent}" >> "${mseCompiledFile}"
-  # fi
 }

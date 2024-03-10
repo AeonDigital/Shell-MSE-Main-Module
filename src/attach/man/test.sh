@@ -8,25 +8,22 @@ test_mse_man() {
 
 
   # 01
-  #test_mse_man_reset_data
+  test_mse_man_reset_data
 
   # 02
-  #test_mse_man_normalize_section_name
+  test_mse_man_normalize_section_name
 
   # 03
-  #test_mse_man_extract_sections_data
+  test_mse_man_extract_sections_data
 
   # 04
-  #test_mse_man_process_section_data
+  test_mse_man_process_section_data
 
   # 05
-  #test_mse_man_process_parameters
+  test_mse_man_process_parameters
 
   # 06
-  test_mse_man_write_compiled_data
-
-  # 07
-  #test_mse_man_read_compiled_data
+  test_mse_man_write_read_compiled_data
 }
 
 
@@ -534,48 +531,95 @@ test_mse_man_process_parameters_zeta() {
 
 
 
-test_mse_man_write_compiled_data() {
+test_mse_man_write_read_compiled_data() {
   local dir=$(echo "${BASH_SOURCE%/*}")
   local testResultFile="${dir}/attachments/test/result/compile_data/compiled.cman"
   local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
 
 
-  unset mseAssocCompiledMan
-  declare -A mseAssocCompiledMan
-  unset mseArrCompileManOrder
-  declare -a mseArrCompileManOrder=()
+  unset mseAssocCompiledWriteMan
+  declare -A mseAssocCompiledWriteMan
+  unset mseArrCompileManWriteOrder
+  declare -a mseArrCompileManWriteOrder=()
 
 
   printf "" > "${testResultFile}"
-  mse_man_write_compiled_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "${testResultFile}"
+  mse_man_write_compiled_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledWriteMan" "mseArrCompileManWriteOrder" "${testResultFile}"
 
 
   testResult=$(< "${testResultFile}")
   testExpected=$(< "${testExpectedFile}")
 
   mse_utest_assert_string_multiline
-}
 
 
 
 
 
-test_mse_man_read_compiled_data() {
-  local dir=$(echo "${BASH_SOURCE%/*}")
-  local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
+  unset mseAssocCompiledReadMan
+  declare -A mseAssocCompiledReadMan
+  unset mseArrCompileManReadOrder
+  declare -a mseArrCompileManReadOrder=()
+
+  mse_man_read_compiled_data "${testResultFile}" "mseAssocCompiledReadMan" "mseArrCompileManReadOrder"
+
+  # The "parameters_subsections" key is not written in the compiled file,
+  # so in the comparisons below it should not be taken into account.
+  unset mseAssocCompiledWriteMan["parameters_subsections"]
+  local mseTgtI=""
+  local mseI=""
+  for mseI in "${!mseArrCompileManWriteOrder[@]}"; do
+    if [ "${mseArrCompileManWriteOrder[$mseI]}" == "parameters_subsections" ]; then
+      mseTgtI="${mseI}"
+    fi
+  done
+
+  if [ "${mseTgtI}" != "" ]; then
+    unset mseArrCompileManWriteOrder[$mseTgtI]
+    mseArrCompileManWriteOrder=("${mseArrCompileManWriteOrder[@]}")
+  fi
 
 
-  unset mseAssocCompiledMan
-  declare -A mseAssocCompiledMan
-  unset mseArrCompileManOrder
-  declare -a mseArrCompileManOrder=()
+  # Verifies that the number of items in the resulting arrays are identical
+  testResult="${#mseAssocCompiledReadMan[@]}"
+  testExpected="${#mseAssocCompiledWriteMan[@]}"
+  mse_utest_assert_equals
+
+  # Verifies that the number of items in the resulting arrays are identical
+  testResult="${#mseArrCompileManReadOrder[@]}"
+  testExpected="${#mseArrCompileManWriteOrder[@]}"
+  mse_utest_assert_equals
+
+  # Verifies that the number of items in the resulting arrays are identical
+  testResult="${#mseAssocCompiledReadMan[@]}"
+  testExpected="${#mseArrCompileManReadOrder[@]}"
+  mse_utest_assert_equals
 
 
-  mse_man_read_compiled_data "${testExpectedFile}" "mseAssocCompiledMan" "mseArrCompileManOrder"
+  # Verifies that the order of the keys is identical in both control arrays
+  for mseI in "${!mseArrCompileManWriteOrder[@]}"; do
+    testResult="${mseArrCompileManReadOrder[$mseI]}"
+    testExpected="${mseArrCompileManWriteOrder[$mseI]}"
+    mse_utest_assert_equals
+  done
 
 
-  #testResult=$(< "${testResultFile}")
-  #testExpected=$(< "${testExpectedFile}")
+  # Verifies that all existing keys in the control associative array are present in the other.
+  # If so, check if the contents of each key are also identical
+  for mseKey in "${!mseAssocCompiledWriteMan[@]}"; do
+    if [ -z "${mseAssocCompiledReadMan[${mseKey}]+x}" ]; then
+      testResult="0"
+    else
+      testResult="1"
+    fi
 
-  #mse_utest_assert_equals
+    testExpected="1"
+    mse_utest_assert_equals
+
+    if [ "${testResult}" == "1" ]; then
+      testResult=$(mse_utest_normalize_string "${mseAssocCompiledReadMan[$mseKey]}")
+      testExpected=$(mse_utest_normalize_string "${mseAssocCompiledWriteMan[$mseKey]}")
+      mse_utest_assert_equals
+    fi
+  done
 }
