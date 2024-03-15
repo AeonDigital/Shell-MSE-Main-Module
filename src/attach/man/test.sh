@@ -533,8 +533,8 @@ test_mse_man_process_parameters_zeta() {
 
 test_mse_man_write_read_compiled_data() {
   local dir=$(echo "${BASH_SOURCE%/*}")
-  local testResultFile="${dir}/attachments/test/result/compile_data/compiled.cman"
-  local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.cman"
+  local testResultFile="${dir}/attachments/test/result/compile_data/compiled.tcman"
+  local testExpectedFile="${dir}/attachments/test/expected/compile_data/compiled.tcman"
 
 
   unset mseAssocCompiledWriteMan
