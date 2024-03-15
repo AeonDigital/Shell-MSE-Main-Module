@@ -15,11 +15,11 @@ Expõe na tela um manual de função em formato `MarkDown`.
     
 # Parameters
 
-## file file
+## function|file target
 
-- aka       : -f --file
+- aka       : -t --target
 - hint      :  
-  Caminho até o arquivo do manual.
+  Nome da função ou caminho completo até o arquivo do manual.
 
 
 &nbsp;

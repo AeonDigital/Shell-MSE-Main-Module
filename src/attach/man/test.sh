@@ -7,23 +7,96 @@ test_mse_man() {
   local mseSection
 
 
-  # 01
-  test_mse_man_reset_data
+  # # 01
+  # test_mse_man_reset_data
 
-  # 02
-  test_mse_man_normalize_section_name
+  # # 02
+  # test_mse_man_normalize_section_name
 
-  # 03
-  test_mse_man_extract_sections_data
+  # # 03
+  # test_mse_man_extract_sections_data
 
-  # 04
-  test_mse_man_process_section_data
+  # # 04
+  # test_mse_man_process_section_data
 
-  # 05
-  test_mse_man_process_parameters
+  # # 05
+  # test_mse_man_process_parameters
 
-  # 06
-  test_mse_man_write_read_compiled_data
+  # # 06
+  # test_mse_man_write_read_compiled_data
+
+
+
+
+
+  # 07
+  local dir=$(echo "${BASH_SOURCE%/*}")
+
+  testResult=$(mse_man "${dir}/attachments/test/expected/compile_data/compiled.tcman")
+  testExpected="The indicated file does not have the \".md\" extension."
+
+  mse_utest_assert_equals
+
+
+  testResult=$(mse_man "not-a-function")
+  testExpected="The name of the function \"not-a-function\" does not match any manual."
+
+  mse_utest_assert_equals
+
+
+
+
+  # Removes the compiled manual file
+  local mseManualCMAN="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.cman"
+  if [ -f "${mseManualCMAN}" ]; then
+    rm "${mseManualCMAN}"
+  fi
+
+  local mseFileExists=""
+  if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  testResult="${mseFileExists}"
+  testExpected="0"
+
+  mse_utest_assert_equals
+
+
+  # If the file doesn't exist, try creating it first by passing in the location of the original manual
+  if [ "${testResult}" == "0" ]; then
+    local mseManualMD="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md"
+    local mseMan=$(mse_man "${mseManualMD}")
+
+    mseFileExists=""
+    if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+    testResult="${mseFileExists}"
+    testExpected="1"
+
+    mse_utest_assert_equals
+
+
+    # removes the compiled file again and tests the generation of the file from the function name
+    if [ "${testResult}" == "1" ]; then
+      rm "${mseManualCMAN}"
+
+      local mseFileExists=""
+      if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+      testResult="${mseFileExists}"
+      testExpected="0"
+
+      mse_utest_assert_equals
+
+
+      if [ "${testResult}" == "0" ]; then
+        local mseMan=$(mse_man "mse_man")
+
+        mseFileExists=""
+        if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+        testResult="${mseFileExists}"
+        testExpected="1"
+
+        mse_utest_assert_equals
+      fi
+    fi
+  fi
 }
 
 

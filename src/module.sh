@@ -122,6 +122,10 @@ execMyShellEnvUnitTests() {
           if [ -f "${mseSrcDir}/test.sh" ]; then
             MSE_UTEST_FUNCTIONS_TO_SRC[${mseFunctionName}]="${mseSrcDir}/src.sh"
             MSE_UTEST_FUNCTIONS_TO_TEST[${mseFunctionName}]="${mseSrcDir}/test.sh"
+
+            if [ -f "${mseSrcDir}/src.sh" ] && [ -f "${mseSrcDir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md" ]; then
+              MSE_GLOBAL_FUNCTIONS_TO_MANUALS[${mseFunctionName}]="${mseSrcDir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md"
+            fi
           fi
         done
 
