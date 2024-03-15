@@ -41,8 +41,6 @@ Expõe na tela um manual de função em formato `MarkDown`.
 Se o valor passado for ignorado ou inválido, todas as seções serão mostradas.
 Este parametro serve apenas para as seções de primeiro nível do manual.
 
-Seções customizadas precisam ser informadas aqui para serem reconhecidas.
-
 
 &nbsp;
 
