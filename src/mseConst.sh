@@ -50,6 +50,17 @@ if [ -z ${MSE_GLOBAL_MODULES_USE_LOCALE+x} ]; then
   declare -g MSE_GLOBAL_MODULES_USE_LOCALE="en-us"
 fi
 
+#
+# [assoc] MSE_GLOBAL_FUNCTIONS_TO_MANUALS
+# Relationship between the name of each function and the full
+# path to its respective manual.
+#
+# Type [function][file]
+if [[ "$(declare -p "MSE_GLOBAL_FUNCTIONS_TO_MANUALS" 2> /dev/null)" != "declare -A"* ]]; then
+  declare -gA MSE_GLOBAL_FUNCTIONS_TO_MANUALS
+fi
+
+
 
 
 #

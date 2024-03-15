@@ -31,14 +31,31 @@ loadMyShellEnvModule() {
 
       retrieveModuleComponentsInDirectory "${mseThisDir}/attach" "mseArrModuleSrcDir" "mseArrModuleAttachments" "1"
       if [ "$?" == "0" ]; then
-        declare -a mseArrModuleSrcDir=()
-        declare -a mseArrModuleAttachments=()
-
         retrieveModuleComponentsInDirectory "${mseThisDir}/mse" "mseArrModuleSrcDir" "mseArrModuleAttachments" "1"
         if [ "$?" == "0" ]; then
           mseReturn="0"
           MSE_GLOBAL_IS_LOADED="1"
           readonly MSE_GLOBAL_IS_LOADED
+
+
+          local mseSrcDir
+          local mseSrcFile
+          local msePartialPath
+          for mseSrcDir in "${mseArrModuleSrcDir[@]}"; do
+            msePartialPath="${mseSrcDir/${mseThisDir}\//}"
+            mseFunctionName="${msePartialPath//\//_}"
+
+            if [[ "${mseFunctionName}" == attach_* ]]; then
+              mseFunctionName="${mseFunctionName/attach_/mse_}"
+            fi
+            if [[ "${mseFunctionName}" == *__main ]]; then
+              mseFunctionName="${mseFunctionName/__main/}"
+            fi
+
+            if [ -f "${mseSrcDir}/src.sh" ] && [ -f "${mseSrcDir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md" ]; then
+              MSE_GLOBAL_FUNCTIONS_TO_MANUALS[${mseFunctionName}]="${mseSrcDir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md"
+            fi
+          done
         fi
       fi
     fi
