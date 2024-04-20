@@ -44,17 +44,6 @@ mse_man_process_parameters() {
   declare -ag MSE_MAN_PARAMETERS_ORDER=()
 
 
-
-  local mseAllowedTypes=" bool int float char charDecimal charHex charOctal string array assoc regex function file dir mixed void "
-  declare -a mseArrAllowedTypes=()
-  mse_str_convert_toArray "mseArrAllowedTypes" "${mseAllowedTypes}"
-
-  local mseExpectedProperties=" type name aka default min max options 'options cs' 'options ci' list 'list cl' 'list op' hint description "
-  declare -a mseArrExpectedProperties=()
-  mse_str_convert_toArray "mseArrExpectedProperties" "${mseExpectedProperties}"
-
-
-
   local mseRawParametersData="${1}"
   if [ "${mseRawParametersData}" != "" ]; then
     local mseTmpResult=""
@@ -115,30 +104,27 @@ mse_man_process_parameters() {
 
             mse_str_split "mseArrSplit" ":" "${mseLineRaw#- }" "0" "1"
             if [ "${#mseArrSplit[@]}" == "2" ]; then
-              mseTmpResult=$(mse_array_has_value "${mseArrSplit[0]}" "mseArrExpectedProperties" "1")
-              if [ "${mseTmpResult}" == "1" ]; then
-                mseParameterPropertyName="${mseArrSplit[0]}"
-                mseParameterPropertyValue="${mseArrSplit[1]}"
-                mseParameterPropertyFirstLine="1"
+              mseParameterPropertyName="${mseArrSplit[0]}"
+              mseParameterPropertyValue="${mseArrSplit[1]}"
+              mseParameterPropertyFirstLine="1"
 
 
-                if [ "${mseParameterPropertyName}" == "options" ] || [ "${mseParameterPropertyName}" == "options ci" ]; then
-                  mseParameterPropertyName="options_ci"
-                elif [ "${mseParameterPropertyName}" == "options cs" ]; then
-                  mseParameterPropertyName="options_cs"
-                fi
-                if [ "${mseParameterPropertyName}" == "list" ] || [ "${mseParameterPropertyName}" == "list cl" ]; then
-                  mseParameterPropertyName="list_cl"
-                elif [ "${mseParameterPropertyName}" == "list op" ]; then
-                  mseParameterPropertyName="list_op"
-                fi
+              if [ "${mseParameterPropertyName}" == "options" ] || [ "${mseParameterPropertyName}" == "options ci" ]; then
+                mseParameterPropertyName="options_ci"
+              elif [ "${mseParameterPropertyName}" == "options cs" ]; then
+                mseParameterPropertyName="options_cs"
+              fi
+              if [ "${mseParameterPropertyName}" == "list" ] || [ "${mseParameterPropertyName}" == "list cl" ]; then
+                mseParameterPropertyName="list_cl"
+              elif [ "${mseParameterPropertyName}" == "list op" ]; then
+                mseParameterPropertyName="list_op"
+              fi
 
 
-                if [ "${mseParameterPropertyValue}" == "MSE_NULL" ]; then
-                  mseParameterPropertyValue="${MSE_NULL}"
-                elif [ "${mseParameterPropertyValue}" == "MSE_UNDEF" ]; then
-                  mseParameterPropertyValue="${MSE_UNDEF}"
-                fi
+              if [ "${mseParameterPropertyValue}" == "MSE_NULL" ]; then
+                mseParameterPropertyValue="${MSE_NULL}"
+              elif [ "${mseParameterPropertyValue}" == "MSE_UNDEF" ]; then
+                mseParameterPropertyValue="${MSE_UNDEF}"
               fi
             fi
 

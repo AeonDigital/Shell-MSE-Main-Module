@@ -134,7 +134,7 @@ getFullPathToComponentFiles() {
 # @param bool $4
 # Set to '1' to load components immediately.
 #
-# @return void
+# @return bool
 retrieveModuleComponentsInDirectory() {
   local mseReturn="0"
   local mseMessage=""

@@ -19,7 +19,7 @@ mse_man() {
     fi
   else
     if [ "${MSE_GLOBAL_FUNCTIONS_TO_MANUALS[$mseTarget]}" == "" ]; then
-      mseMessage="The name of the function \"${mseTarget}\" does not match any manual."
+      mseMessage="The name of function \"${mseTarget}\" does not match any manual."
     else
       msePathToFileManual="${MSE_GLOBAL_FUNCTIONS_TO_MANUALS[$mseTarget]}"
     fi
@@ -53,17 +53,3 @@ mse_man() {
 
   return "${mseReturn}"
 }
-
-#
-# Agora é necessário criar um header para ele com meta informações que possam
-# agilizar o processo de extração de dados do manual.
-#
-# Uma das coisas que penso neste momento é a lista de parametros disponíveis.
-# Talvez até mesmo uma versão simples do manual constando o nome da função e seu sumário?
-
-# Também é necessário ver como/onde salvar estes dados compilados pois são estes
-# que serão acessados pelo comando principal 'mse_man'... caso não seja encontrado o mesmo
-# será criado.
-
-# A função principal não foi finalizada pois ela seria totalmente reescrita usando
-# as demais funções auxiliares.
