@@ -100,4 +100,113 @@ test_mse_str_split_inLines() {
   testExpected="como que ficará."
 
   mse_utest_assert_equals
+
+
+
+
+  read -r -d '' strTeste << 'EOF'
+Normalmente apenas definir o tipo de retorno é suficiente mas se necessário é
+possível agregar informações neste espaço explicando o que  é  esperado de
+retorno conforme o tipo de `processamento` definido nos parametros.
+EOF
+
+  mse_str_split_inLines "testArray" "${strTeste}" "80"
+
+  testResult="${#testArray[@]}"
+  testExpected="3"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[0]}"
+  testExpected="Normalmente apenas definir o tipo de retorno é suficiente mas se necessário é"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[1]}"
+  testExpected="possível agregar informações neste espaço explicando o que  é  esperado de"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[2]}"
+  testExpected="retorno conforme o tipo de \`processamento\` definido nos parametros."
+
+  mse_utest_assert_equals
+
+
+
+
+
+  mse_str_split_inLines "testArray" "${strTeste}" "60" "1"
+
+  testResult="${#testArray[@]}"
+  testExpected="4"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[0]}"
+  testExpected="Normalmente apenas definir o tipo de retorno é suficiente"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[1]}"
+  testExpected="mas se necessário é possível agregar informações neste"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[2]}"
+  testExpected="espaço explicando o que  é  esperado de retorno conforme o"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[3]}"
+  testExpected="tipo de \`processamento\` definido nos parametros."
+
+  mse_utest_assert_equals
+
+
+
+
+  read -r -d '' strTeste << 'EOF'
+Este teste deve demonstrar como fica uma linha que não pode ser dividida.
+A URL a seguir vai acabar ficando em uma linha só dela: http://domain.com/uri-greater-than-the-established-limit-must-be-on-a-single-line-regardless-of-its-size
+pois é maior que o limite especificado.
+EOF
+
+  mse_str_split_inLines "testArray" "${strTeste}" "80"
+
+  testResult="${#testArray[@]}"
+  testExpected="4"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[0]}"
+  testExpected="Este teste deve demonstrar como fica uma linha que não pode ser dividida."
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[1]}"
+  testExpected="A URL a seguir vai acabar ficando em uma linha só dela:"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[2]}"
+  testExpected="http://domain.com/uri-greater-than-the-established-limit-must-be-on-a-single-line-regardless-of-its-size"
+
+  mse_utest_assert_equals
+
+
+  testResult="${testArray[3]}"
+  testExpected="pois é maior que o limite especificado."
+
+  mse_utest_assert_equals
 }
