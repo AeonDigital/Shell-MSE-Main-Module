@@ -73,12 +73,86 @@ test_mse_str_split() {
   mse_utest_assert_equals
 
 
+  testResult="==${testArray[0]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[1]}=="
+  testExpected="==primeiro=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[2]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[3]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[4]}=="
+  testExpected="==segundo=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[5]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[6]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[7]}=="
+  testExpected="==terceiro=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[8]}=="
+  testExpected="===="
+
+  mse_utest_assert_equals
+
+
+
   mse_str_split "testArray" " " " primeiro   segundo   terceiro " "1"
 
   testResult="${#testArray[@]}"
   testExpected="3"
 
   mse_utest_assert_equals
+
+
+  testResult="==${testArray[0]}=="
+  testExpected="==primeiro=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[1]}=="
+  testExpected="==segundo=="
+
+  mse_utest_assert_equals
+
+
+  testResult="==${testArray[2]}=="
+  testExpected="==terceiro=="
+
+  mse_utest_assert_equals
+
 
 
 
