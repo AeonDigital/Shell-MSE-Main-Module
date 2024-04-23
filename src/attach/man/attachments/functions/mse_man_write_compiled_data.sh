@@ -57,7 +57,7 @@ mse_man_write_compiled_data() {
         mse_man_process_parameters "${MSE_MAN_SECTION_DATA[subsections]}"
         for mseSectionParameterName in "${MSE_MAN_PARAMETERS_ORDER[@]}"; do
           for mseSectionParameterPropertyName in "${mseExpectedSectionParameterProperties[@]}" ; do
-            mseNewKey="${mseSectionName}_${mseSectionParameterName}_${mseSectionParameterPropertyName}"
+            mseNewKey="${mseSectionName}_subsections_${mseSectionParameterName}_${mseSectionParameterPropertyName}"
             mseNewKey="${mseNewKey,,}"
             mseInternalAssocCompileManName["${mseNewKey}"]="${MSE_MAN_PARAMETERS_DATA["${mseSectionParameterName}_${mseSectionParameterPropertyName}"]}"
             mseInternalArrCompileManOrder+=("${mseNewKey}")
@@ -69,7 +69,7 @@ mse_man_write_compiled_data() {
 
 
   if [ "${mseCompiledFile}" != "" ]; then
-    printf "" > "${mseCompiledFile}"
+    echo -n "" > "${mseCompiledFile}"
 
     local mseK
     local mseSepare="0"
@@ -96,6 +96,6 @@ mse_man_write_compiled_data() {
     done
 
 
-    printf "${mseStrContent}" >> "${mseCompiledFile}"
+    echo -en "${mseStrContent}" >> "${mseCompiledFile}"
   fi
 }

@@ -24,60 +24,92 @@ Expõe na tela um manual de função em formato `MarkDown`.
 
 &nbsp;
 
-## string sections
+## string rules
 
-- aka       : -s --sections
-- default   : .
-- list op   :
-  - synopsis
-  - description
-  - parameters
-  - returns
-  - examples
-  - dependencies
-- hint      :
-  Nome das seções do documento que devem ser exibidas.
+- aka       : -r --rules
+- default   : 
+- hint      : 
+  Regras de como exibir o manual.
 
-Se o valor passado for ignorado ou inválido, todas as seções serão mostradas.
-Este parametro serve apenas para as seções de primeiro nível do manual.
+Se nenhuma informação for passada para este parametro o manual será exibido na 
+integra.
 
+Se optar por usar este parametro, você pode especificar precisamente quais 
+itens do manual devem ser mostrados usando a seguinte notação:
 
-&nbsp;
+```
+sectionName[ sectionComponents ]
+```
 
-## string dataParameter
+`sectionName`
+No lugar de `sectionName` você deve indicar o nome da seção que será mostrada. 
+Você pode se referir a todas as seções existentes usando o caracter `*`.
+Seções não existentes serão ignoradas.
 
-- aka       : -dp --dataParameter
-- default   : .
-- list      :
-  - type
-  - name
-  - aka
-  - default
-  - min
-  - max
-  - options
-  - list
-  - hint
-  - description
-- hint      :
-  Indica quais dados referentes aos parametros que devem ser mostrados.
-
-Se o valor passado for ignorado ou inválido, todos parametros serão mostrados.
+As seguintes seções são esperadas na maioria dos manuais:
+- synopsis
+- description
+- parameters
+- returns
+- examples
+- dependencies
 
 
-&nbsp;
+`sectionComponents`
+Após o nome de cada uma das seções você pode colocar uma subcoleção de regras 
+dentro de colchetes.
 
-## string dataReturn
+Dentro dos colchetes você pode definir um ou mais dos seguintes itens:
+- title
+- summary
+- description
+- subsections
+- type [ apenas para a seção `returns` ]
 
-- aka       : -dr --dataReturn
-- default   : .
-- list      : 
-  - type
-  - description
-- hint      :
-  Indica quais dados referentes ao retorno da função que devem ser mostrados.
 
-Se o valor passado for ignorado ou inválido, todas informações serão mostrados.
+`parameters`
+Assim como as demais seções, a seção `parameters` pode possuir um `component` 
+chamado `subsections`. Neste caso, ela refere-se ao espaço reservado onde 
+constam as regras de cada parametro relatado no manual.
+
+Você pode especificar que tipo de informação deseja retornar sobre os parametros usando uma notação aninhada conforme o exemplo abaixo:
+
+```
+parameters[ subsections[ *[ type, name, default, aka ] ] ]
+```
+
+No exemplo acima serão retornados os dados `type`, `name`, `default` e `aka`
+de todos os parametros.
+Caso o dado requerido não se aplique para o parametro, o mesmo será ignorado.
+
+
+---
+
+
+Com esta notação você pode compor o manual conforme desejar.
+Usando "," você pode descrever várias regras distintas para cada seção.
+
+O exemplo abaixo listaria apenas o nome de cada seção
+
+```
+*[title]
+```
+
+Já o exemplo abaixo listaria apenas a sinopse, algumas regras de todos os 
+parametros além do tipo de retorno esperado.
+
+```
+synopsis[summary], parameters[ subsections[ *[ type, name, default, aka, hint ] ] ], returns[type, summary]
+```
+
+
+---
+
+
+**Importante**
+
+A ordem das definições será seguida na exposição do manual.
+
 
 
 

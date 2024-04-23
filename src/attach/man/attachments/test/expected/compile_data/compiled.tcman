@@ -70,187 +70,187 @@ própria para o mesmo.
 
 
 <![MAN-DATA[
-:: parameters_alpha_name
+:: parameters_subsections_alpha_name
 alpha
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_type
+:: parameters_subsections_alpha_type
 !bool
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_aka
+:: parameters_subsections_alpha_aka
 -a --alpha
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_default
+:: parameters_subsections_alpha_default
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_min
+:: parameters_subsections_alpha_min
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_max
+:: parameters_subsections_alpha_max
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_options_ci
+:: parameters_subsections_alpha_options_ci
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_options_cs
+:: parameters_subsections_alpha_options_cs
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_list_cl
+:: parameters_subsections_alpha_list_cl
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_list_op
+:: parameters_subsections_alpha_list_op
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_hint
+:: parameters_subsections_alpha_hint
 Definição simples de um parametro booleano que também é `nullable`.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_alpha_description
+:: parameters_subsections_alpha_description
 
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_name
+:: parameters_subsections_beta_name
 beta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_type
+:: parameters_subsections_beta_type
 int
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_aka
+:: parameters_subsections_beta_aka
 -b --beta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_default
+:: parameters_subsections_beta_default
 0
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_min
+:: parameters_subsections_beta_min
 -10
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_max
+:: parameters_subsections_beta_max
 10
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_options_ci
+:: parameters_subsections_beta_options_ci
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_options_cs
+:: parameters_subsections_beta_options_cs
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_list_cl
+:: parameters_subsections_beta_list_cl
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_list_op
+:: parameters_subsections_beta_list_op
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_hint
+:: parameters_subsections_beta_hint
 Parametro que recebe um valor inteiro entre -10 e 10.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_beta_description
+:: parameters_subsections_beta_description
 Em caso de valor vazio ou inválido, usará `0` como o valor padrão.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_name
+:: parameters_subsections_gama_name
 gama
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_type
+:: parameters_subsections_gama_type
 int
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_aka
+:: parameters_subsections_gama_aka
 -g --gama
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_default
+:: parameters_subsections_gama_default
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_min
+:: parameters_subsections_gama_min
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_max
+:: parameters_subsections_gama_max
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_options_ci
+:: parameters_subsections_gama_options_ci
 
 0 : c c++
 1 : rust
@@ -260,31 +260,31 @@ int
 
 
 <![MAN-DATA[
-:: parameters_gama_options_cs
+:: parameters_subsections_gama_options_cs
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_list_cl
+:: parameters_subsections_gama_list_cl
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_list_op
+:: parameters_subsections_gama_list_op
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_hint
+:: parameters_subsections_gama_hint
 Parametro que possui uma lista fechada de opções válidas.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_gama_description
+:: parameters_subsections_gama_description
 Internamente apenas o valor `chave` será usado mas quando usar o autocomplete
 do MSE o usuário pode selecionar o valor correspondente usando um dos labels
 associados ao mesmo.
@@ -296,49 +296,49 @@ Neste caso a lista é avaliada de forma case-insensitive, ou seja:
 
 
 <![MAN-DATA[
-:: parameters_delta_name
+:: parameters_subsections_delta_name
 delta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_type
+:: parameters_subsections_delta_type
 char
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_aka
+:: parameters_subsections_delta_aka
 -d --delta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_default
+:: parameters_subsections_delta_default
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_min
+:: parameters_subsections_delta_min
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_max
+:: parameters_subsections_delta_max
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_options_ci
+:: parameters_subsections_delta_options_ci
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_options_cs
+:: parameters_subsections_delta_options_cs
 
 o: output
 O: open
@@ -346,25 +346,25 @@ O: open
 
 
 <![MAN-DATA[
-:: parameters_delta_list_cl
+:: parameters_subsections_delta_list_cl
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_list_op
+:: parameters_subsections_delta_list_op
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_hint
+:: parameters_subsections_delta_hint
 Outra lista fechada de opções válidas.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_delta_description
+:: parameters_subsections_delta_description
 Neste caso ocorre avaliação case-sensitive dos valores digitados pelo usuário e
 ele precisa digitar um valor que case precisamente com um valor `chave` ou com
 um dos `labels` correspondentes.
@@ -372,55 +372,55 @@ um dos `labels` correspondentes.
 
 
 <![MAN-DATA[
-:: parameters_epsilon_name
+:: parameters_subsections_epsilon_name
 epsilon
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_type
+:: parameters_subsections_epsilon_type
 string
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_aka
+:: parameters_subsections_epsilon_aka
 -e --epsilon
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_default
+:: parameters_subsections_epsilon_default
 synopsis
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_min
+:: parameters_subsections_epsilon_min
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_max
+:: parameters_subsections_epsilon_max
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_options_ci
+:: parameters_subsections_epsilon_options_ci
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_options_cs
+:: parameters_subsections_epsilon_options_cs
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_list_cl
+:: parameters_subsections_epsilon_list_cl
 
 synopsis
 description
@@ -432,81 +432,81 @@ dependencies
 
 
 <![MAN-DATA[
-:: parameters_epsilon_list_op
+:: parameters_subsections_epsilon_list_op
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_hint
+:: parameters_subsections_epsilon_hint
 Define uma lista fechada de opções dentre as quais o usuário pode selecionar
 um ou mais itens (separados por espaços).
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_epsilon_description
+:: parameters_subsections_epsilon_description
 Se desejar, o usuário pode selecionar todos os itens passando como valor o
 caracter `.`.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_name
+:: parameters_subsections_zeta_name
 zeta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_type
+:: parameters_subsections_zeta_type
 string
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_aka
+:: parameters_subsections_zeta_aka
 -z --zeta
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_default
+:: parameters_subsections_zeta_default
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_min
+:: parameters_subsections_zeta_min
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_max
+:: parameters_subsections_zeta_max
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_options_ci
+:: parameters_subsections_zeta_options_ci
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_options_cs
+:: parameters_subsections_zeta_options_cs
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_list_cl
+:: parameters_subsections_zeta_list_cl
 <<<\0null>>>
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_list_op
+:: parameters_subsections_zeta_list_op
 
 add
 sub
@@ -516,14 +516,14 @@ div
 
 
 <![MAN-DATA[
-:: parameters_zeta_hint
+:: parameters_subsections_zeta_hint
 Define uma lista aberta de opções dentre as quais o usuário pode selecionar
 um ou mais itens, ou ainda incluir opções próprias.
 ]]!>
 
 
 <![MAN-DATA[
-:: parameters_zeta_description
+:: parameters_subsections_zeta_description
 Se desejar, o usuário pode selecionar todos os itens oferecidos pela lista e
 ainda adicionar o seu próprio usando por exemplo: `. mod sqrt`
 ]]!>

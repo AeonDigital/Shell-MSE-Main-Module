@@ -201,7 +201,7 @@ mse_man_process_parameters() {
       if [ "${MSE_MAN_PARAMETERS_DATA["${mseV}_hint"]}" != "" ]; then
         MSE_MAN_PARAMETERS_DATA["${mseV}_hint"]=$(mse_str_trim "${MSE_MAN_PARAMETERS_DATA["${mseV}_hint"]}")
       fi
-      if [ "${MSE_MAN_PARAMETERS_DATA["${mseV}_hint"]}" != "" ]; then
+      if [ "${MSE_MAN_PARAMETERS_DATA["${mseV}_description"]}" != "" ]; then
         MSE_MAN_PARAMETERS_DATA["${mseV}_description"]=$(mse_str_trim "${MSE_MAN_PARAMETERS_DATA["${mseV}_description"]}")
       fi
     done
