@@ -40,9 +40,7 @@ mse_man() {
       mse_man_read_compiled_data "${msePathToCompiledFileManual}" "mseAssocCompiledMan" "mseArrCompileManOrder"
     fi
 
-    # SEGUIR DAQUI...
-    # ESTÁ CRIANDO MANUAIS COMPILADOS E LENDO-OS QUANDO OS MESMOS EXISTEM...
-    # AGORA É HORA DE GERAR A FORMATAÇÃO DE EXIBIÇÃO PARA O USUÁRIO.
+    mse_man_show "mseAssocCompiledMan" "mseArrCompileManOrder" "${2}"
   fi
 
 

@@ -25,78 +25,84 @@ test_mse_man() {
   # # 06
   # test_mse_man_write_read_compiled_data
 
-
-
-
-
   # 07
-  local dir=$(echo "${BASH_SOURCE%/*}")
+  # test_mse_man_process_show_parse_rules
 
-  testResult=$(mse_man "${dir}/attachments/test/expected/compile_data/compiled.tcman")
-  testExpected="The indicated file does not have the \".md\" extension."
-
-  mse_utest_assert_equals
-
-
-  testResult=$(mse_man "not-a-function")
-  testExpected="The name of the function \"not-a-function\" does not match any manual."
-
-  mse_utest_assert_equals
+  # 08
+  test_mse_man_show
 
 
 
 
-  # Removes the compiled manual file
-  local mseManualCMAN="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.cman"
-  if [ -f "${mseManualCMAN}" ]; then
-    rm "${mseManualCMAN}"
-  fi
 
-  local mseFileExists=""
-  if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
-  testResult="${mseFileExists}"
-  testExpected="0"
+  # # 08
+  # local dir=$(echo "${BASH_SOURCE%/*}")
 
-  mse_utest_assert_equals
+  # testResult=$(mse_man "${dir}/attachments/test/expected/compile_data/compiled.tcman")
+  # testExpected="The indicated file does not have the \".md\" extension."
+
+  # mse_utest_assert_equals
 
 
-  # If the file doesn't exist, try creating it first by passing in the location of the original manual
-  if [ "${testResult}" == "0" ]; then
-    local mseManualMD="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md"
-    local mseMan=$(mse_man "${mseManualMD}")
+  # testResult=$(mse_man "not-a-function")
+  # testExpected="The name of function \"not-a-function\" does not match any manual."
 
-    mseFileExists=""
-    if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
-    testResult="${mseFileExists}"
-    testExpected="1"
-
-    mse_utest_assert_equals
+  # mse_utest_assert_equals
 
 
-    # removes the compiled file again and tests the generation of the file from the function name
-    if [ "${testResult}" == "1" ]; then
-      rm "${mseManualCMAN}"
-
-      local mseFileExists=""
-      if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
-      testResult="${mseFileExists}"
-      testExpected="0"
-
-      mse_utest_assert_equals
 
 
-      if [ "${testResult}" == "0" ]; then
-        local mseMan=$(mse_man "mse_man")
+  # # Removes the compiled manual file
+  # local mseManualCMAN="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.cman"
+  # if [ -f "${mseManualCMAN}" ]; then
+  #   rm "${mseManualCMAN}"
+  # fi
 
-        mseFileExists=""
-        if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
-        testResult="${mseFileExists}"
-        testExpected="1"
+  # local mseFileExists=""
+  # if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  # testResult="${mseFileExists}"
+  # testExpected="0"
 
-        mse_utest_assert_equals
-      fi
-    fi
-  fi
+  # mse_utest_assert_equals
+
+
+  # # If the file doesn't exist, try creating it first by passing in the location of the original manual
+  # if [ "${testResult}" == "0" ]; then
+  #   local mseManualMD="${dir}/attachments/man/${MSE_GLOBAL_MODULES_USE_LOCALE}.md"
+  #   local mseMan=$(mse_man "${mseManualMD}")
+
+  #   mseFileExists=""
+  #   if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  #   testResult="${mseFileExists}"
+  #   testExpected="1"
+
+  #   mse_utest_assert_equals
+
+
+  #   # removes the compiled file again and tests the generation of the file from the function name
+  #   if [ "${testResult}" == "1" ]; then
+  #     rm "${mseManualCMAN}"
+
+  #     local mseFileExists=""
+  #     if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  #     testResult="${mseFileExists}"
+  #     testExpected="0"
+
+  #     mse_utest_assert_equals
+
+
+  #     if [ "${testResult}" == "0" ]; then
+  #       local mseMan=$(mse_man "mse_man")
+
+  #       mseFileExists=""
+  #       if [ -f "${mseManualCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  #       testResult="${mseFileExists}"
+  #       testExpected="1"
+
+  #       mse_utest_assert_equals
+  #     fi
+  #   fi
+  # fi
 }
 
 
@@ -616,7 +622,7 @@ test_mse_man_write_read_compiled_data() {
   declare -a mseArrCompileManWriteOrder=()
 
 
-  printf "" > "${testResultFile}"
+  echo -n "" > "${testResultFile}"
   mse_man_write_compiled_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledWriteMan" "mseArrCompileManWriteOrder" "${testResultFile}"
 
 
@@ -695,4 +701,188 @@ test_mse_man_write_read_compiled_data() {
       mse_utest_assert_equals
     fi
   done
+}
+
+
+
+
+
+test_mse_man_process_show_parse_rules() {
+  unset mseArrTest
+  declare -a mseArrTest=()
+  local mseStrTestRawRule=""
+
+  testResult="${#mseArrTest[@]}"
+  testExpected="0"
+
+  mse_utest_assert_equals
+
+
+  mse_man_process_show_parse_rules "mseArrTest" "${mseStrTestRawRule}"
+
+
+  testResult="${#mseArrTest[@]}"
+  testExpected="1"
+
+  mse_utest_assert_equals
+
+
+  testResult="${mseArrTest[0]}"
+  testExpected="*"
+
+  mse_utest_assert_equals
+
+
+
+  unset mseArrTest
+  declare -a mseArrTest=()
+  mseStrTestRawRule="*"
+
+  testResult="${#mseArrTest[@]}"
+  testExpected="0"
+
+  mse_utest_assert_equals
+
+
+  mse_man_process_show_parse_rules "mseArrTest" "${mseStrTestRawRule}"
+
+
+  testResult="${#mseArrTest[@]}"
+  testExpected="1"
+
+  mse_utest_assert_equals
+
+
+  testResult="${mseArrTest[0]}"
+  testExpected="*"
+
+  mse_utest_assert_equals
+
+
+
+
+
+  mseStrTestRawRule="synopsis, description, parameters, returns[type, summary]"
+  testResult=$(mse_man_process_show_normalize_rules_before_parse "${mseStrTestRawRule}")
+  testExpected="synopsis[*],description[*],parameters[*],returns[type[*],summary[*]]"
+
+  mse_utest_assert_equals
+
+
+  mseStrTestRawRule="synopsis[summary], description, parameters[ subsections[ string[ type, name, default, aka, hint ], char[ type, name, default, aka, hint ] ] ], returns[type, summary]"
+  testResult=$(mse_man_process_show_normalize_rules_before_parse "${mseStrTestRawRule}")
+  testExpected="synopsis[summary[*]],description[*],parameters[subsections[string[type[*],name[*],default[*],aka[*],hint[*]],char[type[*],name[*],default[*],aka[*],hint[*]]]],returns[type[*],summary[*]]"
+
+  mse_utest_assert_equals
+
+
+
+
+  unset testResult
+  declare -a testResult=()
+  mseStrTestRawRule="synopsis[summary], description, parameters[ subsections[ string[ type, name, default, aka, hint ], char[ type, name, default, aka, hint ] ] ], returns[type, summary]"
+
+  mse_man_process_show_parse_rules "testResult" "${mseStrTestRawRule}"
+
+  unset testExpected
+  declare -a testExpected
+  testExpected+=("synopsis_summary_*")
+  testExpected+=("description_*")
+  testExpected+=("parameters_subsections_string_type_*")
+  testExpected+=("parameters_subsections_string_name_*")
+  testExpected+=("parameters_subsections_string_default_*")
+  testExpected+=("parameters_subsections_string_aka_*")
+  testExpected+=("parameters_subsections_string_hint_*")
+  testExpected+=("parameters_subsections_char_type_*")
+  testExpected+=("parameters_subsections_char_name_*")
+  testExpected+=("parameters_subsections_char_default_*")
+  testExpected+=("parameters_subsections_char_aka_*")
+  testExpected+=("parameters_subsections_char_hint_*")
+  testExpected+=("returns_type_*")
+  testExpected+=("returns_summary_*")
+
+  mse_utest_assert_array "a" "1"
+
+
+
+  unset testResult
+  declare -a testResult=()
+  mseStrTestRawRule="synopsis[*], parameters[ subsections[ *[ type, name, default, aka, hint ] ] ], returns[type, summary]"
+
+  mse_man_process_show_parse_rules "testResult" "${mseStrTestRawRule}"
+
+  unset testExpected
+  declare -a testExpected
+  testExpected+=("synopsis_*")
+  testExpected+=("parameters_subsections_*_type_*")
+  testExpected+=("parameters_subsections_*_name_*")
+  testExpected+=("parameters_subsections_*_default_*")
+  testExpected+=("parameters_subsections_*_aka_*")
+  testExpected+=("parameters_subsections_*_hint_*")
+  testExpected+=("returns_type_*")
+  testExpected+=("returns_summary_*")
+
+  mse_utest_assert_array "a" "1"
+
+
+
+  unset testResult
+  declare -a testResult=()
+  mseStrTestRawRule="synopsis, parameters, returns"
+
+  mse_man_process_show_parse_rules "testResult" "${mseStrTestRawRule}"
+
+  unset testExpected
+  declare -a testExpected
+  testExpected+=("synopsis_*")
+  testExpected+=("parameters_*")
+  testExpected+=("returns_*")
+
+  mse_utest_assert_array "a" "1"
+}
+
+
+
+
+
+test_mse_man_show() {
+  local dir=$(echo "${BASH_SOURCE%/*}")
+  local testCMAN="${dir}/attachments/test/result/compile_data/compiled.tcman"
+
+
+  # Removes the compiled manual file
+  if [ -f "${testCMAN}" ]; then
+    rm "${testCMAN}"
+  fi
+
+  local mseFileExists=""
+  if [ -f "${testCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+  testResult="${mseFileExists}"
+  testExpected="0"
+
+  mse_utest_assert_equals
+
+
+  # If the file doesn't exist, try creating it first by passing in the location of the original manual
+  if [ "${testResult}" == "0" ]; then
+    unset mseAssocCompiledMan
+    declare -A mseAssocCompiledMan
+    unset mseArrCompileManOrder
+    declare -a mseArrCompileManOrder=()
+
+    echo -n "" > "${testCMAN}"
+    mse_man_write_compiled_data "${dir}/attachments/test/man/pt-br.md" "mseAssocCompiledMan" "mseArrCompileManOrder" "${testCMAN}"
+
+    mseFileExists=""
+    if [ -f "${testCMAN}" ]; then mseFileExists="1"; else mseFileExists="0"; fi
+    testResult="${mseFileExists}"
+    testExpected="1"
+
+    mse_utest_assert_equals
+
+
+    if [ "${testResult}" == "1" ]; then
+      mse_man_show "mseAssocCompiledMan" "mseArrCompileManOrder" "synopsis,returns"
+    fi
+  fi
 }

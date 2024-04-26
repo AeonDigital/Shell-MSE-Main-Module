@@ -18,12 +18,12 @@
 # @return void
 mse_man_process_show_parse_rules() {
   declare -n mseArrTmpShowRules="${1}"
-  local mseStrTmpRawRules="${2// /}"
+  local mseStrTmpRawRules=$(mse_man_process_show_normalize_rules_before_parse "${2}")
+
 
   if [ "${mseStrTmpRawRules}" == "" ] || [ "${mseStrTmpRawRules}" == "*" ]; then
     mseArrTmpShowRules+=("*")
   else
-
     local mseStrRulesCountChars="${#mseStrTmpRawRules}"
 
     local i="0"
@@ -31,8 +31,11 @@ mse_man_process_show_parse_rules() {
     local secRule=""
     local secOpen=""
 
+    unset mseTmpAssocSectionsNames
+    unset mseTmpAssocSectionsOrder
+
     declare -A mseTmpAssocSectionsNames
-    declare -a mseTmpAssocSectionsOrder
+    declare -a mseTmpAssocSectionsOrder=()
 
 
     for ((i = 0; i < mseStrRulesCountChars; i++)); do
@@ -87,5 +90,34 @@ mse_man_process_show_parse_rules() {
         done
       fi
     done
+  fi
+}
+
+
+
+mse_man_process_show_normalize_rules_before_parse() {
+  if [ "${1}" == "" ] || [ "${1}" == "*" ]; then
+    echo "${1}"
+  else
+    # remove spaces
+    local mseStrTmpNormalized="${1// /}"
+
+    # remove [*]
+    mseStrTmpNormalized="${mseStrTmpNormalized//\[\*\]/}"
+
+    # add "," at end of string
+    mseStrTmpNormalized+=","
+
+    # add "," at end of brackets
+    mseStrTmpNormalized="${mseStrTmpNormalized//\]/\,\]}"
+
+    # insert [*] before any comma
+    mseStrTmpNormalized="${mseStrTmpNormalized//,/\[\*\],}"
+
+    # remove invalids [*]
+    mseStrTmpNormalized="${mseStrTmpNormalized//,\][\*\]/\]}"
+
+
+    echo "${mseStrTmpNormalized%?}"
   fi
 }
