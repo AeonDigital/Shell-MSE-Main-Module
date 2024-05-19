@@ -28,41 +28,30 @@ mse_man_show() {
   mseTmpCmd="${MSE_MANUAL_THEME_NAME}_set_colors"
   $mseTmpCmd
 
-  declare -n mseShowAssocCompiledManData="${1}"
-  declare -n mseShowArrayCompiledManOrder="${2}"
-  declare -a mseManualShowRules=()
+  #declare -n mseShowAssocCompiledManData="${1}"
+  #declare -n mseShowArrayCompiledManOrder="${2}"
+  #declare -a mseManualShowRules=()
 
-  mse_man_process_show_parse_rules "mseManualShowRules" "${3}"
-  printf "%s\n" "${mseManualShowRules[@]}"
-
+  # mse_man_process_show_parse_rules "mseManualShowRules" "${3}"
 
 
 
   # local mseTargetSectionName=""
-  # local mseRawFullSectionName=""
+  # local mseTargetSectionNameHasWildcard="0"
+  # for mseTargetSectionName in "${mseManualShowRules[@]}"; do
+  #   echo "search by ${mseTargetSectionName}"
 
-  # local mseRealSectionName=""
-  # local msePartialSectionData=""
+  #   if [[ "${mseTargetSectionName}" == *"_*_"* ]]; then
+  #     mseTargetSectionNameHasWildcard="1"
+  #   fi
 
-
-  # for mseTargetSectionName in "${mseArrTargetSections[@]}"; do
-  #   unset mseCollectedSectionData
-  #   declare -A mseCollectedSectionData
-
-  #   for mseRawFullSectionName in "${mseShowArrayCompiledManOrder[@]}"; do
-  #     if [[ "${mseRawFullSectionName}" == "${mseTargetSectionName}_"* ]]; then
-
-  #       mseRealSectionName="${mseRawFullSectionName/${mseTargetSectionName}_/}"
-  #       msePartialSectionData="${mseShowAssocCompiledManData[${mseRawFullSectionName}]}"
-  #       if [ "${msePartialSectionData}" != "" ]; then
-  #         mseCollectedSectionData["${mseRealSectionName}"]="${msePartialSectionData}"
+  #   if [ "${mseTargetSectionNameHasWildcard}" == "0" ]; then
+  #     local mseRawFullSectionName=""
+  #     for mseRawFullSectionName in "${mseShowArrayCompiledManOrder[@]}"; do
+  #       if [ "${mseTargetSectionName}" == "${mseRawFullSectionName}" ] || [[ "${mseRawFullSectionName}" == "${mseTargetSectionName}"* ]]; then
+  #         echo " - ${mseRawFullSectionName}"
   #       fi
-  #     fi
-  #   done
-
-  #   if [ "${#mseCollectedSectionData[@]}" -gt "0" ]; then
-  #     mseTmpCmd="${MSE_MANUAL_THEME_NAME}_custom_section"
-  #     $mseTmpCmd "mseCollectedSectionData"
+  #     done
   #   fi
   # done
 }

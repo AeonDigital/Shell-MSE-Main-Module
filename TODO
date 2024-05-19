@@ -129,3 +129,31 @@ Ver se o 'iconv' já não faz isso.
 
 # ARGS TO ARRAY
 # mseTargetArray=("$(xargs -n1 <<< "arg1 arg2 arg3 'and 4'")"")
+
+
+
+
+
+---
+
+IDEIA DE README
+
+# Título
+
+## Descrição breve
+O que faz o app, com o que foi construído, por que/para que?
+
+## Instruções de instalação
+
+
+### Pré Requisitos
+
+- PHP versão x.y
+- Node versão x.y
+- Mysql versão x.y
+
+
+### Etapas
+
+
+### Licença

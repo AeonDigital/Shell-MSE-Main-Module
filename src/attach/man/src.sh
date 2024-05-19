@@ -40,7 +40,14 @@ mse_man() {
       mse_man_read_compiled_data "${msePathToCompiledFileManual}" "mseAssocCompiledMan" "mseArrCompileManOrder"
     fi
 
-    mse_man_show "mseAssocCompiledMan" "mseArrCompileManOrder" "${2}"
+
+    declare -a mseManualRawSections=()
+    mse_man_process_show_parse_rules "mseManualRawSections" "${2}"
+
+    declare -a mseManualShowTargetSections=()
+    mse_man_process_show_raw_rules "mseManualRawSections" "mseArrCompileManOrder" "mseManualShowTargetSections"
+
+    mse_man_show "mseManualShowTargetSections" "mseAssocCompiledMan"
   fi
 
 

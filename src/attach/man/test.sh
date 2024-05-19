@@ -28,6 +28,9 @@ test_mse_man() {
   # 07
   # test_mse_man_process_show_parse_rules
 
+  # 07
+  # test_mse_man_process_show_raw_rules
+
   # 08
   test_mse_man_show
 
@@ -786,20 +789,20 @@ test_mse_man_process_show_parse_rules() {
 
   unset testExpected
   declare -a testExpected
-  testExpected+=("synopsis_summary_*")
-  testExpected+=("description_*")
-  testExpected+=("parameters_subsections_string_type_*")
-  testExpected+=("parameters_subsections_string_name_*")
-  testExpected+=("parameters_subsections_string_default_*")
-  testExpected+=("parameters_subsections_string_aka_*")
-  testExpected+=("parameters_subsections_string_hint_*")
-  testExpected+=("parameters_subsections_char_type_*")
-  testExpected+=("parameters_subsections_char_name_*")
-  testExpected+=("parameters_subsections_char_default_*")
-  testExpected+=("parameters_subsections_char_aka_*")
-  testExpected+=("parameters_subsections_char_hint_*")
-  testExpected+=("returns_type_*")
-  testExpected+=("returns_summary_*")
+  testExpected+=("synopsis_summary")
+  testExpected+=("description")
+  testExpected+=("parameters_subsections_string_type")
+  testExpected+=("parameters_subsections_string_name")
+  testExpected+=("parameters_subsections_string_default")
+  testExpected+=("parameters_subsections_string_aka")
+  testExpected+=("parameters_subsections_string_hint")
+  testExpected+=("parameters_subsections_char_type")
+  testExpected+=("parameters_subsections_char_name")
+  testExpected+=("parameters_subsections_char_default")
+  testExpected+=("parameters_subsections_char_aka")
+  testExpected+=("parameters_subsections_char_hint")
+  testExpected+=("returns_type")
+  testExpected+=("returns_summary")
 
   mse_utest_assert_array "a" "1"
 
@@ -813,14 +816,14 @@ test_mse_man_process_show_parse_rules() {
 
   unset testExpected
   declare -a testExpected
-  testExpected+=("synopsis_*")
-  testExpected+=("parameters_subsections_*_type_*")
-  testExpected+=("parameters_subsections_*_name_*")
-  testExpected+=("parameters_subsections_*_default_*")
-  testExpected+=("parameters_subsections_*_aka_*")
-  testExpected+=("parameters_subsections_*_hint_*")
-  testExpected+=("returns_type_*")
-  testExpected+=("returns_summary_*")
+  testExpected+=("synopsis")
+  testExpected+=("parameters_subsections_*_type")
+  testExpected+=("parameters_subsections_*_name")
+  testExpected+=("parameters_subsections_*_default")
+  testExpected+=("parameters_subsections_*_aka")
+  testExpected+=("parameters_subsections_*_hint")
+  testExpected+=("returns_type")
+  testExpected+=("returns_summary")
 
   mse_utest_assert_array "a" "1"
 
@@ -834,9 +837,79 @@ test_mse_man_process_show_parse_rules() {
 
   unset testExpected
   declare -a testExpected
-  testExpected+=("synopsis_*")
-  testExpected+=("parameters_*")
-  testExpected+=("returns_*")
+  testExpected+=("synopsis")
+  testExpected+=("parameters")
+  testExpected+=("returns")
+
+  mse_utest_assert_array "a" "1"
+}
+
+
+
+
+test_mse_man_process_show_raw_rules() {
+  unset mseTestArrRawRules
+  declare -a mseTestArrRawRules
+  mseTestArrRawRules+=("synopsis")
+  mseTestArrRawRules+=("parameters_subsections_*_type")
+  mseTestArrRawRules+=("parameters_subsections_*_name")
+  mseTestArrRawRules+=("parameters_subsections_*_default")
+  mseTestArrRawRules+=("parameters_subsections_*_aka")
+  mseTestArrRawRules+=("returns")
+
+
+  unset mseTestArrCompileManOrder
+  declare -a mseTestArrCompileManOrder=()
+  mseTestArrCompileManOrder+=("synopsis_title")
+  mseTestArrCompileManOrder+=("synopsis_summary")
+  mseTestArrCompileManOrder+=("synopsis_description")
+  mseTestArrCompileManOrder+=("synopsis_subsections")
+
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_name")
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_type")
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_default")
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_aka")
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_hint")
+  mseTestArrCompileManOrder+=("parameters_subsections_alpha_description")
+
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_name")
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_type")
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_default")
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_aka")
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_hint")
+  mseTestArrCompileManOrder+=("parameters_subsections_beta_description")
+
+  mseTestArrCompileManOrder+=("returns_type")
+  mseTestArrCompileManOrder+=("returns_summary")
+
+
+
+  unset testResult
+  declare -a testResult=()
+  mse_man_process_show_raw_rules "mseTestArrRawRules" "mseTestArrCompileManOrder" "testResult"
+
+
+
+  unset testExpected
+  declare -a testExpected=()
+  testExpected+=("synopsis_title")
+  testExpected+=("synopsis_summary")
+  testExpected+=("synopsis_description")
+  testExpected+=("synopsis_subsections")
+
+  testExpected+=("parameters_subsections_alpha_name")
+  testExpected+=("parameters_subsections_alpha_type")
+  testExpected+=("parameters_subsections_alpha_default")
+  testExpected+=("parameters_subsections_alpha_aka")
+
+  testExpected+=("parameters_subsections_beta_name")
+  testExpected+=("parameters_subsections_beta_type")
+  testExpected+=("parameters_subsections_beta_default")
+  testExpected+=("parameters_subsections_beta_aka")
+
+  testExpected+=("returns_type")
+  testExpected+=("returns_summary")
+
 
   mse_utest_assert_array "a" "1"
 }
