@@ -75,6 +75,7 @@ mse_man_process_show_parse_rules() {
 
     local sec=""
     local ssec=""
+    local stmp=""
     local rule=""
     declare -a mseTmpArr=()
 
@@ -86,7 +87,8 @@ mse_man_process_show_parse_rules() {
         mse_str_split "mseTmpArr" "," "${rule}"
 
         for ssec in "${mseTmpArr[@]}"; do
-          mseArrTmpShowRules+=("${sec}_${ssec}")
+          stmp="${sec}_${ssec}"
+          mseArrTmpShowRules+=("${stmp%_\**}")
         done
       fi
     done
