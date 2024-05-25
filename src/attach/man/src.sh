@@ -41,9 +41,11 @@ mse_man() {
     fi
 
 
+    unset mseManualRawSections
     declare -a mseManualRawSections=()
     mse_man_process_show_parse_rules "mseManualRawSections" "${2}"
 
+    unset mseManualShowTargetSections
     declare -a mseManualShowTargetSections=()
     mse_man_process_show_raw_rules "mseManualRawSections" "mseArrCompileManOrder" "mseManualShowTargetSections"
 

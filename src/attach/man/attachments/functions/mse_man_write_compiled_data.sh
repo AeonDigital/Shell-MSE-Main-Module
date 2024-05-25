@@ -50,8 +50,20 @@ mse_man_write_compiled_data() {
 
     for mseSectionSubPart in "${mseExpectedSectionSubParts[@]}"; do
       mseNewKey="${mseSectionName}_${mseSectionSubPart}"
-      mseInternalAssocCompileManName["${mseNewKey}"]="${MSE_MAN_SECTION_DATA[${mseSectionSubPart}]}"
-      mseInternalArrCompileManOrder+=("${mseNewKey}")
+      if [ "${mseNewKey}" == "returns_title" ]; then
+        local strReturnType="${MSE_MAN_SECTION_DATA[${mseSectionSubPart}]}"
+        strReturnType="${strReturnType#* }"
+
+        mseInternalAssocCompileManName["returns_title"]="Returns"
+        mseInternalArrCompileManOrder+=("returns_title")
+
+        mseInternalAssocCompileManName["returns_type"]="${strReturnType}"
+        mseInternalArrCompileManOrder+=("returns_type")
+      else
+        mseInternalAssocCompileManName["${mseNewKey}"]="${MSE_MAN_SECTION_DATA[${mseSectionSubPart}]}"
+        mseInternalArrCompileManOrder+=("${mseNewKey}")
+      fi
+
 
       if [ "${mseSectionName}" == "parameters" ] && [ "${mseSectionSubPart}" == "subsections" ] && [ "${MSE_MAN_SECTION_DATA["subsections"]}" != "" ]; then
         mse_man_process_parameters "${MSE_MAN_SECTION_DATA[subsections]}"

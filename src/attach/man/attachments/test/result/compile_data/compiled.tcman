@@ -562,7 +562,13 @@ mais rápida que a leitura do próprio manual.
 
 <![MAN-DATA[
 :: returns_title
-Returns string|assoc
+Returns
+]]!>
+
+
+<![MAN-DATA[
+:: returns_type
+string|assoc
 ]]!>
 
 

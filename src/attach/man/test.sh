@@ -765,9 +765,9 @@ test_mse_man_process_show_parse_rules() {
 
 
 
-  mseStrTestRawRule="synopsis, description, parameters, returns[type, summary]"
+  mseStrTestRawRule="synopsis, description, parameters, returns[title, type, summary]"
   testResult=$(mse_man_process_show_normalize_rules_before_parse "${mseStrTestRawRule}")
-  testExpected="synopsis[*],description[*],parameters[*],returns[type[*],summary[*]]"
+  testExpected="synopsis[*],description[*],parameters[*],returns[title[*],type[*],summary[*]]"
 
   mse_utest_assert_equals
 
@@ -955,7 +955,21 @@ test_mse_man_show() {
 
 
     if [ "${testResult}" == "1" ]; then
-      mse_man_show "mseAssocCompiledMan" "mseArrCompileManOrder" "synopsis,returns"
+      unset mseManualRawSections
+      declare -a mseManualRawSections=()
+      mse_man_process_show_parse_rules "mseManualRawSections" "synopsis,returns"
+
+      unset mseManualShowTargetSections
+      declare -a mseManualShowTargetSections=()
+      mse_man_process_show_raw_rules "mseManualRawSections" "mseArrCompileManOrder" "mseManualShowTargetSections"
+      printf "%s\n" "${mseManualShowTargetSections[@]}"
+
+      # SEGUIR DAQUI !!!
+      #
+      # O ARRAY ACIMA CONTEM O NOME EXATO DE TODAS SEÇÕES QUE DEVEM SER EXIBIDAS.
+      # RESTA FAZER A RENDERIZAÇÃO DA INFORMAÇÃO NA TELA
+      #
+      #mse_man_show "mseManualShowTargetSections" "mseAssocCompiledMan"
     fi
   fi
 }
