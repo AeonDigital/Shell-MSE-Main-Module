@@ -111,3 +111,8 @@ mse_man_write_compiled_data() {
     echo -en "${mseStrContent}" >> "${mseCompiledFile}"
   fi
 }
+
+
+#mse_man_preproccess_section_colors() {
+
+#}

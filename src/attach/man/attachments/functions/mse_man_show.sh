@@ -14,7 +14,7 @@
 # Nome do array associativo que contém os dados do manual.
 #
 # @param array $2
-# Nome do array que contém a lista das seções compiladas na ordem de exibição.
+# Nome do array que contém a lista das seções compiladas a serem exibidas.
 #
 # @param string $3
 # Regras de como exibir o manual.
@@ -29,7 +29,14 @@ mse_man_show() {
   $mseTmpCmd
 
   #declare -n mseShowAssocCompiledManData="${1}"
-  #declare -n mseShowArrayCompiledManOrder="${2}"
+  #declare -n mseShowArraySections="${2}"
+
+
+  #
+  # Monta seção 'synopsis'
+  mseTmpCmd="${MSE_MANUAL_THEME_NAME}_show_synopsis"
+  $mseTmpCmd "${1}" "${2}"
+
   #declare -a mseManualShowRules=()
 
   # mse_man_process_show_parse_rules "mseManualShowRules" "${3}"

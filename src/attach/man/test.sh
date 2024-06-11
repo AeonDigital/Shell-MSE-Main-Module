@@ -23,7 +23,7 @@ test_mse_man() {
   # test_mse_man_process_parameters
 
   # # 06
-  # test_mse_man_write_read_compiled_data
+  test_mse_man_write_read_compiled_data
 
   # 07
   # test_mse_man_process_show_parse_rules
@@ -32,7 +32,7 @@ test_mse_man() {
   # test_mse_man_process_show_raw_rules
 
   # 08
-  test_mse_man_show
+  #test_mse_man_show
 
 
 
@@ -962,14 +962,9 @@ test_mse_man_show() {
       unset mseManualShowTargetSections
       declare -a mseManualShowTargetSections=()
       mse_man_process_show_raw_rules "mseManualRawSections" "mseArrCompileManOrder" "mseManualShowTargetSections"
-      printf "%s\n" "${mseManualShowTargetSections[@]}"
+      #printf "%s\n" "${mseManualShowTargetSections[@]}"
 
-      # SEGUIR DAQUI !!!
-      #
-      # O ARRAY ACIMA CONTEM O NOME EXATO DE TODAS SEÇÕES QUE DEVEM SER EXIBIDAS.
-      # RESTA FAZER A RENDERIZAÇÃO DA INFORMAÇÃO NA TELA
-      #
-      #mse_man_show "mseManualShowTargetSections" "mseAssocCompiledMan"
+      mse_man_show "mseAssocCompiledMan" "mseManualShowTargetSections"
     fi
   fi
 }

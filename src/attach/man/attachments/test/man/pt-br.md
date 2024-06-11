@@ -2,6 +2,8 @@
 
 Manual para testes da função `mse_man`.
 
+Segue um conteúdo **teste** contendo _marcações_ diversas para testar uma 
+função pré formatadora de coloração [link text](http://target.url).
 
 
 &nbsp;

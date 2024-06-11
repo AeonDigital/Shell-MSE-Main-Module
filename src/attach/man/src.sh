@@ -49,7 +49,8 @@ mse_man() {
     declare -a mseManualShowTargetSections=()
     mse_man_process_show_raw_rules "mseManualRawSections" "mseArrCompileManOrder" "mseManualShowTargetSections"
 
-    mse_man_show "mseManualShowTargetSections" "mseAssocCompiledMan"
+
+    mse_man_show "mseAssocCompiledMan" "mseManualShowTargetSections"
   fi
 
 

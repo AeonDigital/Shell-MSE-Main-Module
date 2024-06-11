@@ -12,13 +12,14 @@ mse_manual_theme_default_set_colors() {
 
     declare -A mseTmpManual
 
-    mseTmpManual["hash"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["title"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["text"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["emphasis"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["strong"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["highlight"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
-    mseTmpManual["block"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
+    mseTmpManual["hash"]=$(mse_font_create_style "4" "BOLD" "NONE" "DBLUE" "0")
+    mseTmpManual["title"]=$(mse_font_create_style "4" "BOLD" "NONE" "DBLUE" "0")
+    mseTmpManual["text"]=$(mse_font_create_style "4" "NONE" "NONE" "LBLACK" "0")
+    mseTmpManual["emphasis"]=$(mse_font_create_style "4" "ITALIC" "NONE" "WHITE" "0")
+    mseTmpManual["strong"]=$(mse_font_create_style "4" "BOLD" "NONE" "WHITE" "0")
+    mseTmpManual["highlight"]=$(mse_font_create_style "4" "UNDERLINE" "NONE" "LBLACK" "0")
+    mseTmpManual["block_delimiter"]=$(mse_font_create_style "4" "NONE" "WHITE" "LBLACK" "0")
+    mseTmpManual["block_text"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
 
     mseTmpManual["param_type"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
     mseTmpManual["param_name"]=$(mse_font_create_style "4" "BOLD" "NONE" "LBLACK" "0")
