@@ -35,12 +35,16 @@ mse_manual_theme_default_show_synopsis() {
     esac
   done
 
+  # a partir daqui vi que era necessário fazer o pré-processamento das cores do manual
+  # como forma de agilizar esta etapa.
+  # Quando finalizar é preciso voltar para este ponto
 
-  mseUseHashColor="${MSE_MANUAL_THEME_COLORS[mand_hash]}"
-  mseUseTitleColor="${MSE_MANUAL_THEME_COLORS[mand_title]}"
-  mseUseTextColor="${MSE_MANUAL_THEME_COLORS[mand_text]}"
 
-  strManualPart=""
+  local mseUseHashColor="${MSE_MANUAL_THEME_COLORS[mand_hash]}"
+  local mseUseTitleColor="${MSE_MANUAL_THEME_COLORS[mand_title]}"
+  local mseUseTextColor="${MSE_MANUAL_THEME_COLORS[mand_text]}"
+
+  local strManualPart=""
   if [ "${mseTmpSectionTitle}" != "" ]; then
     strManualPart+="${mseUseHashColor}#${mseNONE} "
     strManualPart+="${mseUseTitleColor}${mseTmpSectionTitle}${mseNONE}"

@@ -17,21 +17,24 @@ test_mse_man() {
   # test_mse_man_extract_sections_data
 
   # # 04
-  # test_mse_man_process_section_data
+  test_mse_man_process_section_data
 
   # # 05
   # test_mse_man_process_parameters
 
-  # # 06
-  test_mse_man_write_read_compiled_data
+  # 06 XX
+  # mse_man_precompole_section_data
 
-  # 07
-  # test_mse_man_process_show_parse_rules
-
-  # 07
-  # test_mse_man_process_show_raw_rules
+  # # 07
+  # test_mse_man_write_read_compiled_data
 
   # 08
+  # test_mse_man_process_show_parse_rules
+
+  # 09
+  # test_mse_man_process_show_raw_rules
+
+  # 10
   #test_mse_man_show
 
 
@@ -289,12 +292,33 @@ test_mse_man_process_section_data() {
 
 
 
-  for mseSection in "${!MSE_MAN_SECTION_DATA[@]}"; do
-    testResult="${MSE_MAN_SECTION_DATA[$mseSection]}"
-    testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_${mseSection}.txt")
+  testResult="${MSE_MAN_SECTION_DATA["title"]}"
+  testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_title.txt")
 
-    mse_utest_assert_string_multiline
-  done
+  mse_utest_assert_string_multiline
+
+  testResult="${MSE_MAN_SECTION_DATA["summary"]}"
+  testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_summary.txt")
+
+  mse_utest_assert_string_multiline
+
+  testResult="${MSE_MAN_SECTION_DATA["description"]}"
+  testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_description.txt")
+
+  mse_utest_assert_string_multiline
+
+  #testResult="${MSE_MAN_SECTION_DATA["subsections"]}"
+  #testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_subsections.txt")
+
+  #mse_utest_assert_string_multiline
+
+
+  # for mseSection in "${!MSE_MAN_SECTION_DATA[@]}"; do
+  #   testResult="${MSE_MAN_SECTION_DATA[$mseSection]}"
+  #   testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_${mseSection}.txt")
+
+  #   mse_utest_assert_string_multiline
+  # done
 }
 
 

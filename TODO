@@ -1,3 +1,19 @@
+#
+# A etapa atual é a de alterar a compilação do markdown original para que ele
+# ganhe marcações que identifiquem os objetos que deverão posteriormente ser
+# coloridos na etapa de amostragem do conteúdo selecionado.
+
+#
+# Quando finalizar, é necessário voltar para o 'show_synopsis'
+# - src/attach/vars.sh
+# - src/attach/man/src.sh
+# - src/attach/man/attachments/functions/mse_man_show.sh
+# - src/attach/man/attachments/functions/themes/default/show_synopsis.sh
+#
+
+
+
+
 # Load
 chmod +x src/module.sh
 . src/module.sh

@@ -2,8 +2,7 @@
 
 Manual para testes da função `mse_man`.
 
-Segue um conteúdo **teste** contendo _marcações_ diversas para testar uma 
-função pré formatadora de coloração [link text](http://target.url).
+Segue um conteúdo **teste** contendo _marcações_ diversas para testar uma função pré formatadora de coloração [link text](http://target.url).
 
 
 &nbsp;
@@ -14,18 +13,28 @@ Na sequencia vários parâmetros serão definidos apenas para fins de teste e n�
 devem ser observados do ponto de vista lógico.
 
 
-
 &nbsp;
     
 # Parameters
 
-Descrição prévia sobre os parâmetros a serem usados.
-Eventualmente esta descrição pode ser maior que o comum.
+Este ___primeiro parágrafo___ de conteúdo é o ***sumário*** relacionado à esta 
+seção. No caso, estamos lidando com a definição de __*parâmetros da função*__.  
+As linhas acima, ao serem compiladas, serão unidas em uma mesma linha pois não 
+há indicativo no **_MarkDown_** que elas devem ficar diferentes. A partir delas 
+ocorre uma quebra de linha causada pelos 2 espaços que estão ao final da 
+segunda linha.  
+Toda esta parte foi também usada para testar a correta identificação da 
+marcação dos estilos ***bold e itálico aninhados***.
 
-Isto comumente não terá qualquer conteúdo pois na imensa parte das funções não 
-é preciso expor alguma informação extra aqui que não possa estar na descrição
-da própria função, relacionada diretamente a algum parâmetro ou em uma seção 
-própria para o mesmo.
+A partir da primeira linha vazia, o texto que vem abaixo __como o deste 
+parágrafo__ será tratado como sendo a parte destinada a uma **descrição** 
+referente à respectiva seção.  
+A descrição pode contar com _várias linhas_ pois seu objetivo é justamente 
+abranger uma quantidade de informações satisfatórias para cobrir tal tópico.
+
+Novos paragrafos podem ser adicionados bastando para isto deixar uma *linha em 
+branco* entre cada qual.
+
 
 
 ## !bool alpha

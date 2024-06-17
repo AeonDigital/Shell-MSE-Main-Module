@@ -1,4 +1,1 @@
-Isto comumente não terá qualquer conteúdo pois na imensa parte das funções não
-é preciso expor alguma informação extra aqui que não possa estar na descrição
-da própria função, relacionada diretamente a algum parâmetro ou em uma seção
-própria para o mesmo.
+A partir da primeira linha vazia, o texto que vem abaixo [[Bold]]como o deste parágrafo[[/Bold]] será tratado como sendo a parte destinada a uma [[Bold]]descrição[[/Bold]] referente à respectiva seção.[[br/]]A descrição pode contar com [[Italic]]várias linhas[[/Italic]] pois seu objetivo é justamente abranger uma quantidade de informações satisfatórias para cobrir tal tópico.\n Novos paragrafos podem ser adicionados bastando para isto deixar uma [[Italic]]linha em branco[[/Italic]] entre cada qual.
