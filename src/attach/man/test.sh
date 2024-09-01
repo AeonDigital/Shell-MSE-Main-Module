@@ -297,10 +297,12 @@ test_mse_man_process_section_data() {
 
   mse_utest_assert_string_multiline
 
+
   testResult="${MSE_MAN_SECTION_DATA["summary"]}"
   testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_summary.txt")
 
   mse_utest_assert_string_multiline
+
 
   testResult="${MSE_MAN_SECTION_DATA["description"]}"
   testExpected=$(< "${dir}/attachments/test/expected/process_section_data/parameters_description.txt")

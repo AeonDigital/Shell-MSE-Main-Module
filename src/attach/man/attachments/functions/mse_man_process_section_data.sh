@@ -49,21 +49,10 @@ mse_man_process_section_data() {
       local mseLineRaw=""
       local mseTargetPart="title"
 
-      #((mseTargetSectionLevel++))
-      #local mseHashOpenSectionInSubLevel=$(mse_str_pad "" "#" "${mseTargetSectionLevel}" "l")
-
       local msePartTitle=""
       local msePartSummary=""
       local msePartDescription=""
       local msePartSubsections=""
-
-
-
-      local mseCurrentLineIsList=""
-      local mseCurrentLineFirstChar=" "
-      local msePreviousLineLastChar=" "
-      local mseInsertSpace=""
-
 
 
       IFS=$'\n'
@@ -73,95 +62,223 @@ mse_man_process_section_data() {
 
           if [ "${mseLineRaw}" != "" ]; then
             mseTargetPart="summary"
-            msePartTitle="[[title]]${mseLineRaw##*# }[[/]]"
+            msePartTitle="[[Title]]${mseLineRaw##*# }[[/Title]]"
           fi
-        elif [ "${mseTargetPart}" == "subsections" ]; then
-          msePartSubsections+="\n${mseLineRaw}"
         else
           if [[ "${mseLineRaw}" == "#"* ]]; then
             mseTargetPart="subsections"
-            msePartSubsections+="\n${mseLineRaw}"
-          else
+          fi
 
-            mseInsertSpace=""
-            mseCurrentLineFirstChar=" "
-            if [ "${mseLineRaw}" != "" ]; then
-              if [ $(mse_man_process_section_data_check_horizontal_rule "${mseLineRaw}") == "1" ]; then
-                mseLineRaw="[[hr/]]"
+          case "${mseTargetPart}" in
+            "summary")
+              if [ "$(mse_str_trim_right "${mseLineRaw}")" != "" ]; then
+                msePartSummary+="${mseLineRaw}\n"
               else
-                mseCurrentLineFirstChar="${mseLineRaw:0:1}"
-
-                if [[ "${mseLineRaw}" =~ "  "$ ]]; then
-                  mseLineRaw=$(mse_str_trim_right "${mseLineRaw}")
-                  mseLineRaw="${mseLineRaw}[[br/]]"
-                else
-                  mseLineRaw=$(mse_str_trim_right "${mseLineRaw}")
-                fi
-
-                mseCurrentLineIsList=$(mse_man_process_section_data_check_list "${mseLineRaw}")
-                if [ "${mseCurrentLineIsList}" == "0" ] && [ "${mseCurrentLineFirstChar}" != " " ] && [ "${msePreviousLineLastChar}" != " " ]; then
-                  mseInsertSpace=" "
+                if [ "${msePartSummary}" != "" ]; then
+                  mseTargetPart="description"
                 fi
               fi
-            fi
+            ;;
 
+            "description")
+              msePartDescription+="${mseLineRaw}\n"
+            ;;
 
-            case "${mseTargetPart}" in
-              summary)
-                if [ "${msePartSummary}" == "" ]; then
-                  if [ "${mseLineRaw}" != "" ]; then
-                    msePartSummary+="${mseLineRaw}"
-                  fi
-                else
-                  if [ "${mseLineRaw}" == "" ]; then
-                    mseTargetPart="description"
-                  else
-                    msePartSummary+="${mseInsertSpace}${mseLineRaw}"
-                  fi
-                fi
-              ;;
-              description)
-                if [ "${msePartDescription}" != "" ] || [ "${mseLineRaw}" != "" ]; then
-                  if [ "${mseLineRaw}" == "" ]; then
-                    msePartDescription+="\n"
-                  else
-                    if [ "${msePartDescription}" != "" ]; then
-                      msePartDescription+="${mseInsertSpace}"
-                    fi
-                    msePartDescription+="${mseLineRaw}"
-                  fi
-                fi
-              ;;
-            esac
-
-
-            msePreviousLineLastChar=" "
-            if [[ ! "${mseLineRaw}" =~ '[[br/]]'$ ]]; then
-              msePreviousLineLastChar="${mseLineRaw: -1:1}"
-            fi
-          fi
+            "subsections")
+              msePartSubsections+="${mseLineRaw}\n"
+            ;;
+          esac
         fi
       done <<< "${mseTargetSectionContent}"
       IFS=$' \t\n'
 
 
-      msePartTitle=$(mse_str_trim "${msePartTitle}")
-      msePartSummary=$(mse_str_trim "${msePartSummary}")
-      msePartDescription=$(mse_str_trim "${msePartDescription}")
-      # msePartSubsections=$(mse_str_trim "${msePartSubsections}")
-
-      msePartTitle=$(mse_normalize_string "${msePartTitle}")
-      msePartSummary=$(mse_normalize_string "${msePartSummary}")
-      msePartDescription=$(mse_normalize_string "${msePartDescription}")
-      # #msePartSubsections=$(mse_normalize_string "${msePartSubsections}")
 
       MSE_MAN_SECTION_DATA["title"]="${msePartTitle}"
-      MSE_MAN_SECTION_DATA["summary"]=$(mse_man_process_section_data_set_markups "${msePartSummary}")
-      MSE_MAN_SECTION_DATA["description"]=$(mse_man_process_section_data_set_markups "${msePartDescription}")
-      # #MSE_MAN_SECTION_DATA["subsections"]="${msePartSubsections}"
+      MSE_MAN_SECTION_DATA["summary"]=$(mse_man_process_section_data_process_part "${msePartSummary}")
+      MSE_MAN_SECTION_DATA["description"]=$(mse_man_process_section_data_process_part "${msePartDescription}")
+      #MSE_MAN_SECTION_DATA["subsections"]="${msePartSubsections}"
+
+      #mse_man_process_section_data_process_part "${msePartDescription}"
+
+      #
+      # SEGUIR DAQUI
+      # É PRECISO VERIFICAR O TRATAMENTO DAS SUBSECTIONS POIS ELAS SE
+      # DESDOBRAM E TEM PROPRIEDADES QUE DEVEM GERAR TRATAMENTOS EM ESPECIAL.
+      #
+      # O TRATAMENTO DE OUTROS PADRÕES COMO LISTAS ORDENADAS E NÃO ORDENADAS
+      # AINDA NÃO ESTÁ FINALIZADO... SEGUIR POR AI
+
+
+      #((mseTargetSectionLevel++))
+      #local mseHashOpenSectionInSubLevel=$(mse_str_pad "" "#" "${mseTargetSectionLevel}" "l")
+
+      #mseIsCurrentLineList=$(mse_man_process_section_data_check_list "${mseLineRaw}")
+
+
     fi
   fi
 }
+
+
+
+
+
+#
+# Processa apenas uma parte da seção.
+#
+# Insere marcações que visam facilitar a futura insersão de personalizações como
+# coloração e outras possibilidades oferecidas pelos themes.
+#
+# @param string $1
+# Conteúdo que será processado.
+#
+# @return string
+# Retorna a parte indicada com as devidas marcações.
+mse_man_process_section_data_process_part() {
+  local msePart=""
+  local mseRawSectionPart=$(mse_str_trim "${1}")
+
+  if [ "${mseRawSectionPart}" != "" ]; then
+    local mseUseLineContent=""
+    local mseIsCurrentLineList=""
+
+    local mseCurrentLineInsertIni=""
+    local mseCurrentLineInsertEnd=""
+    local mseCurrentLineFirstChar=" "
+    local msePreviousLineLastChar=" "
+
+    local mseLineRaw=""
+
+    IFS=$'\n'
+    while read -r mseLineRaw || [ -n "${mseLineRaw}" ]; do
+      mseCurrentLineInsertIni=""
+      mseCurrentLineInsertEnd=""
+
+      if [ $(mse_man_process_section_data_check_horizontal_rule "${mseLineRaw}") == "1" ]; then
+        mseUseLineContent="[[hr/]]"
+        mseCurrentLineFirstChar=" "
+        msePreviousLineLastChar=" "
+      else
+        mseUseLineContent=$(mse_str_trim_right "${mseLineRaw}")
+
+        if [ "${mseUseLineContent}" == "" ]; then
+          mseCurrentLineInsertEnd+="[[br/]]"
+          mseCurrentLineFirstChar=" "
+          msePreviousLineLastChar="[[br/]]"
+        else
+          if [ "${msePreviousLineLastChar}" == "[[br/]]" ]; then
+            mseCurrentLineInsertIni+="[[br/]]"
+            msePreviousLineLastChar=" "
+          fi
+
+          mseCurrentLineFirstChar="${mseUseLineContent:0:1}"
+          if [ "${mseCurrentLineFirstChar}" != " " ] && [ "${msePreviousLineLastChar}" != " " ]; then
+            mseCurrentLineInsertIni+=" "
+          fi
+          msePreviousLineLastChar="${mseUseLineContent: -1:1}"
+
+          if [ $(mse_man_process_section_data_check_ends_with_two_spaces "${mseLineRaw}") == "1" ]; then
+            mseCurrentLineInsertEnd+="[[br/]]"
+            mseCurrentLineFirstChar=" "
+            msePreviousLineLastChar=" "
+          fi
+        fi
+      fi
+
+      msePart+="${mseCurrentLineInsertIni}${mseUseLineContent}${mseCurrentLineInsertEnd}"
+    done <<< "${mseRawSectionPart}"
+    IFS=$' \t\n'
+
+  fi
+
+  msePart=$(mse_normalize_string "${msePart}")
+  msePart=$(mse_man_process_section_data_set_markups "${msePart}")
+  echo "${msePart}"
+}
+
+
+
+
+
+#
+# Verifica a linha passada indica que a mesma deva ser renderizada como uma
+# linha horizonal.
+#
+# @param string $1
+# Linha que será avaliada
+#
+# @return bool
+mse_man_process_section_data_check_horizontal_rule() {
+  local mseStrLine=$(mse_str_trim_right "${1}")
+  local mseTotalChars="${#mseStrLine}"
+  local mseStrLineFirstChar="${mseStrLine:0:1}"
+
+  local mseBool="0"
+  if [ "${mseTotalChars}" -ge "3" ] && ([ "${mseStrLineFirstChar}" == "_" ] || [ "${mseStrLineFirstChar}" == "-" ] || [ "${mseStrLineFirstChar}" == "*" ]); then
+    mseBool="1"
+
+    for ((i=0; i<mseTotalChars; i++)); do
+      if [ "${mseStrLine:$i:1}" != "${mseStrLineFirstChar}" ]; then
+        mseBool="0"
+        break
+      fi
+    done
+  fi
+  echo -ne "${mseBool}"
+}
+
+
+
+
+
+#
+# Verifica a linha passada e verifica se ela termina com 2 espaços em branco.
+#
+# @param string $1
+# Linha que será avaliada
+#
+# @return bool
+mse_man_process_section_data_check_ends_with_two_spaces() {
+  local mseBool="0"
+  if [[ "${1}" =~ "  "$ ]]; then
+    mseBool="1"
+  fi
+  echo -ne "${mseBool}"
+}
+
+
+
+
+
+#
+# Verifica a linha passada indica que a mesma está definindo uma lista
+# ordenada ou não ordenada.
+#
+# @param string $1
+# Linha que será avaliada
+#
+# @return bool
+mse_man_process_section_data_check_list() {
+  local tmpTrimLine=$(mse_str_trim "${1}")
+  local tmpFirstChars="${tmpTrimLine:0:2}"
+
+  local mseBool="0"
+  if [ "${tmpFirstChars}" == "- " ] || [ "${tmpFirstChars}" == "* " ] || [ "${tmpFirstChars}" == "+ " ]; then
+    mseBool="1"
+  else
+    local tmpFirstChars="${tmpTrimLine%%. *}"
+    local tmpFirstCharsAreNumber=$(mse_is_int "${tmpFirstChars}")
+    local tmpStartWithNumberList=$(mse_str_contains_start "${tmpFirstChars}. " "${tmpTrimLine}")
+
+    if [ "${tmpFirstCharsAreNumber}" == "1" ] && [ "${tmpStartWithNumberList}" == "1" ]; then
+      mseBool="1"
+    fi
+  fi
+  echo -ne "${mseBool}"
+}
+
+
 
 
 
@@ -177,7 +294,7 @@ mse_man_process_section_data_set_markups() {
   declare -a mseSubSectionContentLines=()
   mse_str_split_inLines "mseSubSectionContentLines" "${1}"
 
-  local mseDefaultMarkUpSeparator="-=+∅+=-"
+  #local mseDefaultMarkUpSeparator="-=+∅+=-"
   declare -a mseMarkDownBoldItalicPatterns=('\*\*\*∅\*\*\*' '\*\*_∅_\*\*' '__\*∅\*__' '___∅___')
   declare -a mseMarkDownBoldPattern=('__∅__' '\*\*∅\*\*')
   declare -a mseMarkDownItalicPattern=('_∅_' '\*∅\*')
@@ -209,62 +326,6 @@ mse_man_process_section_data_set_markups() {
 }
 
 
-
-#
-# Verifica se o conteúdo da linha passado indica que a mesma
-# deva ser renderizada como uma linha horizonal.
-#
-# @param string $1
-# Linha que será avaliada
-#
-# @return bool
-mse_man_process_section_data_check_horizontal_rule() {
-  local mseStrLine=$(mse_str_trim_right "${1}")
-  local mseTotalChars="${#mseStrLine}"
-  local mseStrLineFirstChar="${mseStrLine:0:1}"
-
-  local mseIsHorizontalRule="0"
-  if [ "${mseTotalChars}" -ge "3" ] && ([ "${mseStrLineFirstChar}" == "_" ] || [ "${mseStrLineFirstChar}" == "-" ] || [ "${mseStrLineFirstChar}" == "*" ]); then
-    mseIsHorizontalRule="1"
-
-    for ((i=0; i<mseTotalChars; i++)); do
-      if [ "${mseStrLine:$i:1}" != "${mseStrLineFirstChar}" ]; then
-        mseIsHorizontalRule="0"
-        break
-      fi
-    done
-  fi
-  echo -ne "${mseIsHorizontalRule}"
-}
-
-
-
-#
-# Verifica se o conteúdo da linha passado indica que a mesma
-# está definindo uma lista ordenada ou não ordenada.
-#
-# @param string $1
-# Linha que será avaliada
-#
-# @return bool
-mse_man_process_section_data_check_list() {
-  local tmpTrimLine=$(mse_str_trim "${1}")
-  local tmpFirstChars="${tmpTrimLine:0:2}"
-
-  local mseIsList="0"
-  if [ "${tmpFirstChars}" == "- " ] || [ "${tmpFirstChars}" == "* " ] || [ "${tmpFirstChars}" == "+ " ]; then
-    mseIsList="1"
-  else
-    local tmpFirstChars="${tmpTrimLine%%. *}"
-    local tmpFirstCharsAreNumber=$(mse_is_int "${tmpFirstChars}")
-    local tmpStartWithNumberList=$(mse_str_contains_start "${tmpFirstChars}. " "${tmpTrimLine}")
-
-    if [ "${tmpFirstCharsAreNumber}" == "1" ] && [ "${tmpStartWithNumberList}" == "1" ]; then
-      mseIsList="1"
-    fi
-  fi
-  echo -ne "${mseIsList}"
-}
 
 
 
